@@ -1,0 +1,5882 @@
+/// <reference path="./gio-2.0.d.ts" />
+/// <reference path="./gobject-2.0.d.ts" />
+/// <reference path="./glib-2.0.d.ts" />
+/// <reference path="./gmodule-2.0.d.ts" />
+/// <reference path="./edataserver-1.2.d.ts" />
+/// <reference path="./libxml2-2.0.d.ts" />
+/// <reference path="./soup-3.0.d.ts" />
+/// <reference path="./json-1.0.d.ts" />
+/// <reference path="./camel-1.2.d.ts" />
+
+/**
+ * Type Definitions for Gjs (https://gjs.guide/)
+ *
+ * These type definitions are automatically generated, do not edit them by hand.
+ * If you found a bug fix it in `ts-for-gir` or create a bug report on https://github.com/gjsify/ts-for-gir
+ *
+ * The based EJS template file is used for the generated .d.ts file of each GIR module like Gtk-4.0, GObject-2.0, ...
+ */
+
+declare module 'gi://EBookContacts?version=1.2' {
+
+// Module dependencies
+import type Gio from 'gi://Gio?version=2.0';
+import type GObject from 'gi://GObject?version=2.0';
+import type GLib from 'gi://GLib?version=2.0';
+import type GModule from 'gi://GModule?version=2.0';
+import type EDataServer from 'gi://EDataServer?version=1.2';
+import type libxml2 from 'gi://libxml2?version=2.0';
+import type Soup from 'gi://Soup?version=3.0';
+import type Json from 'gi://Json?version=1.0';
+import type Camel from 'gi://Camel?version=1.2';
+
+export namespace EBookContacts {
+
+    /**
+     * EBookContacts-1.2
+     */
+
+
+    /**
+     * The type of change in an {@link EBookContacts.BookChange}
+     * @gir-type Enum
+     * @deprecated since 3.2
+     */
+    enum BookChangeType {
+        /**
+         * A vCard was added
+         */
+        ADDED = 0,
+        /**
+         * A vCard was deleted
+         */
+        DELETED = 1,
+        /**
+         * A vCard was modified
+         */
+        MODIFIED = 2,
+    }
+
+
+    /**
+     * Error codes returned by `EBookClient` APIs, if an {@link EDataServer.ClientError} was not available.
+     * @gir-type Struct
+     */
+    class BookClientError extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        /**
+         * Requested book did not exist
+         */
+        static NO_SUCH_BOOK: number;
+
+        /**
+         * Contact referred to was not found
+         */
+        static CONTACT_NOT_FOUND: number;
+
+        /**
+         * Tried to add a contact which already exists
+         */
+        static CONTACT_ID_ALREADY_EXISTS: number;
+
+        /**
+         * Referred {@link EDataServer.Source} does not exist
+         */
+        static NO_SUCH_SOURCE: number;
+
+        /**
+         * Out of disk space
+         */
+        static NO_SPACE: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace BookCursorOrigin {
+        export const $gtype: GObject.GType<BookCursorOrigin>;
+    }
+
+    /**
+     * Specifies the start position to in the list of traversed contacts
+     * in calls to `e_book_client_cursor_step()`.
+     * 
+     * When an `EBookClientCursor` is created, the current position implied by {@link EBookContacts.BookCursorOrigin.CURRENT}
+     * is the same as {@link EBookContacts.BookCursorOrigin.BEGIN}.
+     * @gir-type Enum
+     * @since 3.12
+     */
+    enum BookCursorOrigin {
+        /**
+         * The current cursor position
+         */
+        CURRENT = 0,
+        /**
+         * The beginning of the cursor results.
+         */
+        BEGIN = 1,
+        /**
+         * The ending of the cursor results.
+         */
+        END = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace BookCursorSortType {
+        export const $gtype: GObject.GType<BookCursorSortType>;
+    }
+
+    /**
+     * Specifies the sort order of an ordered query
+     * @gir-type Enum
+     * @since 3.12
+     */
+    enum BookCursorSortType {
+        /**
+         * Sort results in ascending order
+         */
+        ASCENDING = 0,
+        /**
+         * Sort results in descending order
+         */
+        DESCENDING = 1,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace BookIndexType {
+        export const $gtype: GObject.GType<BookIndexType>;
+    }
+
+    /**
+     * The type of index defined by `e_source_backend_summary_setup_set_indexed_fields()`
+     * @gir-type Enum
+     */
+    enum BookIndexType {
+        /**
+         * An index suitable for searching contacts with a prefix pattern
+         */
+        PREFIX = 0,
+        /**
+         * An index suitable for searching contacts with a suffix pattern
+         */
+        SUFFIX = 1,
+        /**
+         * An index suitable for searching contacts for phone numbers.
+         * <note><para>Phone numbers must be convertible into FQTN according to E.164 to be
+         * stored in this index. The number "+9999999" for instance won't be stored because
+         * the country calling code "+999" currently is not assigned.</para></note>
+         */
+        PHONE = 2,
+        /**
+         * Indicates that a given {@link EBookContacts.ContactField} should be usable as a sort key.
+         */
+        SORT_KEY = 3,
+    }
+
+
+    /**
+     * The kind of test a query created by `e_book_query_field_test()` shall perform.
+     * 
+     * See also: `e_phone_number_compare_strings()`.
+     * @gir-type Enum
+     */
+    enum BookQueryTest {
+        /**
+         * look for exact match of the supplied test value
+         */
+        IS = 0,
+        /**
+         * check if a field contains the test value
+         */
+        CONTAINS = 1,
+        /**
+         * check if a field starts with the test value
+         */
+        BEGINS_WITH = 2,
+        /**
+         * check if a field ends with the test value
+         */
+        ENDS_WITH = 3,
+        /**
+         * check if a field matches with a value tested
+         * using `e_phone_number_compare_strings()`, the match must be of strenth {@link EBookContacts.PhoneNumberMatch.EXACT}
+         * for this query to return any matches.
+         */
+        EQUALS_PHONE_NUMBER = 4,
+        /**
+         * check if a field matches with a value tested
+         * using `e_phone_number_compare_strings()`, the match must be at least of strength {@link EBookContacts.PhoneNumberMatch.NATIONAL}
+         * for this query to return any matches.
+         */
+        EQUALS_NATIONAL_PHONE_NUMBER = 5,
+        /**
+         * check if a field matches with a value tested
+         * using `e_phone_number_compare_strings()`, the match must be at least of strength {@link EBookContacts.PhoneNumberMatch.SHORT}
+         * for this query to return any matches.
+         */
+        EQUALS_SHORT_PHONE_NUMBER = 6,
+        /**
+         * A regular expression query against contact data normalized with `e_util_utf8_normalize()`,
+         * the normalized data is lower case with any accents removed.
+         */
+        REGEX_NORMAL = 7,
+        /**
+         * A regular expression query against raw contact data, this is usually slower than
+         * a {@link EBookContacts.BookQueryTest.REGEX_NORMAL} as it implies that {@link EBookContacts.VCard}(s) must be parsed in order to get the raw data
+         * for comparison.
+         */
+        REGEX_RAW = 8,
+        /**
+         * End marker for the {@link EBookContacts.BookQueryTest} enumeration, not a valid query test.
+         */
+        LAST = 9,
+    }
+
+
+    /**
+     * Status messages used in notifications in the deprecated `EBookView` class
+     * @gir-type Enum
+     * @deprecated since 3.2: Use `EBookClientView` instead.
+     */
+    enum BookViewStatus {
+        /**
+         * Ok
+         */
+        STATUS_OK = 0,
+        /**
+         * Time limit exceeded
+         */
+        STATUS_TIME_LIMIT_EXCEEDED = 1,
+        /**
+         * Size limit exceeded
+         */
+        STATUS_SIZE_LIMIT_EXCEEDED = 2,
+        /**
+         * Invalid search expression
+         */
+        ERROR_INVALID_QUERY = 3,
+        /**
+         * Search expression refused
+         */
+        ERROR_QUERY_REFUSED = 4,
+        /**
+         * Another error occurred
+         */
+        ERROR_OTHER_ERROR = 5,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum ContactField {
+        UID = 1,
+        FILE_AS = 2,
+        BOOK_UID = 3,
+        FULL_NAME = 4,
+        GIVEN_NAME = 5,
+        FAMILY_NAME = 6,
+        NICKNAME = 7,
+        EMAIL_1 = 8,
+        EMAIL_2 = 9,
+        EMAIL_3 = 10,
+        EMAIL_4 = 11,
+        MAILER = 12,
+        ADDRESS_LABEL_HOME = 13,
+        ADDRESS_LABEL_WORK = 14,
+        ADDRESS_LABEL_OTHER = 15,
+        PHONE_ASSISTANT = 16,
+        PHONE_BUSINESS = 17,
+        PHONE_BUSINESS_2 = 18,
+        PHONE_BUSINESS_FAX = 19,
+        PHONE_CALLBACK = 20,
+        PHONE_CAR = 21,
+        PHONE_COMPANY = 22,
+        PHONE_HOME = 23,
+        PHONE_HOME_2 = 24,
+        PHONE_HOME_FAX = 25,
+        PHONE_ISDN = 26,
+        PHONE_MOBILE = 27,
+        PHONE_OTHER = 28,
+        PHONE_OTHER_FAX = 29,
+        PHONE_PAGER = 30,
+        PHONE_PRIMARY = 31,
+        PHONE_RADIO = 32,
+        PHONE_TELEX = 33,
+        PHONE_TTYTDD = 34,
+        ORG = 35,
+        ORG_UNIT = 36,
+        OFFICE = 37,
+        TITLE = 38,
+        ROLE = 39,
+        MANAGER = 40,
+        ASSISTANT = 41,
+        HOMEPAGE_URL = 42,
+        BLOG_URL = 43,
+        CATEGORIES = 44,
+        CALENDAR_URI = 45,
+        FREEBUSY_URL = 46,
+        ICS_CALENDAR = 47,
+        VIDEO_URL = 48,
+        SPOUSE = 49,
+        NOTE = 50,
+        IM_AIM_HOME_1 = 51,
+        IM_AIM_HOME_2 = 52,
+        IM_AIM_HOME_3 = 53,
+        IM_AIM_WORK_1 = 54,
+        IM_AIM_WORK_2 = 55,
+        IM_AIM_WORK_3 = 56,
+        IM_GROUPWISE_HOME_1 = 57,
+        IM_GROUPWISE_HOME_2 = 58,
+        IM_GROUPWISE_HOME_3 = 59,
+        IM_GROUPWISE_WORK_1 = 60,
+        IM_GROUPWISE_WORK_2 = 61,
+        IM_GROUPWISE_WORK_3 = 62,
+        IM_JABBER_HOME_1 = 63,
+        IM_JABBER_HOME_2 = 64,
+        IM_JABBER_HOME_3 = 65,
+        IM_JABBER_WORK_1 = 66,
+        IM_JABBER_WORK_2 = 67,
+        IM_JABBER_WORK_3 = 68,
+        IM_YAHOO_HOME_1 = 69,
+        IM_YAHOO_HOME_2 = 70,
+        IM_YAHOO_HOME_3 = 71,
+        IM_YAHOO_WORK_1 = 72,
+        IM_YAHOO_WORK_2 = 73,
+        IM_YAHOO_WORK_3 = 74,
+        IM_MSN_HOME_1 = 75,
+        IM_MSN_HOME_2 = 76,
+        IM_MSN_HOME_3 = 77,
+        IM_MSN_WORK_1 = 78,
+        IM_MSN_WORK_2 = 79,
+        IM_MSN_WORK_3 = 80,
+        IM_ICQ_HOME_1 = 81,
+        IM_ICQ_HOME_2 = 82,
+        IM_ICQ_HOME_3 = 83,
+        IM_ICQ_WORK_1 = 84,
+        IM_ICQ_WORK_2 = 85,
+        IM_ICQ_WORK_3 = 86,
+        REV = 87,
+        NAME_OR_ORG = 88,
+        ADDRESS = 89,
+        ADDRESS_HOME = 90,
+        ADDRESS_WORK = 91,
+        ADDRESS_OTHER = 92,
+        CATEGORY_LIST = 93,
+        PHOTO = 94,
+        LOGO = 95,
+        NAME = 96,
+        EMAIL = 97,
+        IM_AIM = 98,
+        IM_GROUPWISE = 99,
+        IM_JABBER = 100,
+        IM_YAHOO = 101,
+        IM_MSN = 102,
+        IM_ICQ = 103,
+        WANTS_HTML = 104,
+        IS_LIST = 105,
+        LIST_SHOW_ADDRESSES = 106,
+        BIRTH_DATE = 107,
+        ANNIVERSARY = 108,
+        X509_CERT = 109,
+        PGP_CERT = 110,
+        IM_GADUGADU_HOME_1 = 111,
+        IM_GADUGADU_HOME_2 = 112,
+        IM_GADUGADU_HOME_3 = 113,
+        IM_GADUGADU_WORK_1 = 114,
+        IM_GADUGADU_WORK_2 = 115,
+        IM_GADUGADU_WORK_3 = 116,
+        IM_GADUGADU = 117,
+        GEO = 118,
+        TEL = 119,
+        IM_SKYPE_HOME_1 = 120,
+        IM_SKYPE_HOME_2 = 121,
+        IM_SKYPE_HOME_3 = 122,
+        IM_SKYPE_WORK_1 = 123,
+        IM_SKYPE_WORK_2 = 124,
+        IM_SKYPE_WORK_3 = 125,
+        IM_SKYPE = 126,
+        SIP = 127,
+        IM_GOOGLE_TALK_HOME_1 = 128,
+        IM_GOOGLE_TALK_HOME_2 = 129,
+        IM_GOOGLE_TALK_HOME_3 = 130,
+        IM_GOOGLE_TALK_WORK_1 = 131,
+        IM_GOOGLE_TALK_WORK_2 = 132,
+        IM_GOOGLE_TALK_WORK_3 = 133,
+        IM_GOOGLE_TALK = 134,
+        IM_TWITTER = 135,
+        IM_MATRIX_HOME_1 = 136,
+        IM_MATRIX_HOME_2 = 137,
+        IM_MATRIX_HOME_3 = 138,
+        IM_MATRIX_WORK_1 = 139,
+        IM_MATRIX_WORK_2 = 140,
+        IM_MATRIX_WORK_3 = 141,
+        IM_MATRIX = 142,
+        TZ = 143,
+        KIND = 144,
+        SOURCE = 145,
+        XML = 146,
+        GENDER = 147,
+        IMPP = 148,
+        LANG = 149,
+        MEMBER = 150,
+        RELATED = 151,
+        BIRTHPLACE = 152,
+        DEATHPLACE = 153,
+        DEATHDATE = 154,
+        EXPERTISE = 155,
+        HOBBY = 156,
+        INTEREST = 157,
+        ORG_DIRECTORY = 158,
+        CONTACT_URI = 159,
+        CREATED = 160,
+        SOCIALPROFILE = 161,
+        FIELD_LAST = 162,
+        FIELD_FIRST = 1,
+        LAST_SIMPLE_STRING = 88,
+        FIRST_PHONE_ID = 16,
+        LAST_PHONE_ID = 34,
+        FIRST_EMAIL_ID = 8,
+        LAST_EMAIL_ID = 11,
+        FIRST_ADDRESS_ID = 90,
+        LAST_ADDRESS_ID = 92,
+        FIRST_LABEL_ID = 13,
+        LAST_LABEL_ID = 15,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum ContactGenderSex {
+        UNKNOWN = 0,
+        NOT_SET = 1,
+        MALE = 2,
+        FEMALE = 3,
+        OTHER = 4,
+        NOT_APPLICABLE = 5,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum ContactPhotoType {
+        INLINED = 0,
+        URI = 1,
+    }
+
+
+    /**
+     * The origin of a parsed EPhoneNumber's country calling code.
+     * @gir-type Enum
+     * @since 3.8
+     */
+    enum PhoneNumberCountrySource {
+        /**
+         * the EPhoneNumber was build from a fully qualified telephone number
+         *   that contained a valid country calling code
+         */
+        FQTN = 1,
+        /**
+         * the parsed phone number started with the current locale's international
+         *   call prefix, followed by a valid country calling code
+         */
+        IDD = 5,
+        /**
+         * the parsed phone didn't start with a (recognizable) country calling code,
+         *   the code was chosen by checking the current locale settings
+         */
+        DEFAULT = 20,
+    }
+
+
+    /**
+     * Numeric description of a phone number related error.
+     * @gir-type Struct
+     */
+    class PhoneNumberError extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        /**
+         * the library was built without phone
+         * number support
+         */
+        static NOT_IMPLEMENTED: number;
+
+        /**
+         * the phone number parser reported a yet
+         * unknown error code.
+         */
+        static UNKNOWN: number;
+
+        /**
+         * the supplied text is not a phone number.
+         */
+        static NOT_A_NUMBER: number;
+
+        /**
+         * the supplied phone number has an
+         * invalid country calling code.
+         */
+        static INVALID_COUNTRY_CODE: number;
+
+        /**
+         * the remaining text after the
+         * country calling code is to short for a phone number.
+         */
+        static TOO_SHORT_AFTER_IDD: number;
+
+        /**
+         * the text is too short for a phone number.
+         */
+        static TOO_SHORT: number;
+
+        /**
+         * the text is too long for a phone number.
+         */
+        static TOO_LONG: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+    }
+
+
+    /**
+     * The supported formatting rules for phone numbers.
+     * @gir-type Enum
+     * @since 3.8
+     */
+    enum PhoneNumberFormat {
+        /**
+         * format according E.164: "+493055667788".
+         */
+        E164 = 0,
+        /**
+         * a formatted phone number always
+         * starting with the country calling code: "+49 30 55667788".
+         */
+        INTERNATIONAL = 1,
+        /**
+         * a formatted phone number in national
+         * scope, that is without country calling code: "(030) 55667788".
+         */
+        NATIONAL = 2,
+        /**
+         * a tel: URL according to RFC 3966:
+         * "tel:+49-30-55667788".
+         */
+        RFC3966 = 3,
+    }
+
+
+    /**
+     * The strength of a phone number match.
+     * 
+     * <example>
+     * <title>Some examples of phone number matches</title>
+     * <para>
+     * Let's consider the phone number "+1-221-5423789", then comparing with
+     * "+1.221.542.3789" we have get E_PHONE_NUMBER_MATCH_EXACT because country
+     * code, region code and local number are matching. Comparing with "2215423789"
+     * will result in E_PHONE_NUMBER_MATCH_NATIONAL because the country calling code
+     * is missing, but the national portion is matching. Finally comparing with
+     * "5423789" gives E_PHONE_NUMBER_MATCH_SHORT. For more detail have a look at
+     * the following table:
+     * 
+     * <informaltable border="1" align="center">
+     *  <colgroup>
+     *   <col width="20%" />
+     *   <col width="20%" />
+     *   <col width="20%" />
+     *   <col width="20%" />
+     *   <col width="20%" />
+     *  </colgroup>
+     *  <tbody>
+     *   <tr>
+     *    <th></th>
+     *    <th align="center">+1-617-5423789</th>
+     *    <th align="center">+1-221-5423789</th>
+     *    <th align="center">221-5423789</th>
+     *    <th align="center">5423789</th>
+     *   </tr><tr>
+     *    <th align="right">+1-617-5423789</th>
+     *    <td align="center">exact</td>
+     *    <td align="center">none</td>
+     *    <td align="center">none</td>
+     *    <td align="center">short</td>
+     *   </tr><tr>
+     *    <th align="right">+1-221-5423789</th>
+     *    <td align="center">none</td>
+     *    <td align="center">exact</td>
+     *    <td align="center">national</td>
+     *    <td align="center">short</td>
+     *   </tr><tr>
+     *    <th align="right">221-5423789</th>
+     *    <td align="center">none</td>
+     *    <td align="center">national</td>
+     *    <td align="center">national</td>
+     *    <td align="center">short</td>
+     *   </tr><tr>
+     *    <th align="right">5423789</th>
+     *    <td align="center">short</td>
+     *    <td align="center">short</td>
+     *    <td align="center">short</td>
+     *    <td align="center">short</td>
+     *   </tr>
+     *  </tbody>
+     * </informaltable>
+     * </para>
+     * </example>
+     * @gir-type Enum
+     * @since 3.8
+     */
+    enum PhoneNumberMatch {
+        /**
+         * The phone numbers did not match.
+         */
+        NONE = 0,
+        /**
+         * The phone numbers matched exactly. Two phone number strings are an exact match
+         * if the country code, national phone number, presence of a leading zero for Italian numbers and any
+         * extension present are the same.
+         */
+        EXACT = 1,
+        /**
+         * The national phone number matched. Two phone number strings match at
+         * this strength if either or both has no region specified, and the national phone number
+         * and extensions are the same.
+         */
+        NATIONAL = 1024,
+        /**
+         * The weakest sort of match. Two phone numbers match at
+         * this strength if either or both has no region specified, or the region specified is the same, and one national
+         * phone number could be a shorter version of the other number. This includes the case where one has an extension specified,
+         * and the other does not.
+         */
+        SHORT = 2048,
+    }
+
+
+    /**
+     * Declares vCard version.
+     * @gir-type Struct
+     */
+    class VCardVersion {
+        static $gtype: GObject.GType<VCardVersion>;
+
+        // Static fields
+        /**
+         * unknown vCard version
+         */
+        static UNKNOWN: number;
+
+        /**
+         * vCard 2.1
+         */
+        static "21": number;
+
+        /**
+         * vCard 3.0
+         */
+        static "30": number;
+
+        /**
+         * vCard 4.0
+         */
+        static "40": number;
+    }
+
+
+    /**
+     * Provides comma-separated list of all known categories used by
+     * the contacts stored in the book backend.
+     * @since 3.48
+     * @default "categories"
+     */
+    const BOOK_BACKEND_PROPERTY_CATEGORIES: string;
+
+    /**
+     * A book backend string property name containing a vCard version
+     * the backend prefers. Common values are "3.0" and "4.0". It is
+     * only what the backend prefers for the exchange, it can receive
+     * other vCard versions too, the same as it can return vCard data
+     * in a different version (like when the server has stored vCards
+     * in multiple versions, then they are not converted by the backend.
+     * @since 3.60
+     * @default prefer-vcard-version
+     */
+    const BOOK_BACKEND_PROPERTY_PREFER_VCARD_VERSION: string;
+
+    /**
+     * Provides comma-separated list of required fields by the book backend.
+     * All of these attributes should be set, otherwise the backend will reject
+     * saving the contact.
+     * 
+     * The `e_contact_field_id()` can be used to transform the field name
+     * into an {@link EBookContacts.ContactField}.
+     * @since 3.2
+     * @default "required-fields"
+     */
+    const BOOK_BACKEND_PROPERTY_REQUIRED_FIELDS: string;
+
+    /**
+     * The current overall revision string, this can be used as
+     * a quick check to see if data has changed at all since the
+     * last time the addressbook revision was observed.
+     * @since 3.4
+     * @default "revision"
+     */
+    const BOOK_BACKEND_PROPERTY_REVISION: string;
+
+    /**
+     * Provides comma-separated list of supported fields by the book backend.
+     * Attributes other than those listed here can be discarded. This can be
+     * used to enable/show only supported elements in GUI.
+     * 
+     * The `e_contact_field_id()` can be used to transform the field name
+     * into an {@link EBookContacts.ContactField}.
+     * @since 3.2
+     * @default "supported-fields"
+     */
+    const BOOK_BACKEND_PROPERTY_SUPPORTED_FIELDS: string;
+
+    /**
+     * @default ADR
+     */
+    const EVC_ADR: string;
+
+    /**
+     * @default ALTID
+     */
+    const EVC_ALTID: string;
+
+    /**
+     * @default ANNIVERSARY
+     */
+    const EVC_ANNIVERSARY: string;
+
+    /**
+     * @default BDAY
+     */
+    const EVC_BDAY: string;
+
+    /**
+     * @default BIRTHPLACE
+     */
+    const EVC_BIRTHPLACE: string;
+
+    /**
+     * @default CALADRURI
+     */
+    const EVC_CALADRURI: string;
+
+    /**
+     * @default CALSCALE
+     */
+    const EVC_CALSCALE: string;
+
+    /**
+     * @default CALURI
+     */
+    const EVC_CALURI: string;
+
+    /**
+     * @default CATEGORIES
+     */
+    const EVC_CATEGORIES: string;
+
+    /**
+     * @default CLIENTPIDMAP
+     */
+    const EVC_CLIENTPIDMAP: string;
+
+    /**
+     * @since 3.2
+     * @default X-EVOLUTION-CONTACT-LIST-UID
+     */
+    const EVC_CL_UID: string;
+
+    /**
+     * @since 3.2
+     * @default X-EVOLUTION-CONTACT-LIST-INFO
+     */
+    const EVC_CONTACT_LIST: string;
+
+    /**
+     * @default CONTACT-URI
+     */
+    const EVC_CONTACT_URI: string;
+
+    /**
+     * @default CREATED
+     */
+    const EVC_CREATED: string;
+
+    /**
+     * @default DEATHDATE
+     */
+    const EVC_DEATHDATE: string;
+
+    /**
+     * @default DEATHPLACE
+     */
+    const EVC_DEATHPLACE: string;
+
+    /**
+     * @default EMAIL
+     */
+    const EVC_EMAIL: string;
+
+    /**
+     * @default ENCODING
+     */
+    const EVC_ENCODING: string;
+
+    /**
+     * @default EXPERTISE
+     */
+    const EVC_EXPERTISE: string;
+
+    /**
+     * @default FBURL
+     */
+    const EVC_FBURL: string;
+
+    /**
+     * @default FN
+     */
+    const EVC_FN: string;
+
+    /**
+     * @default GENDER
+     */
+    const EVC_GENDER: string;
+
+    /**
+     * @since 1.12
+     * @default GEO
+     */
+    const EVC_GEO: string;
+
+    /**
+     * @default GRAMGENDER
+     */
+    const EVC_GRAMGENDER: string;
+
+    /**
+     * @default HOBBY
+     */
+    const EVC_HOBBY: string;
+
+    /**
+     * @default ICSCALENDAR
+     */
+    const EVC_ICSCALENDAR: string;
+
+    /**
+     * @default IMPP
+     */
+    const EVC_IMPP: string;
+
+    /**
+     * @default INTEREST
+     */
+    const EVC_INTEREST: string;
+
+    /**
+     * @default JSPROP
+     */
+    const EVC_JSPROP: string;
+
+    /**
+     * @default KEY
+     */
+    const EVC_KEY: string;
+
+    /**
+     * @default KIND
+     */
+    const EVC_KIND: string;
+
+    /**
+     * @default LABEL
+     */
+    const EVC_LABEL: string;
+
+    /**
+     * @default LANG
+     */
+    const EVC_LANG: string;
+
+    /**
+     * @default LANGUAGE
+     */
+    const EVC_LANGUAGE: string;
+
+    /**
+     * @default LOGO
+     */
+    const EVC_LOGO: string;
+
+    /**
+     * @default MAILER
+     */
+    const EVC_MAILER: string;
+
+    /**
+     * @default MEDIATYPE
+     */
+    const EVC_MEDIATYPE: string;
+
+    /**
+     * @default MEMBER
+     */
+    const EVC_MEMBER: string;
+
+    /**
+     * @default N
+     */
+    const EVC_N: string;
+
+    /**
+     * @default NICKNAME
+     */
+    const EVC_NICKNAME: string;
+
+    /**
+     * @default NOTE
+     */
+    const EVC_NOTE: string;
+
+    /**
+     * @default ORG
+     */
+    const EVC_ORG: string;
+
+    /**
+     * @default ORG-DIRECTORY
+     */
+    const EVC_ORG_DIRECTORY: string;
+
+    /**
+     * @since 3.2
+     * @default X-EVOLUTION-PARENT-UID
+     */
+    const EVC_PARENT_CL: string;
+
+    /**
+     * @default PHOTO
+     */
+    const EVC_PHOTO: string;
+
+    /**
+     * @default PID
+     */
+    const EVC_PID: string;
+
+    /**
+     * @default PREF
+     */
+    const EVC_PREF: string;
+
+    /**
+     * @default PRODID
+     */
+    const EVC_PRODID: string;
+
+    /**
+     * @default PRONOUNS
+     */
+    const EVC_PRONOUNS: string;
+
+    /**
+     * @default QUOTED-PRINTABLE
+     */
+    const EVC_QUOTEDPRINTABLE: string;
+
+    /**
+     * @default RELATED
+     */
+    const EVC_RELATED: string;
+
+    /**
+     * @default REV
+     */
+    const EVC_REV: string;
+
+    /**
+     * @default ROLE
+     */
+    const EVC_ROLE: string;
+
+    /**
+     * @default SOCIALPROFILE
+     */
+    const EVC_SOCIALPROFILE: string;
+
+    /**
+     * @default SORT-AS
+     */
+    const EVC_SORT_AS: string;
+
+    /**
+     * @default SOUND
+     */
+    const EVC_SOUND: string;
+
+    /**
+     * @default SOURCE
+     */
+    const EVC_SOURCE: string;
+
+    /**
+     * @default TEL
+     */
+    const EVC_TEL: string;
+
+    /**
+     * @default TITLE
+     */
+    const EVC_TITLE: string;
+
+    /**
+     * @default TYPE
+     */
+    const EVC_TYPE: string;
+
+    /**
+     * @default TZ
+     */
+    const EVC_TZ: string;
+
+    /**
+     * @default UID
+     */
+    const EVC_UID: string;
+
+    /**
+     * @default URL
+     */
+    const EVC_URL: string;
+
+    /**
+     * @default VALUE
+     */
+    const EVC_VALUE: string;
+
+    /**
+     * @default VERSION
+     */
+    const EVC_VERSION: string;
+
+    /**
+     * @default XML
+     */
+    const EVC_XML: string;
+
+    /**
+     * @default X-AIM
+     */
+    const EVC_X_AIM: string;
+
+    /**
+     * @default X-EVOLUTION-ANNIVERSARY
+     */
+    const EVC_X_ANNIVERSARY: string;
+
+    /**
+     * @default X-EVOLUTION-ASSISTANT
+     */
+    const EVC_X_ASSISTANT: string;
+
+    /**
+     * @default X-EVOLUTION-BIRTHDAY
+     */
+    const EVC_X_BIRTHDAY: string;
+
+    /**
+     * @default X-EVOLUTION-BLOG-URL
+     */
+    const EVC_X_BLOG_URL: string;
+
+    /**
+     * @since 3.6
+     * @default X-EVOLUTION-BOOK-UID
+     */
+    const EVC_X_BOOK_UID: string;
+
+    /**
+     * @default X-EVOLUTION-CALLBACK
+     */
+    const EVC_X_CALLBACK: string;
+
+    /**
+     * @default X-EVOLUTION-COMPANY
+     */
+    const EVC_X_COMPANY: string;
+
+    /**
+     * @default X-EVOLUTION-DEST-CONTACT-UID
+     */
+    const EVC_X_DEST_CONTACT_UID: string;
+
+    /**
+     * @default X-EVOLUTION-DEST-EMAIL
+     */
+    const EVC_X_DEST_EMAIL: string;
+
+    /**
+     * @default X-EVOLUTION-DEST-EMAIL-NUM
+     */
+    const EVC_X_DEST_EMAIL_NUM: string;
+
+    /**
+     * @default X-EVOLUTION-DEST-HTML-MAIL
+     */
+    const EVC_X_DEST_HTML_MAIL: string;
+
+    /**
+     * @default X-EVOLUTION-DEST-NAME
+     */
+    const EVC_X_DEST_NAME: string;
+
+    /**
+     * @default X-EVOLUTION-DEST-SOURCE-UID
+     */
+    const EVC_X_DEST_SOURCE_UID: string;
+
+    /**
+     * @default X-EVOLUTION-E164
+     */
+    const EVC_X_E164: string;
+
+    /**
+     * @default X-EVOLUTION-FILE-AS
+     */
+    const EVC_X_FILE_AS: string;
+
+    /**
+     * @default X-GADUGADU
+     */
+    const EVC_X_GADUGADU: string;
+
+    /**
+     * @since 3.2
+     * @default X-GOOGLE-TALK
+     */
+    const EVC_X_GOOGLE_TALK: string;
+
+    /**
+     * @default X-GROUPWISE
+     */
+    const EVC_X_GROUPWISE: string;
+
+    /**
+     * @default X-ICQ
+     */
+    const EVC_X_ICQ: string;
+
+    /**
+     * @default X-JABBER
+     */
+    const EVC_X_JABBER: string;
+
+    /**
+     * @default X-EVOLUTION-LIST
+     */
+    const EVC_X_LIST: string;
+
+    /**
+     * @since 3.2
+     * @default X-EVOLUTION-LIST-NAME
+     */
+    const EVC_X_LIST_NAME: string;
+
+    /**
+     * @default X-EVOLUTION-LIST-SHOW-ADDRESSES
+     */
+    const EVC_X_LIST_SHOW_ADDRESSES: string;
+
+    /**
+     * @default X-EVOLUTION-MANAGER
+     */
+    const EVC_X_MANAGER: string;
+
+    /**
+     * @default X-MATRIX
+     */
+    const EVC_X_MATRIX: string;
+
+    /**
+     * @default X-MSN
+     */
+    const EVC_X_MSN: string;
+
+    /**
+     * @default X-EVOLUTION-RADIO
+     */
+    const EVC_X_RADIO: string;
+
+    /**
+     * @since 2.26
+     * @default X-SIP
+     */
+    const EVC_X_SIP: string;
+
+    /**
+     * @since 2.26
+     * @default X-SKYPE
+     */
+    const EVC_X_SKYPE: string;
+
+    /**
+     * @default X-SOCIALPROFILE
+     */
+    const EVC_X_SOCIALPROFILE: string;
+
+    /**
+     * @default X-EVOLUTION-SPOUSE
+     */
+    const EVC_X_SPOUSE: string;
+
+    /**
+     * @default X-EVOLUTION-TELEX
+     */
+    const EVC_X_TELEX: string;
+
+    /**
+     * @default X-EVOLUTION-TTYTDD
+     */
+    const EVC_X_TTYTDD: string;
+
+    /**
+     * Twitter name(s).
+     * @since 3.6
+     * @default X-TWITTER
+     */
+    const EVC_X_TWITTER: string;
+
+    /**
+     * @default X-EVOLUTION-VIDEO-URL
+     */
+    const EVC_X_VIDEO_URL: string;
+
+    /**
+     * @default X-MOZILLA-HTML
+     */
+    const EVC_X_WANTS_HTML: string;
+
+    /**
+     * @default X-YAHOO
+     */
+    const EVC_X_YAHOO: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EBookContacts.SourceBackendSummarySetup}.  This is also used as a group name in key files.
+     * @since 3.8
+     * @default Backend Summary Setup
+     */
+    const SOURCE_EXTENSION_BACKEND_SUMMARY_SETUP: string;
+
+    /**
+     * Parses a string representing a mailing address into a
+     * structure of type {@link EBookContacts.AddressWestern}.
+     * @param in_address a string representing a mailing address
+     * @returns A new {@link EBookContacts.AddressWestern} structure, or `null` if    the parsing failed or when the `in_address` was `null`.
+     */
+    function address_western_parse(in_address: string | null): AddressWestern | null;
+
+    /**
+     * @param code an {@link EBookContacts.BookClientError} code to create
+     * @param custom_msg custom message to use for the error; can be `null`
+     * @returns a new {@link GLib.Error} containing an E_BOOK_CLIENT_ERROR of the given `code`. If the `custom_msg` is NULL, then the error message is the one returned from `e_book_client_error_to_string()` for the `code`, otherwise the given message is used. Returned pointer should be freed with `g_error_free()`.
+     * @since 3.2
+     */
+    function book_client_error_create(code: BookClientError, custom_msg: string | null): GLib.Error;
+
+    function book_client_error_quark(): GLib.Quark;
+
+    /**
+     * Get localized human readable description of the given error code.
+     * @param code an {@link EBookContacts.BookClientError} code
+     * @returns Localized human readable description of the given error code
+     * @since 3.2
+     */
+    function book_client_error_to_string(code: BookClientError): string;
+
+    /**
+     * Returns whether the `self` considers contacts stored in the ascending order.
+     * @param self an {@link EBookContacts.BookIndicesUpdater}
+     * @returns `true`, when considers contacts sorted in ascending order,    `false` when in the descending order.
+     * @since 3.50
+     */
+    function book_indices_get_ascending_sort(self: BookIndicesUpdater): boolean;
+
+    /**
+     * Sets whether the contacts are sorted in an ascending order; if not,
+     * then they are sorted in the descending order. That influences what
+     * indexes the indices have set.
+     * @param self an {@link EBookContacts.BookIndicesUpdater}
+     * @param ascending_sort the value to set
+     * @since 3.50
+     */
+    function book_indices_set_ascending_sort(self: BookIndicesUpdater, ascending_sort: boolean): void;
+
+    /**
+     * Create a new {@link EBookContacts.BookQuery} which is the logical AND of the queries in #qs.
+     * @param nqs the number of queries to AND
+     * @param qs pointer to an array of {@link EBookContacts.BookQuery} items
+     * @param unref if `true`, the new query takes ownership of the existing queries
+     * @returns A new {@link EBookContacts.BookQuery}
+     */
+    function book_query_and(nqs: number, qs: BookQuery, unref: boolean): BookQuery;
+
+    /**
+     * Creates a new {@link EBookContacts.BookQuery} which tests if any field contains `value`.
+     * @param value a value
+     * @returns the new {@link EBookContacts.BookQuery}
+     */
+    function book_query_any_field_contains(value: string): BookQuery;
+
+    /**
+     * Creates a new {@link EBookContacts.BookQuery} which tests if the field `field` exists.
+     * @param field an {@link EBookContacts.ContactField}
+     * @returns the new {@link EBookContacts.BookQuery}
+     */
+    function book_query_field_exists(field: ContactField): BookQuery;
+
+    /**
+     * Creates a new {@link EBookContacts.BookQuery} which tests `field` for `value` using the test `test`.
+     * @param field an {@link EBookContacts.ContactField} to test
+     * @param test the test to apply
+     * @param value the value to test for
+     * @returns the new {@link EBookContacts.BookQuery}
+     */
+    function book_query_field_test(field: ContactField, test: BookQueryTest, value: string): BookQuery;
+
+    /**
+     * Parse `query_string` and return a new {@link EBookContacts.BookQuery} representing it.
+     * @param query_string the query
+     * @returns the new {@link EBookContacts.BookQuery}.
+     */
+    function book_query_from_string(query_string: string): BookQuery;
+
+    /**
+     * Creates a new {@link EBookContacts.BookQuery} which is the logical OR of the queries in #qs.
+     * @param nqs the number of queries to OR
+     * @param qs pointer to an array of {@link EBookContacts.BookQuery} items
+     * @param unref if `true`, the new query takes ownership of the existing queries
+     * @returns A new {@link EBookContacts.BookQuery}
+     */
+    function book_query_or(nqs: number, qs: BookQuery, unref: boolean): BookQuery;
+
+    /**
+     * Creates a new {@link EBookContacts.BookQuery} which tests if the field `field` exists. `field`
+     * should be a vCard field name, such as #EVC_FN or #EVC_X_MSN.
+     * @param field a field name
+     * @returns the new {@link EBookContacts.BookQuery}
+     */
+    function book_query_vcard_field_exists(field: string): BookQuery;
+
+    /**
+     * Creates a new {@link EBookContacts.BookQuery} which tests `field` for `value` using the test `test`.
+     * @param field a EVCard field name to test
+     * @param test the test to apply
+     * @param value the value to test for
+     * @returns the new {@link EBookContacts.BookQuery}
+     * @since 2.22
+     */
+    function book_query_vcard_field_test(field: string, test: BookQueryTest, value: string): BookQuery;
+
+    /**
+     * Encodes the {@link EDataServer.ConflictResolution} into the bit-or of {@link EBookContacts.BookOperationFlags}.
+     * The returned value can be bit-or-ed with other {@link EBookContacts.BookOperationFlags} values.
+     * @param conflict_resolution an {@link EDataServer.ConflictResolution}
+     * @returns a bit-or of {@link EBookContacts.BookOperationFlags}, corresponding to the `conflict_resolution`
+     * @since 3.34
+     */
+    function book_util_conflict_resolution_to_operation_flags(conflict_resolution: EDataServer.ConflictResolution): number;
+
+    /**
+     * Compares list of categories on the `old_contact` with the list of categories
+     * on the `new_contact` and fills `out_added` categories and `out_removed` categories
+     * accordingly, as if the `old_contact` is replaced with the `new_contact`. When either
+     * of the contacts is `null`, it's considered as having no categories set.
+     * Rather than returning empty {@link GLib.HashTable}, the return argument is set to `null`
+     * when there are no added/removed categories.
+     * 
+     * The key of the hash table is the category string, the value is an integer (1).
+     * There is used the hash table only for speed.
+     * 
+     * The returned {@link GLib.HashTable}-s should be freed with `g_hash_table_unref()`,
+     * when no longer needed.
+     * @param old_contact an old {@link EBookContacts.Contact}, or `null`
+     * @param new_contact a new {@link EBookContacts.Contact}, or `null`
+     * @since 3.48
+     */
+    function book_util_diff_categories(old_contact: Contact | null, new_contact: Contact | null): [{ [key: string]: number }, { [key: string]: number }];
+
+    /**
+     * Parses the `email_address` and calls `func` for each found address.
+     * The first parameter of the `func` is the name, the second parameter
+     * of the `func` is the email, the third parameters of the `func` is
+     * the `user_data`. The `func` returns `true`, to continue processing.
+     * @param email_address one or more email addresses as string
+     * @param func a function to call for each email
+     * @since 3.44
+     */
+    function book_util_foreach_address(email_address: string, func: GLib.HRFunc): void;
+
+    /**
+     * Decodes the {@link EDataServer.ConflictResolution} from the bit-or of {@link EBookContacts.BookOperationFlags}.
+     * @param flags bit-or of {@link EBookContacts.BookOperationFlags}
+     * @returns an {@link EDataServer.ConflictResolution} as stored in the `flags`
+     * @since 3.34
+     */
+    function book_util_operation_flags_to_conflict_resolution(flags: number): EDataServer.ConflictResolution;
+
+    /**
+     * Copies a list of allocated strings, specifically
+     * for the {@link EBookContacts.ContactAttrList} boxed type used for multi valued
+     * contact fields.
+     * @param list A {@link GLib.List} of strings
+     * @returns A copy of `list`
+     * @since 3.8
+     */
+    function contact_attr_list_copy(list: string[]): string[];
+
+    /**
+     * Frees a list of allocated strings, specifically
+     * for the {@link EBookContacts.ContactAttrList} boxed type used for multi valued
+     * contact fields.
+     * @param list A {@link GLib.List} of strings
+     * @since 3.8
+     */
+    function contact_attr_list_free(list: string[]): void;
+
+    /**
+     * Creates a new {@link EBookContacts.ContactCert} structure with the information
+     * from the `source` attribute. Returns `null`, when
+     * the information in the `source` could not be stored
+     * in the structure (for example when the KEY attribute
+     * is a URI to some server).
+     * @param source a source {@link EBookContacts.VCardAttribute}
+     * @returns a new {@link EBookContacts.ContactCert} populated    with the data from the `source`, or `null`, when the source contains    unknown information.
+     * @since 3.60
+     */
+    function contact_cert_from_attr(source: VCardAttribute): ContactCert | null;
+
+    /**
+     * Creates a new {@link EBookContacts.ContactDate} based on `str`.
+     * @param str a date string in the format YYYY-MM-DD or YYYYMMDD
+     * @returns A new {@link EBookContacts.ContactDate} struct.
+     */
+    function contact_date_from_string(str: string): ContactDate;
+
+    /**
+     * Creates a new {@link EBookContacts.ContactDateTime} based on `str`.
+     * @param str a date, time, date-time string in vCard format
+     * @param flags 
+     * @returns A new {@link EBookContacts.ContactDateTime} struct.
+     * @since 3.60
+     */
+    function contact_date_time_from_string(str: string, flags: ContactDateTimeFlags): ContactDateTime;
+
+    /**
+     * Converts a string into an {@link EBookContacts.ContactGenderSex}. Unrecognized values
+     * are returned as {@link EBookContacts.ContactGenderSex.NOT_SET}.
+     * @param string a string representation of a gender sex
+     * @returns a corresponding {@link EBookContacts.ContactGenderSex}
+     * @since 3.60
+     */
+    function contact_gender_sex_from_string(string: string): ContactGenderSex;
+
+    /**
+     * Converts the `sex` into a string, as used by the vCard 4.0 standard.
+     * @param sex an {@link EBookContacts.ContactGenderSex}
+     * @returns a vCard string representation of the `sex`, or `null`,    when the value is not recognized
+     * @since 3.60
+     */
+    function contact_gender_sex_to_string(sex: ContactGenderSex): string | null;
+
+    /**
+     * Creates a new {@link EBookContacts.ContactGeo}, which has set latitude
+     * and longitude from the provided strings.
+     * @param latitude a text representation of the latitude
+     * @param longitude a text representation of the longitude
+     * @returns a new {@link EBookContacts.ContactGeo}, or `null`,    when cannot convert the `latitude` or `longitude` to a double.
+     * @since 3.60
+     */
+    function contact_geo_from_string(latitude: string, longitude: string): ContactGeo | null;
+
+    /**
+     * Creates a new {@link EBookContacts.ContactName} based on the parsed `name_str`.
+     * @param name_str a string representing a contact's full name
+     * @returns A new {@link EBookContacts.ContactName} struct.
+     */
+    function contact_name_from_string(name_str: string): ContactName;
+
+    /**
+     * Parses `full_name` and returns an {@link EBookContacts.NameWestern} struct filled with
+     * the component parts of the name.
+     * @param full_name A string containing a western name.
+     * @returns A new {@link EBookContacts.NameWestern} struct.
+     */
+    function name_western_parse(full_name: string): NameWestern;
+
+    /**
+     * Compares two phone numbers.
+     * @param first_number the first EPhoneNumber to compare
+     * @param second_number the second EPhoneNumber to compare
+     * @returns The quality of matching for the two phone numbers.
+     * @since 3.8
+     * @throws GLib.Error
+     */
+    function phone_number_compare_strings(first_number: string, second_number: string): PhoneNumberMatch;
+
+    /**
+     * Compares two phone numbers within the context of `region_code`.
+     * @param first_number the first EPhoneNumber to compare
+     * @param second_number the second EPhoneNumber to compare
+     * @param region_code a two-letter country code, or `null`
+     * @returns The quality of matching for the two phone numbers.
+     * @since 3.8
+     * @throws GLib.Error
+     */
+    function phone_number_compare_strings_with_region(first_number: string, second_number: string, region_code: string | null): PhoneNumberMatch;
+
+    function phone_number_error_quark(): GLib.Quark;
+
+    /**
+     * Parses the string passed in `phone_number`. Note that no validation is
+     * performed whether the recognized phone number is valid for a particular
+     * region.
+     * 
+     * The two-letter country code passed in `region_code` only is used if the
+     * `phone_number` is not written in international format. The application's
+     * default region as returned by `e_phone_number_get_default_region()` is used
+     * if `region_code` is `null`.
+     * 
+     * If the number is guaranteed to start with a '+' followed by the country
+     * calling code, then "ZZ" can be passed for `region_code`.
+     * @param phone_number the phone number to parse
+     * @param region_code a two-letter country code, or `null`
+     * @returns a new {@link EBookContacts.PhoneNumber} instance on success, or `null` on error. Call `e_phone_number_free()` to release this instance.
+     * @since 3.8
+     * @throws GLib.Error
+     */
+    function phone_number_from_string(phone_number: string, region_code: string | null): PhoneNumber;
+
+    /**
+     * Retrieves the preferred country calling code for `region_code`,
+     * e.g. 358 for "fi" or 1 for "en_US@UTF-8".
+     * 
+     * If `null` is passed for `region_code` the default region as returned by
+     * `e_phone_number_get_default_region()` is used.
+     * @param region_code a two-letter country code, a locale name, or `null`
+     * @returns a valid country calling code, or zero if an unknown region code was passed.
+     * @since 3.8
+     * @throws GLib.Error
+     */
+    function phone_number_get_country_code_for_region(region_code: string | null): number;
+
+    /**
+     * Retrieves the current two-letter country code that's used by default for
+     * parsing phone numbers in `e_phone_number_from_string()`. It can be useful
+     * to store this number before parsing a bigger number of phone numbers.
+     * 
+     * The result of this functions depends on the current setup of the
+     * `LC_ADDRESS` category: If that category provides a reasonable value
+     * for %_NL_ADDRESS_COUNTRY_AB2 this value is returned. Otherwise the
+     * locale name configured for `LC_ADDRESS` is parsed.
+     * @returns a newly allocated string containing the current locale's two-letter code for phone number parsing.
+     * @since 3.8
+     * @throws GLib.Error
+     */
+    function phone_number_get_default_region(): string;
+
+    /**
+     * Checks if phone number support is available. It is recommended to call this
+     * function before using any of the phone-utils functions to ensure that the
+     * required functionality is available, and to pick alternative mechanisms if
+     * needed.
+     * @returns `true` if phone number support is available.
+     * @since 3.8
+     */
+    function phone_number_is_supported(): boolean;
+
+    /**
+     * Converts the `str` into one of the {@link EBookContacts.VCardVersion}. If the string
+     * does not match any of the known values the {@link EBookContacts.VCardVersion.UNKNOWN}
+     * is returned.
+     * @param str a version string, like "4.0"
+     * @returns an {@link EBookContacts.VCardVersion} corresponding to `str`, or {@link EBookContacts.VCardVersion.UNKNOWN}
+     * @since 3.60
+     */
+    function vcard_version_from_string(str: string): VCardVersion;
+
+    /**
+     * Converts the `version` into its string representation.
+     * Returns `null`, when the `version` does not match any
+     * known value (the {@link EBookContacts.VCardVersion.UNKNOWN} corresponds
+     * to the "unknown" string).
+     * @param version an {@link EBookContacts.VCardVersion}
+     * @returns a text representation of the `version`,    or `null` for unknown values.
+     * @since 3.60
+     */
+    function vcard_version_to_string(version: VCardVersion): string;
+
+    /**
+     * @gir-type Callback
+     */
+    interface VCardForeachFunc {
+        (vcard: VCard, attr: VCardAttribute): boolean;
+    }
+
+    /**
+     * @gir-type Alias
+     */
+    type ContactAttrList = object | null;
+
+    /**
+     * @gir-type Flags
+     */
+    export namespace BookClientViewFlags {
+        export const $gtype: GObject.GType<BookClientViewFlags>;
+    }
+
+    /**
+     * Flags that control the behaviour of an `EBookClientView`.
+     * @gir-type Flags
+     * @since 3.4
+     */
+    enum BookClientViewFlags {
+        /**
+         * Symbolic value for no flags
+         */
+        NONE = 0,
+        /**
+         * If this flag is set then all contacts matching the view's query will
+         *   be sent as notifications when starting the view, otherwise only future
+         *   changes will be reported.  The default for an `EBookClientView` is `true`.
+         */
+        NOTIFY_INITIAL = 1,
+        /**
+         * Rather than receiving contact changes one-by-one, be notified only
+         *   by "content-changed" signal and query contacts by ranges. See
+         *   `e_book_client_view_set_sort_fields_sync()` for more information.
+         *   The default is `false`. Since: 3.50
+         */
+        MANUAL_QUERY = 2,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    export namespace BookCursorStepFlags {
+        export const $gtype: GObject.GType<BookCursorStepFlags>;
+    }
+
+    /**
+     * Defines the behaviour of `e_book_client_cursor_step()`.
+     * @gir-type Flags
+     * @since 3.12
+     */
+    enum BookCursorStepFlags {
+        /**
+         * The cursor position should be modified while stepping
+         */
+        MOVE = 1,
+        /**
+         * Traversed contacts should be listed and returned while stepping.
+         */
+        FETCH = 2,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    export namespace BookOperationFlags {
+        export const $gtype: GObject.GType<BookOperationFlags>;
+    }
+
+    /**
+     * Book operation flags, to specify behavior in certain situations. The conflict
+     * resolution mode flags cannot be combined together, where the `E_BOOK_OPERATION_FLAG_CONFLICT_KEEP_LOCAL`
+     * is the default behavior (and it is used when no other conflict resolution flag is set).
+     * The flags can be ignored when the operation or the backend don't support it.
+     * @gir-type Flags
+     * @since 3.34
+     */
+    enum BookOperationFlags {
+        /**
+         * no operation flags defined
+         */
+        NONE = 0,
+        /**
+         * conflict resolution mode, to fail and do not
+         *    do any changes, when a conflict is detected
+         */
+        CONFLICT_FAIL = 1,
+        /**
+         * conflict resolution mode, to use newer
+         *    of the local and the server side data, when a conflict is detected
+         */
+        CONFLICT_USE_NEWER = 2,
+        /**
+         * conflict resolution mode, to use
+         *    the server data (and local changed), when a conflict is detected
+         */
+        CONFLICT_KEEP_SERVER = 4,
+        /**
+         * conflict resolution mode, to use
+         *    local data (and always overwrite server data), when a conflict is detected
+         */
+        CONFLICT_KEEP_LOCAL = 0,
+        /**
+         * conflict resolution mode, to create
+         *    a copy of the data, when a conflict is detected
+         */
+        CONFLICT_WRITE_COPY = 8,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    export namespace ContactDateTimeFlags {
+        export const $gtype: GObject.GType<ContactDateTimeFlags>;
+    }
+
+    /**
+     * Flags to export the {@link EBookContacts.ContactDateTime} to string. The default behavior
+     * is to export only the set parts of the structure.
+     * With the `E_CONTACT_DATE_TIME_FLAG_DATE_TIME` the exported text
+     * will always contain the time delimiter.
+     * The import uses the `E_CONTACT_DATE_TIME_FLAG_TIME` to distinguish whether
+     * the time delimiter is expected or not.
+     * @gir-type Flags
+     * @since 3.60
+     */
+    enum ContactDateTimeFlags {
+        /**
+         * no flag
+         */
+        NONE = 0,
+        /**
+         * date-time value
+         */
+        DATE_TIME = 1,
+        /**
+         * time value
+         */
+        TIME = 2,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    export namespace VCardForeachFlags {
+        export const $gtype: GObject.GType<VCardForeachFlags>;
+    }
+
+    /**
+     * Behavior flags for the `e_vcard_foreach()`.
+     * 
+     * When the `E_VCARD_FOREACH_FLAG_WILL_MODIFY` is set, it's expected the callback
+     * will modify the list of the attributes in the {@link EBookContacts.VCard}, thus the walk-through is done
+     * on a copy of the list of the attributes. The attributes cannot be removed in
+     * the callback though, use `e_vcard_foreach_remove()` for that instead.
+     * 
+     * Without the `E_VCARD_FOREACH_FLAG_WILL_MODIFY` flag the callback promises it'll
+     * not modify the list of the attributes in the vCard.
+     * @gir-type Flags
+     * @since 3.60
+     */
+    enum VCardForeachFlags {
+        /**
+         * no flags
+         */
+        NONE = 0,
+        /**
+         * whether the callback will modify the {@link EBookContacts.VCard}
+         */
+        WILL_MODIFY = 1,
+    }
+
+
+    namespace BookIndicesUpdater {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * An abstract object to handle EBookIndices changes.
+     * @gir-type Class
+     * @since 3.50
+     */
+    abstract class BookIndicesUpdater extends GObject.Object {
+        static $gtype: GObject.GType<BookIndicesUpdater>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: BookIndicesUpdater.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<BookIndicesUpdater.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof BookIndicesUpdater.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, BookIndicesUpdater.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof BookIndicesUpdater.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, BookIndicesUpdater.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof BookIndicesUpdater.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<BookIndicesUpdater.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Notifies the `self` that a new contact with UID `uid` had been added
+         * to the set and it occupies the `indices_index` index in the indices.
+         * In case the `uid` had been added previously its index is modified
+         * instead.
+         * 
+         * This function can be used only after initial call to `e_book_indices_updater_take_indices()`.
+         * @param uid a UID of a contact
+         * @param indices_index index to the indices array the contact belongs to
+         * @returns whether the indices changed
+         * @since 3.50
+         */
+        add(uid: string, indices_index: number): boolean;
+
+        /**
+         * Sets the initial indices to be updated by the `self`. If `null`,
+         * then unsets them.
+         * @returns current indices, or `null`, when none had been set yet
+         * @since 3.50
+         */
+        get_indices(): BookIndices | null;
+
+        /**
+         * Notifies the `self` that an existing contact with UID `uid` had been removed
+         * from the set. Calling the function with `uid` unknown to the `self` does nothing
+         * and returns `false`.
+         * 
+         * This function can be used only after initial call to `e_book_indices_updater_take_indices()`.
+         * @param uid a UID of a removed contact
+         * @returns whether the indices changed
+         * @since 3.50
+         */
+        remove(uid: string): boolean;
+
+        /**
+         * Sets the initial indices to be updated by the `self`. If `null`,
+         * then unsets them. The function always discards data previously
+         * gathered about the involved contacts, regardless whether
+         * the indices changed or not.
+         * 
+         * The function assumes ownership of the `indices`.
+         * @param indices an {@link EBookContacts.BookIndices}, or `null`
+         * @returns whether the indices changed
+         * @since 3.50
+         */
+        take_indices(indices: BookIndices | null): boolean;
+    }
+
+
+    namespace Contact {
+        // Signal signatures
+        interface SignalSignatures extends VCard.SignalSignatures {
+            "notify::rev": (pspec: GObject.ParamSpec) => void;
+            "notify::xml": (pspec: GObject.ParamSpec) => void;
+            "notify::address": (pspec: GObject.ParamSpec) => void;
+            "notify::address-home": (pspec: GObject.ParamSpec) => void;
+            "notify::address-label-home": (pspec: GObject.ParamSpec) => void;
+            "notify::address-label-other": (pspec: GObject.ParamSpec) => void;
+            "notify::address-label-work": (pspec: GObject.ParamSpec) => void;
+            "notify::address-other": (pspec: GObject.ParamSpec) => void;
+            "notify::address-work": (pspec: GObject.ParamSpec) => void;
+            "notify::anniversary": (pspec: GObject.ParamSpec) => void;
+            "notify::assistant": (pspec: GObject.ParamSpec) => void;
+            "notify::assistant-phone": (pspec: GObject.ParamSpec) => void;
+            "notify::birth-date": (pspec: GObject.ParamSpec) => void;
+            "notify::birth-place": (pspec: GObject.ParamSpec) => void;
+            "notify::blog-url": (pspec: GObject.ParamSpec) => void;
+            "notify::book-uid": (pspec: GObject.ParamSpec) => void;
+            "notify::business-fax": (pspec: GObject.ParamSpec) => void;
+            "notify::business-phone": (pspec: GObject.ParamSpec) => void;
+            "notify::business-phone-2": (pspec: GObject.ParamSpec) => void;
+            "notify::business-phone2": (pspec: GObject.ParamSpec) => void;
+            "notify::callback-phone": (pspec: GObject.ParamSpec) => void;
+            "notify::caluri": (pspec: GObject.ParamSpec) => void;
+            "notify::car-phone": (pspec: GObject.ParamSpec) => void;
+            "notify::categories": (pspec: GObject.ParamSpec) => void;
+            "notify::category-list": (pspec: GObject.ParamSpec) => void;
+            "notify::company-phone": (pspec: GObject.ParamSpec) => void;
+            "notify::contact-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::created": (pspec: GObject.ParamSpec) => void;
+            "notify::death-date": (pspec: GObject.ParamSpec) => void;
+            "notify::death-place": (pspec: GObject.ParamSpec) => void;
+            "notify::email": (pspec: GObject.ParamSpec) => void;
+            "notify::email-1": (pspec: GObject.ParamSpec) => void;
+            "notify::email1": (pspec: GObject.ParamSpec) => void;
+            "notify::email-2": (pspec: GObject.ParamSpec) => void;
+            "notify::email2": (pspec: GObject.ParamSpec) => void;
+            "notify::email-3": (pspec: GObject.ParamSpec) => void;
+            "notify::email3": (pspec: GObject.ParamSpec) => void;
+            "notify::email-4": (pspec: GObject.ParamSpec) => void;
+            "notify::email4": (pspec: GObject.ParamSpec) => void;
+            "notify::expertise": (pspec: GObject.ParamSpec) => void;
+            "notify::family-name": (pspec: GObject.ParamSpec) => void;
+            "notify::fburl": (pspec: GObject.ParamSpec) => void;
+            "notify::file-as": (pspec: GObject.ParamSpec) => void;
+            "notify::full-name": (pspec: GObject.ParamSpec) => void;
+            "notify::gender": (pspec: GObject.ParamSpec) => void;
+            "notify::geo": (pspec: GObject.ParamSpec) => void;
+            "notify::given-name": (pspec: GObject.ParamSpec) => void;
+            "notify::hobby": (pspec: GObject.ParamSpec) => void;
+            "notify::home-fax": (pspec: GObject.ParamSpec) => void;
+            "notify::home-phone": (pspec: GObject.ParamSpec) => void;
+            "notify::home-phone-2": (pspec: GObject.ParamSpec) => void;
+            "notify::home-phone2": (pspec: GObject.ParamSpec) => void;
+            "notify::homepage-url": (pspec: GObject.ParamSpec) => void;
+            "notify::icscalendar": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim-home-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim-home1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim-home-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim-home2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim-home-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim-home3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim-work-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim-work1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim-work-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim-work2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim-work-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-aim-work3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu-home-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu-home1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu-home-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu-home2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu-home-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu-home3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu-work-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu-work1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu-work-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu-work2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu-work-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-gadugadu-work3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk-home-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk-home1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk-home-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk-home2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk-home-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk-home3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk-work-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk-work1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk-work-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk-work2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk-work-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-google-talk-work3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise-home-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise-home1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise-home-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise-home2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise-home-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise-home3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise-work-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise-work1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise-work-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise-work2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise-work-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-groupwise-work3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq-home-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq-home1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq-home-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq-home2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq-home-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq-home3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq-work-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq-work1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq-work-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq-work2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq-work-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-icq-work3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber-home-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber-home1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber-home-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber-home2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber-home-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber-home3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber-work-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber-work1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber-work-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber-work2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber-work-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-jabber-work3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix-home-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix-home1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix-home-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix-home2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix-home-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix-home3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix-work-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix-work1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix-work-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix-work2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix-work-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-matrix-work3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn-home-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn-home1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn-home-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn-home2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn-home-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn-home3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn-work-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn-work1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn-work-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn-work2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn-work-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-msn-work3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype-home-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype-home1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype-home-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype-home2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype-home-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype-home3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype-work-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype-work1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype-work-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype-work2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype-work-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-skype-work3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-twitter": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo-home-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo-home1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo-home-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo-home2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo-home-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo-home3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo-work-1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo-work1": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo-work-2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo-work2": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo-work-3": (pspec: GObject.ParamSpec) => void;
+            "notify::im-yahoo-work3": (pspec: GObject.ParamSpec) => void;
+            "notify::impp": (pspec: GObject.ParamSpec) => void;
+            "notify::interest": (pspec: GObject.ParamSpec) => void;
+            "notify::isdn-phone": (pspec: GObject.ParamSpec) => void;
+            "notify::kind": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::list": (pspec: GObject.ParamSpec) => void;
+            "notify::list-show-addresses": (pspec: GObject.ParamSpec) => void;
+            "notify::logo": (pspec: GObject.ParamSpec) => void;
+            "notify::mailer": (pspec: GObject.ParamSpec) => void;
+            "notify::manager": (pspec: GObject.ParamSpec) => void;
+            "notify::member": (pspec: GObject.ParamSpec) => void;
+            "notify::mobile-phone": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::name-or-org": (pspec: GObject.ParamSpec) => void;
+            "notify::nickname": (pspec: GObject.ParamSpec) => void;
+            "notify::note": (pspec: GObject.ParamSpec) => void;
+            "notify::office": (pspec: GObject.ParamSpec) => void;
+            "notify::org": (pspec: GObject.ParamSpec) => void;
+            "notify::org-directory": (pspec: GObject.ParamSpec) => void;
+            "notify::org-unit": (pspec: GObject.ParamSpec) => void;
+            "notify::other-fax": (pspec: GObject.ParamSpec) => void;
+            "notify::other-phone": (pspec: GObject.ParamSpec) => void;
+            "notify::pager": (pspec: GObject.ParamSpec) => void;
+            "notify::pgp-cert": (pspec: GObject.ParamSpec) => void;
+            "notify::phone": (pspec: GObject.ParamSpec) => void;
+            "notify::photo": (pspec: GObject.ParamSpec) => void;
+            "notify::primary-phone": (pspec: GObject.ParamSpec) => void;
+            "notify::radio": (pspec: GObject.ParamSpec) => void;
+            "notify::related": (pspec: GObject.ParamSpec) => void;
+            "notify::role": (pspec: GObject.ParamSpec) => void;
+            "notify::sip": (pspec: GObject.ParamSpec) => void;
+            "notify::social-profile": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+            "notify::spouse": (pspec: GObject.ParamSpec) => void;
+            "notify::telex": (pspec: GObject.ParamSpec) => void;
+            "notify::timezone": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::tty": (pspec: GObject.ParamSpec) => void;
+            "notify::video-url": (pspec: GObject.ParamSpec) => void;
+            "notify::wants-html": (pspec: GObject.ParamSpec) => void;
+            "notify::x509-cert": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends VCard.ConstructorProps {
+            Rev: string;
+            XML: string;
+            address: ContactAttrList;
+            address_home: ContactAddress;
+            addressHome: ContactAddress;
+            address_label_home: string;
+            addressLabelHome: string;
+            address_label_other: string;
+            addressLabelOther: string;
+            address_label_work: string;
+            addressLabelWork: string;
+            address_other: ContactAddress;
+            addressOther: ContactAddress;
+            address_work: ContactAddress;
+            addressWork: ContactAddress;
+            anniversary: ContactDate;
+            assistant: string;
+            assistant_phone: string;
+            assistantPhone: string;
+            birth_date: ContactDate;
+            birthDate: ContactDate;
+            birth_place: string;
+            birthPlace: string;
+            blog_url: string;
+            blogUrl: string;
+            book_uid: string;
+            bookUid: string;
+            business_fax: string;
+            businessFax: string;
+            business_phone: string;
+            businessPhone: string;
+            business_phone_2: string;
+            businessPhone2: string;
+            callback_phone: string;
+            callbackPhone: string;
+            caluri: string;
+            car_phone: string;
+            carPhone: string;
+            categories: string;
+            category_list: never;
+            categoryList: never;
+            company_phone: string;
+            companyPhone: string;
+            contact_uri: string;
+            contactUri: string;
+            created: ContactDateTime;
+            death_date: ContactDate;
+            deathDate: ContactDate;
+            death_place: string;
+            deathPlace: string;
+            email: ContactAttrList;
+            email_1: string;
+            email1: string;
+            email_2: string;
+            email2: string;
+            email_3: string;
+            email3: string;
+            email_4: string;
+            email4: string;
+            expertise: ContactAttrList;
+            family_name: string;
+            familyName: string;
+            fburl: string;
+            file_as: string;
+            fileAs: string;
+            full_name: string;
+            fullName: string;
+            gender: ContactGender;
+            geo: ContactGeo;
+            given_name: string;
+            givenName: string;
+            hobby: ContactAttrList;
+            home_fax: string;
+            homeFax: string;
+            home_phone: string;
+            homePhone: string;
+            home_phone_2: string;
+            homePhone2: string;
+            homepage_url: string;
+            homepageUrl: string;
+            icscalendar: string;
+            id: string;
+            im_aim: ContactAttrList;
+            imAim: ContactAttrList;
+            im_aim_home_1: string;
+            imAimHome1: string;
+            im_aim_home_2: string;
+            imAimHome2: string;
+            im_aim_home_3: string;
+            imAimHome3: string;
+            im_aim_work_1: string;
+            imAimWork1: string;
+            im_aim_work_2: string;
+            imAimWork2: string;
+            im_aim_work_3: string;
+            imAimWork3: string;
+            im_gadugadu: ContactAttrList;
+            imGadugadu: ContactAttrList;
+            im_gadugadu_home_1: string;
+            imGadugaduHome1: string;
+            im_gadugadu_home_2: string;
+            imGadugaduHome2: string;
+            im_gadugadu_home_3: string;
+            imGadugaduHome3: string;
+            im_gadugadu_work_1: string;
+            imGadugaduWork1: string;
+            im_gadugadu_work_2: string;
+            imGadugaduWork2: string;
+            im_gadugadu_work_3: string;
+            imGadugaduWork3: string;
+            im_google_talk: ContactAttrList;
+            imGoogleTalk: ContactAttrList;
+            im_google_talk_home_1: string;
+            imGoogleTalkHome1: string;
+            im_google_talk_home_2: string;
+            imGoogleTalkHome2: string;
+            im_google_talk_home_3: string;
+            imGoogleTalkHome3: string;
+            im_google_talk_work_1: string;
+            imGoogleTalkWork1: string;
+            im_google_talk_work_2: string;
+            imGoogleTalkWork2: string;
+            im_google_talk_work_3: string;
+            imGoogleTalkWork3: string;
+            im_groupwise: ContactAttrList;
+            imGroupwise: ContactAttrList;
+            im_groupwise_home_1: string;
+            imGroupwiseHome1: string;
+            im_groupwise_home_2: string;
+            imGroupwiseHome2: string;
+            im_groupwise_home_3: string;
+            imGroupwiseHome3: string;
+            im_groupwise_work_1: string;
+            imGroupwiseWork1: string;
+            im_groupwise_work_2: string;
+            imGroupwiseWork2: string;
+            im_groupwise_work_3: string;
+            imGroupwiseWork3: string;
+            im_icq: ContactAttrList;
+            imIcq: ContactAttrList;
+            im_icq_home_1: string;
+            imIcqHome1: string;
+            im_icq_home_2: string;
+            imIcqHome2: string;
+            im_icq_home_3: string;
+            imIcqHome3: string;
+            im_icq_work_1: string;
+            imIcqWork1: string;
+            im_icq_work_2: string;
+            imIcqWork2: string;
+            im_icq_work_3: string;
+            imIcqWork3: string;
+            im_jabber: ContactAttrList;
+            imJabber: ContactAttrList;
+            im_jabber_home_1: string;
+            imJabberHome1: string;
+            im_jabber_home_2: string;
+            imJabberHome2: string;
+            im_jabber_home_3: string;
+            imJabberHome3: string;
+            im_jabber_work_1: string;
+            imJabberWork1: string;
+            im_jabber_work_2: string;
+            imJabberWork2: string;
+            im_jabber_work_3: string;
+            imJabberWork3: string;
+            im_matrix: ContactAttrList;
+            imMatrix: ContactAttrList;
+            im_matrix_home_1: string;
+            imMatrixHome1: string;
+            im_matrix_home_2: string;
+            imMatrixHome2: string;
+            im_matrix_home_3: string;
+            imMatrixHome3: string;
+            im_matrix_work_1: string;
+            imMatrixWork1: string;
+            im_matrix_work_2: string;
+            imMatrixWork2: string;
+            im_matrix_work_3: string;
+            imMatrixWork3: string;
+            im_msn: ContactAttrList;
+            imMsn: ContactAttrList;
+            im_msn_home_1: string;
+            imMsnHome1: string;
+            im_msn_home_2: string;
+            imMsnHome2: string;
+            im_msn_home_3: string;
+            imMsnHome3: string;
+            im_msn_work_1: string;
+            imMsnWork1: string;
+            im_msn_work_2: string;
+            imMsnWork2: string;
+            im_msn_work_3: string;
+            imMsnWork3: string;
+            im_skype: ContactAttrList;
+            imSkype: ContactAttrList;
+            im_skype_home_1: string;
+            imSkypeHome1: string;
+            im_skype_home_2: string;
+            imSkypeHome2: string;
+            im_skype_home_3: string;
+            imSkypeHome3: string;
+            im_skype_work_1: string;
+            imSkypeWork1: string;
+            im_skype_work_2: string;
+            imSkypeWork2: string;
+            im_skype_work_3: string;
+            imSkypeWork3: string;
+            im_twitter: ContactAttrList;
+            imTwitter: ContactAttrList;
+            im_yahoo: ContactAttrList;
+            imYahoo: ContactAttrList;
+            im_yahoo_home_1: string;
+            imYahooHome1: string;
+            im_yahoo_home_2: string;
+            imYahooHome2: string;
+            im_yahoo_home_3: string;
+            imYahooHome3: string;
+            im_yahoo_work_1: string;
+            imYahooWork1: string;
+            im_yahoo_work_2: string;
+            imYahooWork2: string;
+            im_yahoo_work_3: string;
+            imYahooWork3: string;
+            impp: ContactAttrList;
+            interest: ContactAttrList;
+            isdn_phone: string;
+            isdnPhone: string;
+            kind: string;
+            lang: ContactAttrList;
+            list: boolean;
+            list_show_addresses: boolean;
+            listShowAddresses: boolean;
+            logo: ContactPhoto;
+            mailer: string;
+            manager: string;
+            member: ContactAttrList;
+            mobile_phone: string;
+            mobilePhone: string;
+            name: ContactName;
+            name_or_org: string;
+            nameOrOrg: string;
+            nickname: string;
+            note: string;
+            office: string;
+            org: string;
+            org_directory: ContactAttrList;
+            orgDirectory: ContactAttrList;
+            org_unit: string;
+            orgUnit: string;
+            other_fax: string;
+            otherFax: string;
+            other_phone: string;
+            otherPhone: string;
+            pager: string;
+            pgpCert: ContactCert;
+            phone: ContactAttrList;
+            photo: ContactPhoto;
+            primary_phone: string;
+            primaryPhone: string;
+            radio: string;
+            related: ContactAttrList;
+            role: string;
+            sip: ContactAttrList;
+            social_profile: string;
+            socialProfile: string;
+            source: string;
+            spouse: string;
+            telex: string;
+            timezone: string;
+            title: string;
+            tty: string;
+            video_url: string;
+            videoUrl: string;
+            wants_html: boolean;
+            wantsHtml: boolean;
+            x509Cert: ContactCert;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class Contact extends VCard {
+        static $gtype: GObject.GType<Contact>;
+
+        // Properties
+        /**
+         * @default null
+         */
+        get Rev(): string;
+        set Rev(val: string);
+
+        /**
+         * @default null
+         */
+        get XML(): string;
+        set XML(val: string);
+
+        get address(): ContactAttrList;
+        set address(val: ContactAttrList);
+
+        get address_home(): ContactAddress;
+        set address_home(val: ContactAddress);
+
+        get addressHome(): ContactAddress;
+        set addressHome(val: ContactAddress);
+
+        /**
+         * @default null
+         */
+        get address_label_home(): string;
+        set address_label_home(val: string);
+
+        /**
+         * @default null
+         */
+        get addressLabelHome(): string;
+        set addressLabelHome(val: string);
+
+        /**
+         * @default null
+         */
+        get address_label_other(): string;
+        set address_label_other(val: string);
+
+        /**
+         * @default null
+         */
+        get addressLabelOther(): string;
+        set addressLabelOther(val: string);
+
+        /**
+         * @default null
+         */
+        get address_label_work(): string;
+        set address_label_work(val: string);
+
+        /**
+         * @default null
+         */
+        get addressLabelWork(): string;
+        set addressLabelWork(val: string);
+
+        get address_other(): ContactAddress;
+        set address_other(val: ContactAddress);
+
+        get addressOther(): ContactAddress;
+        set addressOther(val: ContactAddress);
+
+        get address_work(): ContactAddress;
+        set address_work(val: ContactAddress);
+
+        get addressWork(): ContactAddress;
+        set addressWork(val: ContactAddress);
+
+        get anniversary(): ContactDate;
+        set anniversary(val: ContactDate);
+
+        /**
+         * @default null
+         */
+        get assistant(): string;
+        set assistant(val: string);
+
+        /**
+         * @default null
+         */
+        get assistant_phone(): string;
+        set assistant_phone(val: string);
+
+        /**
+         * @default null
+         */
+        get assistantPhone(): string;
+        set assistantPhone(val: string);
+
+        get birth_date(): ContactDate;
+        set birth_date(val: ContactDate);
+
+        get birthDate(): ContactDate;
+        set birthDate(val: ContactDate);
+
+        /**
+         * @default null
+         */
+        get birth_place(): string;
+        set birth_place(val: string);
+
+        /**
+         * @default null
+         */
+        get birthPlace(): string;
+        set birthPlace(val: string);
+
+        /**
+         * @default null
+         */
+        get blog_url(): string;
+        set blog_url(val: string);
+
+        /**
+         * @default null
+         */
+        get blogUrl(): string;
+        set blogUrl(val: string);
+
+        /**
+         * @default null
+         */
+        get book_uid(): string;
+        set book_uid(val: string);
+
+        /**
+         * @default null
+         */
+        get bookUid(): string;
+        set bookUid(val: string);
+
+        /**
+         * @default null
+         */
+        get business_fax(): string;
+        set business_fax(val: string);
+
+        /**
+         * @default null
+         */
+        get businessFax(): string;
+        set businessFax(val: string);
+
+        /**
+         * @default null
+         */
+        get business_phone(): string;
+        set business_phone(val: string);
+
+        /**
+         * @default null
+         */
+        get businessPhone(): string;
+        set businessPhone(val: string);
+
+        /**
+         * @default null
+         */
+        get business_phone_2(): string;
+        set business_phone_2(val: string);
+
+        /**
+         * @default null
+         */
+        get businessPhone2(): string;
+        set businessPhone2(val: string);
+
+        /**
+         * @default null
+         */
+        get callback_phone(): string;
+        set callback_phone(val: string);
+
+        /**
+         * @default null
+         */
+        get callbackPhone(): string;
+        set callbackPhone(val: string);
+
+        /**
+         * @default null
+         */
+        get caluri(): string;
+        set caluri(val: string);
+
+        /**
+         * @default null
+         */
+        get car_phone(): string;
+        set car_phone(val: string);
+
+        /**
+         * @default null
+         */
+        get carPhone(): string;
+        set carPhone(val: string);
+
+        /**
+         * @default null
+         */
+        get categories(): string;
+        set categories(val: string);
+
+        get category_list(): null;
+        set category_list(val: never);
+
+        get categoryList(): null;
+        set categoryList(val: never);
+
+        /**
+         * @default null
+         */
+        get company_phone(): string;
+        set company_phone(val: string);
+
+        /**
+         * @default null
+         */
+        get companyPhone(): string;
+        set companyPhone(val: string);
+
+        /**
+         * @default null
+         */
+        get contact_uri(): string;
+        set contact_uri(val: string);
+
+        /**
+         * @default null
+         */
+        get contactUri(): string;
+        set contactUri(val: string);
+
+        get created(): ContactDateTime;
+        set created(val: ContactDateTime);
+
+        get death_date(): ContactDate;
+        set death_date(val: ContactDate);
+
+        get deathDate(): ContactDate;
+        set deathDate(val: ContactDate);
+
+        /**
+         * @default null
+         */
+        get death_place(): string;
+        set death_place(val: string);
+
+        /**
+         * @default null
+         */
+        get deathPlace(): string;
+        set deathPlace(val: string);
+
+        get email(): ContactAttrList;
+        set email(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get email_1(): string;
+        set email_1(val: string);
+
+        /**
+         * @default null
+         */
+        get email1(): string;
+        set email1(val: string);
+
+        /**
+         * @default null
+         */
+        get email_2(): string;
+        set email_2(val: string);
+
+        /**
+         * @default null
+         */
+        get email2(): string;
+        set email2(val: string);
+
+        /**
+         * @default null
+         */
+        get email_3(): string;
+        set email_3(val: string);
+
+        /**
+         * @default null
+         */
+        get email3(): string;
+        set email3(val: string);
+
+        /**
+         * @default null
+         */
+        get email_4(): string;
+        set email_4(val: string);
+
+        /**
+         * @default null
+         */
+        get email4(): string;
+        set email4(val: string);
+
+        get expertise(): ContactAttrList;
+        set expertise(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get family_name(): string;
+        set family_name(val: string);
+
+        /**
+         * @default null
+         */
+        get familyName(): string;
+        set familyName(val: string);
+
+        /**
+         * @default null
+         */
+        get fburl(): string;
+        set fburl(val: string);
+
+        /**
+         * @default null
+         */
+        get file_as(): string;
+        set file_as(val: string);
+
+        /**
+         * @default null
+         */
+        get fileAs(): string;
+        set fileAs(val: string);
+
+        /**
+         * @default null
+         */
+        get full_name(): string;
+        set full_name(val: string);
+
+        /**
+         * @default null
+         */
+        get fullName(): string;
+        set fullName(val: string);
+
+        get gender(): ContactGender;
+        set gender(val: ContactGender);
+
+        get geo(): ContactGeo;
+        set geo(val: ContactGeo);
+
+        /**
+         * @default null
+         */
+        get given_name(): string;
+        set given_name(val: string);
+
+        /**
+         * @default null
+         */
+        get givenName(): string;
+        set givenName(val: string);
+
+        get hobby(): ContactAttrList;
+        set hobby(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get home_fax(): string;
+        set home_fax(val: string);
+
+        /**
+         * @default null
+         */
+        get homeFax(): string;
+        set homeFax(val: string);
+
+        /**
+         * @default null
+         */
+        get home_phone(): string;
+        set home_phone(val: string);
+
+        /**
+         * @default null
+         */
+        get homePhone(): string;
+        set homePhone(val: string);
+
+        /**
+         * @default null
+         */
+        get home_phone_2(): string;
+        set home_phone_2(val: string);
+
+        /**
+         * @default null
+         */
+        get homePhone2(): string;
+        set homePhone2(val: string);
+
+        /**
+         * @default null
+         */
+        get homepage_url(): string;
+        set homepage_url(val: string);
+
+        /**
+         * @default null
+         */
+        get homepageUrl(): string;
+        set homepageUrl(val: string);
+
+        /**
+         * @default null
+         */
+        get icscalendar(): string;
+        set icscalendar(val: string);
+
+        /**
+         * @default null
+         */
+        get id(): string;
+        set id(val: string);
+
+        get im_aim(): ContactAttrList;
+        set im_aim(val: ContactAttrList);
+
+        get imAim(): ContactAttrList;
+        set imAim(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get im_aim_home_1(): string;
+        set im_aim_home_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imAimHome1(): string;
+        set imAimHome1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_aim_home_2(): string;
+        set im_aim_home_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imAimHome2(): string;
+        set imAimHome2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_aim_home_3(): string;
+        set im_aim_home_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imAimHome3(): string;
+        set imAimHome3(val: string);
+
+        /**
+         * @default null
+         */
+        get im_aim_work_1(): string;
+        set im_aim_work_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imAimWork1(): string;
+        set imAimWork1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_aim_work_2(): string;
+        set im_aim_work_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imAimWork2(): string;
+        set imAimWork2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_aim_work_3(): string;
+        set im_aim_work_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imAimWork3(): string;
+        set imAimWork3(val: string);
+
+        get im_gadugadu(): ContactAttrList;
+        set im_gadugadu(val: ContactAttrList);
+
+        get imGadugadu(): ContactAttrList;
+        set imGadugadu(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get im_gadugadu_home_1(): string;
+        set im_gadugadu_home_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imGadugaduHome1(): string;
+        set imGadugaduHome1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_gadugadu_home_2(): string;
+        set im_gadugadu_home_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imGadugaduHome2(): string;
+        set imGadugaduHome2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_gadugadu_home_3(): string;
+        set im_gadugadu_home_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imGadugaduHome3(): string;
+        set imGadugaduHome3(val: string);
+
+        /**
+         * @default null
+         */
+        get im_gadugadu_work_1(): string;
+        set im_gadugadu_work_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imGadugaduWork1(): string;
+        set imGadugaduWork1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_gadugadu_work_2(): string;
+        set im_gadugadu_work_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imGadugaduWork2(): string;
+        set imGadugaduWork2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_gadugadu_work_3(): string;
+        set im_gadugadu_work_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imGadugaduWork3(): string;
+        set imGadugaduWork3(val: string);
+
+        get im_google_talk(): ContactAttrList;
+        set im_google_talk(val: ContactAttrList);
+
+        get imGoogleTalk(): ContactAttrList;
+        set imGoogleTalk(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get im_google_talk_home_1(): string;
+        set im_google_talk_home_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imGoogleTalkHome1(): string;
+        set imGoogleTalkHome1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_google_talk_home_2(): string;
+        set im_google_talk_home_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imGoogleTalkHome2(): string;
+        set imGoogleTalkHome2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_google_talk_home_3(): string;
+        set im_google_talk_home_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imGoogleTalkHome3(): string;
+        set imGoogleTalkHome3(val: string);
+
+        /**
+         * @default null
+         */
+        get im_google_talk_work_1(): string;
+        set im_google_talk_work_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imGoogleTalkWork1(): string;
+        set imGoogleTalkWork1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_google_talk_work_2(): string;
+        set im_google_talk_work_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imGoogleTalkWork2(): string;
+        set imGoogleTalkWork2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_google_talk_work_3(): string;
+        set im_google_talk_work_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imGoogleTalkWork3(): string;
+        set imGoogleTalkWork3(val: string);
+
+        get im_groupwise(): ContactAttrList;
+        set im_groupwise(val: ContactAttrList);
+
+        get imGroupwise(): ContactAttrList;
+        set imGroupwise(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get im_groupwise_home_1(): string;
+        set im_groupwise_home_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imGroupwiseHome1(): string;
+        set imGroupwiseHome1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_groupwise_home_2(): string;
+        set im_groupwise_home_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imGroupwiseHome2(): string;
+        set imGroupwiseHome2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_groupwise_home_3(): string;
+        set im_groupwise_home_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imGroupwiseHome3(): string;
+        set imGroupwiseHome3(val: string);
+
+        /**
+         * @default null
+         */
+        get im_groupwise_work_1(): string;
+        set im_groupwise_work_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imGroupwiseWork1(): string;
+        set imGroupwiseWork1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_groupwise_work_2(): string;
+        set im_groupwise_work_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imGroupwiseWork2(): string;
+        set imGroupwiseWork2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_groupwise_work_3(): string;
+        set im_groupwise_work_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imGroupwiseWork3(): string;
+        set imGroupwiseWork3(val: string);
+
+        get im_icq(): ContactAttrList;
+        set im_icq(val: ContactAttrList);
+
+        get imIcq(): ContactAttrList;
+        set imIcq(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get im_icq_home_1(): string;
+        set im_icq_home_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imIcqHome1(): string;
+        set imIcqHome1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_icq_home_2(): string;
+        set im_icq_home_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imIcqHome2(): string;
+        set imIcqHome2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_icq_home_3(): string;
+        set im_icq_home_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imIcqHome3(): string;
+        set imIcqHome3(val: string);
+
+        /**
+         * @default null
+         */
+        get im_icq_work_1(): string;
+        set im_icq_work_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imIcqWork1(): string;
+        set imIcqWork1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_icq_work_2(): string;
+        set im_icq_work_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imIcqWork2(): string;
+        set imIcqWork2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_icq_work_3(): string;
+        set im_icq_work_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imIcqWork3(): string;
+        set imIcqWork3(val: string);
+
+        get im_jabber(): ContactAttrList;
+        set im_jabber(val: ContactAttrList);
+
+        get imJabber(): ContactAttrList;
+        set imJabber(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get im_jabber_home_1(): string;
+        set im_jabber_home_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imJabberHome1(): string;
+        set imJabberHome1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_jabber_home_2(): string;
+        set im_jabber_home_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imJabberHome2(): string;
+        set imJabberHome2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_jabber_home_3(): string;
+        set im_jabber_home_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imJabberHome3(): string;
+        set imJabberHome3(val: string);
+
+        /**
+         * @default null
+         */
+        get im_jabber_work_1(): string;
+        set im_jabber_work_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imJabberWork1(): string;
+        set imJabberWork1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_jabber_work_2(): string;
+        set im_jabber_work_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imJabberWork2(): string;
+        set imJabberWork2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_jabber_work_3(): string;
+        set im_jabber_work_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imJabberWork3(): string;
+        set imJabberWork3(val: string);
+
+        get im_matrix(): ContactAttrList;
+        set im_matrix(val: ContactAttrList);
+
+        get imMatrix(): ContactAttrList;
+        set imMatrix(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get im_matrix_home_1(): string;
+        set im_matrix_home_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imMatrixHome1(): string;
+        set imMatrixHome1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_matrix_home_2(): string;
+        set im_matrix_home_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imMatrixHome2(): string;
+        set imMatrixHome2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_matrix_home_3(): string;
+        set im_matrix_home_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imMatrixHome3(): string;
+        set imMatrixHome3(val: string);
+
+        /**
+         * @default null
+         */
+        get im_matrix_work_1(): string;
+        set im_matrix_work_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imMatrixWork1(): string;
+        set imMatrixWork1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_matrix_work_2(): string;
+        set im_matrix_work_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imMatrixWork2(): string;
+        set imMatrixWork2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_matrix_work_3(): string;
+        set im_matrix_work_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imMatrixWork3(): string;
+        set imMatrixWork3(val: string);
+
+        get im_msn(): ContactAttrList;
+        set im_msn(val: ContactAttrList);
+
+        get imMsn(): ContactAttrList;
+        set imMsn(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get im_msn_home_1(): string;
+        set im_msn_home_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imMsnHome1(): string;
+        set imMsnHome1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_msn_home_2(): string;
+        set im_msn_home_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imMsnHome2(): string;
+        set imMsnHome2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_msn_home_3(): string;
+        set im_msn_home_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imMsnHome3(): string;
+        set imMsnHome3(val: string);
+
+        /**
+         * @default null
+         */
+        get im_msn_work_1(): string;
+        set im_msn_work_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imMsnWork1(): string;
+        set imMsnWork1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_msn_work_2(): string;
+        set im_msn_work_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imMsnWork2(): string;
+        set imMsnWork2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_msn_work_3(): string;
+        set im_msn_work_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imMsnWork3(): string;
+        set imMsnWork3(val: string);
+
+        get im_skype(): ContactAttrList;
+        set im_skype(val: ContactAttrList);
+
+        get imSkype(): ContactAttrList;
+        set imSkype(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get im_skype_home_1(): string;
+        set im_skype_home_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imSkypeHome1(): string;
+        set imSkypeHome1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_skype_home_2(): string;
+        set im_skype_home_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imSkypeHome2(): string;
+        set imSkypeHome2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_skype_home_3(): string;
+        set im_skype_home_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imSkypeHome3(): string;
+        set imSkypeHome3(val: string);
+
+        /**
+         * @default null
+         */
+        get im_skype_work_1(): string;
+        set im_skype_work_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imSkypeWork1(): string;
+        set imSkypeWork1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_skype_work_2(): string;
+        set im_skype_work_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imSkypeWork2(): string;
+        set imSkypeWork2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_skype_work_3(): string;
+        set im_skype_work_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imSkypeWork3(): string;
+        set imSkypeWork3(val: string);
+
+        get im_twitter(): ContactAttrList;
+        set im_twitter(val: ContactAttrList);
+
+        get imTwitter(): ContactAttrList;
+        set imTwitter(val: ContactAttrList);
+
+        get im_yahoo(): ContactAttrList;
+        set im_yahoo(val: ContactAttrList);
+
+        get imYahoo(): ContactAttrList;
+        set imYahoo(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get im_yahoo_home_1(): string;
+        set im_yahoo_home_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imYahooHome1(): string;
+        set imYahooHome1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_yahoo_home_2(): string;
+        set im_yahoo_home_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imYahooHome2(): string;
+        set imYahooHome2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_yahoo_home_3(): string;
+        set im_yahoo_home_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imYahooHome3(): string;
+        set imYahooHome3(val: string);
+
+        /**
+         * @default null
+         */
+        get im_yahoo_work_1(): string;
+        set im_yahoo_work_1(val: string);
+
+        /**
+         * @default null
+         */
+        get imYahooWork1(): string;
+        set imYahooWork1(val: string);
+
+        /**
+         * @default null
+         */
+        get im_yahoo_work_2(): string;
+        set im_yahoo_work_2(val: string);
+
+        /**
+         * @default null
+         */
+        get imYahooWork2(): string;
+        set imYahooWork2(val: string);
+
+        /**
+         * @default null
+         */
+        get im_yahoo_work_3(): string;
+        set im_yahoo_work_3(val: string);
+
+        /**
+         * @default null
+         */
+        get imYahooWork3(): string;
+        set imYahooWork3(val: string);
+
+        get impp(): ContactAttrList;
+        set impp(val: ContactAttrList);
+
+        get interest(): ContactAttrList;
+        set interest(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get isdn_phone(): string;
+        set isdn_phone(val: string);
+
+        /**
+         * @default null
+         */
+        get isdnPhone(): string;
+        set isdnPhone(val: string);
+
+        /**
+         * @default null
+         */
+        get kind(): string;
+        set kind(val: string);
+
+        get lang(): ContactAttrList;
+        set lang(val: ContactAttrList);
+
+        /**
+         * @default false
+         */
+        get list(): boolean;
+        set list(val: boolean);
+
+        /**
+         * @default false
+         */
+        get list_show_addresses(): boolean;
+        set list_show_addresses(val: boolean);
+
+        /**
+         * @default false
+         */
+        get listShowAddresses(): boolean;
+        set listShowAddresses(val: boolean);
+
+        get logo(): ContactPhoto;
+        set logo(val: ContactPhoto);
+
+        /**
+         * @default null
+         */
+        get mailer(): string;
+        set mailer(val: string);
+
+        /**
+         * @default null
+         */
+        get manager(): string;
+        set manager(val: string);
+
+        get member(): ContactAttrList;
+        set member(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get mobile_phone(): string;
+        set mobile_phone(val: string);
+
+        /**
+         * @default null
+         */
+        get mobilePhone(): string;
+        set mobilePhone(val: string);
+
+        get name(): ContactName;
+        set name(val: ContactName);
+
+        /**
+         * @read-only
+         * @default null
+         */
+        get name_or_org(): string;
+
+        /**
+         * @read-only
+         * @default null
+         */
+        get nameOrOrg(): string;
+
+        /**
+         * @default null
+         */
+        get nickname(): string;
+        set nickname(val: string);
+
+        /**
+         * @default null
+         */
+        get note(): string;
+        set note(val: string);
+
+        /**
+         * @default null
+         */
+        get office(): string;
+        set office(val: string);
+
+        /**
+         * @default null
+         */
+        get org(): string;
+        set org(val: string);
+
+        get org_directory(): ContactAttrList;
+        set org_directory(val: ContactAttrList);
+
+        get orgDirectory(): ContactAttrList;
+        set orgDirectory(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get org_unit(): string;
+        set org_unit(val: string);
+
+        /**
+         * @default null
+         */
+        get orgUnit(): string;
+        set orgUnit(val: string);
+
+        /**
+         * @default null
+         */
+        get other_fax(): string;
+        set other_fax(val: string);
+
+        /**
+         * @default null
+         */
+        get otherFax(): string;
+        set otherFax(val: string);
+
+        /**
+         * @default null
+         */
+        get other_phone(): string;
+        set other_phone(val: string);
+
+        /**
+         * @default null
+         */
+        get otherPhone(): string;
+        set otherPhone(val: string);
+
+        /**
+         * @default null
+         */
+        get pager(): string;
+        set pager(val: string);
+
+        get pgpCert(): ContactCert;
+        set pgpCert(val: ContactCert);
+
+        get phone(): ContactAttrList;
+        set phone(val: ContactAttrList);
+
+        get photo(): ContactPhoto;
+        set photo(val: ContactPhoto);
+
+        /**
+         * @default null
+         */
+        get primary_phone(): string;
+        set primary_phone(val: string);
+
+        /**
+         * @default null
+         */
+        get primaryPhone(): string;
+        set primaryPhone(val: string);
+
+        /**
+         * @default null
+         */
+        get radio(): string;
+        set radio(val: string);
+
+        get related(): ContactAttrList;
+        set related(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get role(): string;
+        set role(val: string);
+
+        get sip(): ContactAttrList;
+        set sip(val: ContactAttrList);
+
+        /**
+         * @default null
+         */
+        get social_profile(): string;
+        set social_profile(val: string);
+
+        /**
+         * @default null
+         */
+        get socialProfile(): string;
+        set socialProfile(val: string);
+
+        /**
+         * @default null
+         */
+        get source(): string;
+        set source(val: string);
+
+        /**
+         * @default null
+         */
+        get spouse(): string;
+        set spouse(val: string);
+
+        /**
+         * @default null
+         */
+        get telex(): string;
+        set telex(val: string);
+
+        /**
+         * @default null
+         */
+        get timezone(): string;
+        set timezone(val: string);
+
+        /**
+         * @default null
+         */
+        get title(): string;
+        set title(val: string);
+
+        /**
+         * @default null
+         */
+        get tty(): string;
+        set tty(val: string);
+
+        /**
+         * @default null
+         */
+        get video_url(): string;
+        set video_url(val: string);
+
+        /**
+         * @default null
+         */
+        get videoUrl(): string;
+        set videoUrl(val: string);
+
+        /**
+         * @default false
+         */
+        get wants_html(): boolean;
+        set wants_html(val: boolean);
+
+        /**
+         * @default false
+         */
+        get wantsHtml(): boolean;
+        set wantsHtml(val: boolean);
+
+        get x509Cert(): ContactCert;
+        set x509Cert(val: ContactCert);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Contact.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Contact.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): Contact;
+
+        static new_from_vcard(vcard: string): Contact;
+
+        static new_from_vcard_with_uid(vcard: string, uid: string): Contact;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Contact.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Contact.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Contact.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Contact.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Contact.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Contact.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Gets the {@link EBookContacts.ContactField} corresponding to the `field_name`.
+         * @param field_name a string representing a contact field
+         */
+        static field_id(field_name: string): ContactField;
+
+        /**
+         * Gets the {@link EBookContacts.ContactField} corresponding to the `vcard_field`.
+         * @param vcard_field a string representing a vCard field
+         * @since 2.26
+         */
+        static field_id_from_vcard(vcard_field: string): ContactField;
+
+        /**
+         * Returns whether the `field_id` is of a string type,
+         * thus it can be used with `e_contact_get_const()`.
+         * @param field_id an {@link EBookContacts.ContactField}
+         * @since 3.16
+         */
+        static field_is_string(field_id: ContactField): boolean;
+
+        /**
+         * Gets the string representation of `field_id`.
+         * @param field_id an {@link EBookContacts.ContactField}
+         */
+        static field_name(field_id: ContactField): string;
+
+        /**
+         * Gets the {@link GObject.GType} used for this contact field, this indicates
+         * what kind of value can be passed to `e_contact_set()`.
+         * @param field_id an {@link EBookContacts.ContactField}
+         * @since 3.8
+         */
+        static field_type(field_id: ContactField): GObject.GType;
+
+        /**
+         * Gets a scheme (like "icq:") for the corresponding IM `field`.
+         * @param field an {@link EBookContacts.ContactField}, one of E_CONTACT_IM_....
+         * @since 3.60
+         */
+        static impp_field_to_scheme(field: ContactField): string | null;
+
+        /**
+         * Tries to find one of the predefined {@link EBookContacts.ContactField} for
+         * the `scheme`, which can be either the scheme itself, like "icq:",
+         * or a scheme with the value, like "icq:1234". The `out_scheme_len`
+         * can be used to return how many letters from the beginning
+         * of the `scheme` can be skipped to get to the actual value.
+         * Returns value {@link EBookContacts.ContactField.FIELD_LAST} means no matching
+         * {@link EBookContacts.ContactField} was found for the `scheme`. The {@link EBookContacts.ContactField.IMPP}
+         * is never returned, then the `scheme` can be a valid scheme,
+         * only the {@link EBookContacts.ContactField} does not have a mapping for it.
+         * @param scheme a URI scheme as "icq:", but can be with a value too
+         * @since 3.60
+         */
+        static impp_scheme_to_field(scheme: string): [ContactField, number];
+
+        /**
+         * Gets a human-readable, translated string representation
+         * of `field_id`.
+         * @param field_id an {@link EBookContacts.ContactField}
+         */
+        static pretty_name(field_id: ContactField): string;
+
+        /**
+         * Gets the vcard attribute corresponding to `field_id`, as a string.
+         * @param field_id an {@link EBookContacts.ContactField}
+         */
+        static vcard_attribute(field_id: ContactField): string;
+
+        /**
+         * Gets the vCard attribute name corresponding to `field_id`, which is used
+         * to hold vCard attributes in an earlier versions of the vCard standard
+         * than in which the attribute had been added for.
+         * 
+         * Not every attribute has it set, thus a `null` is a valid return value.
+         * @param field_id an {@link EBookContacts.ContactField}
+         * @since 3.60
+         */
+        static vcard_attribute_fallback(field_id: ContactField): string | null;
+
+        // Methods
+        /**
+         * Converts the `self` into the vCard version `to_version` and returns a converted
+         * copy of the `self`. When the `to_version` matches the version of the `self`,
+         * then does nothing and returns `null`.
+         * @param to_version the requested vCard version, one of {@link EBookContacts.VCardVersion}
+         * @returns the `self` converted to `to_version`,    or `null`, when it is in this version already
+         * @since 3.60
+         */
+        convert(to_version: VCardVersion): Contact | null;
+
+        /**
+         * Creates a copy of `contact`.
+         * @returns A new {@link EBookContacts.Contact} identical to `contact`.
+         */
+        duplicate(): Contact;
+
+        /**
+         * Gets the value of `contact`'s field specified by `field_id`.
+         * @param field_id an {@link EBookContacts.ContactField}
+         * @returns Depends on the field's type, owned by the caller. This may be `null` if the field isn't set.
+         */
+        get(field_id: ContactField): null;
+
+        /**
+         * Gets the value of `contact`'s field specified by `field_id`, caching
+         * the result so it can be freed later. Use `e_contact_field_is_string()`
+         * to check whether the field can be used here.
+         * @param field_id an {@link EBookContacts.ContactField}
+         * @returns Depends on the field's type, owned by the {@link EBookContacts.Contact}.
+         */
+        get_const(field_id: ContactField): null;
+
+        /**
+         * Tries to modify any {@link EBookContacts.ContactPhoto} fields which are
+         * stored on the local file system as type {@link EBookContacts.ContactPhotoType.URI}
+         * to be inlined and stored as {@link EBookContacts.ContactPhotoType.INLINED} instead.
+         * @returns `true` if there were no errors, upon error `false` is returned    and `error` is set.
+         * @since 3.4
+         * @throws GLib.Error
+         */
+        inline_local_photos(): boolean;
+
+        /**
+         * Sets the value of `contact`'s field specified by `field_id` to `value`.
+         * @param field_id an {@link EBookContacts.ContactField}
+         * @param value a value whose type depends on the `field_id`
+         */
+        set(field_id: ContactField, value: null): void;
+
+        /**
+         * @param args 
+         */
+    // Conflicted with GObject.Object.set
+        set(...args: never[]): any;
+    }
+
+
+    namespace SourceBackendSummarySetup {
+        // Signal signatures
+        interface SignalSignatures extends EDataServer.SourceExtension.SignalSignatures {
+            "notify::indexed-fields": (pspec: GObject.ParamSpec) => void;
+            "notify::summary-fields": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends EDataServer.SourceExtension.ConstructorProps {
+            indexed_fields: string;
+            indexedFields: string;
+            summary_fields: string;
+            summaryFields: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.8
+     */
+    class SourceBackendSummarySetup extends EDataServer.SourceExtension {
+        static $gtype: GObject.GType<SourceBackendSummarySetup>;
+
+        // Properties
+        /**
+         * The list of summary fields which are to be given indexes in the underlying database
+         * @default null
+         */
+        get indexed_fields(): string;
+        set indexed_fields(val: string);
+
+        /**
+         * The list of summary fields which are to be given indexes in the underlying database
+         * @default null
+         */
+        get indexedFields(): string;
+        set indexedFields(val: string);
+
+        /**
+         * The list of quick reference summary fields
+         * @default null
+         */
+        get summary_fields(): string;
+        set summary_fields(val: string);
+
+        /**
+         * The list of quick reference summary fields
+         * @default null
+         */
+        get summaryFields(): string;
+        set summaryFields(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceBackendSummarySetup.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceBackendSummarySetup.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceBackendSummarySetup.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceBackendSummarySetup.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceBackendSummarySetup.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceBackendSummarySetup.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceBackendSummarySetup.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceBackendSummarySetup.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Fetches the `EContactFields` configured to be indexed, with thier respective `EBookIndexTypes`.
+         * @returns The array of indexed `EContactFields`.
+         * @since 3.8
+         */
+        get_indexed_fields(): [ContactField, BookIndexType, number];
+
+        /**
+         * Fetches the `EContactFields` which are configured to be a part of the summary.
+         * 
+         * <note><para>If there are no configured summary fields, the default configuration is assumed</para></note>
+         * @returns An array of `EContactFields` `n_fields` long, should be freed with `g_free()` when done.
+         * @since 3.8
+         */
+        get_summary_fields(): [ContactField, number];
+
+        /**
+         * Defines indexes for quick reference for the given given `EContactFields` in the addressbook.
+         * 
+         * The same {@link EBookContacts.ContactField} may be specified multiple times to create multiple indexes
+         * with different characteristics. If an #E_BOOK_INDEX_PREFIX index is created it will
+         * be used for #E_BOOK_QUERY_BEGINS_WITH queries. An #E_BOOK_INDEX_SUFFIX index
+         * will be constructed efficiently for suffix matching and will be used for
+         * #E_BOOK_QUERY_ENDS_WITH queries. Similar an #E_BOOK_INDEX_PHONE index will optimize
+         * #E_BOOK_QUERY_EQUALS_PHONE_NUMBER searches.
+         * 
+         * <note><para>The specified indexed fields must also be a part of the summary, any indexed fields
+         * specified that are not already a part of the summary will be ignored.</para></note>
+         * @param fields The array of `EContactFields` to set indexes for
+         * @param types The array of `EBookIndexTypes` defining what types of indexes to create
+         * @param n_fields The number elements in the passed `fields`, `rule_types` and `rules` arrays.
+         * @since 3.8
+         */
+        set_indexed_fieldsv(fields: ContactField, types: BookIndexType, n_fields: number): void;
+
+        /**
+         * Sets the summary fields configured for the given addressbook.
+         * 
+         * The fields {@link EBookContacts.ContactField.UID} and {@link EBookContacts.ContactField.REV} are not optional,
+         * they will be stored in the summary regardless of the configured summary.
+         * 
+         * An empty summary configuration is assumed to be the default summary
+         * configuration.
+         * 
+         * <note><para>Only `EContactFields` with the type #G_TYPE_STRING or #G_TYPE_BOOLEAN
+         * are currently supported as summary fields.</para></note>
+         * @param fields The array of `EContactFields` to set as summary fields
+         * @param n_fields The number of `EContactFields` in `fields`
+         * @since 3.8
+         */
+        set_summary_fieldsv(fields: ContactField, n_fields: number): void;
+    }
+
+
+    namespace VCard {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class VCard extends GObject.Object {
+        static $gtype: GObject.GType<VCard>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: VCard.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<VCard.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): VCard;
+
+        static new_from_string(str: string): VCard;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof VCard.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VCard.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof VCard.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VCard.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof VCard.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<VCard.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Escapes a string according to RFC2426, section 5.
+         * @param s the string to escape
+         */
+        static escape_string(s: string): string;
+
+        /**
+         * Unescapes a string according to RFC2426, section 5.
+         * @param s the string to unescape
+         */
+        static unescape_string(s: string): string;
+
+        // Methods
+        /**
+         * Prepends `attr` to `evc`. This takes ownership of `attr`.
+         * @param attr an {@link EBookContacts.VCardAttribute} to add
+         */
+        add_attribute(attr: VCardAttribute): void;
+
+        /**
+         * Prepends `attr` to `evcard`, setting it to `value`. This takes ownership of
+         * `attr`.
+         * 
+         * This is a convenience wrapper around `e_vcard_attribute_add_value()` and
+         * `e_vcard_add_attribute()`.
+         * 
+         * See also `e_vcard_add_attribute_with_value_take()`, `e_vcard_append_attribute_with_value()`
+         * @param attr an {@link EBookContacts.VCardAttribute} to add
+         * @param value a value to assign to the attribute
+         */
+        add_attribute_with_value(attr: VCardAttribute, value: string): void;
+
+        /**
+         * Prepends `attr` to `evcard`, setting it to `value`. This takes ownership of
+         * the `attr` and the `value`.
+         * 
+         * This is a convenience wrapper around `e_vcard_attribute_add_value_take()` and
+         * `e_vcard_add_attribute()`.
+         * 
+         * See also `e_vcard_add_attribute_with_value()`, `e_vcard_append_attribute_with_value()`
+         * @param attr an {@link EBookContacts.VCardAttribute} to add
+         * @param value a value to assign to the attribute
+         * @since 3.60
+         */
+        add_attribute_with_value_take(attr: VCardAttribute, value: string): void;
+
+        /**
+         * Appends `attr` to `evc` to the end of a list of attributes. This takes
+         * ownership of `attr`.
+         * @param attr an {@link EBookContacts.VCardAttribute} to append
+         * @since 2.32
+         */
+        append_attribute(attr: VCardAttribute): void;
+
+        /**
+         * Appends `attr` to `evcard`, setting it to `value`. This takes ownership of
+         * `attr`.
+         * 
+         * This is a convenience wrapper around `e_vcard_attribute_add_value()` and
+         * `e_vcard_append_attribute()`.
+         * 
+         * See also `e_vcard_append_attribute_with_value_take()`, `e_vcard_add_attribute_with_value()`
+         * @param attr an {@link EBookContacts.VCardAttribute} to append
+         * @param value a value to assign to the attribute
+         * @since 2.32
+         */
+        append_attribute_with_value(attr: VCardAttribute, value: string): void;
+
+        /**
+         * Appends `attr` to `evcard`, setting it to `value`. This takes ownership of
+         * `attr` and the `value`.
+         * 
+         * This is a convenience wrapper around `e_vcard_attribute_add_value_take()` and
+         * `e_vcard_append_attribute()`.
+         * 
+         * See also `e_vcard_append_attribute_with_value()`, `e_vcard_add_attribute_with_value()`
+         * @param attr an {@link EBookContacts.VCardAttribute} to append
+         * @param value a value to assign to the attribute
+         * @since 3.60
+         */
+        append_attribute_with_value_take(attr: VCardAttribute, value: string): void;
+
+        /**
+         * Appends {@link EBookContacts.VCardAttribute} structures from `attrs` to `self`. The respective
+         * attributes are copied, thus the caller is responsible to take care
+         * of the `attrs` and its content.
+         * @param attrs a {@link GLib.List} of {@link EBookContacts.VCardAttribute}
+         * @since 3.60
+         */
+        append_attributes(attrs: VCardAttribute[]): void;
+
+        /**
+         * Appends {@link EBookContacts.VCardAttribute} structures from `attrs` to `self`. The `self`
+         * assumes ownership of both the `attrs` and the respective attributes
+         * stored in it.
+         * @param attrs a {@link GLib.List} of {@link EBookContacts.VCardAttribute}
+         * @since 3.60
+         */
+        append_attributes_take(attrs: VCardAttribute[]): void;
+
+        /**
+         * Constructs the existing {@link EBookContacts.VCard}, `evc`, setting its vCard data to `str`.
+         * 
+         * This modifies `evc`.
+         * @param str a vCard string
+         */
+        construct(str: string): void;
+
+        /**
+         * Similar to `e_vcard_construct_with_uid()`, but can also
+         * be used with an `str` that is not `null` terminated.
+         * @param str a vCard string
+         * @param len length of `str`, or -1 if `str` is `null` terminated
+         * @param uid a unique ID string
+         * @since 3.12
+         */
+        construct_full(str: string, len: bigint | number, uid: string | null): void;
+
+        /**
+         * Constructs the existing {@link EBookContacts.VCard}, `evc`, setting its vCard data to `str`, and
+         * adding a new UID attribute with the value given in `uid` (if `uid` is
+         * non-`null`).
+         * 
+         * This modifies `evc`.
+         * @param str a vCard string
+         * @param uid a unique ID string
+         * @since 3.4
+         */
+        construct_with_uid(str: string, uid: string | null): void;
+
+        /**
+         * Converts the `self` into the vCard version `to_version` and returns a converted
+         * copy of the `self`. When the `to_version` matches the version of the `self`,
+         * then does nothing and returns `null`.
+         * @param to_version the requested vCard version, one of {@link EBookContacts.VCardVersion}
+         * @returns the `self` converted to `to_version`,    or `null`, when it is in this version already
+         * @since 3.60
+         */
+        convert(to_version: VCardVersion): VCard | null;
+
+        /**
+         * Exports `evc` to a string representation conforming to vCard
+         * version `version`.
+         * @param version the vCard version to export to
+         * @returns A newly allocated string representing the vCard    in version `version`.
+         * @since 3.60
+         */
+        convert_to_string(version: VCardVersion): string;
+
+        /**
+         * Prints a dump of `evc`'s structure to stdout. Used for
+         * debugging.
+         */
+        dump_structure(): void;
+
+        /**
+         * Calls `func` for each attribute in the `self`. The `func` returns `true` to
+         * continue the walk-through, or `false` to stop.
+         * @param flags a bit-or of {@link EBookContacts.VCardForeachFlags}
+         * @param func an {@link EBookContacts.VCardForeachFunc} callback function
+         * @since 3.60
+         */
+        foreach(flags: VCardForeachFlags, func: VCardForeachFunc): void;
+
+        /**
+         * Removes all attributes the `func` returns `true` for.
+         * @param func an {@link EBookContacts.VCardForeachFunc} callback function
+         * @returns how many attributes had been removed
+         * @since 3.60
+         */
+        foreach_remove(func: VCardForeachFunc): number;
+
+        /**
+         * Get the attribute `name` from `evc`.  The {@link EBookContacts.VCardAttribute} is owned by
+         * `evc` and should not be freed. If the attribute does not exist, `null` is
+         * returned.
+         * 
+         * <note><para>This will only return the <emphasis>first</emphasis> attribute
+         * with the given `name`. To get other attributes of that name (for example,
+         * other <code>TEL</code> attributes if a contact has multiple telephone
+         * numbers), use `e_vcard_get_attributes()` and iterate over the list searching
+         * for matching attributes.</para>
+         * <para>This method iterates over all attributes in the {@link EBookContacts.VCard}, so should not
+         * be called often. If extracting a large number of attributes from a vCard, it
+         * is more efficient to iterate once over the list returned by
+         * `e_vcard_get_attributes()`.</para></note>
+         * @param name the name of the attribute to get
+         * @returns An {@link EBookContacts.VCardAttribute} if found, or `null`.
+         */
+        get_attribute(name: string): VCardAttribute | null;
+
+        /**
+         * Similar to `e_vcard_get_attribute()` but this method will not attempt to
+         * parse the vCard if it is not already parsed.
+         * @param name the name of the attribute to get
+         * @returns An {@link EBookContacts.VCardAttribute} if found, or `null`.
+         * @since 3.4
+         */
+        get_attribute_if_parsed(name: string): VCardAttribute | null;
+
+        /**
+         * Gets the list of all attributes from `evcard`. The list and its
+         * contents are owned by `evcard`, and must not be freed.
+         * @returns A list of attributes of type {@link EBookContacts.VCardAttribute}.
+         */
+        get_attributes(): VCardAttribute[];
+
+        /**
+         * Returns all attributes of the name `name` stored in the `self`.
+         * See also `e_vcard_get_attribute()`, which returns the first
+         * found attribute only.
+         * 
+         * The returned {@link EBookContacts.VCardAttribute} -s are owned by the `self` and
+         * they are valid until the `self` changes. The returned {@link GLib.List}
+         * should be freed with `g_list_free()`, when no longer needed.
+         * @param name an attribute name
+         * @returns a new {@link GLib.List}    of {@link EBookContacts.VCardAttribute} objects, which are named `name` and stored in the `self`, or `null`,    when the `self` does not contain any such attribute. The attributes are in the list    in the order as they appear in the `self`.
+         * @since 3.60
+         */
+        get_attributes_by_name(name: string): VCardAttribute[] | null;
+
+        /**
+         * Gets a vCard version of the `self`. The {@link EBookContacts.VCardVersion.UNKNOWN}
+         * is returned only if there is a VERSION attribute, but with an unknown
+         * value. Otherwise an {@link EBookContacts.VCardVersion.40} is used as a fallback version.
+         * @returns a vCard version of the `self`, as one of {@link EBookContacts.VCardVersion}
+         * @since 3.60
+         */
+        get_version(): VCardVersion;
+
+        /**
+         * Check if the `evc` has been parsed already, as {@link EBookContacts.VCard} implements lazy parsing
+         * of its vCard data. Used for debugging.
+         * @returns `true` if `evc` has been parsed, `false` otherwise.
+         * @since 3.2
+         */
+        is_parsed(): boolean;
+
+        /**
+         * Removes `attr` from `evc` and frees it. This takes ownership of `attr`.
+         * @param attr an {@link EBookContacts.VCardAttribute} to remove
+         */
+        remove_attribute(attr: VCardAttribute): void;
+
+        /**
+         * Removes all the attributes with group name and attribute name equal to the
+         * passed in values. If `attr_group` is `null` or an empty string,
+         * it removes all the attributes with passed in name irrespective of
+         * their group names.
+         * @param attr_group group name of attributes to be removed
+         * @param attr_name name of the arributes to be removed
+         */
+        remove_attributes(attr_group: string | null, attr_name: string): void;
+
+        /**
+         * Exports `self` to a string representation. To use a specific vCard version
+         * use `e_vcard_convert_to_string()`.
+         * @returns A newly allocated string representing the vCard.
+         * @since 3.60
+         */
+        to_string(): string;
+
+        /**
+         * @param x_name the attribute name, which starts with "X-"
+         * @returns Value of attribute `x_name`, or `null`,    when there is no such attribute. Free the returned pointer with `g_free()`,    when no longer needed.
+         * @since 3.26
+         */
+        util_dup_x_attribute(x_name: string): string | null;
+
+        /**
+         * Sets an "X-" attribute `x_name` to value `value` in `vcard`, or
+         * removes it from `vcard`, when `value` is `null`.
+         * @param x_name the attribute name, which starts with "X-"
+         * @param value the value to set, or `null` to unset
+         * @since 3.26
+         */
+        util_set_x_attribute(x_name: string, value: string | null): void;
+    }
+
+
+    /**
+     * Western address structure.
+     * @gir-type Struct
+     */
+    class AddressWestern {
+        static $gtype: GObject.GType<AddressWestern>;
+
+        // Fields
+        po_box: string;
+
+        extended: string;
+
+        street: string;
+
+        locality: string;
+
+        region: string;
+
+        postal_code: string;
+
+        country: string;
+
+        // Constructors
+
+        constructor(properties?: Partial<{
+            po_box: string;
+            extended: string;
+            street: string;
+            locality: string;
+            region: string;
+            postal_code: string;
+            country: string;
+        }>);
+
+        // Static methods
+        /**
+         * Parses a string representing a mailing address into a
+         * structure of type {@link EBookContacts.AddressWestern}.
+         * @param in_address a string representing a mailing address
+         */
+        static parse(in_address: string | null): AddressWestern | null;
+
+        // Methods
+        /**
+         * Creates a copy of `eaw`.
+         * @returns A new {@link EBookContacts.AddressWestern} struct identical to `eaw`.
+         * @since 3.24
+         */
+        copy(): AddressWestern;
+
+        /**
+         * Frees `eaw` and its contents.
+         */
+        free(): void;
+    }
+
+
+    /**
+     * This is a part of the deprecated `EBook` API.
+     * @gir-type Struct
+     * @deprecated since 3.2
+     */
+    class BookChange {
+        static $gtype: GObject.GType<BookChange>;
+
+        // Fields
+        change_type: BookChangeType;
+
+        contact: Contact;
+    }
+
+
+    /**
+     * This is a structure describing sort settings in the view.
+     * See `e_book_client_view_set_sort_fields_sync()` for more information.
+     * @gir-type Struct
+     * @since 3.50
+     */
+    class BookClientViewSortFields {
+        static $gtype: GObject.GType<BookClientViewSortFields>;
+
+        // Fields
+        field: ContactField;
+
+        sort_type: BookCursorSortType;
+
+        // Methods
+        /**
+         * Creates a copy of the `src`. If the %src is `null`, the `null` is returned.
+         * Both the `src` and the returned array is terminated by an item, which has
+         * the field member set to {@link EBookContacts.ContactField.FIELD_LAST}.
+         * 
+         * Free the returned array with `e_book_client_view_sort_fields_free()`,
+         * when no longer needed.
+         * @returns copy of the `src`
+         * @since 3.50
+         */
+        copy(): BookClientViewSortFields;
+
+        /**
+         * Frees the `fields` array with each member. The array should be terminated
+         * by an item with field member set to {@link EBookContacts.ContactField.FIELD_LAST}.
+         */
+        free(): void;
+    }
+
+
+    /**
+     * This is a structure describing indices of the contacts in the view.
+     * See `e_book_client_view_dup_indices()` for more information.
+     * @gir-type Struct
+     * @since 3.50
+     */
+    class BookIndices {
+        static $gtype: GObject.GType<BookIndices>;
+
+        // Fields
+        chr: string;
+
+        index: number;
+
+        // Constructors
+
+        constructor(properties?: Partial<{
+            chr: string;
+            index: number;
+        }>);
+
+        // Static methods
+        /**
+         * Returns whether the `self` considers contacts stored in the ascending order.
+         * @param self an {@link EBookContacts.BookIndicesUpdater}
+         * @since 3.50
+         */
+        static get_ascending_sort(self: BookIndicesUpdater): boolean;
+
+        /**
+         * Sets whether the contacts are sorted in an ascending order; if not,
+         * then they are sorted in the descending order. That influences what
+         * indexes the indices have set.
+         * @param self an {@link EBookContacts.BookIndicesUpdater}
+         * @param ascending_sort the value to set
+         * @since 3.50
+         */
+        static set_ascending_sort(self: BookIndicesUpdater, ascending_sort: boolean): void;
+
+        // Methods
+        /**
+         * Creates a copy of the `src`. If the %src is `null`, the `null` is returned.
+         * Both the `src` and the returned array is terminated by an item, which has
+         * the chr member set to `null`.
+         * 
+         * Free the returned array with `e_book_indices_free()`,
+         * when no longer needed.
+         * @returns copy of the `src`
+         * @since 3.50
+         */
+        copy(): BookIndices;
+
+        /**
+         * Frees the `indices` array with each member. The array should be terminated
+         * by an item with chr member set to `null`.
+         */
+        free(): void;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type BookIndicesUpdaterClass = typeof BookIndicesUpdater;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class BookIndicesUpdaterPrivate {
+        static $gtype: GObject.GType<BookIndicesUpdaterPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class BookQuery {
+        static $gtype: GObject.GType<BookQuery>;
+
+        // Static methods
+        /**
+         * Create a new {@link EBookContacts.BookQuery} which is the logical AND of the queries in #qs.
+         * @param nqs the number of queries to AND
+         * @param qs pointer to an array of {@link EBookContacts.BookQuery} items
+         * @param unref if `true`, the new query takes ownership of the existing queries
+         */
+        static and(nqs: number, qs: BookQuery, unref: boolean): BookQuery;
+
+        /**
+         * Creates a new {@link EBookContacts.BookQuery} which tests if any field contains `value`.
+         * @param value a value
+         */
+        static any_field_contains(value: string): BookQuery;
+
+        /**
+         * Creates a new {@link EBookContacts.BookQuery} which tests if the field `field` exists.
+         * @param field an {@link EBookContacts.ContactField}
+         */
+        static field_exists(field: ContactField): BookQuery;
+
+        /**
+         * Creates a new {@link EBookContacts.BookQuery} which tests `field` for `value` using the test `test`.
+         * @param field an {@link EBookContacts.ContactField} to test
+         * @param test the test to apply
+         * @param value the value to test for
+         */
+        static field_test(field: ContactField, test: BookQueryTest, value: string): BookQuery;
+
+        /**
+         * Parse `query_string` and return a new {@link EBookContacts.BookQuery} representing it.
+         * @param query_string the query
+         */
+        static from_string(query_string: string): BookQuery;
+
+        /**
+         * Creates a new {@link EBookContacts.BookQuery} which is the logical OR of the queries in #qs.
+         * @param nqs the number of queries to OR
+         * @param qs pointer to an array of {@link EBookContacts.BookQuery} items
+         * @param unref if `true`, the new query takes ownership of the existing queries
+         */
+        static or(nqs: number, qs: BookQuery, unref: boolean): BookQuery;
+
+        /**
+         * Creates a new {@link EBookContacts.BookQuery} which tests if the field `field` exists. `field`
+         * should be a vCard field name, such as #EVC_FN or #EVC_X_MSN.
+         * @param field a field name
+         */
+        static vcard_field_exists(field: string): BookQuery;
+
+        /**
+         * Creates a new {@link EBookContacts.BookQuery} which tests `field` for `value` using the test `test`.
+         * @param field a EVCard field name to test
+         * @param test the test to apply
+         * @param value the value to test for
+         * @since 2.22
+         */
+        static vcard_field_test(field: string, test: BookQueryTest, value: string): BookQuery;
+
+        // Methods
+        /**
+         * Creates a copy of `q`.
+         * @returns A new {@link EBookContacts.BookQuery} identical to `q`.
+         */
+        copy(): BookQuery;
+
+        /**
+         * Creates a new {@link EBookContacts.BookQuery} which is the opposite of #q.
+         * @param unref if `true`, the new query takes ownership of the existing queries
+         * @returns the new {@link EBookContacts.BookQuery}
+         */
+        not(unref: boolean): BookQuery;
+
+        /**
+         * Increment the reference count on `q`.
+         * @returns `q`
+         */
+        ref(): BookQuery;
+
+        /**
+         * Return the string representation of `q`.
+         * @returns The string form of the query. This string should be freed when finished with.
+         */
+        to_string(): string;
+
+        /**
+         * Decrement the reference count on `q`. When the reference count reaches 0, `q`
+         * will be freed and any child queries will have `e_book_query_unref()` called.
+         */
+        unref(): void;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class ContactAddress {
+        static $gtype: GObject.GType<ContactAddress>;
+
+        // Fields
+        address_format: string;
+
+        po: string;
+
+        ext: string;
+
+        street: string;
+
+        locality: string;
+
+        region: string;
+
+        code: string;
+
+        country: string;
+
+        // Constructors
+
+        constructor(properties?: Partial<{
+            address_format: string;
+            po: string;
+            ext: string;
+            street: string;
+            locality: string;
+            region: string;
+            code: string;
+            country: string;
+        }>);
+
+        static ["new"](): ContactAddress;
+
+        // Methods
+        /**
+         * Frees all the members of the `self`, but unlike `e_contact_address_free()`,
+         * it does not free the `self` itself.
+         * @since 3.60
+         */
+        clear(): void;
+
+        /**
+         * Frees the `address` struct and its contents.
+         */
+        free(): void;
+
+        /**
+         * Populates `self` from the `source` attribute.
+         * @param source an ADR {@link EBookContacts.VCardAttribute}
+         * @since 3.60
+         */
+        read_attr(source: VCardAttribute): void;
+
+        /**
+         * Populates ADR attribute `destination` with the data from the `self`.
+         * @param destination an {@link EBookContacts.VCardAttribute}
+         * @since 3.60
+         */
+        write_attr(destination: VCardAttribute): VCardAttribute;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class ContactCert {
+        static $gtype: GObject.GType<ContactCert>;
+
+        // Fields
+        length: number;
+
+        data: string;
+
+        // Constructors
+
+        constructor(properties?: Partial<{
+            length: number;
+            data: string;
+        }>);
+
+        static ["new"](): ContactCert;
+
+        // Static methods
+        /**
+         * Creates a new {@link EBookContacts.ContactCert} structure with the information
+         * from the `source` attribute. Returns `null`, when
+         * the information in the `source` could not be stored
+         * in the structure (for example when the KEY attribute
+         * is a URI to some server).
+         * @param source a source {@link EBookContacts.VCardAttribute}
+         * @since 3.60
+         */
+        static from_attr(source: VCardAttribute): ContactCert | null;
+
+        // Methods
+        /**
+         * Frees the `cert` struct and its contents.
+         */
+        free(): void;
+
+        /**
+         * Populates the `destination` with the data from the `self`,
+         * using format suitable to `to_version` vCard version. The
+         * function does nothing when the `self` is an empty structure.
+         * The `destination` is supposed to be a KEY attribute.
+         * @param to_version one of {@link EBookContacts.VCardVersion}
+         * @param destination a destination {@link EBookContacts.VCardAttribute}
+         * @since 3.60
+         */
+        write_attr(to_version: VCardVersion, destination: VCardAttribute): void;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ContactClass = typeof Contact;
+
+    /**
+     * @gir-type Struct
+     */
+    class ContactDate {
+        static $gtype: GObject.GType<ContactDate>;
+
+        // Fields
+        year: number;
+
+        month: number;
+
+        day: number;
+
+        // Constructors
+
+        constructor(properties?: Partial<{
+            year: number;
+            month: number;
+            day: number;
+        }>);
+
+        static ["new"](): ContactDate;
+
+        // Static methods
+        /**
+         * Creates a new {@link EBookContacts.ContactDate} based on `str`.
+         * @param str a date string in the format YYYY-MM-DD or YYYYMMDD
+         */
+        static from_string(str: string): ContactDate;
+
+        // Methods
+        /**
+         * Checks if `dt1` and `dt2` are the same date.
+         * @param dt2 an {@link EBookContacts.ContactDate}
+         * @returns `true` if `dt1` and `dt2` are equal, `false` otherwise.
+         */
+        equal(dt2: ContactDate): boolean;
+
+        /**
+         * Frees the `date` struct and its contents.
+         */
+        free(): void;
+
+        /**
+         * Generates a date string in the format YYYY-MM-DD based
+         * on the values of `dt`.
+         * @param for_version an {@link EBookContacts.VCardVersion}
+         * @returns A date string, owned by the caller.
+         * @since 3.60
+         */
+        to_string(for_version: VCardVersion): string;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class ContactDateTime {
+        static $gtype: GObject.GType<ContactDateTime>;
+
+        // Fields
+        year: number;
+
+        month: number;
+
+        day: number;
+
+        hour: number;
+
+        minute: number;
+
+        second: number;
+
+        utc_offset: number;
+
+        // Constructors
+
+        constructor(properties?: Partial<{
+            year: number;
+            month: number;
+            day: number;
+            hour: number;
+            minute: number;
+            second: number;
+            utc_offset: number;
+        }>);
+
+        static ["new"](): ContactDateTime;
+
+        // Static methods
+        /**
+         * Creates a new {@link EBookContacts.ContactDateTime} based on `str`.
+         * @param str a date, time, date-time string in vCard format
+         * @param flags 
+         * @since 3.60
+         */
+        static from_string(str: string, flags: ContactDateTimeFlags): ContactDateTime;
+
+        // Methods
+        /**
+         * Checks if `dt1` and `dt2` are the same date time.
+         * @param dt2 an {@link EBookContacts.ContactDateTime}
+         * @returns `true` if `dt1` and `dt2` are equal, `false` otherwise.
+         * @since 3.60
+         */
+        equal(dt2: ContactDateTime): boolean;
+
+        /**
+         * Frees the `self` struct and its content.
+         * @since 3.60
+         */
+        free(): void;
+
+        /**
+         * Checks whether the `self` has set at least one of the date members.
+         * @returns whether the `self` has set at least one of the date members
+         * @since 3.60
+         */
+        has_date(): boolean;
+
+        /**
+         * Checks whether the `self` has set at least one of the time members.
+         * @returns whether the `self` has set at least one of the time members
+         * @since 3.60
+         */
+        has_time(): boolean;
+
+        /**
+         * Generates a date/time string in the `for_version` format used by vCard standard,
+         * omitting unset values of the `self`. Free the returned string with
+         * `g_free()`, when no longer needed.
+         * @param for_version an {@link EBookContacts.VCardVersion} with version to use the format for
+         * @param flags bit-or of {@link EBookContacts.ContactDateTimeFlags}
+         * @returns a new date/time string, or `null`,    when `self` is `null` or when all members are unset.
+         * @since 3.60
+         */
+        to_string(for_version: VCardVersion, flags: ContactDateTimeFlags): string | null;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class ContactGender {
+        static $gtype: GObject.GType<ContactGender>;
+
+        // Fields
+        sex: ContactGenderSex;
+
+        identity: string;
+
+        // Constructors
+
+        constructor(properties?: Partial<{
+            sex: ContactGenderSex;
+            identity: string;
+        }>);
+
+        static ["new"](): ContactGender;
+
+        // Static methods
+        /**
+         * Converts a string into an {@link EBookContacts.ContactGenderSex}. Unrecognized values
+         * are returned as {@link EBookContacts.ContactGenderSex.NOT_SET}.
+         * @param string a string representation of a gender sex
+         * @since 3.60
+         */
+        static sex_from_string(string: string): ContactGenderSex;
+
+        /**
+         * Converts the `sex` into a string, as used by the vCard 4.0 standard.
+         * @param sex an {@link EBookContacts.ContactGenderSex}
+         * @since 3.60
+         */
+        static sex_to_string(sex: ContactGenderSex): string | null;
+
+        // Methods
+        /**
+         * Creates a copy of the `self`. Returns `null` when `self` is `null`.
+         * Free it with `e_contact_gender_free()`, when no longer needed.
+         * @returns a new copy of    the `self`, or `null` when the `self` is `null`
+         * @since 3.60
+         */
+        copy(): ContactGender | null;
+
+        /**
+         * Frees the `self`. Does nothing, when `self` is `null`.
+         * @since 3.60
+         */
+        free(): void;
+    }
+
+
+    /**
+     * @gir-type Struct
+     * @since 1.12
+     */
+    class ContactGeo {
+        static $gtype: GObject.GType<ContactGeo>;
+
+        // Fields
+        latitude: number;
+
+        longitude: number;
+
+        // Constructors
+
+        constructor(properties?: Partial<{
+            latitude: number;
+            longitude: number;
+        }>);
+
+        static ["new"](): ContactGeo;
+
+        // Static methods
+        /**
+         * Creates a new {@link EBookContacts.ContactGeo}, which has set latitude
+         * and longitude from the provided strings.
+         * @param latitude a text representation of the latitude
+         * @param longitude a text representation of the longitude
+         * @since 3.60
+         */
+        static from_string(latitude: string, longitude: string): ContactGeo | null;
+
+        // Methods
+        /**
+         * Frees the `geo` struct and its contents.
+         * @since 1.12
+         */
+        free(): void;
+
+        /**
+         * Converts latitude and longitude of the `self` into string.
+         * Free the returned strings with `g_free()`, when no longer needed.
+         * 
+         * Note: the numbers are converted up to 6 digits after the decimal point.
+         * @returns `true`, when the `self` contained latitude and longitude    and the out arguments were populated, `false` otherwise, which    also means the out arguments were not modified.
+         * @since 3.60
+         */
+        to_string(): [boolean, string, string];
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class ContactName {
+        static $gtype: GObject.GType<ContactName>;
+
+        // Fields
+        family: string;
+
+        given: string;
+
+        additional: string;
+
+        prefixes: string;
+
+        suffixes: string;
+
+        // Constructors
+
+        constructor(properties?: Partial<{
+            family: string;
+            given: string;
+            additional: string;
+            prefixes: string;
+            suffixes: string;
+        }>);
+
+        static ["new"](): ContactName;
+
+        // Static methods
+        /**
+         * Creates a new {@link EBookContacts.ContactName} based on the parsed `name_str`.
+         * @param name_str a string representing a contact's full name
+         */
+        static from_string(name_str: string): ContactName;
+
+        // Methods
+        /**
+         * Creates a copy of `n`.
+         * @returns A new {@link EBookContacts.ContactName} identical to `n`.
+         */
+        copy(): ContactName;
+
+        /**
+         * Frees `name` and its contents.
+         */
+        free(): void;
+
+        /**
+         * Generates a string representation of `name`.
+         * @returns The string representation of `name`.
+         */
+        to_string(): string;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class ContactPhoto {
+        static $gtype: GObject.GType<ContactPhoto>;
+
+        // Fields
+        type: ContactPhotoType;
+
+        // Constructors
+
+        constructor(properties?: Partial<{
+            type: ContactPhotoType;
+        }>);
+
+        static ["new"](): ContactPhoto;
+
+        // Methods
+        /**
+         * Creates a copy of `photo`.
+         * @returns A new {@link EBookContacts.ContactPhoto} struct identical to `photo`.
+         * @since 3.8
+         */
+        copy(): ContactPhoto;
+
+        /**
+         * Frees the `photo` struct and its contents.
+         */
+        free(): void;
+
+        /**
+         * Gets the `photo`'s data.
+         * @returns the inlined image in the {@link EBookContacts.ContactPhoto}, or `null` if it has not been set.
+         * @since 3.2
+         */
+        get_inlined(): Uint8Array | null;
+
+        /**
+         * Gets the `photo`'s mime type.
+         * @returns the MIME type of the image, or `null` if it has not been set.
+         * @since 3.2
+         */
+        get_mime_type(): string | null;
+
+        /**
+         * Gets the `photo`'s URI.
+         * @returns the URI of the image, or `null` if it has not been set
+         * @since 3.2
+         */
+        get_uri(): string | null;
+
+        /**
+         * Sets the `photo`'s inlined data.
+         * @param data the inlined image data
+         * @since 3.2
+         */
+        set_inlined(data: Uint8Array | string): void;
+
+        /**
+         * Sets the `photo`'s mime type.
+         * @param mime_type the mime type
+         * @since 3.2
+         */
+        set_mime_type(mime_type: string): void;
+
+        /**
+         * Sets the `photo`'s URI.
+         * @param uri the `photo`'s URI
+         * @since 3.2
+         */
+        set_uri(uri: string): void;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ContactPrivate {
+        static $gtype: GObject.GType<ContactPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class NameWestern {
+        static $gtype: GObject.GType<NameWestern>;
+
+        // Fields
+        prefix: string;
+
+        first: string;
+
+        middle: string;
+
+        nick: string;
+
+        last: string;
+
+        suffix: string;
+
+        full: string;
+
+        // Constructors
+
+        constructor(properties?: Partial<{
+            prefix: string;
+            first: string;
+            middle: string;
+            nick: string;
+            last: string;
+            suffix: string;
+            full: string;
+        }>);
+
+        // Static methods
+        /**
+         * Parses `full_name` and returns an {@link EBookContacts.NameWestern} struct filled with
+         * the component parts of the name.
+         * @param full_name A string containing a western name.
+         */
+        static parse(full_name: string): NameWestern;
+
+        // Methods
+        /**
+         * Creates a copy of `w`.
+         * @returns A new {@link EBookContacts.NameWestern} struct identical to `w`.
+         * @since 3.24
+         */
+        copy(): NameWestern;
+
+        /**
+         * Frees the `w` struct and its contents.
+         */
+        free(): void;
+    }
+
+
+    /**
+     * This opaque type describes a parsed phone number. It can be copied using
+     * `e_phone_number_copy()`. To release it call `e_phone_number_free()`.
+     * @gir-type Struct
+     * @since 3.8
+     */
+    abstract class PhoneNumber {
+        static $gtype: GObject.GType<PhoneNumber>;
+
+        // Static methods
+        /**
+         * Compares two phone numbers.
+         * @param first_number the first EPhoneNumber to compare
+         * @param second_number the second EPhoneNumber to compare
+         * @since 3.8
+         */
+        static compare_strings(first_number: string, second_number: string): PhoneNumberMatch;
+
+        /**
+         * Compares two phone numbers within the context of `region_code`.
+         * @param first_number the first EPhoneNumber to compare
+         * @param second_number the second EPhoneNumber to compare
+         * @param region_code a two-letter country code, or `null`
+         * @since 3.8
+         */
+        static compare_strings_with_region(first_number: string, second_number: string, region_code: string | null): PhoneNumberMatch;
+
+        static error_quark(): GLib.Quark;
+
+        /**
+         * Parses the string passed in `phone_number`. Note that no validation is
+         * performed whether the recognized phone number is valid for a particular
+         * region.
+         * 
+         * The two-letter country code passed in `region_code` only is used if the
+         * `phone_number` is not written in international format. The application's
+         * default region as returned by `e_phone_number_get_default_region()` is used
+         * if `region_code` is `null`.
+         * 
+         * If the number is guaranteed to start with a '+' followed by the country
+         * calling code, then "ZZ" can be passed for `region_code`.
+         * @param phone_number the phone number to parse
+         * @param region_code a two-letter country code, or `null`
+         * @since 3.8
+         */
+        static from_string(phone_number: string, region_code: string | null): PhoneNumber;
+
+        /**
+         * Retrieves the preferred country calling code for `region_code`,
+         * e.g. 358 for "fi" or 1 for "en_US@UTF-8".
+         * 
+         * If `null` is passed for `region_code` the default region as returned by
+         * `e_phone_number_get_default_region()` is used.
+         * @param region_code a two-letter country code, a locale name, or `null`
+         * @since 3.8
+         */
+        static get_country_code_for_region(region_code: string | null): number;
+
+        /**
+         * Retrieves the current two-letter country code that's used by default for
+         * parsing phone numbers in `e_phone_number_from_string()`. It can be useful
+         * to store this number before parsing a bigger number of phone numbers.
+         * 
+         * The result of this functions depends on the current setup of the
+         * `LC_ADDRESS` category: If that category provides a reasonable value
+         * for %_NL_ADDRESS_COUNTRY_AB2 this value is returned. Otherwise the
+         * locale name configured for `LC_ADDRESS` is parsed.
+         * @since 3.8
+         */
+        static get_default_region(): string;
+
+        /**
+         * Checks if phone number support is available. It is recommended to call this
+         * function before using any of the phone-utils functions to ensure that the
+         * required functionality is available, and to pick alternative mechanisms if
+         * needed.
+         * @since 3.8
+         */
+        static is_supported(): boolean;
+
+        // Methods
+        /**
+         * Compares two phone numbers.
+         * @param second_number the second EPhoneNumber to compare
+         * @returns The quality of matching for the two phone numbers.
+         * @since 3.8
+         */
+        compare(second_number: PhoneNumber): PhoneNumberMatch;
+
+        /**
+         * Makes a copy of `phone_number`.
+         * @returns A newly allocated EPhoneNumber instance. Call `e_phone_number_free()` to release this instance.
+         * @since 3.8
+         */
+        copy(): PhoneNumber;
+
+        /**
+         * Released the memory occupied by `phone_number`.
+         * @since 3.8
+         */
+        free(): void;
+
+        /**
+         * Queries the `phone_number`'s country calling code and optionally stores the country
+         * calling code's origin in `source`. For instance when parsing "+1-617-5423789" this
+         * function would return one and assign E_PHONE_NUMBER_COUNTRY_FROM_FQTN to `source`.
+         * @param source an optional location for storing the phone number's origin, or `null`
+         * @returns A valid country calling code, or zero if no code is known.
+         * @since 3.8
+         */
+        get_country_code(source: PhoneNumberCountrySource | null): number;
+
+        /**
+         * Queries the national portion of `phone_number` without any call-out
+         * prefixes. For instance when parsing "+1-617-5423789" this function would
+         * return the string "6175423789".
+         * @returns The national portion of `phone_number`.
+         * @since 3.8
+         */
+        get_national_number(): string;
+
+        /**
+         * Describes the `phone_number` according to the rules applying to `format`.
+         * @param format the phone number format to apply
+         * @returns A formatted string for `phone_number`.
+         * @since 3.8
+         */
+        to_string(format: PhoneNumberFormat): string;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceBackendSummarySetupClass = typeof SourceBackendSummarySetup;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceBackendSummarySetupPrivate {
+        static $gtype: GObject.GType<SourceBackendSummarySetupPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class VCardAttribute {
+        static $gtype: GObject.GType<VCardAttribute>;
+
+        // Constructors
+        constructor(attr_group: string | null, attr_name: string);
+
+        static ["new"](attr_group: string | null, attr_name: string): VCardAttribute;
+
+        // Methods
+        /**
+         * Prepends `param` to `attr`'s list of parameters. This takes ownership of
+         * `param` (and all its values).
+         * 
+         * Duplicate parameters have their values merged, so that all parameter names
+         * in `attr` are unique. Values are also merged so that uniqueness is preserved.
+         * @param param an {@link EBookContacts.VCardAttributeParam} to add
+         */
+        add_param(param: VCardAttributeParam): void;
+
+        /**
+         * Appends `value` to `param`, then prepends `param` to `attr`. This takes ownership
+         * of `param`, but not of `value`.
+         * 
+         * This is a convenience method for `e_vcard_attribute_param_add_value()` and
+         * `e_vcard_attribute_add_param()`.
+         * @param param an {@link EBookContacts.VCardAttributeParam}
+         * @param value a string value
+         */
+        add_param_with_value(param: VCardAttributeParam, value: string): void;
+
+        /**
+         * Appends `value` to `attr`'s list of values.
+         * 
+         * See also `e_vcard_attribute_add_value_take()`.
+         * @param value a string value
+         */
+        add_value(value: string): void;
+
+        /**
+         * Encodes `value` according to the encoding used for `attr`, and appends it to
+         * `attr`'s list of values.
+         * 
+         * This should only be used if the {@link EBookContacts.VCardAttribute} has a non-raw encoding (i.e.
+         * if it’s encoded in base-64 or quoted-printable encoding).
+         * @param value an encoded value
+         * @param len the length of the encoded value, in bytes
+         */
+        add_value_decoded(value: string, len: number): void;
+
+        /**
+         * Appends `value` to `attr`'s list of values, assuming ownership
+         * of the `value`.
+         * 
+         * See also `e_vcard_attribute_add_value()`.
+         * @param value a value to add and take
+         * @since 3.60
+         */
+        add_value_take(value: string): void;
+
+        /**
+         * Makes a copy of `attr`.
+         * @returns A new {@link EBookContacts.VCardAttribute} identical to `attr`.
+         */
+        copy(): VCardAttribute;
+
+        /**
+         * Frees an attribute, its values and its parameters.
+         */
+        free(): void;
+
+        /**
+         * Gets the group name of `attr`.
+         * @returns The attribute's group name, or `null`.
+         */
+        get_group(): string | null;
+
+        /**
+         * Gets how many values the `attr` holds.
+         * @returns how many values the `attr` holds
+         * @since 3.60
+         */
+        get_n_values(): number;
+
+        /**
+         * Gets the name of `attr`.
+         * @returns The attribute's name.
+         */
+        get_name(): string;
+
+        /**
+         * Gets the value at index `index` (counting from zero), of the `attr`.
+         * The value is owned by the `attr` and is valid until the `attr` changes
+         * or is freed. The `index` can be out of bounds, then a `null` is returned.
+         * Use `e_vcard_attribute_get_n_values`() to check how many values
+         * the `attr` has stored.
+         * @param index an index of the value to receive, counting from zero
+         * @returns a value at index `index`, or `null`, when out of bounds.
+         * @since 3.60
+         */
+        get_nth_value(index: number): string | null;
+
+        /**
+         * Gets the list of values for the paramater `name` from `attr`. The list and its
+         * contents are owned by `attr`, and must not be freed. If no parameter with the
+         * given `name` exists, `null` is returned.
+         * @param name a parameter name
+         * @returns A list of string elements representing the parameter's values, or `null`.
+         */
+        get_param(name: string): string[] | null;
+
+        /**
+         * Gets the list of parameters (of type {@link EBookContacts.VCardAttributeParam}) from `attr`. The
+         * list and its contents are owned by `attr`, and must not be freed.
+         * @returns A list of elements of type {@link EBookContacts.VCardAttributeParam}.
+         */
+        get_params(): VCardAttributeParam[];
+
+        /**
+         * Gets the value of a single-valued {@link EBookContacts.VCardAttribute}, `attr`.
+         * 
+         * For example, for a <code>FN</code> (full name) attribute, this will
+         * return the contact’s full name as a single string.
+         * 
+         * This will print a warning if called on an {@link EBookContacts.VCardAttribute} which is not
+         * single-valued (i.e. for which `e_vcard_attribute_is_single_valued()` returns
+         * `false`). Use `e_vcard_attribute_get_values()` in such cases instead.
+         * @returns A newly allocated string representing the value, or `null` if the attribute has no value.
+         */
+        get_value(): string | null;
+
+        /**
+         * Gets the value of a single-valued {@link EBookContacts.VCardAttribute}, `attr`, decoding
+         * it if necessary according to the encoding given in the vCard’s
+         * <code>ENCODING</code> attribute.
+         * 
+         * This will print a warning if called on an {@link EBookContacts.VCardAttribute} which is not
+         * single-valued (i.e. for which `e_vcard_attribute_is_single_valued()` returns
+         * `false`). Use `e_vcard_attribute_get_values_decoded()` in such cases instead.
+         * @returns A newly allocated {@link GLib.String} representing the value, or `null` if the attribute has no value.
+         */
+        get_value_decoded(): GLib.String | null;
+
+        /**
+         * Gets the ordered list of values from `attr`. The list and its
+         * contents are owned by `attr`, and must not be freed.
+         * 
+         * For example, for an <code>ADR</code> (postal address) attribute, this will
+         * return the components of the postal address.
+         * 
+         * This may be called on a single-valued attribute (i.e. one for which
+         * `e_vcard_attribute_is_single_valued()` returns `true`) and will return a
+         * one-element list in that case. Alternatively, use
+         * `e_vcard_attribute_get_value()` in such cases.
+         * @returns A list of string values. They will all be non-`null`, but may be empty strings. The list itself may be empty.
+         */
+        get_values(): string[];
+
+        /**
+         * Gets the ordered list of values from `attr`, decoding them if
+         * necessary according to the encoding given in the vCard’s
+         * <code>ENCODING</code> attribute. The list and its contents are owned by
+         * `attr`, and must not be freed.
+         * 
+         * This may be called on a single-valued attribute (i.e. one for which
+         * `e_vcard_attribute_is_single_valued()` returns `true`) and will return a
+         * one-element list in that case. Alternatively, use
+         * `e_vcard_attribute_get_value_decoded()` in such cases.
+         * @returns A list of values of type {@link GLib.String}.
+         */
+        get_values_decoded(): GLib.String[];
+
+        /**
+         * Checks if `attr` has an {@link EBookContacts.VCardAttributeParam} with name `EVC_TYPE` and `typestr`
+         * as one of its values.
+         * 
+         * For example, for the vCard attribute:
+         * 
+         * ```
+         * TEL;TYPE=WORK,VOICE:(111) 555-1212
+         * ```
+         * 
+         * the following holds true:
+         * 
+         * ```
+         * g_assert_true (e_vcard_attribute_has_type (attr, "WORK") == TRUE);
+         * g_assert_true (e_vcard_attribute_has_type (attr, "voice") == TRUE);
+         * g_assert_true (e_vcard_attribute_has_type (attr, "HOME") == FALSE);
+         * ```
+         * 
+         * 
+         * Comparisons against `typestr` are case-insensitive.
+         * @param typestr a string representing the type
+         * @returns `true` if such a parameter exists, `false` otherwise.
+         */
+        has_type(typestr: string): boolean;
+
+        /**
+         * Checks if `attr` has a single value.
+         * @returns `true` if the attribute has exactly one value, `false` otherwise.
+         */
+        is_single_valued(): boolean;
+
+        /**
+         * Removes and frees parameter `param_name` from the attribute `attr`. Parameter
+         * names are guaranteed to be unique, so `attr` is guaranteed to have no
+         * parameters named `param_name` after this function returns.
+         * @param param_name a parameter name
+         * @since 1.12
+         */
+        remove_param(param_name: string): void;
+
+        /**
+         * Removes the value `s` from the parameter `param_name` on the attribute `attr`.
+         * If `s` was the only value for parameter `param_name`, that parameter is removed
+         * entirely from `attr` and freed.
+         * @param param_name a parameter name
+         * @param s a value
+         */
+        remove_param_value(param_name: string, s: string): void;
+
+        /**
+         * Removes and frees all parameters from `attr`.
+         * 
+         * This also resets the {@link EBookContacts.VCardAttribute}'s encoding back to raw.
+         */
+        remove_params(): void;
+
+        /**
+         * Removes value `s` from the value list in `attr`. The value `s` is not freed.
+         * @param s a value to remove
+         */
+        remove_value(s: string): void;
+
+        /**
+         * Removes and frees all values from `attr`.
+         */
+        remove_values(): void;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class VCardAttributeParam {
+        static $gtype: GObject.GType<VCardAttributeParam>;
+
+        // Constructors
+        constructor(name: string);
+
+        static ["new"](name: string): VCardAttributeParam;
+
+        // Methods
+        /**
+         * Appends `value` to `param`'s list of values.
+         * @param value a string value to add
+         */
+        add_value(value: string): void;
+
+        /**
+         * Makes a copy of `param` and all its values.
+         * @returns a new {@link EBookContacts.VCardAttributeParam} identical to `param`.
+         */
+        copy(): VCardAttributeParam;
+
+        /**
+         * Frees `param` and its values.
+         */
+        free(): void;
+
+        /**
+         * Gets the name of `param`.
+         * 
+         * For example, for the only parameter of the vCard attribute:
+         * 
+         * ```
+         * TEL;TYPE=WORK,VOICE:(111) 555-1212
+         * ```
+         * 
+         * this would return <code>TYPE</code> (which is string-equivalent to
+         * `EVC_TYPE`).
+         * @returns The name of the parameter.
+         */
+        get_name(): string;
+
+        /**
+         * Gets the list of values from `param`. The list and its
+         * contents are owned by `param`, and must not be freed.
+         * 
+         * For example, for the <code>TYPE</code> parameter of the vCard attribute:
+         * 
+         * ```
+         * TEL;TYPE=WORK,VOICE:(111) 555-1212
+         * ```
+         * 
+         * this would return the list <code>WORK</code>, <code>VOICE</code>.
+         * @returns A list of string elements representing the parameter's values.
+         */
+        get_values(): string[];
+
+        /**
+         * Removes and frees all values from `param`.
+         */
+        remove_values(): void;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type VCardClass = typeof VCard;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class VCardPrivate {
+        static $gtype: GObject.GType<VCardPrivate>;
+    }
+
+
+    /**
+     * Name of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L188
+     */
+    const __name__: string;
+
+    /**
+     * Version of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L189
+     */
+    const __version__: string;
+}
+
+export default EBookContacts;
+
+}
+
+declare module 'gi://EBookContacts' {
+    import EBookContacts12 from 'gi://EBookContacts?version=1.2';
+    export default EBookContacts12;
+}
+// END

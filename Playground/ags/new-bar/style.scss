@@ -1,0 +1,27 @@
+window {
+    background: #1e1e2e;
+    opacity: 0.8;
+    color: #cdd6f4;
+    padding: 6px 14px;
+}
+
+label {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+button.workspace{
+    background: #313244;
+    color: #cdd6f4;
+    border-radius: 8px;
+    border: none;
+    box-shadow: none;
+}
+
+button.active{
+    background: #cba6f7;
+    color: #1e1e2e;
+    border-radius: 8px;
+    border: none;
+    box-shadow: none;
+}

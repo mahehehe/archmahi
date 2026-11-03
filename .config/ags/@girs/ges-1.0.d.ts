@@ -1,0 +1,20300 @@
+/// <reference path="./gstvideo-1.0.d.ts" />
+/// <reference path="./gstbase-1.0.d.ts" />
+/// <reference path="./gst-1.0.d.ts" />
+/// <reference path="./gobject-2.0.d.ts" />
+/// <reference path="./glib-2.0.d.ts" />
+/// <reference path="./gmodule-2.0.d.ts" />
+/// <reference path="./gstpbutils-1.0.d.ts" />
+/// <reference path="./gstaudio-1.0.d.ts" />
+/// <reference path="./gio-2.0.d.ts" />
+
+/**
+ * Type Definitions for Gjs (https://gjs.guide/)
+ *
+ * These type definitions are automatically generated, do not edit them by hand.
+ * If you found a bug fix it in `ts-for-gir` or create a bug report on https://github.com/gjsify/ts-for-gir
+ *
+ * The based EJS template file is used for the generated .d.ts file of each GIR module like Gtk-4.0, GObject-2.0, ...
+ */
+
+declare module 'gi://GES?version=1.0' {
+
+// Module dependencies
+import type GstVideo from 'gi://GstVideo?version=1.0';
+import type GstBase from 'gi://GstBase?version=1.0';
+import type Gst from 'gi://Gst?version=1.0';
+import type GObject from 'gi://GObject?version=2.0';
+import type GLib from 'gi://GLib?version=2.0';
+import type GModule from 'gi://GModule?version=2.0';
+import type GstPbutils from 'gi://GstPbutils?version=1.0';
+import type GstAudio from 'gi://GstAudio?version=1.0';
+import type Gio from 'gi://Gio?version=2.0';
+
+export namespace GES {
+
+    /**
+     * GES-1.0
+     */
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum AssetLoadingReturn {
+        /**
+         * Indicates that an error occurred
+         */
+        ERROR = 0,
+        /**
+         * Indicates that the loading is being performed
+         * asynchronously
+         */
+        ASYNC = 1,
+        /**
+         * Indicates that the loading is complete, without
+         * error
+         */
+        OK = 2,
+    }
+
+
+    /**
+     * To be used by subclasses only. This indicate how to handle a change in
+     * a child.
+     * @gir-type Enum
+     */
+    enum ChildrenControlMode {
+        UPDATE = 0,
+        IGNORE_NOTIFIES = 1,
+        UPDATE_OFFSETS = 2,
+        UPDATE_ALL_VALUES = 3,
+        LAST = 4,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace Edge {
+        export const $gtype: GObject.GType<Edge>;
+    }
+
+    /**
+     * The edges of an object contain in a {@link GES.Timeline} or {@link GES.Track}
+     * @gir-type Enum
+     */
+    enum Edge {
+        /**
+         * Represents the start of an object.
+         */
+        EDGE_START = 0,
+        /**
+         * Represents the start of an object.
+         */
+        START = 0,
+        /**
+         * Represents the end of an object.
+         */
+        EDGE_END = 1,
+        /**
+         * Represents the end of an object.
+         */
+        END = 1,
+        /**
+         * Represent the fact we are not working with any edge of an
+         *   object.
+         */
+        EDGE_NONE = 2,
+        /**
+         * Represent the fact we are not working with any edge of an
+         *   object.
+         */
+        NONE = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace EditMode {
+        export const $gtype: GObject.GType<EditMode>;
+    }
+
+    /**
+     * When a single timeline element is edited within its timeline at some
+     * position, using `ges_timeline_element_edit()`, depending on the edit
+     * mode, its {@link GES.TimelineElement.start}, {@link GES.TimelineElement.duration} or
+     * {@link GES.TimelineElement.in_point} will be adjusted accordingly. In addition,
+     * any clips may change {@link GES.Clip.layer}.
+     * 
+     * Each edit can be broken down into a combination of three basic edits:
+     * 
+     * + MOVE: This moves the start of the element to the edit position.
+     * + START-TRIM: This cuts or grows the start of the element, whilst
+     *   maintaining the time at which its internal content appears in the
+     *   timeline data output. If the element is made shorter, the data that
+     *   appeared at the edit position will still appear in the timeline at
+     *   the same time. If the element is made longer, the data that appeared
+     *   at the previous start of the element will still appear in the
+     *   timeline at the same time.
+     * + END-TRIM: Similar to START-TRIM, but the end of the element is cut or
+     *   grown.
+     * 
+     * In particular, when editing a {@link GES.Clip}:
+     * 
+     * + MOVE: This will set the {@link GES.TimelineElement.start} of the clip to the
+     *   edit position.
+     * + START-TRIM: This will set the {@link GES.TimelineElement.start} of the clip
+     *   to the edit position. To keep the end time the same, the
+     *   {@link GES.TimelineElement.duration} of the clip will be adjusted in the
+     *   opposite direction. In addition, the {@link GES.TimelineElement.in_point} of
+     *   the clip will be shifted such that the content that appeared at the
+     *   new or previous start time, whichever is latest, still appears at the
+     *   same timeline time. For example, if a frame appeared at the start of
+     *   the clip, and the start of the clip is reduced, the in-point of the
+     *   clip will also reduce such that the frame will appear later within
+     *   the clip, but at the same timeline position.
+     * + END-TRIM: This will set the {@link GES.TimelineElement.duration} of the clip
+     *   such that its end time will match the edit position.
+     * 
+     * When editing a {@link GES.Group}:
+     * 
+     * + MOVE: This will set the {@link GES.Group.start} of the clip to the edit
+     *   position by shifting all of its children by the same amount. So each
+     *   child will maintain their relative positions.
+     * + START-TRIM: If the group is made shorter, this will START-TRIM any
+     *   clips under the group that start after the edit position to the same
+     *   edit position. If the group is made longer, this will START-TRIM any
+     *   clip under the group whose start matches the start of the group to
+     *   the same edit position.
+     * + END-TRIM: If the group is made shorter, this will END-TRIM any clips
+     *   under the group that end after the edit position to the same edit
+     *   position. If the group is made longer, this will END-TRIM any clip
+     *   under the group whose end matches the end of the group to the same
+     *   edit position.
+     * 
+     * When editing a {@link GES.TrackElement}, if it has a {@link GES.Clip} parent, this
+     * will be edited instead. Otherwise it is edited in the same way as a
+     * {@link GES.Clip}.
+     * 
+     * The layer priority of a {@link GES.Group} is the lowest layer priority of any
+     * {@link GES.Clip} underneath it. When a group is edited to a new layer
+     * priority, it will shift all clips underneath it by the same amount,
+     * such that their relative layers stay the same.
+     * 
+     * If the {@link GES.Timeline} has a {@link GES.Timeline.snapping_distance}, then snapping
+     * may occur for some of the edges of the **main** edited element:
+     * 
+     * + MOVE: The start or end edge of *any* {@link GES.Source} under the element may
+     *   be snapped.
+     * + START-TRIM: The start edge of a {@link GES.Source} whose start edge touches
+     *   the start edge of the element may snap.
+     * + END-TRIM: The end edge of a {@link GES.Source} whose end edge touches the end
+     *   edge of the element may snap.
+     * 
+     * These edges may snap with either the start or end edge of *any* other
+     * {@link GES.Source} in the timeline that is not also being moved by the element,
+     * including those in different layers, if they are within the
+     * {@link GES.Timeline.snapping_distance}. During an edit, only up to one snap can
+     * occur. This will shift the edit position such that the snapped edges
+     * will touch once the edit has completed.
+     * 
+     * Note that snapping can cause an edit to fail where it would have
+     * otherwise succeeded because it may push the edit position such that the
+     * edit would result in an unsupported timeline configuration. Similarly,
+     * snapping can cause an edit to succeed where it would have otherwise
+     * failed.
+     * 
+     * For example, in #GES_EDIT_MODE_RIPPLE acting on #GES_EDGE_NONE, the
+     * main element is the MOVED toplevel of the edited element. Any source
+     * under the main MOVED toplevel may have its start or end edge snapped.
+     * Note, these sources cannot snap with each other. The edit may also
+     * push other elements, but any sources under these elements cannot snap,
+     * nor can they be snapped with. If a snap does occur, the MOVE of the
+     * toplevel *and* all other elements pushed by the ripple will be shifted
+     * by the same amount such that the snapped edges will touch.
+     * 
+     * You can also find more explanation about the behaviour of those modes at:
+     * [trim, ripple and roll](http://pitivi.org/manual/trimming.html)
+     * and [clip management](http://pitivi.org/manual/usingclips.html).
+     * @gir-type Enum
+     */
+    enum EditMode {
+        /**
+         * The element is edited the normal way (default).
+         *  If acting on the element as a whole (#GES_EDGE_NONE), this will MOVE
+         *  the element by MOVING its toplevel. When acting on the start of the
+         *  element (#GES_EDGE_START), this will only MOVE the element, but not
+         *  its toplevel parent. This can allow you to move a {@link GES.Clip} or
+         *  {@link GES.Group} to a new start time or layer within its container group,
+         *  without effecting other members of the group. When acting on the end
+         *  of the element (#GES_EDGE_END), this will END-TRIM the element,
+         *  leaving its toplevel unchanged.
+         */
+        EDIT_NORMAL = 0,
+        /**
+         * The element is edited the normal way (default).
+         *  If acting on the element as a whole (#GES_EDGE_NONE), this will MOVE
+         *  the element by MOVING its toplevel. When acting on the start of the
+         *  element (#GES_EDGE_START), this will only MOVE the element, but not
+         *  its toplevel parent. This can allow you to move a {@link GES.Clip} or
+         *  {@link GES.Group} to a new start time or layer within its container group,
+         *  without effecting other members of the group. When acting on the end
+         *  of the element (#GES_EDGE_END), this will END-TRIM the element,
+         *  leaving its toplevel unchanged.
+         */
+        NORMAL = 0,
+        /**
+         * The element is edited in ripple mode: moving
+         *  itself as well as later elements, keeping their relative times. This
+         *  edits the element the same as #GES_EDIT_MODE_NORMAL. In addition, if
+         *  acting on the element as a whole, or the start of the element, any
+         *  toplevel element in the same timeline (including different layers)
+         *  whose start time is later than the *current* start time of the MOVED
+         *  element will also be MOVED by the same shift as the edited element.
+         *  If acting on the end of the element, any toplevel element whose start
+         *  time is later than the *current* end time of the edited element will
+         *  also be MOVED by the same shift as the change in the end of the
+         *  edited element. These additional elements will also be shifted by
+         *  the same shift in layers as the edited element.
+         */
+        EDIT_RIPPLE = 1,
+        /**
+         * The element is edited in ripple mode: moving
+         *  itself as well as later elements, keeping their relative times. This
+         *  edits the element the same as #GES_EDIT_MODE_NORMAL. In addition, if
+         *  acting on the element as a whole, or the start of the element, any
+         *  toplevel element in the same timeline (including different layers)
+         *  whose start time is later than the *current* start time of the MOVED
+         *  element will also be MOVED by the same shift as the edited element.
+         *  If acting on the end of the element, any toplevel element whose start
+         *  time is later than the *current* end time of the edited element will
+         *  also be MOVED by the same shift as the change in the end of the
+         *  edited element. These additional elements will also be shifted by
+         *  the same shift in layers as the edited element.
+         */
+        RIPPLE = 1,
+        /**
+         * The element is edited in roll mode: swapping its
+         *  content for its neighbour's, or vis versa, in the timeline output.
+         *  This edits the element the same as #GES_EDIT_MODE_TRIM. In addition,
+         *  any neighbours are also TRIMMED at their opposite edge to the same
+         *  timeline position. When acting on the start of the element, a
+         *  neighbour is any earlier element in the timeline whose end time
+         *  matches the *current* start time of the edited element. When acting on
+         *  the end of the element, a neighbour is any later element in the
+         *  timeline whose start time matches the *current* start time of the
+         *  edited element. In addition, a neighbour have a {@link GES.Source} at its
+         *  end/start edge that shares a track with a {@link GES.Source} at the start/end
+         *  edge of the edited element. Basically, a neighbour is an element that
+         *  can be extended, or cut, to have its content replace, or be replaced
+         *  by, the content of the edited element. Acting on the element as a
+         *  whole (#GES_EDGE_NONE) is not defined. The element can not shift
+         *  layers under this mode.
+         */
+        EDIT_ROLL = 2,
+        /**
+         * The element is edited in roll mode: swapping its
+         *  content for its neighbour's, or vis versa, in the timeline output.
+         *  This edits the element the same as #GES_EDIT_MODE_TRIM. In addition,
+         *  any neighbours are also TRIMMED at their opposite edge to the same
+         *  timeline position. When acting on the start of the element, a
+         *  neighbour is any earlier element in the timeline whose end time
+         *  matches the *current* start time of the edited element. When acting on
+         *  the end of the element, a neighbour is any later element in the
+         *  timeline whose start time matches the *current* start time of the
+         *  edited element. In addition, a neighbour have a {@link GES.Source} at its
+         *  end/start edge that shares a track with a {@link GES.Source} at the start/end
+         *  edge of the edited element. Basically, a neighbour is an element that
+         *  can be extended, or cut, to have its content replace, or be replaced
+         *  by, the content of the edited element. Acting on the element as a
+         *  whole (#GES_EDGE_NONE) is not defined. The element can not shift
+         *  layers under this mode.
+         */
+        ROLL = 2,
+        /**
+         * The element is edited in trim mode. When acting
+         *  on the start of the element, this will START-TRIM it. When acting on
+         *  the end of the element, this will END-TRIM it. Acting on the element
+         *  as a whole (#GES_EDGE_NONE) is not defined.
+         */
+        EDIT_TRIM = 3,
+        /**
+         * The element is edited in trim mode. When acting
+         *  on the start of the element, this will START-TRIM it. When acting on
+         *  the end of the element, this will END-TRIM it. Acting on the element
+         *  as a whole (#GES_EDGE_NONE) is not defined.
+         */
+        TRIM = 3,
+        /**
+         * The element is edited in slide mode (not yet
+         *  implemented): moving the element replacing or consuming content on
+         *  each end. When acting on the element as a whole, this will MOVE the
+         *  element, and TRIM any neighbours on either side. A neighbour is
+         *  defined in the same way as in #GES_EDIT_MODE_ROLL, but they may be on
+         *  either side of the edited elements. Elements at the end with be
+         *  START-TRIMMED to the new end position of the edited element. Elements
+         *  at the start will be END-TRIMMED to the new start position of the
+         *  edited element. Acting on the start or end of the element
+         *  (#GES_EDGE_START and #GES_EDGE_END) is not defined. The element can
+         *  not shift layers under this mode.
+         */
+        EDIT_SLIDE = 4,
+        /**
+         * The element is edited in slide mode (not yet
+         *  implemented): moving the element replacing or consuming content on
+         *  each end. When acting on the element as a whole, this will MOVE the
+         *  element, and TRIM any neighbours on either side. A neighbour is
+         *  defined in the same way as in #GES_EDIT_MODE_ROLL, but they may be on
+         *  either side of the edited elements. Elements at the end with be
+         *  START-TRIMMED to the new end position of the edited element. Elements
+         *  at the start will be END-TRIMMED to the new start position of the
+         *  edited element. Acting on the start or end of the element
+         *  (#GES_EDGE_START and #GES_EDGE_END) is not defined. The element can
+         *  not shift layers under this mode.
+         */
+        SLIDE = 4,
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class Error extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        /**
+         * The ID passed is malformed
+         */
+        static ASSET_WRONG_ID: number;
+
+        /**
+         * An error happened while loading the asset
+         */
+        static ASSET_LOADING: number;
+
+        /**
+         * The formatted files was malformed
+         */
+        static FORMATTER_MALFORMED_INPUT_FILE: number;
+
+        /**
+         * The frame number is invalid
+         */
+        static INVALID_FRAME_NUMBER: number;
+
+        /**
+         * The operation would lead to a negative
+         * #GES_TIMELINE_ELEMENT_LAYER_PRIORITY. (Since: 1.18)
+         */
+        static NEGATIVE_LAYER: number;
+
+        /**
+         * The operation would lead to a negative time.
+         * E.g. for the {@link GES.TimelineElement.start} {@link GES.TimelineElement.duration} or
+         * {@link GES.TimelineElement.in_point}. (Since: 1.18)
+         */
+        static NEGATIVE_TIME: number;
+
+        /**
+         * Some {@link GES.TimelineElement} does
+         * not have a large enough {@link GES.TimelineElement.max_duration} to cover the
+         * desired operation. (Since: 1.18)
+         */
+        static NOT_ENOUGH_INTERNAL_CONTENT: number;
+
+        /**
+         * The operation would break one of
+         * the overlap conditions for the {@link GES.Timeline}. (Since: 1.18)
+         */
+        static INVALID_OVERLAP_IN_TRACK: number;
+
+        static INVALID_EFFECT_BIN_DESCRIPTION: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace TextHAlign {
+        export const $gtype: GObject.GType<TextHAlign>;
+    }
+
+    /**
+     * Horizontal alignment of the text.
+     * @gir-type Enum
+     */
+    enum TextHAlign {
+        /**
+         * align text left
+         */
+        LEFT = 0,
+        /**
+         * align text center
+         */
+        CENTER = 1,
+        /**
+         * align text right
+         */
+        RIGHT = 2,
+        /**
+         * align text on xpos position
+         */
+        POSITION = 4,
+        ABSOLUTE = 5,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace TextVAlign {
+        export const $gtype: GObject.GType<TextVAlign>;
+    }
+
+    /**
+     * Vertical alignment of the text.
+     * @gir-type Enum
+     */
+    enum TextVAlign {
+        /**
+         * draw text on the baseline
+         */
+        BASELINE = 0,
+        /**
+         * draw text on the bottom
+         */
+        BOTTOM = 1,
+        /**
+         * draw text on top
+         */
+        TOP = 2,
+        /**
+         * draw text on ypos position
+         */
+        POSITION = 3,
+        /**
+         * draw text on the center
+         */
+        CENTER = 4,
+        ABSOLUTE = 5,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace VideoStandardTransitionType {
+        export const $gtype: GObject.GType<VideoStandardTransitionType>;
+    }
+
+    /**
+     * @gir-type Enum
+     */
+    enum VideoStandardTransitionType {
+        /**
+         * Transition type has not been set,
+         */
+        NONE = 0,
+        /**
+         * A bar moves from left to right,
+         */
+        BAR_WIPE_LR = 1,
+        /**
+         * A bar moves from top to bottom,
+         */
+        BAR_WIPE_TB = 2,
+        /**
+         * A box expands from the upper-left corner to the lower-right corner,
+         */
+        BOX_WIPE_TL = 3,
+        /**
+         * A box expands from the upper-right corner to the lower-left corner,
+         */
+        BOX_WIPE_TR = 4,
+        /**
+         * A box expands from the lower-right corner to the upper-left corner,
+         */
+        BOX_WIPE_BR = 5,
+        /**
+         * A box expands from the lower-left corner to the upper-right corner,
+         */
+        BOX_WIPE_BL = 6,
+        /**
+         * A box shape expands from each of the four corners toward the center,
+         */
+        FOUR_BOX_WIPE_CI = 7,
+        /**
+         * A box shape expands from the center of each quadrant toward the corners of each quadrant,
+         */
+        FOUR_BOX_WIPE_CO = 8,
+        /**
+         * A central, vertical line splits and expands toward the left and right edges,
+         */
+        BARNDOOR_V = 21,
+        /**
+         * A central, horizontal line splits and expands toward the top and bottom edges,
+         */
+        BARNDOOR_H = 22,
+        /**
+         * A box expands from the top edge's midpoint to the bottom corners,
+         */
+        BOX_WIPE_TC = 23,
+        /**
+         * A box expands from the right edge's midpoint to the left corners,
+         */
+        BOX_WIPE_RC = 24,
+        /**
+         * A box expands from the bottom edge's midpoint to the top corners,
+         */
+        BOX_WIPE_BC = 25,
+        /**
+         * A box expands from the left edge's midpoint to the right corners,
+         */
+        BOX_WIPE_LC = 26,
+        /**
+         * A diagonal line moves from the upper-left corner to the lower-right corner,
+         */
+        DIAGONAL_TL = 41,
+        /**
+         * A diagonal line moves from the upper right corner to the lower-left corner,
+         */
+        DIAGONAL_TR = 42,
+        /**
+         * Two wedge shapes slide in from the top and bottom edges toward the center,
+         */
+        BOWTIE_V = 43,
+        /**
+         * Two wedge shapes slide in from the left and right edges toward the center,
+         */
+        BOWTIE_H = 44,
+        /**
+         * A diagonal line from the lower-left to upper-right corners splits and expands toward the opposite corners,
+         */
+        BARNDOOR_DBL = 45,
+        /**
+         * A diagonal line from upper-left to lower-right corners splits and expands toward the opposite corners,
+         */
+        BARNDOOR_DTL = 46,
+        /**
+         * Four wedge shapes split from the center and retract toward the four edges,
+         */
+        MISC_DIAGONAL_DBD = 47,
+        /**
+         * A diamond connecting the four edge midpoints simultaneously contracts toward the center and expands toward the edges,
+         */
+        MISC_DIAGONAL_DD = 48,
+        /**
+         * A wedge shape moves from top to bottom,
+         */
+        VEE_D = 61,
+        /**
+         * A wedge shape moves from right to left,
+         */
+        VEE_L = 62,
+        /**
+         * A wedge shape moves from bottom to top,
+         */
+        VEE_U = 63,
+        /**
+         * A wedge shape moves from left to right,
+         */
+        VEE_R = 64,
+        /**
+         * A 'V' shape extending from the bottom edge's midpoint to the opposite corners contracts toward the center and expands toward the edges,
+         */
+        BARNVEE_D = 65,
+        /**
+         * A 'V' shape extending from the left edge's midpoint to the opposite corners contracts toward the center and expands toward the edges,
+         */
+        BARNVEE_L = 66,
+        /**
+         * A 'V' shape extending from the top edge's midpoint to the opposite corners contracts toward the center and expands toward the edges,
+         */
+        BARNVEE_U = 67,
+        /**
+         * A 'V' shape extending from the right edge's midpoint to the opposite corners contracts toward the center and expands toward the edges,
+         */
+        BARNVEE_R = 68,
+        /**
+         * A rectangle expands from the center.,
+         */
+        IRIS_RECT = 101,
+        /**
+         * A radial hand sweeps clockwise from the twelve o'clock position,
+         */
+        CLOCK_CW12 = 201,
+        /**
+         * A radial hand sweeps clockwise from the three o'clock position,
+         */
+        CLOCK_CW3 = 202,
+        /**
+         * A radial hand sweeps clockwise from the six o'clock position,
+         */
+        CLOCK_CW6 = 203,
+        /**
+         * A radial hand sweeps clockwise from the nine o'clock position,
+         */
+        CLOCK_CW9 = 204,
+        /**
+         * Two radial hands sweep clockwise from the twelve and six o'clock positions,
+         */
+        PINWHEEL_TBV = 205,
+        /**
+         * Two radial hands sweep clockwise from the nine and three o'clock positions,
+         */
+        PINWHEEL_TBH = 206,
+        /**
+         * Four radial hands sweep clockwise,
+         */
+        PINWHEEL_FB = 207,
+        /**
+         * A fan unfolds from the top edge, the fan axis at the center,
+         */
+        FAN_CT = 211,
+        /**
+         * A fan unfolds from the right edge, the fan axis at the center,
+         */
+        FAN_CR = 212,
+        /**
+         * Two fans, their axes at the center, unfold from the top and bottom,
+         */
+        DOUBLEFAN_FOV = 213,
+        /**
+         * Two fans, their axes at the center, unfold from the left and right,
+         */
+        DOUBLEFAN_FOH = 214,
+        /**
+         * A radial hand sweeps clockwise from the top edge's midpoint,
+         */
+        SINGLESWEEP_CWT = 221,
+        /**
+         * A radial hand sweeps clockwise from the right edge's midpoint,
+         */
+        SINGLESWEEP_CWR = 222,
+        /**
+         * A radial hand sweeps clockwise from the bottom edge's midpoint,
+         */
+        SINGLESWEEP_CWB = 223,
+        /**
+         * A radial hand sweeps clockwise from the left edge's midpoint,
+         */
+        SINGLESWEEP_CWL = 224,
+        /**
+         * Two radial hands sweep clockwise and counter-clockwise from the top and bottom edges' midpoints,
+         */
+        DOUBLESWEEP_PV = 225,
+        /**
+         * Two radial hands sweep clockwise and counter-clockwise from the left and right edges' midpoints,
+         */
+        DOUBLESWEEP_PD = 226,
+        /**
+         * Two radial hands attached at the top and bottom edges' midpoints sweep from right to left,
+         */
+        DOUBLESWEEP_OV = 227,
+        /**
+         * Two radial hands attached at the left and right edges' midpoints sweep from top to bottom,
+         */
+        DOUBLESWEEP_OH = 228,
+        /**
+         * A fan unfolds from the bottom, the fan axis at the top edge's midpoint,
+         */
+        FAN_T = 231,
+        /**
+         * A fan unfolds from the left, the fan axis at the right edge's midpoint,
+         */
+        FAN_R = 232,
+        /**
+         * A fan unfolds from the top, the fan axis at the bottom edge's midpoint,
+         */
+        FAN_B = 233,
+        /**
+         * A fan unfolds from the right, the fan axis at the left edge's midpoint,
+         */
+        FAN_L = 234,
+        /**
+         * Two fans, their axes at the top and bottom, unfold from the center,
+         */
+        DOUBLEFAN_FIV = 235,
+        /**
+         * Two fans, their axes at the left and right, unfold from the center,
+         */
+        DOUBLEFAN_FIH = 236,
+        /**
+         * A radial hand sweeps clockwise from the upper-left corner,
+         */
+        SINGLESWEEP_CWTL = 241,
+        /**
+         * A radial hand sweeps counter-clockwise from the lower-left corner.,
+         */
+        SINGLESWEEP_CWBL = 242,
+        /**
+         * A radial hand sweeps clockwise from the lower-right corner,
+         */
+        SINGLESWEEP_CWBR = 243,
+        /**
+         * A radial hand sweeps counter-clockwise from the upper-right corner,
+         */
+        SINGLESWEEP_CWTR = 244,
+        /**
+         * Two radial hands attached at the upper-left and lower-right corners sweep down and up,
+         */
+        DOUBLESWEEP_PDTL = 245,
+        /**
+         * Two radial hands attached at the lower-left and upper-right corners sweep down and up,
+         */
+        DOUBLESWEEP_PDBL = 246,
+        /**
+         * Two radial hands attached at the upper-left and upper-right corners sweep down,
+         */
+        SALOONDOOR_T = 251,
+        /**
+         * Two radial hands attached at the upper-left and lower-left corners sweep to the right,
+         */
+        SALOONDOOR_L = 252,
+        /**
+         * Two radial hands attached at the lower-left and lower-right corners sweep up,
+         */
+        SALOONDOOR_B = 253,
+        /**
+         * Two radial hands attached at the upper-right and lower-right corners sweep to the left,
+         */
+        SALOONDOOR_R = 254,
+        /**
+         * Two radial hands attached at the midpoints of the top and bottom halves sweep from right to left,
+         */
+        WINDSHIELD_R = 261,
+        /**
+         * Two radial hands attached at the midpoints of the left and right halves sweep from top to bottom,
+         */
+        WINDSHIELD_U = 262,
+        /**
+         * Two sets of radial hands attached at the midpoints of the top and bottom halves sweep from top to bottom and bottom to top,
+         */
+        WINDSHIELD_V = 263,
+        /**
+         * Two sets of radial hands attached at the midpoints of the left and right halves sweep from left to right and right to left,
+         */
+        WINDSHIELD_H = 264,
+        /**
+         * Crossfade
+         */
+        CROSSFADE = 512,
+        /**
+         * Similar to crossfade, but fade in the front video without fading out
+         * the background one
+         * @since 1.22
+         */
+        FADE_IN = 513,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace VideoTestPattern {
+        export const $gtype: GObject.GType<VideoTestPattern>;
+    }
+
+    /**
+     * The test pattern to produce
+     * @gir-type Enum
+     */
+    enum VideoTestPattern {
+        /**
+         * A standard SMPTE test pattern
+         */
+        SMPTE = 0,
+        /**
+         * Random noise
+         */
+        SNOW = 1,
+        /**
+         * A black image
+         */
+        BLACK = 2,
+        /**
+         * A white image
+         */
+        WHITE = 3,
+        /**
+         * A red image
+         */
+        RED = 4,
+        /**
+         * A green image
+         */
+        GREEN = 5,
+        /**
+         * A blue image
+         */
+        BLUE = 6,
+        /**
+         * Checkers pattern (1px)
+         */
+        CHECKERS_1 = 7,
+        /**
+         * Checkers pattern (2px)
+         */
+        CHECKERS_2 = 8,
+        /**
+         * Checkers pattern (4px)
+         */
+        CHECKERS_4 = 9,
+        /**
+         * Checkers pattern (8px)
+         */
+        CHECKERS_8 = 10,
+        /**
+         * Circular pattern
+         */
+        CIRCULAR = 11,
+        /**
+         * Alternate between black and white
+         */
+        BLINK = 12,
+        /**
+         * SMPTE test pattern (75% color bars)
+         */
+        SMPTE75 = 13,
+        /**
+         * Zone plate
+         */
+        ZONE_PLATE = 14,
+        /**
+         * Gamut checkers
+         */
+        GAMUT = 15,
+        /**
+         * Chroma zone plate
+         */
+        CHROMA_ZONE_PLATE = 16,
+        /**
+         * Solid color
+         */
+        SOLID_COLOR = 17,
+    }
+
+
+    /**
+     * Constant to define an undefined frame number
+     * @default 9223372036854775807
+     */
+    const FRAME_NUMBER_NONE: number;
+
+    /**
+     * The description of the object, to be used in various contexts (string).
+     * @default description
+     */
+    const META_DESCRIPTION: string;
+
+    /**
+     * The file extension of files produced by a {@link GES.Formatter} (string).
+     * @default extension
+     */
+    const META_FORMATTER_EXTENSION: string;
+
+    /**
+     * The mimetype used for the file produced by a {@link GES.Formatter} (string).
+     * @default mimetype
+     */
+    const META_FORMATTER_MIMETYPE: string;
+
+    /**
+     * The name of a formatter, used as the {@link GES.Asset.id} for {@link GES.Formatter}
+     * assets (string).
+     * @default name
+     */
+    const META_FORMATTER_NAME: string;
+
+    /**
+     * The rank of a {@link GES.Formatter} (a {@link Gst.Rank}).
+     * @default rank
+     */
+    const META_FORMATTER_RANK: string;
+
+    /**
+     * The version of a {@link GES.Formatter} (double).
+     * @default version
+     */
+    const META_FORMATTER_VERSION: string;
+
+    /**
+     * The version of the format in which a project is serialized (string).
+     * @default format-version
+     */
+    const META_FORMAT_VERSION: string;
+
+    /**
+     * The ARGB color of a {@link GES.Marker} (an AARRGGBB hex as a uint).
+     * @default marker-color
+     */
+    const META_MARKER_COLOR: string;
+
+    /**
+     * The volume for a {@link GES.Track} or a {@link GES.Layer} (float).
+     * @default volume
+     */
+    const META_VOLUME: string;
+
+    /**
+     * The default volume for a {@link GES.Track} or a {@link GES.Layer} as a float.
+     * @default 1.000000
+     */
+    const META_VOLUME_DEFAULT: number;
+
+    /**
+     * @default multifile://
+     */
+    const MULTI_FILE_URI_PREFIX: string;
+
+    /**
+     * @default 4
+     */
+    const PADDING: number;
+
+    /**
+     * @default 20
+     */
+    const PADDING_LARGE: number;
+
+    /**
+     * Layer priority when a timeline element is not in any layer.
+     * @default 4294967295
+     */
+    const TIMELINE_ELEMENT_NO_LAYER_PRIORITY: number;
+
+    /**
+     * @default 1
+     */
+    const VERSION_MAJOR: number;
+
+    /**
+     * @default 8
+     */
+    const VERSION_MICRO: number;
+
+    /**
+     * @default 28
+     */
+    const VERSION_MINOR: number;
+
+    /**
+     * @default 0
+     */
+    const VERSION_NANO: number;
+
+    /**
+     * @param uri 
+     * @param recurse 
+     */
+    function add_missing_uri_relocation_uri(uri: string, recurse: boolean): boolean;
+
+    /**
+     * Attaches positioning metadata to a {@link Gst.Buffer}.
+     * @param buffer {@link Gst.Buffer} to which protection metadata should be added.
+     * @returns a pointer to the added {@link GES.FrameCompositionMeta}.
+     * @since 1.24
+     */
+    function buffer_add_frame_composition_meta(buffer: Gst.Buffer): FrameCompositionMeta;
+
+    /**
+     * Clean up any resources created by GES in `ges_init()`.
+     * 
+     * It is normally not needed to call this function in a normal application as the
+     * resources will automatically be freed when the program terminates.
+     * This function is therefore mostly used by testsuites and other memory profiling tools.
+     * This function should be called from the thread where `ges_init()` was called.
+     * 
+     * After this call GES should not be used until another `ges_init()` call.
+     */
+    function deinit(): void;
+
+    /**
+     * @param edge The {@link GES.Edge} to get the name of
+     * @returns A human friendly name for `edge`
+     * @since 1.16
+     */
+    function edge_name(edge: Edge): string;
+
+    /**
+     * Return a string representation of `mode`.
+     * @param mode a {@link GES.EditMode}
+     * @returns a string representation of `mode`.
+     * @since 1.18
+     */
+    function edit_mode_name(mode: EditMode): string;
+
+    /**
+     * Get the error quark for GES errors.
+     * @returns The error quark for GES errors
+     * @since 1.28
+     */
+    function error_quark(): GLib.Quark;
+
+    /**
+     * Get the best formatter for `uri`. It tries to find a formatter
+     * compatible with `uri` extension, if none is found, it returns the default
+     * formatter asset.
+     * @param uri 
+     * @returns The {@link GES.Asset} for the best formatter to save to `uri`
+     * @since 1.18
+     */
+    function find_formatter_for_uri(uri: string): Asset;
+
+    function frame_composition_meta_api_get_type(): GObject.GType;
+
+    /**
+     * Initialize the GStreamer Editing Service. Call this before any usage of
+     * GES. You should take care of initilizing GStreamer before calling this
+     * function.
+     * 
+     * MT safety.
+     * GStreamer Editing Services do not guarantee MT safety.
+     * An application is required to use GES APIs (including `ges_deinit()`)
+     * in the thread where `ges_init()` was called.
+     */
+    function init(): boolean;
+
+    /**
+     * Initializes the GStreamer Editing Services library, setting up internal path lists,
+     * and loading evrything needed.
+     * 
+     * This function will return `false` if GES could not be initialized
+     * for some reason.
+     * @param argv pointer to application's argv
+     * @returns `true` if GES could be initialized.
+     * @throws GLib.Error
+     */
+    function init_check(argv: string[] | null): [boolean, string[] | null];
+
+    /**
+     * Use this function to check if GES has been initialized with `ges_init()`
+     * or `ges_init_check()`.
+     * @returns `true` if initialization has been done, `false` otherwise.
+     * @since 1.16
+     */
+    function is_initialized(): boolean;
+
+    /**
+     * List all the assets in the current cache whose
+     * {@link GES.Asset.extractable_type} are of the given type (including
+     * subclasses).
+     * 
+     * Note that, since only a {@link GES.Extractable} can be extracted from an asset,
+     * using `GES_TYPE_EXTRACTABLE` as `filter` will return all the assets in
+     * the current cache.
+     * @param filter The type of object that can be extracted from the asset
+     * @returns A list of all {@link GES.Asset}-s currently in the cache whose {@link GES.Asset.extractable_type} is of the `filter` type.
+     */
+    function list_assets(filter: GObject.GType): Asset[];
+
+    /**
+     * Get the last buffer `playsink` showed
+     * @param playsink The playsink to get last frame from
+     * @param caps The caps defining the format the return value will have
+     * @returns A {@link Gst.Sample} containing the last frame from `playsink` in the format defined by the `caps`
+     * @deprecated since 1.18: Use the "convert-sample" action signal of #playsink instead.
+     */
+    function play_sink_convert_frame(playsink: Gst.Element, caps: Gst.Caps): Gst.Sample | null;
+
+    /**
+     * @param key_spec_1 
+     * @param key_spec_2 
+     */
+    function pspec_equal(key_spec_1: null, key_spec_2: null): boolean;
+
+    /**
+     * @param key_spec 
+     */
+    function pspec_hash(key_spec: null): number;
+
+    /**
+     * @param type 
+     */
+    function track_type_name(type: TrackType): string;
+
+    function validate_register_action_types(): boolean;
+
+    /**
+     * Gets the version number of the GStreamer Editing Services library.
+     */
+    function version(): [number, number, number, number];
+
+    /**
+     * @gir-type Callback
+     */
+    interface BaseEffectTimeTranslationFunc {
+        (effect: BaseEffect, time: Gst.ClockTime, time_property_values: { [key: string]: GObject.Value }): Gst.ClockTime;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface CreateTrackElementFunc {
+        (clip: Clip, type: TrackType): TrackElement | null;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface CreateTrackElementsFunc {
+        (clip: Clip, type: TrackType): TrackElement[];
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface ExtractableCheckId {
+        (type: GObject.GType, id: string): string;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface FillTrackElementFunc {
+        (clip: Clip, track_element: TrackElement, nleobj: Gst.Element): boolean;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface FormatterCanLoadURIMethod {
+        (dummy_instance: Formatter, uri: string): boolean;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface FormatterLoadFromURIMethod {
+        (formatter: Formatter, timeline: Timeline, uri: string): boolean;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface FormatterSaveToURIMethod {
+        (formatter: Formatter, timeline: Timeline, uri: string, overwrite: boolean): boolean;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface MetaForeachFunc {
+        (container: MetaContainer, key: string, value: unknown): void;
+    }
+
+    /**
+     * @gir-type Flags
+     */
+    export namespace MarkerFlags {
+        export const $gtype: GObject.GType<MarkerFlags>;
+    }
+
+    /**
+     * @gir-type Flags
+     * @since 1.20
+     */
+    enum MarkerFlags {
+        /**
+         * Marker does not serve any special purpose.
+         */
+        NONE = 0,
+        /**
+         * Marker can be a snapping target.
+         */
+        SNAPPABLE = 1,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    export namespace MetaFlag {
+        export const $gtype: GObject.GType<MetaFlag>;
+    }
+
+    /**
+     * @gir-type Flags
+     */
+    enum MetaFlag {
+        /**
+         * The metadata is readable
+         */
+        READABLE = 1,
+        /**
+         * The metadata is writable
+         */
+        WRITABLE = 2,
+        /**
+         * The metadata is readable and writable
+         */
+        READWRITE = 3,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    export namespace PipelineFlags {
+        export const $gtype: GObject.GType<PipelineFlags>;
+    }
+
+    /**
+     * The various modes a {@link GES.Pipeline} can be configured to.
+     * @gir-type Flags
+     */
+    enum PipelineFlags {
+        /**
+         * Output the {@link GES.Pipeline.timeline}'s
+         * audio to the soundcard
+         */
+        AUDIO_PREVIEW = 1,
+        /**
+         * Output the {@link GES.Pipeline.timeline}'s
+         * video to the screen
+         */
+        VIDEO_PREVIEW = 2,
+        /**
+         * Output both the {@link GES.Pipeline.timeline}'s
+         * audio and video to the soundcard and screen (default)
+         */
+        FULL_PREVIEW = 3,
+        /**
+         * Render the {@link GES.Pipeline.timeline} with
+         * forced decoding (the underlying #encodebin has its
+         * #encodebin:avoid-reencoding property set to `false`)
+         */
+        RENDER = 4,
+        /**
+         * Render the {@link GES.Pipeline.timeline},
+         * avoiding decoding/reencoding (the underlying #encodebin has its
+         * #encodebin:avoid-reencoding property set to `true`).
+         * > NOTE: Smart rendering can not work in tracks where {@link GES.Track.mixing}
+         * > is enabled.
+         */
+        SMART_RENDER = 8,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    export namespace TrackType {
+        export const $gtype: GObject.GType<TrackType>;
+    }
+
+    /**
+     * Types of content handled by a track. If the content is not one of
+     * `GES_TRACK_TYPE_AUDIO`, `GES_TRACK_TYPE_VIDEO` or `GES_TRACK_TYPE_TEXT`,
+     * the user of the {@link GES.Track} must set the type to `GES_TRACK_TYPE_CUSTOM`.
+     * 
+     * `GES_TRACK_TYPE_UNKNOWN` is for internal purposes and should not be used
+     * by users
+     * @gir-type Flags
+     */
+    enum TrackType {
+        /**
+         * A track of unknown type (i.e. invalid)
+         */
+        UNKNOWN = 1,
+        /**
+         * An audio track
+         */
+        AUDIO = 2,
+        /**
+         * A video track
+         */
+        VIDEO = 4,
+        /**
+         * A text (subtitle) track
+         */
+        TEXT = 8,
+        /**
+         * A custom-content track
+         */
+        CUSTOM = 16,
+    }
+
+
+    namespace Asset {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::extractable-type": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy-target": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, MetaContainer.ConstructorProps, Gio.AsyncInitable.ConstructorProps, Gio.Initable.ConstructorProps {
+            extractable_type: GObject.GTypeInput;
+            extractableType: GObject.GTypeInput;
+            id: string;
+            proxy: Asset | null;
+            proxy_target: Asset | null;
+            proxyTarget: Asset | null;
+        }
+    }
+
+    /**
+     * A {@link GES.Asset} in the GStreamer Editing Services represents a resources
+     * that can be used. In particular, any class that implements the
+     * {@link GES.Extractable} interface may have some associated assets with a
+     * corresponding {@link GES.Asset.extractable_type}, from which its objects can be
+     * extracted using `ges_asset_extract()`. Some examples would be
+     * {@link GES.Clip}, {@link GES.Formatter} and {@link GES.TrackElement}.
+     * 
+     * All assets that are created within GES are stored in a cache; one per
+     * each {@link GES.Asset.id} and {@link GES.Asset.extractable_type} pair. These assets can
+     * be fetched, and initialized if they do not yet exist in the cache,
+     * using `ges_asset_request()`.
+     * 
+     * ``` c
+     * GESAsset *effect_asset;
+     * GESEffect *effect;
+     * 
+     * // You create an asset for an effect
+     * effect_asset = ges_asset_request (GES_TYPE_EFFECT, "agingtv", NULL);
+     * 
+     * // And now you can extract an instance of GESEffect from that asset
+     * effect = GES_EFFECT (ges_asset_extract (effect_asset));
+     * 
+     * ```
+     * 
+     * The advantage of using assets, rather than simply creating the object
+     * directly, is that the currently loaded resources can be listed with
+     * `ges_list_assets()` and displayed to an end user. For example, to show
+     * which media files have been loaded, and a standard list of effects. In
+     * fact, the GES library already creates assets for {@link GES.TransitionClip} and
+     * {@link GES.Formatter}, which you can use to list all the available transition
+     * types and supported formats.
+     * 
+     * The other advantage is that {@link GES.Asset} implements {@link GES.MetaContainer}, so
+     * metadata can be set on the asset, with some subclasses automatically
+     * creating this metadata on initiation.
+     * 
+     * For example, to display information about the supported formats, you
+     * could do the following:
+     * 
+     * ```
+     *    GList *formatter_assets, *tmp;
+     * 
+     *    //  List all  the transitions
+     *    formatter_assets = ges_list_assets (GES_TYPE_FORMATTER);
+     * 
+     *    // Print some infos about the formatter GESAsset
+     *    for (tmp = formatter_assets; tmp; tmp = tmp->next) {
+     *      gst_print ("Name of the formatter: %s, file extension it produces: %s",
+     *        ges_meta_container_get_string (
+     *          GES_META_CONTAINER (tmp->data), GES_META_FORMATTER_NAME),
+     *        ges_meta_container_get_string (
+     *          GES_META_CONTAINER (tmp->data), GES_META_FORMATTER_EXTENSION));
+     *    }
+     * 
+     *    g_list_free (transition_assets);
+     * 
+     * ```
+     * 
+     * 
+     * ## ID
+     * 
+     * Each asset is uniquely defined in the cache by its
+     * {@link GES.Asset.extractable_type} and {@link GES.Asset.id}. Depending on the
+     * {@link GES.Asset.extractable_type}, the {@link GES.Asset.id} can be used to parametrise
+     * the creation of the object upon extraction. By default, a class that
+     * implements {@link GES.Extractable} will only have a single associated asset,
+     * with an {@link GES.Asset.id} set to the type name of its objects. However, this
+     * is overwritten by some implementations, which allow a class to have
+     * multiple associated assets. For example, for {@link GES.TransitionClip} the
+     * {@link GES.Asset.id} will be a nickname of the {@link GES.TransitionClip.vtype}. You
+     * should check the documentation for each extractable type to see if they
+     * differ from the default.
+     * 
+     * Moreover, each {@link GES.Asset.extractable_type} may also associate itself
+     * with a specific asset subclass. In such cases, when their asset is
+     * requested, an asset of this subclass will be returned instead.
+     * 
+     * ## Managing
+     * 
+     * You can use a {@link GES.Project} to easily manage the assets of a
+     * {@link GES.Timeline}.
+     * 
+     * ## Proxies
+     * 
+     * Some assets can (temporarily) act as the {@link GES.Asset.proxy} of another
+     * asset. When the original asset is requested from the cache, the proxy
+     * will be returned in its place. This can be useful if, say, you want
+     * to substitute a {@link GES.UriClipAsset} corresponding to a high resolution
+     * media file with the asset of a lower resolution stand in.
+     * 
+     * An asset may even have several proxies, the first of which will act as
+     * its default and be returned on requests, but the others will be ordered
+     * to take its place once it is removed. You can add a proxy to an asset,
+     * or set its default, using `ges_asset_set_proxy()`, and you can remove
+     * them with `ges_asset_unproxy()`.
+     * @gir-type Class
+     */
+    class Asset extends GObject.Object implements MetaContainer, Gio.AsyncInitable<Asset>, Gio.Initable {
+        static $gtype: GObject.GType<Asset>;
+
+        // Properties
+        /**
+         * The {@link GES.Extractable} object type that can be extracted from the asset.
+         * @construct-only
+         */
+        get extractable_type(): GObject.GType;
+
+        /**
+         * The {@link GES.Extractable} object type that can be extracted from the asset.
+         * @construct-only
+         */
+        get extractableType(): GObject.GType;
+
+        /**
+         * The ID of the asset. This should be unique amongst all assets with
+         * the same {@link GES.Asset.extractable_type}. Depending on the associated
+         * {@link GES.Extractable} implementation, this id may convey some information
+         * about the {@link GObject.Object} that should be extracted. Note that, as such, the
+         * ID will have an expected format, and you can not choose this value
+         * arbitrarily. By default, this will be set to the type name of the
+         * {@link GES.Asset.extractable_type}, but you should check the documentation
+         * of the extractable type to see whether they differ from the
+         * default behaviour.
+         * @construct-only
+         * @default null
+         */
+        get id(): string;
+
+        /**
+         * The default proxy for this asset, or `null` if it has no proxy. A
+         * proxy will act as a substitute for the original asset when the
+         * original is requested (see `ges_asset_request()`).
+         * 
+         * Setting this property will not usually remove the existing proxy, but
+         * will replace it as the default (see `ges_asset_set_proxy()`).
+         */
+        get proxy(): Asset | null;
+        set proxy(val: Asset | null);
+
+        /**
+         * The asset that this asset is a proxy for, or `null` if it is not a
+         * proxy for another asset.
+         * 
+         * Note that even if this asset is acting as a proxy for another asset,
+         * but this asset is not the default {@link GES.Asset.proxy}, then `proxy`-target
+         * will *still* point to this other asset. So you should check the
+         * {@link GES.Asset.proxy} property of `target`-proxy before assuming it is the
+         * current default proxy for the target.
+         * 
+         * Note that the {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify} for this property is emitted after
+         * the {@link GES.Asset.proxy} {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify} for the corresponding (if any)
+         * asset it is now the proxy of/no longer the proxy of.
+         * @read-only
+         */
+        get proxy_target(): Asset | null;
+
+        /**
+         * The asset that this asset is a proxy for, or `null` if it is not a
+         * proxy for another asset.
+         * 
+         * Note that even if this asset is acting as a proxy for another asset,
+         * but this asset is not the default {@link GES.Asset.proxy}, then `proxy`-target
+         * will *still* point to this other asset. So you should check the
+         * {@link GES.Asset.proxy} property of `target`-proxy before assuming it is the
+         * current default proxy for the target.
+         * 
+         * Note that the {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify} for this property is emitted after
+         * the {@link GES.Asset.proxy} {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify} for the corresponding (if any)
+         * asset it is now the proxy of/no longer the proxy of.
+         * @read-only
+         */
+        get proxyTarget(): Asset | null;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Asset.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Asset.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Asset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Asset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Asset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Asset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Asset.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Asset.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Indicate that an existing {@link GES.Asset} in the cache should be reloaded
+         * upon the next request. This can be used when some condition has
+         * changed, which may require that an existing asset should be updated.
+         * For example, if an external resource has changed or now become
+         * available.
+         * 
+         * Note, the asset is not immediately changed, but will only actually
+         * reload on the next call to `ges_asset_request()` or
+         * `ges_asset_request_async()`.
+         * @param extractable_type The {@link GES.Asset.extractable_type} of the asset that needs reloading
+         * @param id The {@link GES.Asset.id} of the asset asset that needs reloading
+         */
+        static needs_reload(extractable_type: GObject.GType, id: string | null): boolean;
+
+        /**
+         * Returns an asset with the given properties. If such an asset already
+         * exists in the cache (it has been previously created in GES), then a
+         * reference to the existing asset is returned. Otherwise, a newly created
+         * asset is returned, and also added to the cache.
+         * 
+         * If the requested asset has been loaded with an error, then `error` is
+         * set, if given, and `null` will be returned instead.
+         * 
+         * Note that the given `id` may not be exactly the {@link GES.Asset.id} that is
+         * set on the returned asset. For instance, it may be adjusted into a
+         * standard format. Or, if a {@link GES.Extractable} type does not have its
+         * extraction parametrised, as is the case by default, then the given `id`
+         * may be ignored entirely and the {@link GES.Asset.id} set to some standard, in
+         * which case a `null` `id` can be given.
+         * 
+         * Similarly, the given `extractable_type` may not be exactly the
+         * {@link GES.Asset.extractable_type} that is set on the returned asset. Instead,
+         * the actual extractable type may correspond to a subclass of the given
+         * `extractable_type`, depending on the given `id`.
+         * 
+         * Moreover, depending on the given `extractable_type`, the returned asset
+         * may belong to a subclass of {@link GES.Asset}.
+         * 
+         * Finally, if the requested asset has a {@link GES.Asset.proxy}, then the proxy
+         * that is found at the end of the chain of proxies is returned (a proxy's
+         * proxy will take its place, and so on, unless it has no proxy).
+         * 
+         * Some asset subclasses only support asynchronous construction of its
+         * assets, such as {@link GES.UriClip}. For such assets this method will fail, and
+         * you should use `ges_asset_request_async()` instead. In the case of
+         * {@link GES.UriClip}, you can use `ges_uri_clip_asset_request_sync()` if you only
+         * want to wait for the request to finish.
+         * @param extractable_type The {@link GES.Asset.extractable_type} of the asset
+         * @param id The {@link GES.Asset.id} of the asset
+         */
+        static request(extractable_type: GObject.GType, id: string | null): Asset | null;
+
+        /**
+         * Requests an asset with the given properties asynchronously (see
+         * `ges_asset_request()`). When the asset has been initialized or fetched
+         * from the cache, the given callback function will be called. The
+         * asset can then be retrieved in the callback using the
+         * `ges_asset_request_finish()` method on the given {@link Gio.AsyncResult}.
+         * 
+         * Note that the source object passed to the callback will be the
+         * {@link GES.Asset} corresponding to the request, but it may not have loaded
+         * correctly and therefore can not be used as is. Instead,
+         * `ges_asset_request_finish()` should be used to fetch a usable asset, or
+         * indicate that an error occurred in the asset's creation.
+         * 
+         * Note that the callback will be called in the {@link GLib.MainLoop} running under
+         * the same {@link GLib.MainContext} that `ges_init()` was called in. So, if you wish
+         * the callback to be invoked outside the default {@link GLib.MainContext}, you can
+         * call `g_main_context_push_thread_default()` in a new thread before
+         * calling `ges_init()`.
+         * 
+         * Example of an asynchronous asset request:
+         * ``` c
+         * // The request callback
+         * static void
+         * asset_loaded_cb (GESAsset * source, GAsyncResult * res, gpointer user_data)
+         * {
+         *   GESAsset *asset;
+         *   GError *error = NULL;
+         * 
+         *   asset = ges_asset_request_finish (res, &error);
+         *   if (asset) {
+         *    gst_print ("The file: %s is usable as a GESUriClip",
+         *        ges_asset_get_id (asset));
+         *   } else {
+         *    gst_print ("The file: %s is *not* usable as a GESUriClip because: %s",
+         *        ges_asset_get_id (source), error->message);
+         *   }
+         * 
+         *   gst_object_unref (asset);
+         * }
+         * 
+         * // The request:
+         * ges_asset_request_async (GES_TYPE_URI_CLIP, some_uri, NULL,
+         *    (GAsyncReadyCallback) asset_loaded_cb, user_data);
+         * ```
+         * @param extractable_type The {@link GES.Asset.extractable_type} of the asset
+         * @param id The {@link GES.Asset.id} of the asset
+         * @param cancellable An object to allow cancellation of the asset request, or `null` to ignore
+         * @param callback A function to call when the initialization is finished
+         */
+        static request_async(extractable_type: GObject.GType, id: string | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<Asset> | null): void;
+
+        /**
+         * Fetches an asset requested by `ges_asset_request_async()`, which
+         * finalises the request.
+         * @param res The task result to fetch the asset from
+         */
+        static request_finish(res: Gio.AsyncResult): Asset;
+
+        // Virtual methods
+        /**
+         * Extracts a new {@link GES.Asset.extractable_type} object from the asset. The
+         * {@link GES.Asset.id} of the asset may determine the properties and state of the
+         * newly created object.
+         * @virtual
+         */
+        vfunc_extract(): Extractable;
+
+        /**
+         * @param proxy_id 
+         * @virtual
+         */
+        vfunc_inform_proxy(proxy_id: string): void;
+
+        /**
+         * Deprecated: 1.18: This vmethod is no longer called.
+         * @param proxy 
+         * @virtual
+         */
+        vfunc_proxied(proxy: Asset): void;
+
+        /**
+         * A method called by a {@link GES.Project} when an asset has
+         * failed to load. `error` is the error given by
+         * ges_asset_request_finish (). Returns: `true` if a new id for `self` was
+         * passed to `proposed_new_id`.
+         * @param proposed_new_id 
+         * @param error 
+         * @virtual
+         */
+        vfunc_request_id_update(proposed_new_id: string, error: GLib.Error): boolean;
+
+        /**
+         * A method to be called when an asset is being requested
+         * asynchronously. This will be after the properties of the asset have
+         * been set, so it is tasked with (re)loading the 'state' of the asset.
+         * The return value should indicated whether the loading is complete, is
+         * carrying on asynchronously, or an error occurred. The default
+         * implementation will simply return that loading is already complete (the
+         * asset is already in a usable state after the properties have been set).
+         * @virtual
+         */
+        vfunc_start_loading(): AssetLoadingReturn;
+
+        // Methods
+        /**
+         * Extracts a new {@link GES.Asset.extractable_type} object from the asset. The
+         * {@link GES.Asset.id} of the asset may determine the properties and state of the
+         * newly created object.
+         * @returns A newly created object, or `null` if an error occurred.
+         * @throws GLib.Error
+         */
+        extract(): Extractable;
+
+        /**
+         * Retrieve the error that was set on the asset when it was loaded.
+         * @returns The error set on `asset`, or `null` if no error occurred when `asset` was loaded.
+         * @since 1.8
+         */
+        get_error(): GLib.Error | null;
+
+        /**
+         * Gets the {@link GES.Asset.extractable_type} of the asset.
+         * @returns The extractable type of `self`.
+         */
+        get_extractable_type(): GObject.GType;
+
+        /**
+         * Gets the {@link GES.Asset.id} of the asset.
+         * @returns The ID of `self`.
+         */
+        get_id(): string;
+
+        /**
+         * Gets the default {@link GES.Asset.proxy} of the asset.
+         * @returns The default proxy of `asset`.
+         */
+        get_proxy(): Asset | null;
+
+        /**
+         * Gets the {@link GES.Asset.proxy_target} of the asset.
+         * 
+         * Note that the proxy target may have loaded with an error, so you should
+         * call `ges_asset_get_error()` on the returned target.
+         * @returns The asset that `proxy` is a proxy of.
+         */
+        get_proxy_target(): Asset | null;
+
+        /**
+         * Get all the proxies that the asset has. The first item of the list will
+         * be the default {@link GES.Asset.proxy}. The second will be the proxy that is
+         * 'next in line' to be default, and so on.
+         * @returns The list of proxies that `asset` has.
+         */
+        list_proxies(): Asset[];
+
+        /**
+         * Sets the {@link GES.Asset.proxy} for the asset.
+         * 
+         * If `proxy` is among the existing proxies of the asset (see
+         * `ges_asset_list_proxies()`) it will be moved to become the default
+         * proxy. Otherwise, if `proxy` is not `null`, it will be added to the list
+         * of proxies, as the new default. The previous default proxy will become
+         * 'next in line' for if the new one is removed, and so on. As such, this
+         * will **not** actually remove the previous default proxy (use
+         * `ges_asset_unproxy()` for that).
+         * 
+         * Note that an asset can only act as a proxy for one other asset.
+         * 
+         * As a special case, if `proxy` is `null`, then this method will actually
+         * remove **all** proxies from the asset.
+         * @param proxy A new default proxy for `asset`
+         * @returns `true` if `proxy` was successfully set as the default for `asset`.
+         */
+        set_proxy(proxy: Asset | null): boolean;
+
+        /**
+         * Removes the proxy from the available list of proxies for the asset. If
+         * the given proxy is the default proxy of the list, then the next proxy
+         * in the available list (see `ges_asset_list_proxies()`) will become the
+         * default. If there are no other proxies, then the asset will no longer
+         * have a default {@link GES.Asset.proxy}.
+         * @param proxy An existing proxy of `asset`
+         * @returns `true` if `proxy` was successfully removed from `asset`'s proxy list.
+         */
+        unproxy(proxy: Asset): boolean;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @returns `true` if successful. If an error has occurred, this function will return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Finishes the async construction for the various g_async_initable_new
+         * calls, returning the created object or `null` on error.
+         * @param res the {@link Gio.AsyncResult} from the callback
+         * @returns a newly created {@link GObject.Object},      or `null` on error. Free with `g_object_unref()`.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        new_finish(res: Gio.AsyncResult): Asset;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @returns `true` if successful. If an error has occurred, this function will     return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init(cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    namespace AudioSource {
+        // Signal signatures
+        interface SignalSignatures extends Source.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Source.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * ## Children Properties
+     * 
+     * You can use the following children properties through the
+     * `ges_track_element_set_child_property` and alike set of methods:
+     * 
+     * - `gdouble` `volume`: volume factor, 1.0=100%.
+     * - `gboolean` `mute`: mute channel.
+     * @gir-type Class
+     */
+    abstract class AudioSource extends Source implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<AudioSource>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: AudioSource.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<AudioSource.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof AudioSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, AudioSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof AudioSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, AudioSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof AudioSource.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<AudioSource.SignalSignatures[K]>): void;
+    }
+
+
+    namespace AudioTestSource {
+        // Signal signatures
+        interface SignalSignatures extends AudioSource.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends AudioSource.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * Outputs a test audio stream using audiotestsrc. The default property values
+     * output silence. Useful for testing pipelines, or to fill gaps in an audio
+     * track.
+     * @gir-type Class
+     */
+    class AudioTestSource extends AudioSource implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<AudioTestSource>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: AudioTestSource.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<AudioTestSource.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof AudioTestSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, AudioTestSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof AudioTestSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, AudioTestSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof AudioTestSource.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<AudioTestSource.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the current frequency of `self`.
+         * @returns The current frequency of `self`.
+         */
+        get_freq(): number;
+
+        /**
+         * Get the current volume of `self`.
+         * @returns The current volume of `self`
+         */
+        get_volume(): number;
+
+        /**
+         * Lets you set the frequency applied on the track element
+         * @param freq The frequency you want to apply on `self`
+         */
+        set_freq(freq: number): void;
+
+        /**
+         * Sets the volume of the test audio signal.
+         * @param volume The volume you want to apply on `self`
+         */
+        set_volume(volume: number): void;
+    }
+
+
+    namespace AudioTrack {
+        // Signal signatures
+        interface SignalSignatures extends Track.SignalSignatures, MetaContainer.SignalSignatures, Gst.ChildProxy.SignalSignatures {
+            "notify::caps": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::mixing": (pspec: GObject.ParamSpec) => void;
+            "notify::restriction-caps": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::async-handling": (pspec: GObject.ParamSpec) => void;
+            "notify::message-forward": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Track.ConstructorProps, MetaContainer.ConstructorProps, Gst.ChildProxy.ConstructorProps {}
+    }
+
+    /**
+     * A {@link GES.AudioTrack} is a default audio {@link GES.Track}, with a
+     * #GES_TRACK_TYPE_AUDIO {@link GES.Track.track_type} and "audio/x-raw(ANY)"
+     * {@link GES.Track.caps}.
+     * 
+     * By default, an audio track will have its {@link GES.Track.restriction_caps}
+     * set to "audio/x-raw" with the following properties:
+     * 
+     * - format: "S32LE"
+     * - channels: 2
+     * - rate: 44100
+     * - layout: "interleaved"
+     * 
+     * These fields are needed for negotiation purposes, but you can change
+     * their values if you wish. It is advised that you do so using
+     * `ges_track_update_restriction_caps()` with new values for the fields you
+     * wish to change, and any additional fields you may want to add. Unlike
+     * using `ges_track_set_restriction_caps()`, this will ensure that these
+     * default fields will at least have some value set.
+     * @gir-type Class
+     */
+    class AudioTrack extends Track implements MetaContainer, Gst.ChildProxy {
+        static $gtype: GObject.GType<AudioTrack>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: AudioTrack.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<AudioTrack.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): AudioTrack;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof AudioTrack.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, AudioTrack.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof AudioTrack.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, AudioTrack.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof AudioTrack.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<AudioTrack.SignalSignatures[K]>): void;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Increases the reference count of `object`.
+         * 
+         * Since GLib 2.56, if `GLIB_VERSION_MAX_ALLOWED` is 2.56 or greater, the type
+         * of `object` will be propagated to the return type (using the GCC `typeof()`
+         * extension), so any casting the caller needs to do on the return type must be
+         * explicit.
+         * @returns the same `object`
+         */
+        ref(): GObject.Object;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with Gst.Object.ref
+        ref(...args: never[]): any;
+
+        /**
+         * Decreases the reference count of `object`. When its reference count
+         * drops to 0, the object is finalized (i.e. its memory is freed).
+         * 
+         * If the pointer to the {@link GObject.Object} may be reused in future (for example, if it is
+         * an instance variable of another object), it is recommended to clear the
+         * pointer to `null` rather than retain a dangling pointer to a potentially
+         * invalid {@link GObject.Object} instance. Use `g_clear_object()` for this.
+         */
+        unref(): void;
+    }
+
+
+    namespace AudioTransition {
+        // Signal signatures
+        interface SignalSignatures extends Transition.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Transition.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class AudioTransition extends Transition implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<AudioTransition>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: AudioTransition.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<AudioTransition.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): AudioTransition;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof AudioTransition.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, AudioTransition.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof AudioTransition.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, AudioTransition.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof AudioTransition.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<AudioTransition.SignalSignatures[K]>): void;
+    }
+
+
+    namespace AudioUriSource {
+        // Signal signatures
+        interface SignalSignatures extends AudioSource.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::uri": (pspec: GObject.ParamSpec) => void;
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends AudioSource.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            uri: string;
+        }
+    }
+
+    /**
+     * ### Children Properties
+     * 
+     *  {{ libs/GESVideoUriSource-children-props.md }}
+     * @gir-type Class
+     */
+    class AudioUriSource extends AudioSource implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<AudioUriSource>;
+
+        // Properties
+        /**
+         * The location of the file/resource to use.
+         * @construct-only
+         * @default null
+         */
+        get uri(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: AudioUriSource.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<AudioUriSource.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof AudioUriSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, AudioUriSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof AudioUriSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, AudioUriSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof AudioUriSource.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<AudioUriSource.SignalSignatures[K]>): void;
+    }
+
+
+    namespace BaseEffect {
+        // Signal signatures
+        interface SignalSignatures extends Operation.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Operation.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * A {@link GES.BaseEffect} is some operation that applies an effect to the data
+     * it receives.
+     * 
+     * ## Time Effects
+     * 
+     * Some operations will change the timing of the stream data they receive
+     * in some way. In particular, the {@link Gst.Element} that they wrap could alter
+     * the times of the segment they receive in a #GST_EVENT_SEGMENT event,
+     * or the times of a seek they receive in a #GST_EVENT_SEEK event. Such
+     * operations would be considered time effects since they translate the
+     * times they receive on their source to different times at their sink,
+     * and vis versa. This introduces two sets of time coordinates for the
+     * event: (internal) sink coordinates and (internal) source coordinates,
+     * where segment times are translated from the sink coordinates to the
+     * source coordinates, and seek times are translated from the source
+     * coordinates to the sink coordinates.
+     * 
+     * If you use such an effect in GES, you will need to inform GES of the
+     * properties that control the timing with
+     * `ges_base_effect_register_time_property()`, and the effect's timing
+     * behaviour using `ges_base_effect_set_time_translation_funcs()`.
+     * 
+     * Note that a time effect should not have its
+     * {@link GES.TrackElement.has_internal_source} set to `true`.
+     * 
+     * In addition, note that GES only *fully* supports time effects whose
+     * mapping from the source to sink coordinates (those applied to seeks)
+     * obeys:
+     * 
+     * + Maps the time `0` to `0`. So initial time-shifting effects are
+     *   excluded.
+     * + Is monotonically increasing. So reversing effects, and effects that
+     *   jump backwards in the stream are excluded.
+     * + Can handle a reasonable {@link Gst.ClockTime}, relative to the project. So
+     *   this would exclude a time effect with an extremely large speed-up
+     *   that would cause the converted {@link Gst.ClockTime} seeks to overflow.
+     * + Is 'continuously reversible'. This essentially means that for every
+     *   time in the sink coordinates, we can, to 'good enough' accuracy,
+     *   calculate the corresponding time in the source coordinates. Moreover,
+     *   this should correspond to how segment times are translated from
+     *   sink to source.
+     * + Only depends on the registered time properties, rather than the
+     *   state of the {@link Gst.Element} or the data it receives. This would exclude,
+     *   say, an effect that would speedup if there is more red in the image
+     *   it receives.
+     * 
+     * Note that a constant-rate-change effect that is not extremely fast or
+     * slow would satisfy these conditions. For such effects, you may wish to
+     * use `ges_effect_class_register_rate_property()`.
+     * @gir-type Class
+     */
+    abstract class BaseEffect extends Operation implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<BaseEffect>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: BaseEffect.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<BaseEffect.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof BaseEffect.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, BaseEffect.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof BaseEffect.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, BaseEffect.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof BaseEffect.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<BaseEffect.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get whether the effect is considered a time effect or not. An effect
+         * with registered time properties or set translation functions is
+         * considered a time effect.
+         * @returns `true` if `effect` is considered a time effect.
+         * @since 1.18
+         */
+        is_time_effect(): boolean;
+
+        /**
+         * Register a child property of the effect as a property that, when set,
+         * can change the timing of its input data. The child property should be
+         * specified as in `ges_timeline_element_lookup_child()`.
+         * 
+         * You should also set the corresponding time translation using
+         * `ges_base_effect_set_time_translation_funcs()`.
+         * 
+         * Note that `effect` must not be part of a clip, nor can it have
+         * {@link GES.TrackElement.has_internal_source} set to `true`.
+         * @param child_property_name The name of the child property to register as a time property
+         * @returns `true` if the child property was found and newly registered.
+         * @since 1.18
+         */
+        register_time_property(child_property_name: string): boolean;
+
+        /**
+         * Set the time translation query functions for the time effect. If an
+         * effect is a time effect, it will have two sets of coordinates: one
+         * at its sink and one at its source. The given functions should be able
+         * to translate between these two sets of coordinates. More specifically,
+         * `source_to_sink_func` should *emulate* how the corresponding {@link Gst.Element}
+         * would translate the {@link Gst.Segment} `time` field, and `sink_to_source_func`
+         * should emulate how the corresponding {@link Gst.Element} would translate the
+         * seek query `start` and `stop` values, as used in `gst_element_seek()`. As
+         * such, `sink_to_source_func` should act as an approximate reverse of
+         * `source_to_sink_func`.
+         * 
+         * Note, these functions will be passed a table of time properties, as
+         * registered in `ges_base_effect_register_time_property()`, and their
+         * values. The functions should emulate what the translation *would* be
+         * *if* the time properties were set to the given values. They should not
+         * use the currently set values.
+         * 
+         * Note that `effect` must not be part of a clip, nor can it have
+         * {@link GES.TrackElement.has_internal_source} set to `true`.
+         * @param source_to_sink_func The function to use for querying how a time is translated from the source coordinates to the sink coordinates of `effect`
+         * @param sink_to_source_func The function to use for querying how a time is translated from the sink coordinates to the source coordinates of `effect`
+         * @returns `true` if the translation functions were set.
+         * @since 1.18
+         */
+        set_time_translation_funcs(source_to_sink_func: BaseEffectTimeTranslationFunc | null, sink_to_source_func: BaseEffectTimeTranslationFunc | null): boolean;
+    }
+
+
+    namespace BaseEffectClip {
+        // Signal signatures
+        interface SignalSignatures extends OperationClip.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::duration-limit": (pspec: GObject.ParamSpec) => void;
+            "notify::layer": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends OperationClip.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * {@link GES.BaseEffectClip}-s are clips whose core elements are
+     * {@link GES.BaseEffect}-s.
+     * 
+     * ## Effects
+     * 
+     * {@link GES.BaseEffectClip}-s can have **additional** {@link GES.BaseEffect}-s added as
+     * non-core elements. These additional effects are applied to the output
+     * of the core effects of the clip that they share a {@link GES.Track} with. See
+     * {@link GES.Clip} for how to add and move these effects from the clip.
+     * 
+     * Note that you cannot add time effects to {@link GES.BaseEffectClip}, neither
+     * as core children, nor as additional effects.
+     * @gir-type Class
+     */
+    abstract class BaseEffectClip extends OperationClip implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<BaseEffectClip>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: BaseEffectClip.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<BaseEffectClip.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof BaseEffectClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, BaseEffectClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof BaseEffectClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, BaseEffectClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof BaseEffectClip.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<BaseEffectClip.SignalSignatures[K]>): void;
+    }
+
+
+    namespace BaseTransitionClip {
+        // Signal signatures
+        interface SignalSignatures extends OperationClip.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::duration-limit": (pspec: GObject.ParamSpec) => void;
+            "notify::layer": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends OperationClip.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class BaseTransitionClip extends OperationClip implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<BaseTransitionClip>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: BaseTransitionClip.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<BaseTransitionClip.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof BaseTransitionClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, BaseTransitionClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof BaseTransitionClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, BaseTransitionClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof BaseTransitionClip.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<BaseTransitionClip.SignalSignatures[K]>): void;
+    }
+
+
+    namespace BaseXmlFormatter {
+        // Signal signatures
+        interface SignalSignatures extends Formatter.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends Formatter.ConstructorProps, Extractable.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class BaseXmlFormatter extends Formatter implements Extractable {
+        static $gtype: GObject.GType<BaseXmlFormatter>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: BaseXmlFormatter.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<BaseXmlFormatter.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof BaseXmlFormatter.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, BaseXmlFormatter.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof BaseXmlFormatter.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, BaseXmlFormatter.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof BaseXmlFormatter.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<BaseXmlFormatter.SignalSignatures[K]>): void;
+
+        /**
+         * Get the asset that has been set on the extractable object.
+         * @returns The asset set on `self`, or `null` if no asset has been set.
+         */
+        get_asset(): Asset | null;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @returns The {@link GES.Asset.id} of some associated {@link GES.Asset} that is compatible with `self`'s current state.
+         */
+        get_id(): string;
+
+        /**
+         * Sets the asset for this extractable object.
+         * 
+         * When an object is extracted from an asset using `ges_asset_extract()` its
+         * asset will be automatically set. Note that many classes that implement
+         * {@link GES.Extractable} will automatically create their objects using assets
+         * when you call their `new` methods. However, you can use this method to
+         * associate an object with a compatible asset if it was created by other
+         * means and does not yet have an asset. Or, for some implementations of
+         * {@link GES.Extractable}, you can use this to change the asset of the given
+         * extractable object, which will lead to a change in its state to
+         * match the new asset {@link GES.Asset.id}.
+         * @param asset The asset to set
+         * @returns `true` if `asset` could be successfully set on `self`.
+         */
+        set_asset(asset: Asset): boolean;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @virtual
+         */
+        vfunc_get_id(): string;
+
+        /**
+         * This method is called after the {@link GES.Asset} of an object is
+         * set. If your class supports the asset of an object changing, then you
+         * can use this method to change the parameters of the object to match the
+         * new asset {@link GES.Asset.id}. If setting the asset should be able to fail,
+         * you should implement `set_asset_full` instead.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset(asset: Asset): void;
+
+        /**
+         * Like `set_asset`, but also allows you to return `false`
+         * to indicate a failure to change the object in response to a change in
+         * its asset.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset_full(asset: Asset): boolean;
+    }
+
+
+    namespace Clip {
+        // Signal signatures
+        interface SignalSignatures extends Container.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::duration-limit": (pspec: GObject.ParamSpec) => void;
+            "notify::layer": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Container.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            duration_limit: bigint | number;
+            durationLimit: bigint | number;
+            layer: Layer | null;
+            supported_formats: TrackType;
+            supportedFormats: TrackType;
+        }
+    }
+
+    /**
+     * {@link GES.Clip}-s are the core objects of a {@link GES.Layer}. Each clip may exist in
+     * a single layer but may control several {@link GES.TrackElement}-s that span
+     * several {@link GES.Track}-s. A clip will ensure that all its children share the
+     * same {@link GES.TimelineElement.start} and {@link GES.TimelineElement.duration} in
+     * their tracks, which will match the {@link GES.TimelineElement.start} and
+     * {@link GES.TimelineElement.duration} of the clip itself. Therefore, changing
+     * the timing of the clip will change the timing of the children, and a
+     * change in the timing of a child will change the timing of the clip and
+     * subsequently all its siblings. As such, a clip can be treated as a
+     * singular object in its layer.
+     * 
+     * For most uses of a {@link GES.Timeline}, it is often sufficient to only
+     * interact with {@link GES.Clip}-s directly, which will take care of creating and
+     * organising the elements of the timeline's tracks.
+     * 
+     * ## Core Children
+     * 
+     * In more detail, clips will usually have some *core* {@link GES.TrackElement}
+     * children, which are created by the clip when it is added to a layer in
+     * a timeline. The type and form of these core children will depend on the
+     * clip's subclass. You can use `ges_track_element_is_core()` to determine
+     * whether a track element is considered such a core track element. Note,
+     * if a core track element is part of a clip, it will always be treated as
+     * a core *child* of the clip. You can connect to the
+     * {@link GES.Container.SignalSignatures.child_added | GES.Container::child-added} signal to be notified of their creation.
+     * 
+     * When a child is added to a clip, the timeline will select its tracks
+     * using {@link GES.Timeline.SignalSignatures.select_tracks_for_object | GES.Timeline::select-tracks-for-object}. Note that it may be the
+     * case that the child will still have no set {@link GES.TrackElement.track}
+     * after this process. For example, if the timeline does not have a track
+     * of the corresponding {@link GES.Track.track_type}. A clip can safely contain
+     * such children, which may have their track set later, although they will
+     * play no functioning role in the timeline in the meantime.
+     * 
+     * If a clip may create track elements with various
+     * {@link GES.TrackElement.track_type}(s), such as a {@link GES.UriClip}, but you only
+     * want it to create a subset of these types, you should set the
+     * {@link GES.Clip.supported_formats} of the clip to the subset of types. This
+     * should be done *before* adding the clip to a layer.
+     * 
+     * If a clip will produce several core elements of the same
+     * {@link GES.TrackElement.track_type}, you should connect to the timeline's
+     * {@link GES.Timeline.SignalSignatures.select_tracks_for_object | GES.Timeline::select-tracks-for-object} signal to coordinate which
+     * tracks each element should land in. Note, no two core children within a
+     * clip can share the same {@link GES.Track}, so you should not select the same
+     * track for two separate core children. Provided you stick to this rule,
+     * it is still safe to select several tracks for the same core child, the
+     * core child will be copied into the additional tracks. You can manually
+     * add the child to more tracks later using `ges_clip_add_child_to_track()`.
+     * If you do not wish to use a core child, you can always select no track.
+     * 
+     * The {@link GES.TimelineElement.in_point} of the clip will control the
+     * {@link GES.TimelineElement.in_point} of its core children to be the same
+     * value if their {@link GES.TrackElement.has_internal_source} is set to `true`.
+     * 
+     * The {@link GES.TimelineElement.max_duration} of the clip is the minimum
+     * {@link GES.TimelineElement.max_duration} of its core children. If you set its
+     * value to anything other than its current value, this will also set the
+     * {@link GES.TimelineElement.max_duration} of all its core children to the same
+     * value if their {@link GES.TrackElement.has_internal_source} is set to `true`.
+     * As a special case, whilst a clip does not yet have any core children,
+     * its {@link GES.TimelineElement.max_duration} may be set to indicate what its
+     * value will be once they are created.
+     * 
+     * ## Effects
+     * 
+     * Some subclasses ({@link GES.SourceClip} and {@link GES.BaseEffectClip}) may also allow
+     * their objects to have additional non-core {@link GES.BaseEffect}-s elements as
+     * children. These are additional effects that are applied to the output
+     * data of the core elements. They can be added to the clip using
+     * `ges_clip_add_top_effect()`, which will take care of adding the effect to
+     * the timeline's tracks. The new effect will be placed between the clip's
+     * core track elements and its other effects. As such, the newly added
+     * effect will be applied to any source data **before** the other existing
+     * effects. You can change the ordering of effects using
+     * `ges_clip_set_top_effect_index()`.
+     * 
+     * Tracks are selected for top effects in the same way as core children.
+     * If you add a top effect to a clip before it is part of a timeline, and
+     * later add the clip to a timeline, the track selection for the top
+     * effects will occur just after the track selection for the core
+     * children. If you add a top effect to a clip that is already part of a
+     * timeline, the track selection will occur immediately. Since a top
+     * effect must be applied on top of a core child, if you use
+     * {@link GES.Timeline.SignalSignatures.select_tracks_for_object | GES.Timeline::select-tracks-for-object}, you should ensure that the
+     * added effects are destined for a {@link GES.Track} that already contains a core
+     * child.
+     * 
+     * In addition, if the core child in the track is not
+     * {@link GES.TrackElement.active}, then neither can any of its effects be
+     * {@link GES.TrackElement.active}. Therefore, if a core child is made in-active,
+     * all of the additional effects in the same track will also become
+     * in-active. Similarly, if an effect is set to be active, then the core
+     * child will also become active, but other effects will be left alone.
+     * Finally, if an active effect is added to the track of an in-active core
+     * child, it will become in-active as well. Note, in contrast, setting a
+     * core child to be active, or an effect to be in-active will *not* change
+     * the other children in the same track.
+     * 
+     * ### Time Effects
+     * 
+     * Some effects also change the timing of their data (see {@link GES.BaseEffect}
+     * for what counts as a time effect). Note that a {@link GES.BaseEffectClip} will
+     * refuse time effects, but a {@link GES.Source} will allow them.
+     * 
+     * When added to a clip, time effects may adjust the timing of other
+     * children in the same track. Similarly, when changing the order of
+     * effects, making them (in)-active, setting their time property values
+     * or removing time effects. These can cause the {@link GES.Clip.duration_limit}
+     * to change in value. However, if such an operation would ever cause the
+     * {@link GES.TimelineElement.duration} to shrink such that a clip's {@link GES.Source} is
+     * totally overlapped in the timeline, the operation would be prevented.
+     * Note that the same can happen when adding non-time effects with a
+     * finite {@link GES.TimelineElement.max_duration}.
+     * 
+     * Therefore, when working with time effects, you should -- more so than
+     * usual -- not assume that setting the properties of the clip's children
+     * will succeed. In particular, you should use
+     * `ges_timeline_element_set_child_property_full()` when setting the time
+     * properties.
+     * 
+     * If you wish to preserve the *internal* duration of a source in a clip
+     * during these time effect operations, you can do something like the
+     * following.
+     * 
+     * ```c
+     * void
+     * do_time_effect_change (GESClip * clip)
+     * {
+     *   GList *tmp, *children;
+     *   GESTrackElement *source;
+     *   GstClockTime source_outpoint;
+     *   GstClockTime new_end;
+     *   GError *error = NULL;
+     * 
+     *   // choose some active source in a track to preserve the internal
+     *   // duration of
+     *   source = ges_clip_get_track_element (clip, NULL, GES_TYPE_SOURCE);
+     * 
+     *   // note its current internal end time
+     *   source_outpoint = ges_clip_get_internal_time_from_timeline_time (
+     *         clip, source, GES_TIMELINE_ELEMENT_END (clip), NULL);
+     * 
+     *   // handle invalid out-point
+     * 
+     *   // stop the children's control sources from clamping when their
+     *   // out-point changes with a change in the time effects
+     *   children = ges_container_get_children (GES_CONTAINER (clip), FALSE);
+     * 
+     *   for (tmp = children; tmp; tmp = tmp->next)
+     *     ges_track_element_set_auto_clamp_control_sources (tmp->data, FALSE);
+     * 
+     *   // add time effect, or set their children properties, or move them around
+     *   ...
+     *   // user can make sure that if a time effect changes one source, we should
+     *   // also change the time effect for another source. E.g. if
+     *   // "GstVideorate::rate" is set to 2.0, we also set "GstPitch::rate" to
+     *   // 2.0
+     * 
+     *   // Note the duration of the clip may have already changed if the
+     *   // duration-limit of the clip dropped below its current value
+     * 
+     *   new_end = ges_clip_get_timeline_time_from_internal_time (
+     *         clip, source, source_outpoint, &error);
+     *   // handle error
+     * 
+     *   if (!ges_timeline_elemnet_edit_full (GES_TIMELINE_ELEMENT (clip),
+     *         -1, GES_EDIT_MODE_TRIM, GES_EDGE_END, new_end, &error))
+     *     // handle error
+     * 
+     *   for (tmp = children; tmp; tmp = tmp->next)
+     *     ges_track_element_set_auto_clamp_control_sources (tmp->data, TRUE);
+     * 
+     *   g_list_free_full (children, gst_object_unref);
+     *   gst_object_unref (source);
+     * }
+     * ```
+     * @gir-type Class
+     */
+    abstract class Clip extends Container implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<Clip>;
+
+        // Properties
+        /**
+         * The maximum {@link GES.TimelineElement.duration} that can be *currently* set
+         * for the clip, taking into account the {@link GES.TimelineElement.in_point},
+         * {@link GES.TimelineElement.max_duration}, {@link GES.TrackElement.active}, and
+         * {@link GES.TrackElement.track} properties of its children, as well as any
+         * time effects. If there is no limit, this will be set to
+         * #GST_CLOCK_TIME_NONE.
+         * 
+         * Note that whilst a clip has no children in any tracks, the limit will
+         * be unknown, and similarly set to #GST_CLOCK_TIME_NONE.
+         * 
+         * If the duration-limit would ever go below the current
+         * {@link GES.TimelineElement.duration} of the clip due to a change in the above
+         * variables, its {@link GES.TimelineElement.duration} will be set to the new
+         * limit.
+         * @since 1.18
+         * @read-only
+         * @default 18446744073709551615
+         */
+        get duration_limit(): number;
+
+        /**
+         * The maximum {@link GES.TimelineElement.duration} that can be *currently* set
+         * for the clip, taking into account the {@link GES.TimelineElement.in_point},
+         * {@link GES.TimelineElement.max_duration}, {@link GES.TrackElement.active}, and
+         * {@link GES.TrackElement.track} properties of its children, as well as any
+         * time effects. If there is no limit, this will be set to
+         * #GST_CLOCK_TIME_NONE.
+         * 
+         * Note that whilst a clip has no children in any tracks, the limit will
+         * be unknown, and similarly set to #GST_CLOCK_TIME_NONE.
+         * 
+         * If the duration-limit would ever go below the current
+         * {@link GES.TimelineElement.duration} of the clip due to a change in the above
+         * variables, its {@link GES.TimelineElement.duration} will be set to the new
+         * limit.
+         * @since 1.18
+         * @read-only
+         * @default 18446744073709551615
+         */
+        get durationLimit(): number;
+
+        /**
+         * The layer this clip lies in.
+         * 
+         * If you want to connect to this property's {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify} signal,
+         * you should connect to it with `g_signal_connect_after()` since the
+         * signal emission may be stopped internally.
+         * @read-only
+         */
+        get layer(): Layer | null;
+
+        /**
+         * The {@link GES.TrackType}-s that the clip supports, which it can create
+         * {@link GES.TrackElement}-s for. Note that this can be a combination of
+         * {@link GES.TrackType} flags to indicate support for several
+         * {@link GES.TrackElement.track_type} elements.
+         * @default GES.TrackType.AUDIO | GES.TrackType.VIDEO
+         */
+        get supported_formats(): TrackType;
+        set supported_formats(val: TrackType);
+
+        /**
+         * The {@link GES.TrackType}-s that the clip supports, which it can create
+         * {@link GES.TrackElement}-s for. Note that this can be a combination of
+         * {@link GES.TrackType} flags to indicate support for several
+         * {@link GES.TrackElement.track_type} elements.
+         * @default GES.TrackType.AUDIO | GES.TrackType.VIDEO
+         */
+        get supportedFormats(): TrackType;
+        set supportedFormats(val: TrackType);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Clip.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Clip.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Clip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Clip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Clip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Clip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Clip.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Clip.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * Method to create the core {@link GES.TrackElement} of a clip
+         * of this class. If a clip of this class may create several track elements per
+         * track type, this should be left as `null`, and
+         * GESClipClass::create_track_elements should be used instead. Otherwise, you
+         * should implement this class method and leave
+         * GESClipClass::create_track_elements as the default implementation
+         * @param type A {@link GES.TrackType} to create a {@link GES.TrackElement} for
+         * @virtual
+         */
+        vfunc_create_track_element(type: TrackType): TrackElement | null;
+
+        /**
+         * Method to create the (multiple) core
+         * {@link GES.TrackElement}-s of a clip of this class. If
+         * GESClipClass::create_track_element is implemented, this should be kept as the
+         * default implementation
+         * @param type A {@link GES.TrackType} to create {@link GES.TrackElement}-s for
+         * @virtual
+         */
+        vfunc_create_track_elements(type: TrackType): TrackElement[];
+
+        // Methods
+        /**
+         * Extracts a {@link GES.TrackElement} from an asset and adds it to the clip.
+         * This can be used to add effects that derive from the asset to the
+         * clip, but this method is not intended to be used to create the core
+         * elements of the clip.
+         * @param asset An asset with #GES_TYPE_TRACK_ELEMENT as its {@link GES.Asset.extractable_type}
+         * @returns The newly created element, or `null` if an error occurred.
+         */
+        add_asset(asset: Asset): TrackElement | null;
+
+        /**
+         * Adds the track element child of the clip to a specific track.
+         * 
+         * If the given child is already in another track, this will create a copy
+         * of the child, add it to the clip, and add this copy to the track.
+         * 
+         * You should only call this whilst a clip is part of a {@link GES.Timeline}, and
+         * for tracks that are in the same timeline.
+         * 
+         * This method is an alternative to using the
+         * {@link GES.Timeline.SignalSignatures.select_tracks_for_object | GES.Timeline::select-tracks-for-object} signal, but can be used to
+         * complement it when, say, you wish to copy a clip's children from one
+         * track into a new one.
+         * 
+         * When the child is a core child, it must be added to a track that does
+         * not already contain another core child of the same clip. If it is not a
+         * core child (an additional effect), then it must be added to a track
+         * that already contains one of the core children of the same clip.
+         * 
+         * This method can also fail if the adding the track element to the track
+         * would break a configuration rule of the corresponding {@link GES.Timeline},
+         * such as causing three sources to overlap at a single time, or causing
+         * a source to completely overlap another in the same track.
+         * @param child A child of `clip`
+         * @param track The track to add `child` to
+         * @returns The element that was added to `track`, either `child` or a copy of child, or `null` if the element could not be added.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        add_child_to_track(child: TrackElement, track: Track): TrackElement;
+
+        /**
+         * Add a top effect to a clip at the given index.
+         * 
+         * Unlike using `ges_container_add()`, this allows you to set the index
+         * in advance. It will also check that no error occurred during the track
+         * selection for the effect.
+         * 
+         * Note, only subclasses of {@link GES.ClipClass} that have
+         * #GES_CLIP_CLASS_CAN_ADD_EFFECTS set to `true` (such as {@link GES.SourceClip}
+         * and {@link GES.BaseEffectClip}) can have additional top effects added.
+         * 
+         * Note, if the effect is a time effect, this may be refused if the clip
+         * would not be able to adapt itself once the effect is added.
+         * @param effect A top effect to add
+         * @param index The index to add `effect` at, or -1 to add at the highest,         see `ges_clip_get_top_effect_index` for more information
+         * @returns `true` if `effect` was successfully added to `clip` at `index`.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        add_top_effect(effect: BaseEffect, index: number): boolean;
+
+        /**
+         * Finds an element controlled by the clip. If `track` is given,
+         * then only the track elements in `track` are searched for. If `type` is
+         * given, then this function searches for a track element of the given
+         * `type`.
+         * 
+         * Note, if multiple track elements in the clip match the given criteria,
+         * this will return the element amongst them with the highest
+         * {@link GES.TimelineElement.priority} (numerically, the smallest). See
+         * `ges_clip_find_track_elements()` if you wish to find all such elements.
+         * @param track The track to search in, or `null` to search in all tracks
+         * @param type The type of track element to search for, or `G_TYPE_NONE` to match any type
+         * @returns The element controlled by `clip`, in `track`, and of the given `type`, or `null` if no such element could be found.
+         */
+        find_track_element(track: Track | null, type: GObject.GType): TrackElement | null;
+
+        /**
+         * Finds the {@link GES.TrackElement}-s controlled by the clip that match the
+         * given criteria. If `track` is given as `null` and `track_type` is given as
+         * #GES_TRACK_TYPE_UNKNOWN, then the search will match all elements in any
+         * track, including those with no track, and of any
+         * {@link GES.TrackElement.track_type}. Otherwise, if `track` is not `null`, but
+         * `track_type` is #GES_TRACK_TYPE_UNKNOWN, then only the track elements in
+         * `track` are searched for. Otherwise, if `track_type` is not
+         * #GES_TRACK_TYPE_UNKNOWN, but `track` is `null`, then only the track
+         * elements whose {@link GES.TrackElement.track_type} matches `track_type` are
+         * searched for. Otherwise, when both are given, the track elements that
+         * match **either** criteria are searched for. Therefore, if you wish to
+         * only find elements in a specific track, you should give the track as
+         * `track`, but you should not give the track's {@link GES.Track.track_type} as
+         * `track_type` because this would also select elements from other tracks
+         * of the same type.
+         * 
+         * You may also give `type` to _further_ restrict the search to track
+         * elements of the given `type`.
+         * @param track The track to search in, or `null` to search in all tracks
+         * @param track_type The track-type of the track element to search for, or #GES_TRACK_TYPE_UNKNOWN to match any track type
+         * @param type The type of track element to search for, or `G_TYPE_NONE` to match any type
+         * @returns A list of all the {@link GES.TrackElement}-s controlled by `clip`, in `track` or of the given `track_type`, and of the given `type`.
+         */
+        find_track_elements(track: Track | null, track_type: TrackType, type: GObject.GType): TrackElement[];
+
+        /**
+         * Gets the {@link GES.Clip.duration_limit} of the clip.
+         * @returns The duration-limit of `clip`.
+         * @since 1.18
+         */
+        get_duration_limit(): Gst.ClockTime;
+
+        /**
+         * Convert the timeline time to an internal source time of the child.
+         * This will take any time effects placed on the clip into account (see
+         * {@link GES.BaseEffect} for what time effects are supported, and how to
+         * declare them in GES).
+         * 
+         * When `timeline_time` is above the {@link GES.TimelineElement.start} of `clip`,
+         * this will return the internal time at which the content that appears at
+         * `timeline_time` in the output of the timeline is created in `child`. For
+         * example, if `timeline_time` corresponds to the current seek position,
+         * this would let you know which part of a media file is being read.
+         * 
+         * This will be done assuming the clip has an indefinite end, so the
+         * internal time may be beyond the current out-point of the child, or even
+         * its {@link GES.TimelineElement.max_duration}.
+         * 
+         * If, instead, `timeline_time` is below the current
+         * {@link GES.TimelineElement.start} of `clip`, this will return what you would
+         * need to set the {@link GES.TimelineElement.in_point} of `child` to if you set
+         * the {@link GES.TimelineElement.start} of `clip` to `timeline_time` and wanted
+         * to keep the content of `child` currently found at the current
+         * {@link GES.TimelineElement.start} of `clip` at the same timeline position. If
+         * this would be negative, the conversion fails. This is useful for
+         * determining what {@link GES.TimelineElement.in_point} would result from a
+         * #GES_EDIT_MODE_TRIM to `timeline_time`.
+         * 
+         * Note that whilst a clip has no time effects, this second return is
+         * equivalent to finding the internal time at which the content that
+         * appears at `timeline_time` in the timeline can be found in `child` if it
+         * had indefinite extent in both directions. However, with non-linear time
+         * effects this second return will be more distinct.
+         * 
+         * In either case, the returned time would be appropriate to use for the
+         * {@link GES.TimelineElement.in_point} or {@link GES.TimelineElement.max_duration} of the
+         * child.
+         * 
+         * See `ges_clip_get_timeline_time_from_internal_time()`, which performs the
+         * reverse.
+         * @param child An {@link GES.TrackElement.active} child of `clip` with a {@link GES.TrackElement.track}
+         * @param timeline_time A time in the timeline time coordinates
+         * @returns The time in the internal coordinates of `child` corresponding to `timeline_time`, or #GST_CLOCK_TIME_NONE if the conversion could not be performed.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        get_internal_time_from_timeline_time(child: TrackElement, timeline_time: Gst.ClockTime): Gst.ClockTime;
+
+        /**
+         * Gets the {@link GES.Clip.layer} of the clip.
+         * @returns The layer `clip` is in, or `null` if `clip` is not in any layer.
+         */
+        get_layer(): Layer | null;
+
+        /**
+         * Gets the {@link GES.Clip.supported_formats} of the clip.
+         * @returns The {@link GES.TrackType}-s supported by `clip`.
+         */
+        get_supported_formats(): TrackType;
+
+        /**
+         * Convert the internal source time from the child to a timeline time.
+         * This will take any time effects placed on the clip into account (see
+         * {@link GES.BaseEffect} for what time effects are supported, and how to
+         * declare them in GES).
+         * 
+         * When `internal_time` is above the {@link GES.TimelineElement.in_point} of
+         * `child`, this will return the timeline time at which the internal
+         * content found at `internal_time` appears in the output of the timeline's
+         * track. For example, this would let you know where in the timeline a
+         * particular scene in a media file would appear.
+         * 
+         * This will be done assuming the clip has an indefinite end, so the
+         * timeline time may be beyond the end of the clip, or even breaking its
+         * {@link GES.Clip.duration_limit}.
+         * 
+         * If, instead, `internal_time` is below the current
+         * {@link GES.TimelineElement.in_point} of `child`, this will return what you would
+         * need to set the {@link GES.TimelineElement.start} of `clip` to if you set the
+         * {@link GES.TimelineElement.in_point} of `child` to `internal_time` and wanted to
+         * keep the content of `child` currently found at the current
+         * {@link GES.TimelineElement.start} of `clip` at the same timeline position. If
+         * this would be negative, the conversion fails. This is useful for
+         * determining what position to use in a #GES_EDIT_MODE_TRIM if you wish
+         * to trim to a specific point in the internal content, such as a
+         * particular scene in a media file.
+         * 
+         * Note that whilst a clip has no time effects, this second return is
+         * equivalent to finding the timeline time at which the content of `child`
+         * at `internal_time` would be found in the timeline if it had indefinite
+         * extent in both directions. However, with non-linear time effects this
+         * second return will be more distinct.
+         * 
+         * In either case, the returned time would be appropriate to use in
+         * `ges_timeline_element_edit()` for #GES_EDIT_MODE_TRIM, and similar, if
+         * you wish to use a particular internal point as a reference. For
+         * example, you could choose to end a clip at a certain internal
+         * 'out-point', similar to the {@link GES.TimelineElement.in_point}, by
+         * translating the desired end time into the timeline coordinates, and
+         * using this position to trim the end of a clip.
+         * 
+         * See `ges_clip_get_internal_time_from_timeline_time()`, which performs the
+         * reverse, or `ges_clip_get_timeline_time_from_source_frame()` which does
+         * the same conversion, but using frame numbers.
+         * @param child An {@link GES.TrackElement.active} child of `clip` with a {@link GES.TrackElement.track}
+         * @param internal_time A time in the internal time coordinates of `child`
+         * @returns The time in the timeline coordinates corresponding to `internal_time`, or #GST_CLOCK_TIME_NONE if the conversion could not be performed.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        get_timeline_time_from_internal_time(child: TrackElement, internal_time: Gst.ClockTime): Gst.ClockTime;
+
+        /**
+         * Convert the source frame number to a timeline time. This acts the same
+         * as `ges_clip_get_timeline_time_from_internal_time()` using the core
+         * children of the clip and using the frame number to specify the internal
+         * position, rather than a timestamp.
+         * 
+         * The returned timeline time can be used to seek or edit to a specific
+         * frame.
+         * 
+         * Note that you can get the frame timestamp of a particular clip asset
+         * with `ges_clip_asset_get_frame_time()`.
+         * @param frame_number The frame number to get the corresponding timestamp of in the timeline coordinates
+         * @returns The timestamp corresponding to `frame_number` in the core children of `clip`, in the timeline coordinates, or #GST_CLOCK_TIME_NONE if the conversion could not be performed.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        get_timeline_time_from_source_frame(frame_number: FrameNumber): Gst.ClockTime;
+
+        /**
+         * Gets the internal index of an effect in the clip. The index of effects
+         * in a clip will run from 0 to n-1, where n is the total number of
+         * effects. If two effects share the same {@link GES.TrackElement.track}, the
+         * effect with the numerically lower index will be applied to the source
+         * data **after** the other effect, i.e. output data will always flow from
+         * a higher index effect to a lower index effect.
+         * @param effect The effect we want to get the index of
+         * @returns The index of `effect` in `clip`, or -1 if something went wrong.
+         */
+        get_top_effect_index(effect: BaseEffect): number;
+
+        /**
+         * @param effect 
+         */
+        get_top_effect_position(effect: BaseEffect): number;
+
+        /**
+         * Gets the {@link GES.BaseEffect}-s that have been added to the clip. The
+         * returned list is ordered by their internal index in the clip. See
+         * `ges_clip_get_top_effect_index()`.
+         * @returns A list of all {@link GES.BaseEffect}-s that have been added to `clip`.
+         */
+        get_top_effects(): TrackElement[];
+
+        /**
+         * Tells you if the clip is currently in the process of being moved from
+         * one layer to another. This is useful from the layer::clip-added and
+         * layer::clip-removed callbacks to know if the clip is being moved between
+         * layers, or is being added/removed for other reasons (like being added
+         * for the first time, or being actually removed).
+         * @returns `true` if `clip` is currently being moved between layers, `false` otherwise.
+         * @since 1.28
+         */
+        is_moving_between_layers(): boolean;
+
+        /**
+         * See `ges_clip_move_to_layer_full()`, which also gives an error.
+         * @param layer The new layer
+         * @returns `true` if `clip` was successfully moved to `layer`.
+         */
+        move_to_layer(layer: Layer): boolean;
+
+        /**
+         * Moves a clip to a new layer. If the clip already exists in a layer, it
+         * is first removed from its current layer before being added to the new
+         * layer.
+         * @param layer The new layer
+         * @returns `true` if `clip` was successfully moved to `layer`.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        move_to_layer_full(layer: Layer): boolean;
+
+        /**
+         * Remove a top effect from the clip.
+         * 
+         * Note, if the effect is a time effect, this may be refused if the clip
+         * would not be able to adapt itself once the effect is removed.
+         * @param effect The top effect to remove
+         * @returns `true` if `effect` was successfully added to `clip` at `index`.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        remove_top_effect(effect: BaseEffect): boolean;
+
+        /**
+         * Sets the {@link GES.Clip.supported_formats} of the clip. This should normally
+         * only be called by subclasses, which should be responsible for updating
+         * its value, rather than the user.
+         * @param supportedformats The {@link GES.TrackType}-s supported by `clip`
+         */
+        set_supported_formats(supportedformats: TrackType): void;
+
+        /**
+         * See `ges_clip_set_top_effect_index_full()`, which also gives an error.
+         * @param effect An effect within `clip` to move
+         * @param newindex The index for `effect` in `clip`
+         * @returns `true` if `effect` was successfully moved to `newindex`.
+         */
+        set_top_effect_index(effect: BaseEffect, newindex: number): boolean;
+
+        /**
+         * Set the index of an effect within the clip. See
+         * `ges_clip_get_top_effect_index()`. The new index must be an existing
+         * index of the clip. The effect is moved to the new index, and the other
+         * effects may be shifted in index accordingly to otherwise maintain the
+         * ordering.
+         * @param effect An effect within `clip` to move
+         * @param newindex The index for `effect` in `clip`
+         * @returns `true` if `effect` was successfully moved to `newindex`.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        set_top_effect_index_full(effect: BaseEffect, newindex: number): boolean;
+
+        /**
+         * @param effect 
+         * @param newpriority 
+         */
+        set_top_effect_priority(effect: BaseEffect, newpriority: number): boolean;
+
+        /**
+         * See `ges_clip_split_full()`, which also gives an error.
+         * @param position The timeline position at which to perform the split
+         * @returns The newly created clip resulting from the splitting `clip`, or `null` if `clip` can't be split.
+         */
+        split(position: bigint | number): Clip | null;
+
+        /**
+         * Splits a clip at the given timeline position into two clips. The clip
+         * must already have a {@link GES.Clip.layer}.
+         * 
+         * The original clip's {@link GES.TimelineElement.duration} is reduced such that
+         * its end point matches the split position. Then a new clip is created in
+         * the same layer, whose {@link GES.TimelineElement.start} matches the split
+         * position and {@link GES.TimelineElement.duration} will be set such that its end
+         * point matches the old end point of the original clip. Thus, the two
+         * clips together will occupy the same positions in the timeline as the
+         * original clip did.
+         * 
+         * The children of the new clip will be new copies of the original clip's
+         * children, so it will share the same sources and use the same
+         * operations.
+         * 
+         * The new clip will also have its {@link GES.TimelineElement.in_point} set so
+         * that any internal data will appear in the timeline at the same time.
+         * Thus, when the timeline is played, the playback of data should
+         * appear the same. This may be complicated by any additional
+         * {@link GES.Effect}-s that have been placed on the original clip that depend on
+         * the playback time or change the data consumption rate of sources. This
+         * method will attempt to translate these effects such that the playback
+         * appears the same. In such complex situations, you may get a better
+         * result if you place the clip in a separate sub {@link GES.Project}, which only
+         * contains this clip (and its effects), and in the original layer
+         * create two neighbouring {@link GES.UriClip}-s that reference this sub-project,
+         * but at a different {@link GES.TimelineElement.in_point}.
+         * @param position The timeline position at which to perform the split, between the start and end of the clip
+         * @returns The newly created clip resulting from the splitting `clip`, or `null` if `clip` can't be split.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        split_full(position: bigint | number): Clip | null;
+    }
+
+
+    namespace ClipAsset {
+        // Signal signatures
+        interface SignalSignatures extends Asset.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::extractable-type": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy-target": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Asset.ConstructorProps, MetaContainer.ConstructorProps, Gio.AsyncInitable.ConstructorProps, Gio.Initable.ConstructorProps {
+            supported_formats: TrackType;
+            supportedFormats: TrackType;
+        }
+    }
+
+    /**
+     * The {@link GES.UriClipAsset} is a special {@link GES.Asset} specilized in {@link GES.Clip}.
+     * it is mostly used to get information about the {@link GES.TrackType}-s the objects extracted
+     * from it can potentialy create {@link GES.TrackElement} for.
+     * @gir-type Class
+     */
+    class ClipAsset extends Asset implements MetaContainer, Gio.AsyncInitable<ClipAsset>, Gio.Initable {
+        static $gtype: GObject.GType<ClipAsset>;
+
+        // Properties
+        /**
+         * The formats supported by the asset.
+         * @default GES.TrackType.AUDIO | GES.TrackType.VIDEO
+         */
+        get supported_formats(): TrackType;
+        set supported_formats(val: TrackType);
+
+        /**
+         * The formats supported by the asset.
+         * @default GES.TrackType.AUDIO | GES.TrackType.VIDEO
+         */
+        get supportedFormats(): TrackType;
+        set supportedFormats(val: TrackType);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: ClipAsset.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<ClipAsset.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof ClipAsset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ClipAsset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof ClipAsset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ClipAsset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof ClipAsset.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<ClipAsset.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * Result: `true` if `self` has a natural framerate `false` otherwise
+         * @since 1.18
+         * @virtual
+         */
+        vfunc_get_natural_framerate(): [boolean, number, number];
+
+        // Methods
+        /**
+         * Converts the given frame number into a timestamp, using the "natural" frame
+         * rate of the asset.
+         * 
+         * You can use this to reference a specific frame in a media file and use this
+         * as, for example, the `in-point` or `max-duration` of a {@link GES.Clip}.
+         * @param frame_number The frame number we want the internal time coordinate timestamp of
+         * @returns The timestamp corresponding to `frame_number` in the element source, given in internal time coordinates, or #GST_CLOCK_TIME_NONE if the clip asset does not have a natural frame rate.
+         * @since 1.18
+         */
+        get_frame_time(frame_number: FrameNumber): Gst.ClockTime;
+
+        /**
+         * Result: `true` if `self` has a natural framerate `false` otherwise
+         * @since 1.18
+         */
+        get_natural_framerate(): [boolean, number, number];
+
+        /**
+         * Gets track types for which objects extracted from `self` can create {@link GES.TrackElement}
+         * @returns The track types on which `self` will create TrackElement when added to a layer
+         */
+        get_supported_formats(): TrackType;
+
+        /**
+         * Sets track types for which objects extracted from `self` can create {@link GES.TrackElement}
+         * @param supportedformats The track types supported by the GESClipAsset
+         */
+        set_supported_formats(supportedformats: TrackType): void;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @returns `true` if successful. If an error has occurred, this function will return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Finishes the async construction for the various g_async_initable_new
+         * calls, returning the created object or `null` on error.
+         * @param res the {@link Gio.AsyncResult} from the callback
+         * @returns a newly created {@link GObject.Object},      or `null` on error. Free with `g_object_unref()`.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        new_finish(res: Gio.AsyncResult): ClipAsset;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @returns `true` if successful. If an error has occurred, this function will     return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init(cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    namespace CommandLineFormatter {
+        // Signal signatures
+        interface SignalSignatures extends Formatter.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends Formatter.ConstructorProps, Extractable.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class CommandLineFormatter extends Formatter implements Extractable {
+        static $gtype: GObject.GType<CommandLineFormatter>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: CommandLineFormatter.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<CommandLineFormatter.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof CommandLineFormatter.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, CommandLineFormatter.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof CommandLineFormatter.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, CommandLineFormatter.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof CommandLineFormatter.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<CommandLineFormatter.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Creates a help string based on `commands`.
+         * 
+         * Result: (transfer full): A help string.
+         * @param commands Commands
+         * @since 1.10
+         */
+        static get_help(commands: string[]): string;
+
+        /**
+         * @param timeline A GESTimeline to serialize
+         * @since 1.10
+         */
+        static get_timeline_uri(timeline: Timeline): string;
+
+        /**
+         * Get the asset that has been set on the extractable object.
+         * @returns The asset set on `self`, or `null` if no asset has been set.
+         */
+        get_asset(): Asset | null;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @returns The {@link GES.Asset.id} of some associated {@link GES.Asset} that is compatible with `self`'s current state.
+         */
+        get_id(): string;
+
+        /**
+         * Sets the asset for this extractable object.
+         * 
+         * When an object is extracted from an asset using `ges_asset_extract()` its
+         * asset will be automatically set. Note that many classes that implement
+         * {@link GES.Extractable} will automatically create their objects using assets
+         * when you call their `new` methods. However, you can use this method to
+         * associate an object with a compatible asset if it was created by other
+         * means and does not yet have an asset. Or, for some implementations of
+         * {@link GES.Extractable}, you can use this to change the asset of the given
+         * extractable object, which will lead to a change in its state to
+         * match the new asset {@link GES.Asset.id}.
+         * @param asset The asset to set
+         * @returns `true` if `asset` could be successfully set on `self`.
+         */
+        set_asset(asset: Asset): boolean;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @virtual
+         */
+        vfunc_get_id(): string;
+
+        /**
+         * This method is called after the {@link GES.Asset} of an object is
+         * set. If your class supports the asset of an object changing, then you
+         * can use this method to change the parameters of the object to match the
+         * new asset {@link GES.Asset.id}. If setting the asset should be able to fail,
+         * you should implement `set_asset_full` instead.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset(asset: Asset): void;
+
+        /**
+         * Like `set_asset`, but also allows you to return `false`
+         * to indicate a failure to change the object in response to a change in
+         * its asset.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset_full(asset: Asset): boolean;
+    }
+
+
+    namespace Container {
+        // Signal signatures
+        interface SignalSignatures extends TimelineElement.SignalSignatures, MetaContainer.SignalSignatures {
+            /**
+             * Will be emitted after a child is added to the container. Usually,
+             * you should connect with `g_signal_connect_after()` since the signal
+             * may be stopped internally.
+             * @signal
+             * @run-first
+             */
+            "child-added": (element: TimelineElement) => void;
+            /**
+             * Will be emitted after a child is removed from the container.
+             * @signal
+             * @run-last
+             */
+            "child-removed": (element: TimelineElement) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends TimelineElement.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            height: number;
+        }
+    }
+
+    /**
+     * A {@link GES.Container} is a timeline element that controls other
+     * {@link GES.TimelineElement}-s, which are its children. In particular, it is
+     * responsible for maintaining the relative {@link GES.TimelineElement.start} and
+     * {@link GES.TimelineElement.duration} times of its children. Therefore, if a
+     * container is temporally adjusted or moved to a new layer, it may
+     * accordingly adjust and move its children. Similarly, a change in one of
+     * its children may prompt the parent to correspondingly change its
+     * siblings.
+     * @gir-type Class
+     */
+    abstract class Container extends TimelineElement implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<Container>;
+
+        // Properties
+        /**
+         * The span of the container's children's {@link GES.TimelineElement.priority}
+         * values, which is the number of integers that lie between (inclusive)
+         * the minimum and maximum priorities found amongst the container's
+         * children (maximum - minimum + 1).
+         * @read-only
+         * @default 1
+         */
+        get height(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Container.SignalSignatures;
+
+        // Fields
+        children: TimelineElement[];
+
+        children_control_mode: ChildrenControlMode;
+
+        initiated_move: TimelineElement;
+
+        // Constructors
+        constructor(properties?: Partial<Container.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Container.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Container.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Container.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Container.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Container.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Container.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Groups the containers into a single container by merging them. The
+         * containers must all belong to the same {@link GES.TimelineElement.timeline}.
+         * 
+         * If the elements are all {@link GES.Clip}-s then this method will attempt to
+         * combine them all into a single {@link GES.Clip}. This should succeed if they:
+         * share the same {@link GES.TimelineElement.start}, {@link GES.TimelineElement.duration}
+         * and {@link GES.TimelineElement.in_point}; exist in the same layer; and all of
+         * the sources share the same {@link GES.Asset}. If this fails, or one of the
+         * elements is not a {@link GES.Clip}, this method will try to create a {@link GES.Group}
+         * instead.
+         * @param containers The {@link GES.Container}-s to group
+         */
+        static group(containers: Container[] | null): Container | null;
+
+        // Virtual methods
+        /**
+         * Virtual method to add a child
+         * @param element 
+         * @virtual
+         */
+        vfunc_add_child(element: TimelineElement): boolean;
+
+        /**
+         * Virtual method that is called right after a {@link GES.TimelineElement} is added
+         * @param element 
+         * @virtual
+         */
+        vfunc_child_added(element: TimelineElement): void;
+
+        /**
+         * Virtual method that is called right after a {@link GES.TimelineElement} is removed
+         * @param element 
+         * @virtual
+         */
+        vfunc_child_removed(element: TimelineElement): void;
+
+        /**
+         * Edits the container within its timeline.
+         * @param layers A whitelist of layers where the edit can be performed, `null` allows all layers in the timeline
+         * @param new_layer_priority The priority/index of the layer `container` should be moved to. -1 means no move
+         * @param mode The edit mode
+         * @param edge The edge of `container` where the edit should occur
+         * @param position The edit position: a new location for the edge of `container` (in nanoseconds)
+         * @deprecated since 1.18: use `ges_timeline_element_edit` instead.
+         * @virtual
+         */
+        vfunc_edit(layers: Layer[] | null, new_layer_priority: number, mode: EditMode, edge: Edge, position: number): boolean;
+
+        /**
+         * Virtual method to remove a child
+         * @param element 
+         * @virtual
+         */
+        vfunc_remove_child(element: TimelineElement): boolean;
+
+        /**
+         * Ungroups the container by splitting it into several containers
+         * containing various children of the original. The rules for how the
+         * container splits depends on the subclass. A {@link GES.Group} will simply split
+         * into its children. A {@link GES.Clip} will split into one {@link GES.Clip} per
+         * {@link GES.TrackType} it overlaps with (so an audio-video clip will split into
+         * an audio clip and a video clip), where each clip contains all the
+         * {@link GES.TrackElement}-s from the original clip with a matching
+         * {@link GES.TrackElement.track_type}.
+         * 
+         * If `recursive` is `true`, and the container contains other containers as
+         * children, then they will also be ungrouped, and so on.
+         * @param recursive Whether to recursively ungroup `container`
+         * @virtual
+         */
+        vfunc_ungroup(recursive: boolean): Container[];
+
+        // Methods
+        /**
+         * Adds a timeline element to the container. The element will now be a
+         * child of the container (and the container will be the
+         * {@link GES.TimelineElement.parent} of the added element), which means that it
+         * is now controlled by the container. This may change the properties of
+         * the child or the container, depending on the subclass.
+         * 
+         * Additionally, the children properties of the newly added element will
+         * be shared with the container, meaning they can also be read and set
+         * using `ges_timeline_element_get_child_property()` and
+         * `ges_timeline_element_set_child_property()` on the container.
+         * @param child The element to add as a child
+         * @returns `true` if `child` was successfully added to `container`.
+         */
+        add(child: TimelineElement): boolean;
+
+        /**
+         * Edits the container within its timeline.
+         * @param layers A whitelist of layers where the edit can be performed, `null` allows all layers in the timeline
+         * @param new_layer_priority The priority/index of the layer `container` should be moved to. -1 means no move
+         * @param mode The edit mode
+         * @param edge The edge of `container` where the edit should occur
+         * @param position The edit position: a new location for the edge of `container` (in nanoseconds)
+         * @returns `true` if the edit of `container` completed, `false` on failure.
+         * @deprecated since 1.18: use `ges_timeline_element_edit` instead.
+         */
+        edit(layers: Layer[] | null, new_layer_priority: number, mode: EditMode, edge: Edge, position: bigint | number): boolean;
+
+        /**
+         * @param args 
+         */
+    // Conflicted with GES.TimelineElement.edit
+        edit(...args: never[]): any;
+
+        /**
+         * Get the list of timeline elements contained in the container. If
+         * `recursive` is `true`, and the container contains other containers as
+         * children, then their children will be added to the list, in addition to
+         * themselves, and so on.
+         * @param recursive Whether to recursively get children in `container`
+         * @returns The list of {@link GES.TimelineElement}-s contained in `container`.
+         */
+        get_children(recursive: boolean): TimelineElement[];
+
+        /**
+         * Removes a timeline element from the container. The element will no
+         * longer be controlled by the container.
+         * @param child The child to remove
+         * @returns `true` if `child` was successfully removed from `container`.
+         */
+        remove(child: TimelineElement): boolean;
+
+        /**
+         * Ungroups the container by splitting it into several containers
+         * containing various children of the original. The rules for how the
+         * container splits depends on the subclass. A {@link GES.Group} will simply split
+         * into its children. A {@link GES.Clip} will split into one {@link GES.Clip} per
+         * {@link GES.TrackType} it overlaps with (so an audio-video clip will split into
+         * an audio clip and a video clip), where each clip contains all the
+         * {@link GES.TrackElement}-s from the original clip with a matching
+         * {@link GES.TrackElement.track_type}.
+         * 
+         * If `recursive` is `true`, and the container contains other containers as
+         * children, then they will also be ungrouped, and so on.
+         * @param recursive Whether to recursively ungroup `container`
+         * @returns The list of new {@link GES.Container}-s created from the splitting of `container`.
+         */
+        ungroup(recursive: boolean): Container[];
+
+        /**
+         * Get the asset that has been set on the extractable object.
+         * @returns The asset set on `self`, or `null` if no asset has been set.
+         */
+        get_asset(): Asset | null;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @returns The {@link GES.Asset.id} of some associated {@link GES.Asset} that is compatible with `self`'s current state.
+         */
+        get_id(): string;
+
+        /**
+         * Sets the asset for this extractable object.
+         * 
+         * When an object is extracted from an asset using `ges_asset_extract()` its
+         * asset will be automatically set. Note that many classes that implement
+         * {@link GES.Extractable} will automatically create their objects using assets
+         * when you call their `new` methods. However, you can use this method to
+         * associate an object with a compatible asset if it was created by other
+         * means and does not yet have an asset. Or, for some implementations of
+         * {@link GES.Extractable}, you can use this to change the asset of the given
+         * extractable object, which will lead to a change in its state to
+         * match the new asset {@link GES.Asset.id}.
+         * @param asset The asset to set
+         * @returns `true` if `asset` could be successfully set on `self`.
+         */
+        set_asset(asset: Asset): boolean;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @virtual
+         */
+        vfunc_get_id(): string;
+
+        /**
+         * This method is called after the {@link GES.Asset} of an object is
+         * set. If your class supports the asset of an object changing, then you
+         * can use this method to change the parameters of the object to match the
+         * new asset {@link GES.Asset.id}. If setting the asset should be able to fail,
+         * you should implement `set_asset_full` instead.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset(asset: Asset): void;
+
+        /**
+         * Like `set_asset`, but also allows you to return `false`
+         * to indicate a failure to change the object in response to a change in
+         * its asset.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset_full(asset: Asset): boolean;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+    }
+
+
+    namespace DiscovererManager {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            /**
+             * @signal
+             * @since 1.24
+             * @run-last
+             */
+            discovered: (info: GstPbutils.DiscovererInfo, error: GLib.Error | null) => void;
+            /**
+             * Retrieves information about a URI from and external source of information,
+             * like a cache file. This is used by the discoverer to speed up the
+             * discovery.
+             * @signal
+             * @since 1.24
+             * @run-last
+             */
+            "load-serialized-info": (uri: string) => GstPbutils.DiscovererInfo | null;
+            /**
+             * Allows to setup the source element before the discoverer runs.
+             * @signal
+             * @since 1.24
+             * @run-last
+             */
+            "source-setup": (source: Gst.Element) => void;
+            "notify::timeout": (pspec: GObject.ParamSpec) => void;
+            "notify::use-cache": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            timeout: bigint | number;
+            use_cache: boolean;
+            useCache: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 1.24
+     */
+    class DiscovererManager extends GObject.Object {
+        static $gtype: GObject.GType<DiscovererManager>;
+
+        // Properties
+        /**
+         * The timeout (in milliseconds) for the {@link GstPbutils.Discoverer} operations
+         * @since 1.24
+         * @default 60000000000
+         */
+        get timeout(): number;
+        set timeout(val: bigint | number);
+
+        /**
+         * @default false
+         */
+        get use_cache(): boolean;
+        set use_cache(val: boolean);
+
+        /**
+         * @default false
+         */
+        get useCache(): boolean;
+        set useCache(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DiscovererManager.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DiscovererManager.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DiscovererManager.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DiscovererManager.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DiscovererManager.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DiscovererManager.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DiscovererManager.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DiscovererManager.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @since 1.24
+         */
+        static get_default(): DiscovererManager;
+
+        // Methods
+        /**
+         * @returns The timeout to use for the discoverer
+         * @since 1.24
+         */
+        get_timeout(): Gst.ClockTime;
+
+        /**
+         * @returns Whether to use the cache or not
+         * @since 1.24
+         */
+        get_use_cache(): boolean;
+
+        /**
+         * Sets the timeout to use for the discoverer
+         * @param timeout The timeout to set
+         * @since 1.24
+         */
+        set_timeout(timeout: Gst.ClockTime): void;
+
+        /**
+         * Sets whether to use the cache or not
+         * @param use_cache Whether to use the cache
+         * @since 1.24
+         */
+        set_use_cache(use_cache: boolean): void;
+    }
+
+
+    namespace Effect {
+        // Signal signatures
+        interface SignalSignatures extends BaseEffect.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::bin-description": (pspec: GObject.ParamSpec) => void;
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends BaseEffect.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            bin_description: string;
+            binDescription: string;
+        }
+    }
+
+    /**
+     * Any GStreamer filter can be used as effects in GES. The only restriction we
+     * have is that effects element should have a single [sinkpad](GST_PAD_SINK)
+     * (which will be requested if necessary) and a single [srcpad](GST_PAD_SRC).
+     * 
+     * Note that `gesaudiomixer` and `gescompositor` can be used as effects even
+     * though they can have several sinkpads.
+     * 
+     * ## GES specific effects:
+     * 
+     * * **`gesvideoscale`**: GES implements a specific scaling bin that allows
+     *   specifying where scaling will happen inside the chain of effects. By
+     *   default scaling can happen either in the source (if the source doesn't have
+     *   a specific size, like `videotestsrc` or [mixing](ges_track_set_mixing) has
+     *   been disabled) or in the mixing element otherwise, when adding that element
+     *   as an effect, GES guarantees that the scaling will happen in it. This can
+     *   be useful for example if you want to crop the video before scaling or apply
+     *   rounding corners to the video after scaling, etc...
+     * 
+     * > Note: GES always adds converters (`audioconvert ! audioresample !
+     * > audioconvert` for audio effects and `videoconvert` for video effects) to
+     * > make it simpler for end users.
+     * @gir-type Class
+     */
+    class Effect extends BaseEffect implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<Effect>;
+
+        // Properties
+        /**
+         * The description of the effect bin with a gst-launch-style
+         * pipeline description.
+         * 
+         * Example: "videobalance saturation=1.5 hue=+0.5"
+         * @construct-only
+         * @default null
+         */
+        get bin_description(): string;
+
+        /**
+         * The description of the effect bin with a gst-launch-style
+         * pipeline description.
+         * 
+         * Example: "videobalance saturation=1.5 hue=+0.5"
+         * @construct-only
+         * @default null
+         */
+        get binDescription(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Effect.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Effect.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](bin_description: string): Effect;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Effect.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Effect.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Effect.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Effect.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Effect.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Effect.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @param element_name The {@link Gst.ElementFactory} name of the element that changes the rate
+         * @param property_name The name of the property that changes the rate
+         */
+        static register_rate_property(element_name: string, property_name: string): boolean;
+    }
+
+
+    namespace EffectAsset {
+        // Signal signatures
+        interface SignalSignatures extends TrackElementAsset.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::extractable-type": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy-target": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends TrackElementAsset.ConstructorProps, MetaContainer.ConstructorProps, Gio.AsyncInitable.ConstructorProps, Gio.Initable.ConstructorProps {}
+    }
+
+    /**
+     * This asset has a GStreamer bin-description as ID and is able to determine
+     * to what track type the effect should be used in.
+     * @gir-type Class
+     */
+    class EffectAsset extends TrackElementAsset implements MetaContainer, Gio.AsyncInitable<EffectAsset>, Gio.Initable {
+        static $gtype: GObject.GType<EffectAsset>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: EffectAsset.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<EffectAsset.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof EffectAsset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, EffectAsset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof EffectAsset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, EffectAsset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof EffectAsset.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<EffectAsset.SignalSignatures[K]>): void;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @returns `true` if successful. If an error has occurred, this function will return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Finishes the async construction for the various g_async_initable_new
+         * calls, returning the created object or `null` on error.
+         * @param res the {@link Gio.AsyncResult} from the callback
+         * @returns a newly created {@link GObject.Object},      or `null` on error. Free with `g_object_unref()`.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        new_finish(res: Gio.AsyncResult): EffectAsset;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_finish(res: Gio.AsyncResult): boolean;
+    }
+
+
+    namespace EffectClip {
+        // Signal signatures
+        interface SignalSignatures extends BaseEffectClip.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::audio-bin-description": (pspec: GObject.ParamSpec) => void;
+            "notify::video-bin-description": (pspec: GObject.ParamSpec) => void;
+            "notify::duration-limit": (pspec: GObject.ParamSpec) => void;
+            "notify::layer": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends BaseEffectClip.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            audio_bin_description: string;
+            audioBinDescription: string;
+            video_bin_description: string;
+            videoBinDescription: string;
+        }
+    }
+
+    /**
+     * The effect will be applied on the sources that have lower priorities
+     * (higher number) between the inpoint and the end of it.
+     * 
+     * The asset ID of an effect clip is in the form:
+     * 
+     * ```
+     *   "audio ! bin ! description || video ! bin ! description"
+     * ```
+     * @gir-type Class
+     */
+    class EffectClip extends BaseEffectClip implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<EffectClip>;
+
+        // Properties
+        /**
+         * The description of the audio track of the effect bin with a gst-launch-style
+         * pipeline description. This should be used for test purposes.
+         * 
+         * Example: "audiopanorama panorama=1.0"
+         * @construct-only
+         * @default null
+         */
+        get audio_bin_description(): string;
+
+        /**
+         * The description of the audio track of the effect bin with a gst-launch-style
+         * pipeline description. This should be used for test purposes.
+         * 
+         * Example: "audiopanorama panorama=1.0"
+         * @construct-only
+         * @default null
+         */
+        get audioBinDescription(): string;
+
+        /**
+         * The description of the video track of the effect bin with a gst-launch-style
+         * pipeline description. This should be used for test purposes.
+         * 
+         * Example: "videobalance saturation=1.5 hue=+0.5"
+         * @construct-only
+         * @default null
+         */
+        get video_bin_description(): string;
+
+        /**
+         * The description of the video track of the effect bin with a gst-launch-style
+         * pipeline description. This should be used for test purposes.
+         * 
+         * Example: "videobalance saturation=1.5 hue=+0.5"
+         * @construct-only
+         * @default null
+         */
+        get videoBinDescription(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: EffectClip.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<EffectClip.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](video_bin_description: string | null, audio_bin_description: string | null): EffectClip;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof EffectClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, EffectClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof EffectClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, EffectClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof EffectClip.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<EffectClip.SignalSignatures[K]>): void;
+    }
+
+
+    namespace Formatter {
+        // Signal signatures
+        interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps, Extractable.ConstructorProps {}
+    }
+
+    /**
+     * Base class for timeline data serialization and deserialization.
+     * @gir-type Class
+     */
+    abstract class Formatter extends GObject.InitiallyUnowned implements Extractable {
+        static $gtype: GObject.GType<Formatter>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Formatter.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Formatter.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Formatter.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Formatter.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Formatter.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Formatter.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Formatter.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Formatter.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Checks if there is a {@link GES.Formatter} available which can load a {@link GES.Timeline}
+         * from the given URI.
+         * @param uri a `gchar` * pointing to the URI
+         */
+        static can_load_uri(uri: string): boolean;
+
+        /**
+         * Returns TRUE if there is a {@link GES.Formatter} available which can save a
+         * {@link GES.Timeline} to the given URI.
+         * @param uri a `gchar` * pointing to a URI
+         */
+        static can_save_uri(uri: string): boolean;
+
+        /**
+         * Get the default {@link GES.Asset} to use as formatter. It will return
+         * the asset for the {@link GES.Formatter} that has the highest `rank`
+         */
+        static get_default(): Asset;
+
+        /**
+         * @param name The name of the formatter
+         * @param description The formatter description
+         * @param extensions A list of coma separated file extensions handled by the formatter. The order of the extensions should match the list of the structures inside `caps`
+         * @param caps The caps the formatter handled, they should match what gstreamer typefind mechanism will report for the files the formatter handles.
+         * @param version The version of the formatter
+         * @param rank The rank of the formatter
+         */
+        static register_metas(name: string, description: string, extensions: string, caps: string, version: number, rank: Gst.Rank): void;
+
+        // Virtual methods
+        /**
+         * Whether the URI can be loaded
+         * @param uri 
+         * @virtual
+         */
+        vfunc_can_load_uri(uri: string): boolean;
+
+        /**
+         * Load data from the given URI into timeline.
+         * @param timeline a {@link GES.Timeline}
+         * @param uri a `gchar` * pointing to a URI
+         * @deprecated since 1.18: Use `ges_timeline_load_from_uri`
+         * @virtual
+         */
+        vfunc_load_from_uri(timeline: Timeline, uri: string): boolean;
+
+        /**
+         * Save data from timeline to the given URI.
+         * @param timeline a {@link GES.Timeline}
+         * @param uri a `gchar` * pointing to a URI
+         * @param overwrite `true` to overwrite file if it exists
+         * @deprecated since 1.18: Use `ges_timeline_save_to_uri`
+         * @virtual
+         */
+        vfunc_save_to_uri(timeline: Timeline, uri: string, overwrite: boolean): boolean;
+
+        // Methods
+        /**
+         * Load data from the given URI into timeline.
+         * @param timeline a {@link GES.Timeline}
+         * @param uri a `gchar` * pointing to a URI
+         * @returns TRUE if the timeline data was successfully loaded from the URI, else FALSE.
+         * @deprecated since 1.18: Use `ges_timeline_load_from_uri`
+         * @throws GLib.Error
+         */
+        load_from_uri(timeline: Timeline, uri: string): boolean;
+
+        /**
+         * Save data from timeline to the given URI.
+         * @param timeline a {@link GES.Timeline}
+         * @param uri a `gchar` * pointing to a URI
+         * @param overwrite `true` to overwrite file if it exists
+         * @returns TRUE if the timeline data was successfully saved to the URI else FALSE.
+         * @deprecated since 1.18: Use `ges_timeline_save_to_uri`
+         * @throws GLib.Error
+         */
+        save_to_uri(timeline: Timeline, uri: string, overwrite: boolean): boolean;
+
+        /**
+         * Get the asset that has been set on the extractable object.
+         * @returns The asset set on `self`, or `null` if no asset has been set.
+         */
+        get_asset(): Asset | null;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @returns The {@link GES.Asset.id} of some associated {@link GES.Asset} that is compatible with `self`'s current state.
+         */
+        get_id(): string;
+
+        /**
+         * Sets the asset for this extractable object.
+         * 
+         * When an object is extracted from an asset using `ges_asset_extract()` its
+         * asset will be automatically set. Note that many classes that implement
+         * {@link GES.Extractable} will automatically create their objects using assets
+         * when you call their `new` methods. However, you can use this method to
+         * associate an object with a compatible asset if it was created by other
+         * means and does not yet have an asset. Or, for some implementations of
+         * {@link GES.Extractable}, you can use this to change the asset of the given
+         * extractable object, which will lead to a change in its state to
+         * match the new asset {@link GES.Asset.id}.
+         * @param asset The asset to set
+         * @returns `true` if `asset` could be successfully set on `self`.
+         */
+        set_asset(asset: Asset): boolean;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @virtual
+         */
+        vfunc_get_id(): string;
+
+        /**
+         * This method is called after the {@link GES.Asset} of an object is
+         * set. If your class supports the asset of an object changing, then you
+         * can use this method to change the parameters of the object to match the
+         * new asset {@link GES.Asset.id}. If setting the asset should be able to fail,
+         * you should implement `set_asset_full` instead.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset(asset: Asset): void;
+
+        /**
+         * Like `set_asset`, but also allows you to return `false`
+         * to indicate a failure to change the object in response to a change in
+         * its asset.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset_full(asset: Asset): boolean;
+    }
+
+
+    namespace Group {
+        // Signal signatures
+        interface SignalSignatures extends Container.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Container.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            duration: bigint | number;
+            in_point: bigint | number;
+            inPoint: bigint | number;
+            max_duration: bigint | number;
+            maxDuration: bigint | number;
+            priority: number;
+            start: bigint | number;
+        }
+    }
+
+    /**
+     * A {@link GES.Group} controls one or more {@link GES.Container}-s (usually {@link GES.Clip}-s,
+     * but it can also control other {@link GES.Group}-s). Its children must share
+     * the same {@link GES.Timeline}, but can otherwise lie in separate {@link GES.Layer}-s
+     * and have different timings.
+     * 
+     * To initialise a group, you may want to use `ges_container_group()`,
+     * and similarly use `ges_container_ungroup()` to dispose of it.
+     * 
+     * A group will maintain the relative {@link GES.TimelineElement.start} times of
+     * its children, as well as their relative layer {@link GES.Layer.priority}.
+     * Therefore, if one of its children has its {@link GES.TimelineElement.start}
+     * set, all other children will have their {@link GES.TimelineElement.start}
+     * shifted by the same amount. Similarly, if one of its children moves to
+     * a new layer, the other children will also change layers to maintain the
+     * difference in their layer priorities. For example, if a child moves
+     * from a layer with {@link GES.Layer.priority} 1 to a layer with priority 3, then
+     * another child that was in a layer with priority 0 will move to the
+     * layer with priority 2.
+     * 
+     * The {@link GES.Group.start} of a group refers to the earliest start
+     * time of its children. If the group's {@link GES.Group.start} is set, all the
+     * children will be shifted equally such that the earliest start time
+     * will match the set value. The {@link GES.Group.duration} of a group is the
+     * difference between the earliest start time and latest end time of its
+     * children. If the group's {@link GES.Group.duration} is increased, the children
+     * whose end time matches the end of the group will be extended
+     * accordingly. If it is decreased, then any child whose end time exceeds
+     * the new end time will also have their duration decreased accordingly.
+     * 
+     * A group may span several layers, but for methods such as
+     * `ges_timeline_element_get_layer_priority()` and
+     * `ges_timeline_element_edit()` a group is considered to have a layer
+     * priority that is the highest {@link GES.Layer.priority} (numerically, the
+     * smallest) of all the layers it spans.
+     * @gir-type Class
+     */
+    class Group extends Container implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<Group>;
+
+        // Properties
+        /**
+         * An overwrite of the {@link GES.TimelineElement.duration} property. For a
+         * {@link GES.Group}, this is the difference between the earliest
+         * {@link GES.TimelineElement.start} time and the latest end time (given by
+         * {@link GES.TimelineElement.start} + {@link GES.TimelineElement.duration}) amongst
+         * its children.
+         * @default 18446744073709551615
+         */
+        get duration(): number;
+        set duration(val: bigint | number);
+
+        /**
+         * An overwrite of the {@link GES.TimelineElement.in_point} property. This has
+         * no meaning for a group and should not be set.
+         * @default 0
+         */
+        get in_point(): number;
+        set in_point(val: bigint | number);
+
+        /**
+         * An overwrite of the {@link GES.TimelineElement.in_point} property. This has
+         * no meaning for a group and should not be set.
+         * @default 0
+         */
+        get inPoint(): number;
+        set inPoint(val: bigint | number);
+
+        /**
+         * An overwrite of the {@link GES.TimelineElement.max_duration} property. This
+         * has no meaning for a group and should not be set.
+         * @default 18446744073709551615
+         */
+        get max_duration(): number;
+        set max_duration(val: bigint | number);
+
+        /**
+         * An overwrite of the {@link GES.TimelineElement.max_duration} property. This
+         * has no meaning for a group and should not be set.
+         * @default 18446744073709551615
+         */
+        get maxDuration(): number;
+        set maxDuration(val: bigint | number);
+
+        /**
+         * An overwrite of the {@link GES.TimelineElement.priority} property.
+         * Setting {@link GES.TimelineElement} priorities is deprecated as all priority
+         * management is now done by GES itself.
+         * @default 0
+         */
+        get priority(): number;
+        set priority(val: number);
+
+        /**
+         * An overwrite of the {@link GES.TimelineElement.start} property. For a
+         * {@link GES.Group}, this is the earliest {@link GES.TimelineElement.start} time
+         * amongst its children.
+         * @default 0
+         */
+        get start(): number;
+        set start(val: bigint | number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Group.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Group.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): Group;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Group.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Group.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Group.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Group.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Group.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Group.SignalSignatures[K]>): void;
+    }
+
+
+    namespace ImageSource {
+        // Signal signatures
+        interface SignalSignatures extends VideoSource.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::uri": (pspec: GObject.ParamSpec) => void;
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends VideoSource.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            uri: string;
+        }
+    }
+
+    /**
+     * Outputs the video stream from a given file as a still frame. The frame chosen
+     * will be determined by the in-point property on the track element. For image
+     * files, do not set the in-point property.
+     * @gir-type Class
+     * @deprecated since 1.18: This won't be used anymore and has been replaced by {@link GES.UriSource} instead which now plugs an `imagefreeze` element when `ges_uri_source_asset_is_image` returns `true`.
+     */
+    class ImageSource extends VideoSource implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<ImageSource>;
+
+        // Properties
+        /**
+         * The location of the file/resource to use.
+         * @construct-only
+         * @default null
+         */
+        get uri(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: ImageSource.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<ImageSource.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof ImageSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ImageSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof ImageSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ImageSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof ImageSource.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<ImageSource.SignalSignatures[K]>): void;
+    }
+
+
+    namespace Layer {
+        // Signal signatures
+        interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures, MetaContainer.SignalSignatures {
+            /**
+             * Will be emitted whenever the layer is activated or deactivated
+             * for some {@link GES.Track}. See `ges_layer_set_active_for_tracks()`.
+             * @signal
+             * @since 1.18
+             * @run-first
+             */
+            "active-changed": (active: boolean, tracks: Track[]) => void;
+            /**
+             * Will be emitted after the clip is added to the layer.
+             * @signal
+             * @run-first
+             */
+            "clip-added": (clip: Clip) => void;
+            /**
+             * Will be emitted after the clip is removed from the layer.
+             * @signal
+             * @run-first
+             */
+            "clip-removed": (clip: Clip) => void;
+            "notify::auto-transition": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            auto_transition: boolean;
+            autoTransition: boolean;
+            priority: number;
+        }
+    }
+
+    /**
+     * {@link GES.Layer}-s are responsible for collecting and ordering {@link GES.Clip}-s.
+     * 
+     * A layer within a timeline will have an associated priority,
+     * corresponding to their index within the timeline. A layer with the
+     * index/priority 0 will have the highest priority and the layer with the
+     * largest index will have the lowest priority (the order of priorities,
+     * in this sense, is the _reverse_ of the numerical ordering of the
+     * indices). `ges_timeline_move_layer()` should be used if you wish to
+     * change how layers are prioritised in a timeline.
+     * 
+     * Layers with higher priorities will have their content priorities
+     * over content from lower priority layers, similar to how layers are
+     * used in image editing. For example, if two separate layers both
+     * display video content, then the layer with the higher priority will
+     * have its images shown first. The other layer will only have its image
+     * shown if the higher priority layer has no content at the given
+     * playtime, or is transparent in some way. Audio content in separate
+     * layers will simply play in addition.
+     * @gir-type Class
+     */
+    class Layer extends GObject.InitiallyUnowned implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<Layer>;
+
+        // Properties
+        /**
+         * Whether to automatically create a {@link GES.TransitionClip} whenever two
+         * {@link GES.Source}-s that both belong to a {@link GES.Clip} in the layer overlap.
+         * See {@link GES.Timeline} for what counts as an overlap.
+         * 
+         * When a layer is added to a {@link GES.Timeline}, if this property is left as
+         * `false`, but the timeline's {@link GES.Timeline.auto_transition} is `true`, it
+         * will be set to `true` as well.
+         * @default false
+         */
+        get auto_transition(): boolean;
+        set auto_transition(val: boolean);
+
+        /**
+         * Whether to automatically create a {@link GES.TransitionClip} whenever two
+         * {@link GES.Source}-s that both belong to a {@link GES.Clip} in the layer overlap.
+         * See {@link GES.Timeline} for what counts as an overlap.
+         * 
+         * When a layer is added to a {@link GES.Timeline}, if this property is left as
+         * `false`, but the timeline's {@link GES.Timeline.auto_transition} is `true`, it
+         * will be set to `true` as well.
+         * @default false
+         */
+        get autoTransition(): boolean;
+        set autoTransition(val: boolean);
+
+        /**
+         * The priority of the layer in the {@link GES.Timeline}. 0 is the highest
+         * priority. Conceptually, a timeline is a stack of layers,
+         * and the priority of the layer represents its position in the stack. Two
+         * layers should not have the same priority within a given GESTimeline.
+         * 
+         * Note that the timeline needs to be committed (with `ges_timeline_commit`)
+         * for the change to be taken into account.
+         * @deprecated since 1.16.0: use `ges_timeline_move_layer` instead. This deprecation means that you will not need to handle layer priorities at all yourself, GES will make sure there is never 'gaps' between layer priorities.
+         * @default 0
+         */
+        get priority(): number;
+        set priority(val: number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Layer.SignalSignatures;
+
+        // Fields
+        timeline: Timeline;
+
+        min_nle_priority: number;
+
+        max_nle_priority: number;
+
+        // Constructors
+        constructor(properties?: Partial<Layer.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): Layer;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Layer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Layer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Layer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Layer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Layer.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Layer.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @param object 
+         * @virtual
+         */
+        vfunc_object_added(object: Clip): void;
+
+        /**
+         * @param object 
+         * @virtual
+         */
+        vfunc_object_removed(object: Clip): void;
+
+        // Methods
+        /**
+         * See `ges_layer_add_asset_full()`, which also gives an error.
+         * @param asset The asset to extract the new clip from
+         * @param start The {@link GES.TimelineElement.start} value to set on the new clip If `start == #GST_CLOCK_TIME_NONE`, it will be added to the end of `layer`, i.e. it will be set to `layer`'s duration
+         * @param inpoint The {@link GES.TimelineElement.in_point} value to set on the new clip
+         * @param duration The {@link GES.TimelineElement.duration} value to set on the new clip
+         * @param track_types The {@link GES.Clip.supported_formats} to set on the the new clip, or #GES_TRACK_TYPE_UNKNOWN to use the default
+         * @returns The newly created clip.
+         */
+        add_asset(asset: Asset, start: Gst.ClockTime, inpoint: Gst.ClockTime, duration: Gst.ClockTime, track_types: TrackType): Clip | null;
+
+        /**
+         * Extracts a new clip from an asset and adds it to the layer with
+         * the given properties.
+         * @param asset The asset to extract the new clip from
+         * @param start The {@link GES.TimelineElement.start} value to set on the new clip If `start == #GST_CLOCK_TIME_NONE`, it will be added to the end of `layer`, i.e. it will be set to `layer`'s duration
+         * @param inpoint The {@link GES.TimelineElement.in_point} value to set on the new clip
+         * @param duration The {@link GES.TimelineElement.duration} value to set on the new clip
+         * @param track_types The {@link GES.Clip.supported_formats} to set on the the new clip, or #GES_TRACK_TYPE_UNKNOWN to use the default
+         * @returns The newly created clip.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        add_asset_full(asset: Asset, start: Gst.ClockTime, inpoint: Gst.ClockTime, duration: Gst.ClockTime, track_types: TrackType): Clip;
+
+        /**
+         * See `ges_layer_add_clip_full()`, which also gives an error.
+         * @param clip The clip to add
+         * @returns `true` if `clip` was properly added to `layer`, or `false` if `layer` refused to add `clip`.
+         */
+        add_clip(clip: Clip): boolean;
+
+        /**
+         * Adds the given clip to the layer. If the method succeeds, the layer
+         * will take ownership of the clip.
+         * 
+         * This method will fail and return `false` if `clip` already resides in
+         * some layer. It can also fail if the additional clip breaks some
+         * compositional rules (see {@link GES.TimelineElement}).
+         * @param clip The clip to add
+         * @returns `true` if `clip` was properly added to `layer`, or `false` if `layer` refused to add `clip`.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        add_clip_full(clip: Clip): boolean;
+
+        /**
+         * Gets whether the layer is active for the given track. See
+         * `ges_layer_set_active_for_tracks()`.
+         * @param track The {@link GES.Track} to check if `layer` is currently active for
+         * @returns `true` if `layer` is active for `track`, or `false` otherwise.
+         * @since 1.18
+         */
+        get_active_for_track(track: Track): boolean;
+
+        /**
+         * Gets the {@link GES.Layer.auto_transition} of the layer.
+         * @returns `true` if transitions are automatically added to `layer`.
+         */
+        get_auto_transition(): boolean;
+
+        /**
+         * Get the {@link GES.Clip}-s contained in this layer.
+         * @returns A list of clips in `layer`.
+         */
+        get_clips(): Clip[];
+
+        /**
+         * Gets the clips within the layer that appear between `start` and `end`.
+         * @param start Start of the interval
+         * @param end End of the interval
+         * @returns A list of {@link GES.Clip}-s that intersect the interval `[start, end)` in `layer`.
+         */
+        get_clips_in_interval(start: Gst.ClockTime, end: Gst.ClockTime): Clip[];
+
+        /**
+         * Retrieves the duration of the layer, which is the difference
+         * between the start of the layer (always time 0) and the end (which will
+         * be the end time of the final clip).
+         * @returns The duration of `layer`.
+         */
+        get_duration(): Gst.ClockTime;
+
+        /**
+         * Get the priority of the layer. When inside a timeline, this is its
+         * index in the timeline. See `ges_timeline_move_layer()`.
+         * @returns The priority of `layer` within its timeline.
+         */
+        get_priority(): number;
+
+        /**
+         * Gets the timeline that the layer is a part of.
+         * @returns The timeline that `layer` is currently part of, or `null` if it is not associated with any timeline.
+         */
+        get_timeline(): Timeline | null;
+
+        /**
+         * Convenience method to check if the layer is empty (doesn't contain
+         * any {@link GES.Clip}), or not.
+         * @returns `true` if `layer` is empty, `false` if it contains at least one clip.
+         */
+        is_empty(): boolean;
+
+        /**
+         * Removes the given clip from the layer.
+         * @param clip The clip to remove
+         * @returns `true` if `clip` was removed from `layer`, or `false` if the operation failed.
+         */
+        remove_clip(clip: Clip): boolean;
+
+        /**
+         * Activate or deactivate track elements in `tracks` (or in all tracks if `tracks`
+         * is `null`).
+         * 
+         * When a layer is deactivated for a track, all the {@link GES.TrackElement}-s in
+         * the track that belong to a {@link GES.Clip} in the layer will no longer be
+         * active in the track, regardless of their individual
+         * {@link GES.TrackElement.active} value.
+         * 
+         * Note that by default a layer will be active for all of its
+         * timeline's tracks.
+         * @param active Whether elements in `tracks` should be active or not
+         * @param tracks The list of tracks `layer` should be (de-)active in, or `null` to include all the tracks in the `layer`'s timeline
+         * @returns `true` if the operation worked `false` otherwise.
+         * @since 1.18
+         */
+        set_active_for_tracks(active: boolean, tracks: Track[] | null): boolean;
+
+        /**
+         * Sets {@link GES.Layer.auto_transition} for the layer. Use
+         * `ges_timeline_set_auto_transition()` if you want all layers within a
+         * {@link GES.Timeline} to have {@link GES.Layer.auto_transition} set to `true`. Use this
+         * method if you want different values for different layers (and make sure
+         * to keep {@link GES.Timeline.auto_transition} as `false` for the corresponding
+         * timeline).
+         * @param auto_transition Whether transitions should be automatically added to the layer
+         */
+        set_auto_transition(auto_transition: boolean): void;
+
+        /**
+         * Sets the layer to the given priority. See {@link GES.Layer.priority}.
+         * @param priority The priority to set
+         * @deprecated since 1.16.0: use `ges_timeline_move_layer` instead. This deprecation means that you will not need to handle layer priorities at all yourself, GES will make sure there is never 'gaps' between layer priorities.
+         */
+        set_priority(priority: number): void;
+
+        /**
+         * @param timeline 
+         */
+        set_timeline(timeline: Timeline): void;
+
+        /**
+         * Get the asset that has been set on the extractable object.
+         * @returns The asset set on `self`, or `null` if no asset has been set.
+         */
+        get_asset(): Asset | null;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @returns The {@link GES.Asset.id} of some associated {@link GES.Asset} that is compatible with `self`'s current state.
+         */
+        get_id(): string;
+
+        /**
+         * Sets the asset for this extractable object.
+         * 
+         * When an object is extracted from an asset using `ges_asset_extract()` its
+         * asset will be automatically set. Note that many classes that implement
+         * {@link GES.Extractable} will automatically create their objects using assets
+         * when you call their `new` methods. However, you can use this method to
+         * associate an object with a compatible asset if it was created by other
+         * means and does not yet have an asset. Or, for some implementations of
+         * {@link GES.Extractable}, you can use this to change the asset of the given
+         * extractable object, which will lead to a change in its state to
+         * match the new asset {@link GES.Asset.id}.
+         * @param asset The asset to set
+         * @returns `true` if `asset` could be successfully set on `self`.
+         */
+        set_asset(asset: Asset): boolean;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @virtual
+         */
+        vfunc_get_id(): string;
+
+        /**
+         * This method is called after the {@link GES.Asset} of an object is
+         * set. If your class supports the asset of an object changing, then you
+         * can use this method to change the parameters of the object to match the
+         * new asset {@link GES.Asset.id}. If setting the asset should be able to fail,
+         * you should implement `set_asset_full` instead.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset(asset: Asset): void;
+
+        /**
+         * Like `set_asset`, but also allows you to return `false`
+         * to indicate a failure to change the object in response to a change in
+         * its asset.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset_full(asset: Asset): boolean;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+    }
+
+
+    namespace Marker {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::position": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, MetaContainer.ConstructorProps {
+            position: bigint | number;
+        }
+    }
+
+    /**
+     * A timed {@link GES.MetaContainer} object.
+     * @gir-type Class
+     * @since 1.18
+     */
+    class Marker extends GObject.Object implements MetaContainer {
+        static $gtype: GObject.GType<Marker>;
+
+        // Properties
+        /**
+         * Current position (in nanoseconds) of the {@link GES.Marker}
+         * @since 1.18
+         * @read-only
+         * @default 18446744073709551615
+         */
+        get position(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Marker.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Marker.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Marker.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Marker.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Marker.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Marker.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Marker.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Marker.SignalSignatures[K]>): void;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+    }
+
+
+    namespace MarkerList {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            /**
+             * Will be emitted after the marker was added to the marker-list.
+             * @signal
+             * @since 1.18
+             * @run-first
+             */
+            "marker-added": (position: number, marker: Marker) => void;
+            /**
+             * Will be emitted after the marker was moved to.
+             * @signal
+             * @since 1.18
+             * @run-first
+             */
+            "marker-moved": (previous_position: number, new_position: number, marker: Marker) => void;
+            /**
+             * Will be emitted after the marker was removed the marker-list.
+             * @signal
+             * @since 1.18
+             * @run-first
+             */
+            "marker-removed": (marker: Marker) => void;
+            "notify::flags": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            flags: MarkerFlags;
+        }
+    }
+
+    /**
+     * A {@link GES.Marker} can be colored by setting the #GES_META_MARKER_COLOR meta.
+     * @gir-type Class
+     * @since 1.18
+     */
+    class MarkerList extends GObject.Object {
+        static $gtype: GObject.GType<MarkerList>;
+
+        // Properties
+        /**
+         * Flags indicating how markers on the list should be treated.
+         * @since 1.20
+         * @default GES.MarkerFlags.NONE
+         */
+        get flags(): MarkerFlags;
+        set flags(val: MarkerFlags);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MarkerList.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MarkerList.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): MarkerList;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MarkerList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MarkerList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MarkerList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MarkerList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MarkerList.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MarkerList.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param position The position of the new marker
+         * @returns The newly-added marker, the list keeps ownership of the marker
+         * @since 1.18
+         */
+        add(position: Gst.ClockTime): Marker;
+
+        /**
+         * @returns a {@link GLib.List} of the {@link GES.Marker} within the GESMarkerList. The user will have to unref each {@link GES.Marker} and free the {@link GLib.List}.
+         * @since 1.18
+         */
+        get_markers(): Marker[];
+
+        /**
+         * Moves a `marker` in a `list` to a new `position`
+         * @param marker 
+         * @param position 
+         * @returns `true` if the marker could be moved, `false` otherwise   (if the marker was not present in the list for example)
+         * @since 1.18
+         */
+        move(marker: Marker, position: Gst.ClockTime): boolean;
+
+        /**
+         * Removes `marker` from `list`, this decreases the refcount of the
+         * marker by 1.
+         * @param marker 
+         * @returns `true` if the marker could be removed, `false` otherwise   (if the marker was not present in the list for example)
+         * @since 1.18
+         */
+        remove(marker: Marker): boolean;
+
+        /**
+         * @returns The number of markers in `list`
+         * @since 1.18
+         */
+        size(): number;
+    }
+
+
+    namespace MultiFileSource {
+        // Signal signatures
+        interface SignalSignatures extends VideoSource.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::uri": (pspec: GObject.ParamSpec) => void;
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends VideoSource.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            uri: string;
+        }
+    }
+
+    /**
+     * Outputs the video stream from a given image sequence. The start frame chosen
+     * will be determined by the in-point property on the track element.
+     * 
+     * This should not be used anymore, the `imagesequence://` protocol should be
+     * used instead. Check the #imagesequencesrc GStreamer element for more
+     * information.
+     * @gir-type Class
+     * @deprecated since 1.18: Use {@link GES.UriSource} instead
+     */
+    class MultiFileSource extends VideoSource implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<MultiFileSource>;
+
+        // Properties
+        /**
+         * The uri of the file/resource to use. You can set a start index,
+         * a stop index and a sequence pattern.
+         * The format is <multifile://start:stop\`location`-pattern>.
+         * The pattern uses printf string formating.
+         * 
+         * Example uris:
+         * 
+         * multifile:///home/you/image\%03d.jpg
+         * 
+         * multifile://20:50@/home/you/sequence/\%04d.png
+         * @construct-only
+         * @default null
+         */
+        get uri(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MultiFileSource.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MultiFileSource.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](uri: string): MultiFileSource;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MultiFileSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MultiFileSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MultiFileSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MultiFileSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MultiFileSource.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MultiFileSource.SignalSignatures[K]>): void;
+    }
+
+
+    namespace Operation {
+        // Signal signatures
+        interface SignalSignatures extends TrackElement.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends TrackElement.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * Base class for overlays, transitions, and effects
+     * @gir-type Class
+     */
+    abstract class Operation extends TrackElement implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<Operation>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Operation.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Operation.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Operation.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Operation.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Operation.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Operation.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Operation.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Operation.SignalSignatures[K]>): void;
+    }
+
+
+    namespace OperationClip {
+        // Signal signatures
+        interface SignalSignatures extends Clip.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::duration-limit": (pspec: GObject.ParamSpec) => void;
+            "notify::layer": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Clip.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * Operations are any kind of object that both outputs AND consumes data.
+     * @gir-type Class
+     */
+    abstract class OperationClip extends Clip implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<OperationClip>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: OperationClip.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<OperationClip.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof OperationClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OperationClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof OperationClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OperationClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof OperationClip.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<OperationClip.SignalSignatures[K]>): void;
+    }
+
+
+    namespace OverlayClip {
+        // Signal signatures
+        interface SignalSignatures extends OperationClip.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::duration-limit": (pspec: GObject.ParamSpec) => void;
+            "notify::layer": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends OperationClip.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * Overlays are objects which modify the underlying layer(s).
+     * 
+     * Examples of overlays include text, image watermarks, or audio dubbing.
+     * 
+     * Transitions, which change from one source to another over time, are
+     * not considered overlays.
+     * @gir-type Class
+     */
+    abstract class OverlayClip extends OperationClip implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<OverlayClip>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: OverlayClip.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<OverlayClip.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof OverlayClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OverlayClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof OverlayClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OverlayClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof OverlayClip.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<OverlayClip.SignalSignatures[K]>): void;
+    }
+
+
+    namespace Pipeline {
+        // Signal signatures
+        interface SignalSignatures extends Gst.Pipeline.SignalSignatures, Gst.ChildProxy.SignalSignatures {
+            "notify::audio-filter": (pspec: GObject.ParamSpec) => void;
+            "notify::audio-sink": (pspec: GObject.ParamSpec) => void;
+            "notify::mode": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+            "notify::video-filter": (pspec: GObject.ParamSpec) => void;
+            "notify::video-sink": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-flush-bus": (pspec: GObject.ParamSpec) => void;
+            "notify::delay": (pspec: GObject.ParamSpec) => void;
+            "notify::latency": (pspec: GObject.ParamSpec) => void;
+            "notify::async-handling": (pspec: GObject.ParamSpec) => void;
+            "notify::message-forward": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Gst.Pipeline.ConstructorProps, Gst.ChildProxy.ConstructorProps, GstVideo.VideoOverlay.ConstructorProps {
+            audio_filter: Gst.Element;
+            audioFilter: Gst.Element;
+            audio_sink: Gst.Element;
+            audioSink: Gst.Element;
+            mode: PipelineFlags;
+            timeline: Timeline;
+            video_filter: Gst.Element;
+            videoFilter: Gst.Element;
+            video_sink: Gst.Element;
+            videoSink: Gst.Element;
+        }
+    }
+
+    /**
+     * A {@link GES.Pipeline} can take an audio-video {@link GES.Timeline} and conveniently
+     * link its {@link GES.Track}-s to an internal #playsink element, for
+     * preview/playback, and an internal #encodebin element, for rendering.
+     * You can switch between these modes using `ges_pipeline_set_mode()`.
+     * 
+     * You can choose the specific audio and video sinks used for previewing
+     * the timeline by setting the {@link GES.Pipeline.audio_sink} and
+     * {@link GES.Pipeline.video_sink} properties.
+     * 
+     * You can set the encoding and save location used in rendering by calling
+     * `ges_pipeline_set_render_settings()`.
+     * @gir-type Class
+     */
+    class Pipeline extends Gst.Pipeline implements Gst.ChildProxy, GstVideo.VideoOverlay {
+        static $gtype: GObject.GType<Pipeline>;
+
+        // Properties
+        /**
+         * The audio filter(s) to apply during playback in preview mode,
+         * immediately before the {@link GES.Pipeline.audio_sink}. This exposes the
+         * #playsink:audio-filter property of the internal #playsink.
+         * @since 1.6.0
+         */
+        get audio_filter(): Gst.Element;
+        set audio_filter(val: Gst.Element);
+
+        /**
+         * The audio filter(s) to apply during playback in preview mode,
+         * immediately before the {@link GES.Pipeline.audio_sink}. This exposes the
+         * #playsink:audio-filter property of the internal #playsink.
+         * @since 1.6.0
+         */
+        get audioFilter(): Gst.Element;
+        set audioFilter(val: Gst.Element);
+
+        /**
+         * The audio sink used for preview. This exposes the
+         * #playsink:audio-sink property of the internal #playsink.
+         */
+        get audio_sink(): Gst.Element;
+        set audio_sink(val: Gst.Element);
+
+        /**
+         * The audio sink used for preview. This exposes the
+         * #playsink:audio-sink property of the internal #playsink.
+         */
+        get audioSink(): Gst.Element;
+        set audioSink(val: Gst.Element);
+
+        /**
+         * The pipeline's mode. In preview mode (for audio or video, or both)
+         * the pipeline can display the timeline's content to an end user. In
+         * rendering mode the pipeline can encode the timeline's content and
+         * save it to a file.
+         * @default GES.PipelineFlags.AUDIO_PREVIEW | GES.PipelineFlags.VIDEO_PREVIEW
+         */
+        get mode(): PipelineFlags;
+        set mode(val: PipelineFlags);
+
+        /**
+         * The timeline used by this pipeline, whose content it will play and
+         * render, or `null` if the pipeline does not yet have a timeline.
+         * 
+         * Note that after you set the timeline for the first time, subsequent
+         * calls to change the timeline will fail.
+         */
+        get timeline(): Timeline;
+        set timeline(val: Timeline);
+
+        /**
+         * The video filter(s) to apply during playback in preview mode,
+         * immediately before the {@link GES.Pipeline.video_sink}. This exposes the
+         * #playsink:video-filter property of the internal #playsink.
+         * @since 1.6.0
+         */
+        get video_filter(): Gst.Element;
+        set video_filter(val: Gst.Element);
+
+        /**
+         * The video filter(s) to apply during playback in preview mode,
+         * immediately before the {@link GES.Pipeline.video_sink}. This exposes the
+         * #playsink:video-filter property of the internal #playsink.
+         * @since 1.6.0
+         */
+        get videoFilter(): Gst.Element;
+        set videoFilter(val: Gst.Element);
+
+        /**
+         * The video sink used for preview. This exposes the
+         * #playsink:video-sink property of the internal #playsink.
+         */
+        get video_sink(): Gst.Element;
+        set video_sink(val: Gst.Element);
+
+        /**
+         * The video sink used for preview. This exposes the
+         * #playsink:video-sink property of the internal #playsink.
+         */
+        get videoSink(): Gst.Element;
+        set videoSink(val: Gst.Element);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Pipeline.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Pipeline.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): Pipeline;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Pipeline.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Pipeline.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Pipeline.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Pipeline.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Pipeline.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Pipeline.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Gets the {@link GES.Pipeline.mode} of the pipeline.
+         * @returns The current mode of `pipeline`.
+         */
+        get_mode(): PipelineFlags;
+
+        /**
+         * Gets a sample from the pipeline of the currently displayed image in
+         * preview, in the specified format.
+         * 
+         * Note that if you use "ANY" caps for `caps`, then the current format of
+         * the image is used. You can retrieve these caps from the returned sample
+         * with `gst_sample_get_caps()`.
+         * @param caps Some caps to specifying the desired format, or #GST_CAPS_ANY to use the native format
+         * @returns A sample of `self`'s current image preview in the format given by `caps`, or `null` if an error prevented fetching the sample.
+         */
+        get_thumbnail(caps: Gst.Caps): Gst.Sample | null;
+
+        /**
+         * Gets a sample from the pipeline of the currently displayed image in
+         * preview, in the 24-bit "RGB" format and of the desired width and
+         * height.
+         * 
+         * See `ges_pipeline_get_thumbnail()`.
+         * @param width The requested pixel width of the image, or -1 to use the native size
+         * @param height The requested pixel height of the image, or -1 to use the native size
+         * @returns A sample of `self`'s current image preview in the "RGB" format, scaled to `width` and `height`, or `null` if an error prevented fetching the sample.
+         */
+        get_thumbnail_rgb24(width: number, height: number): Gst.Sample | null;
+
+        /**
+         * Gets the {@link GES.Pipeline.audio_sink} of the pipeline.
+         * @returns The audio sink used by `self` for preview.
+         */
+        preview_get_audio_sink(): Gst.Element | null;
+
+        /**
+         * Gets the {@link GES.Pipeline.video_sink} of the pipeline.
+         * @returns The video sink used by `self` for preview.
+         */
+        preview_get_video_sink(): Gst.Element | null;
+
+        /**
+         * Sets the {@link GES.Pipeline.audio_sink} of the pipeline.
+         * @param sink A audio sink for `self` to use for preview
+         */
+        preview_set_audio_sink(sink: Gst.Element | null): void;
+
+        /**
+         * Sets the {@link GES.Pipeline.video_sink} of the pipeline.
+         * @param sink A video sink for `self` to use for preview
+         */
+        preview_set_video_sink(sink: Gst.Element | null): void;
+
+        /**
+         * Saves the currently displayed image of the pipeline in preview to the
+         * given location, in the specified dimensions and format.
+         * @param width The requested pixel width of the image, or -1 to use the native size
+         * @param height The requested pixel height of the image, or -1 to use the native size
+         * @param format The desired mime type (for example, "image/jpeg")
+         * @param location The path to save the thumbnail to
+         * @returns `true` if `self`'s current image preview was successfully saved to `location` using the given `format`, `height` and `width`.
+         * @throws GLib.Error
+         */
+        save_thumbnail(width: number, height: number, format: string, location: string): boolean;
+
+        /**
+         * Sets the {@link GES.Pipeline.mode} of the pipeline.
+         * 
+         * Note that the pipeline will be set to #GST_STATE_NULL during this call to
+         * perform the necessary changes. You will need to set the state again yourself
+         * after calling this.
+         * 
+         * > **NOTE**: [Rendering settings](ges_pipeline_set_render_settings) need to be
+         * > set before setting `mode` to #GES_PIPELINE_MODE_RENDER or
+         * > #GES_PIPELINE_MODE_SMART_RENDER, the call to this method will fail
+         * > otherwise.
+         * @param mode The mode to set for `pipeline`
+         * @returns `true` if the mode of `pipeline` was successfully set to `mode`.
+         */
+        set_mode(mode: PipelineFlags): boolean;
+
+        /**
+         * Specifies encoding setting to be used by the pipeline to render its
+         * {@link GES.Pipeline.timeline}, and where the result should be written to.
+         * 
+         * This method **must** be called before setting the pipeline mode to
+         * #GES_PIPELINE_MODE_RENDER.
+         * @param output_uri The URI to save the {@link GES.Pipeline.timeline} rendering result to
+         * @param profile The encoding to use for rendering the {@link GES.Pipeline.timeline}
+         * @returns `true` if the settings were successfully set on `pipeline`.
+         */
+        set_render_settings(output_uri: string, profile: GstPbutils.EncodingProfile): boolean;
+
+        /**
+         * Takes the given timeline and sets it as the {@link GES.Pipeline.timeline} for
+         * the pipeline.
+         * 
+         * Note that you should only call this method once on a given pipeline
+         * because a pipeline can not have its {@link GES.Pipeline.timeline} changed after
+         * it has been set.
+         * @param timeline The timeline to set for `pipeline`
+         * @returns `true` if `timeline` was successfully given to `pipeline`.
+         */
+        set_timeline(timeline: Timeline): boolean;
+
+        /**
+         * Tell an overlay that it has been exposed. This will redraw the current frame
+         * in the drawable even if the pipeline is PAUSED.
+         */
+        expose(): void;
+
+        /**
+         * This will post a "have-window-handle" element message on the bus.
+         * 
+         * This function should only be used by video overlay plugin developers.
+         * @param handle a platform-specific handle referencing the window
+         */
+        got_window_handle(handle: bigint | number): void;
+
+        /**
+         * Tell an overlay that it should handle events from the window system. These
+         * events are forwarded upstream as navigation events. In some window system,
+         * events are not propagated in the window hierarchy if a client is listening
+         * for them. This method allows you to disable events handling completely
+         * from the {@link GstVideo.VideoOverlay}.
+         * @param handle_events a `gboolean` indicating if events should be handled or not.
+         */
+        handle_events(handle_events: boolean): void;
+
+        /**
+         * This will post a "prepare-window-handle" element message on the bus
+         * to give applications an opportunity to call
+         * `gst_video_overlay_set_window_handle()` before a plugin creates its own
+         * window.
+         * 
+         * This function should only be used by video overlay plugin developers.
+         */
+        prepare_window_handle(): void;
+
+        /**
+         * Configure a subregion as a video target within the window set by
+         * `gst_video_overlay_set_window_handle()`. If this is not used or not supported
+         * the video will fill the area of the window set as the overlay to 100%.
+         * By specifying the rectangle, the video can be overlayed to a specific region
+         * of that window only. After setting the new rectangle one should call
+         * `gst_video_overlay_expose()` to force a redraw. To unset the region pass -1 for
+         * the `width` and `height` parameters.
+         * 
+         * This method is needed for non fullscreen video overlay in UI toolkits that
+         * do not support subwindows.
+         * @param x the horizontal offset of the render area inside the window
+         * @param y the vertical offset of the render area inside the window
+         * @param width the width of the render area inside the window
+         * @param height the height of the render area inside the window
+         * @returns `false` if not supported by the sink.
+         */
+        set_render_rectangle(x: number, y: number, width: number, height: number): boolean;
+
+        /**
+         * This will call the video overlay's set_window_handle method. You
+         * should use this method to tell to an overlay to display video output to a
+         * specific window (e.g. an XWindow on X11). Passing 0 as the  `handle` will
+         * tell the overlay to stop using that window and create an internal one.
+         * @param handle a handle referencing the window.
+         */
+        set_window_handle(handle: bigint | number): void;
+
+        /**
+         * Tell an overlay that it has been exposed. This will redraw the current frame
+         * in the drawable even if the pipeline is PAUSED.
+         * @virtual
+         */
+        vfunc_expose(): void;
+
+        /**
+         * Tell an overlay that it should handle events from the window system. These
+         * events are forwarded upstream as navigation events. In some window system,
+         * events are not propagated in the window hierarchy if a client is listening
+         * for them. This method allows you to disable events handling completely
+         * from the {@link GstVideo.VideoOverlay}.
+         * @param handle_events a `gboolean` indicating if events should be handled or not.
+         * @virtual
+         */
+        vfunc_handle_events(handle_events: boolean): void;
+
+        /**
+         * virtual method to set the render rectangle
+         * @param x 
+         * @param y 
+         * @param width 
+         * @param height 
+         * @virtual
+         */
+        vfunc_set_render_rectangle(x: number, y: number, width: number, height: number): void;
+
+        /**
+         * This will call the video overlay's set_window_handle method. You
+         * should use this method to tell to an overlay to display video output to a
+         * specific window (e.g. an XWindow on X11). Passing 0 as the  `handle` will
+         * tell the overlay to stop using that window and create an internal one.
+         * @param handle a handle referencing the window.
+         * @virtual
+         */
+        vfunc_set_window_handle(handle: number): void;
+
+        /**
+         * Increases the reference count of `object`.
+         * 
+         * Since GLib 2.56, if `GLIB_VERSION_MAX_ALLOWED` is 2.56 or greater, the type
+         * of `object` will be propagated to the return type (using the GCC `typeof()`
+         * extension), so any casting the caller needs to do on the return type must be
+         * explicit.
+         * @returns the same `object`
+         */
+        ref(): GObject.Object;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with Gst.Object.ref
+        ref(...args: never[]): any;
+
+        /**
+         * Decreases the reference count of `object`. When its reference count
+         * drops to 0, the object is finalized (i.e. its memory is freed).
+         * 
+         * If the pointer to the {@link GObject.Object} may be reused in future (for example, if it is
+         * an instance variable of another object), it is recommended to clear the
+         * pointer to `null` rather than retain a dangling pointer to a potentially
+         * invalid {@link GObject.Object} instance. Use `g_clear_object()` for this.
+         */
+        unref(): void;
+    }
+
+
+    namespace PitiviFormatter {
+        // Signal signatures
+        interface SignalSignatures extends Formatter.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends Formatter.ConstructorProps, Extractable.ConstructorProps {}
+    }
+
+    /**
+     * This is a legacy format and you should avoid to use it. The formatter
+     * is really not in good shape and is deprecated.
+     * @gir-type Class
+     * @deprecated since 1.0
+     */
+    class PitiviFormatter extends Formatter implements Extractable {
+        static $gtype: GObject.GType<PitiviFormatter>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: PitiviFormatter.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<PitiviFormatter.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): PitiviFormatter;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof PitiviFormatter.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, PitiviFormatter.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof PitiviFormatter.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, PitiviFormatter.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof PitiviFormatter.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<PitiviFormatter.SignalSignatures[K]>): void;
+
+        /**
+         * Get the asset that has been set on the extractable object.
+         * @returns The asset set on `self`, or `null` if no asset has been set.
+         */
+        get_asset(): Asset | null;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @returns The {@link GES.Asset.id} of some associated {@link GES.Asset} that is compatible with `self`'s current state.
+         */
+        get_id(): string;
+
+        /**
+         * Sets the asset for this extractable object.
+         * 
+         * When an object is extracted from an asset using `ges_asset_extract()` its
+         * asset will be automatically set. Note that many classes that implement
+         * {@link GES.Extractable} will automatically create their objects using assets
+         * when you call their `new` methods. However, you can use this method to
+         * associate an object with a compatible asset if it was created by other
+         * means and does not yet have an asset. Or, for some implementations of
+         * {@link GES.Extractable}, you can use this to change the asset of the given
+         * extractable object, which will lead to a change in its state to
+         * match the new asset {@link GES.Asset.id}.
+         * @param asset The asset to set
+         * @returns `true` if `asset` could be successfully set on `self`.
+         */
+        set_asset(asset: Asset): boolean;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @virtual
+         */
+        vfunc_get_id(): string;
+
+        /**
+         * This method is called after the {@link GES.Asset} of an object is
+         * set. If your class supports the asset of an object changing, then you
+         * can use this method to change the parameters of the object to match the
+         * new asset {@link GES.Asset.id}. If setting the asset should be able to fail,
+         * you should implement `set_asset_full` instead.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset(asset: Asset): void;
+
+        /**
+         * Like `set_asset`, but also allows you to return `false`
+         * to indicate a failure to change the object in response to a change in
+         * its asset.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset_full(asset: Asset): boolean;
+    }
+
+
+    namespace Project {
+        // Signal signatures
+        interface SignalSignatures extends Asset.SignalSignatures, MetaContainer.SignalSignatures {
+            /**
+             * @signal
+             * @run-last
+             */
+            "asset-added": (asset: Asset) => void;
+            /**
+             * @signal
+             * @since 1.8
+             * @run-last
+             */
+            "asset-loading": (asset: Asset) => void;
+            /**
+             * @signal
+             * @run-last
+             */
+            "asset-removed": (asset: Asset) => void;
+            /**
+             * @signal
+             * @since 1.18
+             * @run-last
+             */
+            "error-loading": (timeline: Timeline, error: GLib.Error) => void;
+            /**
+             * Informs you that a {@link GES.Asset} could not be created. In case of
+             * missing GStreamer plugins, the error will be set to #GST_CORE_ERROR
+             * #GST_CORE_ERROR_MISSING_PLUGIN
+             * @signal
+             * @run-last
+             */
+            "error-loading-asset": (error: GLib.Error, id: string, extractable_type: GObject.GType) => void;
+            /**
+             * @signal
+             * @run-first
+             */
+            loaded: (timeline: Timeline) => void;
+            /**
+             * @signal
+             * @since 1.18
+             * @run-first
+             */
+            loading: (timeline: Timeline) => void;
+            /**
+             * ```c
+             * static gchar
+             * source_moved_cb (GESProject *project, GError *error, GESAsset *asset_with_error)
+             * {
+             *   return g_strdup ("file:///the/new/uri.ogg");
+             * }
+             * 
+             * static int
+             * main (int argc, gchar ** argv)
+             * {
+             *   GESTimeline *timeline;
+             *   GESProject *project = ges_project_new ("file:///some/uri.xges");
+             * 
+             *   g_signal_connect (project, "missing-uri", source_moved_cb, NULL);
+             *   timeline = ges_asset_extract (GES_ASSET (project));
+             * }
+             * ```
+             * @signal
+             * @run-last
+             */
+            "missing-uri": (error: GLib.Error, wrong_asset: Asset) => string | null;
+            "notify::uri": (pspec: GObject.ParamSpec) => void;
+            "notify::extractable-type": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy-target": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Asset.ConstructorProps, MetaContainer.ConstructorProps, Gio.AsyncInitable.ConstructorProps, Gio.Initable.ConstructorProps {
+            uri: string | null;
+        }
+    }
+
+    /**
+     * The {@link GES.Project} is used to control a set of {@link GES.Asset} and is a
+     * {@link GES.Asset} with `GES_TYPE_TIMELINE` as `extractable_type` itself. That
+     * means that you can extract {@link GES.Timeline} from a project as followed:
+     * 
+     * ```c
+     * GESProject *project;
+     * GESTimeline *timeline;
+     * 
+     * project = ges_project_new ("file:///path/to/a/valid/project/uri");
+     * 
+     * // Here you can connect to the various signal to get more infos about
+     * // what is happening and recover from errors if possible
+     * ...
+     * 
+     * timeline = ges_asset_extract (GES_ASSET (project));
+     * ```
+     * 
+     * The {@link GES.Project} class offers a higher level API to handle {@link GES.Asset}-s.
+     * It lets you request new asset, and it informs you about new assets through
+     * a set of signals. Also it handles problem such as missing files/missing
+     * {@link Gst.Element} and lets you try to recover from those.
+     * 
+     * ## Subprojects
+     * 
+     * In order to add a subproject, the only thing to do is to add the subproject
+     * to the main project:
+     * 
+     * ``` c
+     * ges_project_add_asset (project, GES_ASSET (subproject));
+     * ```
+     * then the subproject will be serialized in the project files. To use
+     * the subproject in a timeline, you should use a {@link GES.UriClip} with the
+     * same subproject URI.
+     * 
+     * When loading a project with subproject, subprojects URIs will be temporary
+     * writable local files. If you want to edit the subproject timeline,
+     * you should retrieve the subproject from the parent project asset list and
+     * extract the timeline with `ges_asset_extract()` and save it at
+     * the same temporary location.
+     * @gir-type Class
+     */
+    class Project extends Asset implements MetaContainer, Gio.AsyncInitable<Project>, Gio.Initable {
+        static $gtype: GObject.GType<Project>;
+
+        // Properties
+        /**
+         * @construct-only
+         * @default null
+         */
+        get uri(): string | null;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Project.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Project.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](uri: string | null): Project;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Project.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Project.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Project.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Project.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Project.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Project.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @param asset 
+         * @virtual
+         */
+        vfunc_asset_added(asset: Asset): void;
+
+        /**
+         * @param asset 
+         * @virtual
+         */
+        vfunc_asset_loading(asset: Asset): void;
+
+        /**
+         * @param asset 
+         * @virtual
+         */
+        vfunc_asset_removed(asset: Asset): void;
+
+        /**
+         * @param timeline 
+         * @virtual
+         */
+        vfunc_loaded(timeline: Timeline): boolean;
+
+        /**
+         * @param timeline The loading timeline
+         * @since 1.18
+         * @virtual
+         */
+        vfunc_loading(timeline: Timeline): void;
+
+        /**
+         * @param error 
+         * @param id 
+         * @param extractable_type 
+         * @virtual
+         */
+        vfunc_loading_error(error: GLib.Error, id: string, extractable_type: GObject.GType): boolean;
+
+        /**
+         * @param error 
+         * @param wrong_asset 
+         * @virtual
+         */
+        vfunc_missing_uri(error: GLib.Error, wrong_asset: Asset): string;
+
+        // Methods
+        /**
+         * Adds a {@link GES.Asset} to `project`, the project will keep a reference on
+         * `asset`.
+         * @param asset A {@link GES.Asset} to add to `project`
+         * @returns `true` if the asset could be added `false` it was already in the project. MT safe.
+         */
+        add_asset(asset: Asset): boolean;
+
+        /**
+         * Adds `profile` to the project. It lets you save in what format
+         * the project will be rendered and keep a reference to those formats.
+         * Also, those formats will be saved to the project file when possible.
+         * @param profile A {@link GstPbutils.EncodingProfile} to add to the project. If a profile with the same name already exists, it will be replaced.
+         * @returns `true` if `profile` could be added, `false` otherwise MT safe.
+         */
+        add_encoding_profile(profile: GstPbutils.EncodingProfile): boolean;
+
+        /**
+         * Adds a formatter to be used to load `project`
+         * @param formatter A formatter used by `project`
+         * @since 1.18
+         */
+        add_formatter(formatter: Formatter): void;
+
+        /**
+         * Create and add a {@link GES.Asset} to `project`. You should connect to the
+         * "asset-added" signal to get the asset when it finally gets added to
+         * `project`
+         * @param id The id of the asset to create and add to `project`
+         * @param extractable_type The {@link GObject.GType} of the asset to create
+         * @returns `true` if the asset was added and started loading, `false` it was already in the project. MT safe.
+         */
+        create_asset(id: string | null, extractable_type: GObject.GType): boolean;
+
+        /**
+         * Create and add a {@link GES.Asset} to `project`. You should connect to the
+         * "asset-added" signal to get the asset when it finally gets added to
+         * `project`
+         * @param id The id of the asset to create and add to `project`
+         * @param extractable_type The {@link GObject.GType} of the asset to create
+         * @returns The newly created {@link GES.Asset} or `null`. MT safe.
+         * @throws GLib.Error
+         */
+        create_asset_sync(id: string | null, extractable_type: GObject.GType): Asset | null;
+
+        /**
+         * @param id The id of the asset to retrieve
+         * @param extractable_type The extractable_type of the asset to retrieve from `object`
+         * @returns The {@link GES.Asset} with `id` or `null` if no asset with `id` as an ID MT safe.
+         */
+        get_asset(id: string, extractable_type: GObject.GType): Asset | null;
+
+        /**
+         * Get the assets that are being loaded
+         * @returns A set of loading asset that will be added to `project`. Note that those Asset are *not* loaded yet, and thus can not be used. MT safe.
+         */
+        get_loading_assets(): Asset[];
+
+        /**
+         * Retrieve the uri that is currently set on `project`
+         * @returns a newly allocated string representing uri. MT safe.
+         */
+        get_uri(): string | null;
+
+        /**
+         * List all `asset` contained in `project` filtering per extractable_type
+         * as defined by `filter`. It copies the asset and thus will not be updated
+         * in time.
+         * @param filter Type of assets to list, `GES_TYPE_EXTRACTABLE` will list all assets
+         * @returns The list of {@link GES.Asset} the object contains MT safe.
+         */
+        list_assets(filter: GObject.GType): Asset[];
+
+        /**
+         * Lists the encoding profile that have been set to `project`. The first one
+         * is the latest added.
+         * @returns The list of {@link GstPbutils.EncodingProfile} used in `project`
+         */
+        list_encoding_profiles(): GstPbutils.EncodingProfile[] | null;
+
+        /**
+         * Loads `project` into `timeline`
+         * @param timeline A blank timeline to load `project` into
+         * @returns `true` if the project could be loaded `false` otherwise. MT safe.
+         * @throws GLib.Error
+         */
+        load(timeline: Timeline): boolean;
+
+        /**
+         * Remove `asset` from `project`.
+         * @param asset A {@link GES.Asset} to remove from `project`
+         * @returns `true` if the asset could be removed `false` otherwise MT safe.
+         */
+        remove_asset(asset: Asset): boolean;
+
+        /**
+         * Save the timeline of `project` to `uri`. You should make sure that `timeline`
+         * is one of the timelines that have been extracted from `project`
+         * (using ges_asset_extract (`project`);)
+         * @param timeline The {@link GES.Timeline} to save, it must have been extracted from `project`
+         * @param uri The uri where to save `project` and `timeline`
+         * @param formatter_asset The formatter asset to use or `null`. If `null`, will try to save in the same format as the one from which the timeline as been loaded or default to the best formatter as defined in `ges_find_formatter_for_uri`
+         * @param overwrite `true` to overwrite file if it exists
+         * @returns `true` if the project could be save, `false` otherwise MT safe.
+         * @throws GLib.Error
+         */
+        save(timeline: Timeline, uri: string, formatter_asset: Asset | null, overwrite: boolean): boolean;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @returns `true` if successful. If an error has occurred, this function will return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Finishes the async construction for the various g_async_initable_new
+         * calls, returning the created object or `null` on error.
+         * @param res the {@link Gio.AsyncResult} from the callback
+         * @returns a newly created {@link GObject.Object},      or `null` on error. Free with `g_object_unref()`.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        new_finish(res: Gio.AsyncResult): Project;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @returns `true` if successful. If an error has occurred, this function will     return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init(cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    namespace Source {
+        // Signal signatures
+        interface SignalSignatures extends TrackElement.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends TrackElement.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * Base class for single-media sources
+     * @gir-type Class
+     */
+    class Source extends TrackElement implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<Source>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Source.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Source.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Source.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Source.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Source.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Source.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Source.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Source.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * Creates the GstElement to put in the source topbin. Other elements will be
+         * queued, like a volume. In the case of a AudioUriSource, for example, the
+         * subclass will return a decodebin, and we will append a volume.
+         * @since 1.20
+         * @virtual
+         */
+        vfunc_create_source(): Gst.Element;
+
+        /**
+         * Check whether `pad` should be exposed/used.
+         * @param pad The pad to check
+         * @since 1.20
+         * @virtual
+         */
+        vfunc_select_pad(pad: Gst.Pad): boolean;
+    }
+
+
+    namespace SourceClip {
+        // Signal signatures
+        interface SignalSignatures extends Clip.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::duration-limit": (pspec: GObject.ParamSpec) => void;
+            "notify::layer": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Clip.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * {@link GES.SourceClip}-s are clips whose core elements are {@link GES.Source}-s.
+     * 
+     * ## Effects
+     * 
+     * {@link GES.SourceClip}-s can also have {@link GES.BaseEffect}-s added as non-core
+     * elements. These effects are applied to the core sources of the clip
+     * that they share a {@link GES.Track} with. See {@link GES.Clip} for how to add and move
+     * these effects from the clip.
+     * @gir-type Class
+     */
+    class SourceClip extends Clip implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<SourceClip>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceClip.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceClip.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static new_time_overlay(): SourceClip;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceClip.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceClip.SignalSignatures[K]>): void;
+    }
+
+
+    namespace SourceClipAsset {
+        // Signal signatures
+        interface SignalSignatures extends ClipAsset.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::extractable-type": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy-target": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends ClipAsset.ConstructorProps, MetaContainer.ConstructorProps, Gio.AsyncInitable.ConstructorProps, Gio.Initable.ConstructorProps {}
+    }
+
+    /**
+     * An asset types from which {@link GES.SourceClip} will be extracted
+     * @gir-type Class
+     * @since 1.18
+     */
+    class SourceClipAsset extends ClipAsset implements MetaContainer, Gio.AsyncInitable<SourceClipAsset>, Gio.Initable {
+        static $gtype: GObject.GType<SourceClipAsset>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceClipAsset.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceClipAsset.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceClipAsset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceClipAsset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceClipAsset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceClipAsset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceClipAsset.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceClipAsset.SignalSignatures[K]>): void;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @returns `true` if successful. If an error has occurred, this function will return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Finishes the async construction for the various g_async_initable_new
+         * calls, returning the created object or `null` on error.
+         * @param res the {@link Gio.AsyncResult} from the callback
+         * @returns a newly created {@link GObject.Object},      or `null` on error. Free with `g_object_unref()`.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        new_finish(res: Gio.AsyncResult): SourceClipAsset;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_finish(res: Gio.AsyncResult): boolean;
+    }
+
+
+    namespace TestClip {
+        // Signal signatures
+        interface SignalSignatures extends SourceClip.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::freq": (pspec: GObject.ParamSpec) => void;
+            "notify::mute": (pspec: GObject.ParamSpec) => void;
+            "notify::volume": (pspec: GObject.ParamSpec) => void;
+            "notify::vpattern": (pspec: GObject.ParamSpec) => void;
+            "notify::duration-limit": (pspec: GObject.ParamSpec) => void;
+            "notify::layer": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceClip.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            freq: number;
+            mute: boolean;
+            volume: number;
+            vpattern: VideoTestPattern;
+        }
+    }
+
+    /**
+     * Useful for testing purposes.
+     * 
+     * ## Asset
+     * 
+     * The default asset ID is GESTestClip, but the framerate and video
+     * size can be overridden using an ID of the form:
+     * 
+     * ```
+     * framerate=60/1, width=1920, height=1080, max-duration=5.0
+     * ```
+     * Note: `max-duration` can be provided in seconds as float, or as GstClockTime
+     * as guint64 or gint.
+     * @gir-type Class
+     */
+    class TestClip extends SourceClip implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<TestClip>;
+
+        // Properties
+        /**
+         * The frequency to generate for audio track elements.
+         * @default 440
+         */
+        get freq(): number;
+        set freq(val: number);
+
+        /**
+         * Whether the sound will be played or not.
+         * @default false
+         */
+        get mute(): boolean;
+        set mute(val: boolean);
+
+        /**
+         * The volume for the audio track elements.
+         * @default 1
+         */
+        get volume(): number;
+        set volume(val: number);
+
+        /**
+         * Video pattern to display in video track elements.
+         * @default GES.VideoTestPattern.SMPTE
+         */
+        get vpattern(): VideoTestPattern;
+        set vpattern(val: VideoTestPattern);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: TestClip.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<TestClip.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): TestClip;
+
+        static new_for_nick(nick: string): TestClip;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof TestClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TestClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof TestClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TestClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof TestClip.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<TestClip.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the frequency `self` generates.
+         * @returns The frequency `self` generates. See audiotestsrc element.
+         */
+        get_frequency(): number;
+
+        /**
+         * Get the volume of the test audio signal applied on `self`.
+         * @returns The volume of the test audio signal applied on `self`.
+         */
+        get_volume(): number;
+
+        /**
+         * Get the {@link GES.VideoTestPattern} which is applied on `self`.
+         * @returns The {@link GES.VideoTestPattern} which is applied on `self`.
+         */
+        get_vpattern(): VideoTestPattern;
+
+        /**
+         * Let you know if the audio track of `self` is muted or not.
+         * @returns Whether the audio track of `self` is muted or not.
+         */
+        is_muted(): boolean;
+
+        /**
+         * Sets the frequency to generate. See audiotestsrc element.
+         * @param freq the frequency you want to use on `self`
+         */
+        set_frequency(freq: number): void;
+
+        /**
+         * Sets whether the audio track of this clip is muted or not.
+         * @param mute `true` to mute the audio track, `false` to unmute it
+         */
+        set_mute(mute: boolean): void;
+
+        /**
+         * Sets the volume of the test audio signal.
+         * @param volume the volume of the audio signal you want to use on `self`
+         */
+        set_volume(volume: number): void;
+
+        /**
+         * Sets which video pattern to display on `self`.
+         * @param vpattern the {@link GES.VideoTestPattern} to use on `self`
+         */
+        set_vpattern(vpattern: VideoTestPattern): void;
+    }
+
+
+    namespace TextOverlay {
+        // Signal signatures
+        interface SignalSignatures extends Operation.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Operation.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class TextOverlay extends Operation implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<TextOverlay>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: TextOverlay.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<TextOverlay.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): TextOverlay;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof TextOverlay.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TextOverlay.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof TextOverlay.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TextOverlay.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof TextOverlay.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<TextOverlay.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the color used by `source`.
+         * @returns The color used by `source`.
+         */
+        get_color(): number;
+
+        /**
+         * Get the pango font description currently set on `source`.
+         * @returns The pango font description currently set on `source`.
+         */
+        get_font_desc(): string | null;
+
+        /**
+         * Get the horizontal aligment used by `source`.
+         * @returns The horizontal aligment used by `source`.
+         */
+        get_halignment(): TextHAlign;
+
+        /**
+         * Get the text currently set on `source`.
+         * @returns The text currently set on `source`.
+         */
+        get_text(): string | null;
+
+        /**
+         * Get the vertical aligment used by `source`.
+         * @returns The vertical aligment used by `source`.
+         */
+        get_valignment(): TextVAlign;
+
+        /**
+         * Get the horizontal position used by `source`.
+         * @returns The horizontal position used by `source`.
+         */
+        get_xpos(): number;
+
+        /**
+         * Get the vertical position used by `source`.
+         * @returns The vertical position used by `source`.
+         */
+        get_ypos(): number;
+
+        /**
+         * Sets the color of the text.
+         * @param color The color `self` is being set to
+         */
+        set_color(color: number): void;
+
+        /**
+         * Sets the pango font description of the text this track element
+         * will render.
+         * @param font_desc the pango font description
+         */
+        set_font_desc(font_desc: string | null): void;
+
+        /**
+         * Sets the horizontal aligment of the text.
+         * @param halign The {@link GES.TextHAlign} defining the horizontal alignment of the text render by `self`.
+         */
+        set_halignment(halign: TextHAlign): void;
+
+        /**
+         * Sets the text this track element will render.
+         * @param text the text to render. an internal copy of this text will be made.
+         */
+        set_text(text: string | null): void;
+
+        /**
+         * Sets the vertical aligment of the text.
+         * @param valign The {@link GES.TextVAlign} defining the vertical alignment of the text render by `self`.
+         */
+        set_valignment(valign: TextVAlign): void;
+
+        /**
+         * Sets the horizontal position of the text.
+         * @param position The horizontal position `self` is being set to
+         */
+        set_xpos(position: number): void;
+
+        /**
+         * Sets the vertical position of the text.
+         * @param position The vertical position `self` is being set to
+         */
+        set_ypos(position: number): void;
+    }
+
+
+    namespace TextOverlayClip {
+        // Signal signatures
+        interface SignalSignatures extends OverlayClip.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::color": (pspec: GObject.ParamSpec) => void;
+            "notify::font-desc": (pspec: GObject.ParamSpec) => void;
+            "notify::halignment": (pspec: GObject.ParamSpec) => void;
+            "notify::text": (pspec: GObject.ParamSpec) => void;
+            "notify::valignment": (pspec: GObject.ParamSpec) => void;
+            "notify::xpos": (pspec: GObject.ParamSpec) => void;
+            "notify::ypos": (pspec: GObject.ParamSpec) => void;
+            "notify::duration-limit": (pspec: GObject.ParamSpec) => void;
+            "notify::layer": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends OverlayClip.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            color: number;
+            font_desc: string | null;
+            fontDesc: string | null;
+            halignment: TextHAlign;
+            text: string | null;
+            valignment: TextVAlign;
+            xpos: number;
+            ypos: number;
+        }
+    }
+
+    /**
+     * Renders text onto the next lower priority stream using textrender.
+     * @gir-type Class
+     */
+    class TextOverlayClip extends OverlayClip implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<TextOverlayClip>;
+
+        // Properties
+        /**
+         * The color of the text
+         * @default 4294967295
+         */
+        get color(): number;
+        set color(val: number);
+
+        /**
+         * Pango font description string
+         * @default Serif 36
+         */
+        get font_desc(): string | null;
+        set font_desc(val: string | null);
+
+        /**
+         * Pango font description string
+         * @default Serif 36
+         */
+        get fontDesc(): string | null;
+        set fontDesc(val: string | null);
+
+        /**
+         * Horizontal alignment of the text
+         * @default GES.TextHAlign.CENTER
+         */
+        get halignment(): TextHAlign;
+        set halignment(val: TextHAlign);
+
+        /**
+         * The text to diplay
+         */
+        get text(): string | null;
+        set text(val: string | null);
+
+        /**
+         * Vertical alignent of the text
+         * @default GES.TextVAlign.BASELINE
+         */
+        get valignment(): TextVAlign;
+        set valignment(val: TextVAlign);
+
+        /**
+         * The horizontal position of the text
+         * @default 0.5
+         */
+        get xpos(): number;
+        set xpos(val: number);
+
+        /**
+         * The vertical position of the text
+         * @default 0.5
+         */
+        get ypos(): number;
+        set ypos(val: number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: TextOverlayClip.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<TextOverlayClip.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): TextOverlayClip;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof TextOverlayClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TextOverlayClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof TextOverlayClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TextOverlayClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof TextOverlayClip.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<TextOverlayClip.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the color used by `source`.
+         * @returns The color used by `source`.
+         */
+        get_color(): number;
+
+        /**
+         * Get the pango font description used by `self`.
+         * @returns The pango font description used by `self`.
+         */
+        get_font_desc(): string | null;
+
+        /**
+         * Get the horizontal aligment used by `self`.
+         * @returns The horizontal aligment used by `self`.
+         */
+        get_halignment(): TextHAlign;
+
+        /**
+         * Get the text currently set on `self`.
+         * @returns The text currently set on `self`.
+         */
+        get_text(): string | null;
+
+        /**
+         * Get the vertical aligment used by `self`.
+         * @returns The vertical aligment used by `self`.
+         */
+        get_valignment(): TextVAlign;
+
+        /**
+         * Get the horizontal position used by `source`.
+         * @returns The horizontal position used by `source`.
+         */
+        get_xpos(): number;
+
+        /**
+         * Get the vertical position used by `source`.
+         * @returns The vertical position used by `source`.
+         */
+        get_ypos(): number;
+
+        /**
+         * Sets the color of the text.
+         * @param color The color `self` is being set to
+         */
+        set_color(color: number): void;
+
+        /**
+         * Sets the pango font description of the text
+         * @param font_desc the pango font description
+         */
+        set_font_desc(font_desc: string | null): void;
+
+        /**
+         * Sets the horizontal aligment of the text.
+         * @param halign {@link GES.TextHAlign}
+         */
+        set_halign(halign: TextHAlign): void;
+
+        /**
+         * Sets the text this clip will render.
+         * @param text the text to render. an internal copy of this text will be made.
+         */
+        set_text(text: string | null): void;
+
+        /**
+         * Sets the vertical aligment of the text.
+         * @param valign {@link GES.TextVAlign}
+         */
+        set_valign(valign: TextVAlign): void;
+
+        /**
+         * Sets the horizontal position of the text.
+         * @param position The horizontal position `self` is being set to
+         */
+        set_xpos(position: number): void;
+
+        /**
+         * Sets the vertical position of the text.
+         * @param position The vertical position `self` is being set to
+         */
+        set_ypos(position: number): void;
+    }
+
+
+    namespace Timeline {
+        // Signal signatures
+        interface SignalSignatures extends Gst.Bin.SignalSignatures, MetaContainer.SignalSignatures, Gst.ChildProxy.SignalSignatures {
+            /**
+             * This signal will be emitted once the changes initiated by
+             * `ges_timeline_commit()` have been executed in the backend. Use
+             * `ges_timeline_commit_sync()` if you do not want to have to connect
+             * to this signal.
+             * @signal
+             * @run-last
+             */
+            commited: () => void;
+            /**
+             * Will be emitted after the group is added to to the timeline. This can
+             * happen when grouping with `ges_container_group`, or by adding
+             * containers to a newly created group.
+             * 
+             * Note that this should not be emitted whilst a timeline is being
+             * loaded from its {@link GES.Project} asset. You should connect to the
+             * project's {@link GES.Project.SignalSignatures.loaded | GES.Project::loaded} signal if you want to know which groups
+             * were created for the timeline.
+             * @signal
+             * @run-first
+             */
+            "group-added": (group: Group) => void;
+            /**
+             * Will be emitted after the group is removed from the timeline through
+             * `ges_container_ungroup`. Note that `group` will no longer contain its
+             * former children, these are held in `children`.
+             * 
+             * Note that if a group is emptied, then it will no longer belong to the
+             * timeline, but this signal will **not** be emitted in such a case.
+             * @signal
+             * @run-first
+             */
+            "group-removed": (group: Group, children: Container[]) => void;
+            /**
+             * Will be emitted after the layer is added to the timeline.
+             * 
+             * Note that this should not be emitted whilst a timeline is being
+             * loaded from its {@link GES.Project} asset. You should connect to the
+             * project's {@link GES.Project.SignalSignatures.loaded | GES.Project::loaded} signal if you want to know which
+             * layers were created for the timeline.
+             * @signal
+             * @run-first
+             */
+            "layer-added": (layer: Layer) => void;
+            /**
+             * Will be emitted after the layer is removed from the timeline.
+             * @signal
+             * @run-first
+             */
+            "layer-removed": (layer: Layer) => void;
+            /**
+             * Simplified version of {@link GES.Timeline.SignalSignatures.select_tracks_for_object | GES.Timeline::select-tracks-for-object} which only
+             * allows `track_element` to be added to a single {@link GES.Track}.
+             * @signal
+             * @since 1.18
+             * @run-last
+             */
+            "select-element-track": (clip: Clip, track_element: TrackElement) => Track | null;
+            /**
+             * This will be emitted whenever the timeline needs to determine which
+             * tracks a clip's children should be added to. The track element will
+             * be added to each of the tracks given in the return. If a track
+             * element is selected to go into multiple tracks, it will be copied
+             * into the additional tracks, under the same clip. Note that the copy
+             * will *not* keep its properties or state in sync with the original.
+             * 
+             * Connect to this signal once if you wish to control which element
+             * should be added to which track. Doing so will overwrite the default
+             * behaviour, which adds `track_element` to all tracks whose
+             * {@link GES.Track.track_type} includes the `track_element`'s
+             * {@link GES.TrackElement.track_type}.
+             * 
+             * Note that under the default track selection, if a clip would produce
+             * multiple core children of the same {@link GES.TrackType}, it will choose
+             * one of the core children arbitrarily to place in the corresponding
+             * tracks, with a warning for the other core children that are not
+             * placed in the track. For example, this would happen for a {@link GES.UriClip}
+             * that points to a file that contains multiple audio streams. If you
+             * wish to choose the stream, you could connect to this signal, and use,
+             * say, `ges_uri_source_asset_get_stream_info()` to choose which core
+             * source to add.
+             * 
+             * When a clip is first added to a timeline, its core elements will
+             * be created for the current tracks in the timeline if they have not
+             * already been created. Then this will be emitted for each of these
+             * core children to select which tracks, if any, they should be added
+             * to. It will then be called for any non-core children in the clip.
+             * 
+             * In addition, if a new track element is ever added to a clip in a
+             * timeline (and it is not already part of a track) this will be emitted
+             * to select which tracks the element should be added to.
+             * 
+             * Finally, as a special case, if a track is added to the timeline
+             * *after* it already contains clips, then it will request the creation
+             * of the clips' core elements of the corresponding type, if they have
+             * not already been created, and this signal will be emitted for each of
+             * these newly created elements. In addition, this will also be released
+             * for all other track elements in the timeline's clips that have not
+             * yet been assigned a track. However, in this final case, the timeline
+             * will only check whether the newly added track appears in the track
+             * list. If it does appear, the track element will be added to the newly
+             * added track. All other tracks in the returned track list are ignored.
+             * 
+             * In this latter case, track elements that are already part of a track
+             * will not be asked if they want to be copied into the new track. If
+             * you wish to do this, you can use `ges_clip_add_child_to_track()`.
+             * 
+             * Note that the returned {@link GLib.PtrArray} should own a new reference to each
+             * of its contained {@link GES.Track}. The timeline will set the {@link GLib.DestroyNotify}
+             * free function on the {@link GLib.PtrArray} to dereference the elements.
+             * @signal
+             * @run-last
+             */
+            "select-tracks-for-object": (clip: Clip, track_element: TrackElement) => Track[];
+            /**
+             * Will be emitted whenever a snapping event ends. After a snap event
+             * has started (see {@link GES.Timeline.SignalSignatures.snapping_started | GES.Timeline::snapping-started}), it can later end
+             * because either another timeline edit has occurred (which may or may
+             * not have created a new snapping event), or because the timeline has
+             * been committed.
+             * @signal
+             * @run-last
+             */
+            "snapping-ended": (obj1: TrackElement, obj2: TrackElement, position: number) => void;
+            /**
+             * Will be emitted whenever an element's movement invokes a snapping
+             * event during an edit (usually of one of its ancestors) because its
+             * start or end point lies within the {@link GES.Timeline.snapping_distance} of
+             * another element's start or end point.
+             * 
+             * See {@link GES.EditMode} to see what can snap during an edit.
+             * 
+             * Note that only up to one snapping-started signal will be emitted per
+             * element edit within a timeline.
+             * @signal
+             * @run-last
+             */
+            "snapping-started": (obj1: TrackElement, obj2: TrackElement, position: number) => void;
+            /**
+             * Will be emitted after the track is added to the timeline.
+             * 
+             * Note that this should not be emitted whilst a timeline is being
+             * loaded from its {@link GES.Project} asset. You should connect to the
+             * project's {@link GES.Project.SignalSignatures.loaded | GES.Project::loaded} signal if you want to know which
+             * tracks were created for the timeline.
+             * @signal
+             * @run-first
+             */
+            "track-added": (track: Track) => void;
+            /**
+             * Will be emitted after the track is removed from the timeline.
+             * @signal
+             * @run-first
+             */
+            "track-removed": (track: Track) => void;
+            "notify::auto-transition": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::snapping-distance": (pspec: GObject.ParamSpec) => void;
+            "notify::async-handling": (pspec: GObject.ParamSpec) => void;
+            "notify::message-forward": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Gst.Bin.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps, Gst.ChildProxy.ConstructorProps {
+            auto_transition: boolean;
+            autoTransition: boolean;
+            duration: bigint | number;
+            snapping_distance: bigint | number;
+            snappingDistance: bigint | number;
+        }
+    }
+
+    /**
+     * {@link GES.Timeline} is the central object for any multimedia timeline.
+     * 
+     * A timeline is composed of a set of {@link GES.Track}-s and a set of
+     * {@link GES.Layer}-s, which are added to the timeline using
+     * `ges_timeline_add_track()` and `ges_timeline_append_layer()`, respectively.
+     * 
+     * The contained tracks define the supported types of the timeline
+     * and provide the media output. Essentially, each track provides an
+     * additional source {@link Gst.Pad}.
+     * 
+     * Most usage of a timeline will likely only need a single {@link GES.AudioTrack}
+     * and/or a single {@link GES.VideoTrack}. You can create such a timeline with
+     * `ges_timeline_new_audio_video()`. After this, you are unlikely to need to
+     * work with the tracks directly.
+     * 
+     * A timeline's layers contain {@link GES.Clip}-s, which in turn control the
+     * creation of {@link GES.TrackElement}-s, which are added to the timeline's
+     * tracks. See {@link GES.Timeline.SignalSignatures.select_tracks_for_object | GES.Timeline::select-tracks-for-object} if you wish to have
+     * more control over which track a clip's elements are added to.
+     * 
+     * The layers are ordered, with higher priority layers having their
+     * content prioritised in the tracks. This ordering can be changed using
+     * `ges_timeline_move_layer()`.
+     * 
+     * ## Editing
+     * 
+     * See {@link GES.TimelineElement} for the various ways the elements of a timeline
+     * can be edited.
+     * 
+     * If you change the timing or ordering of a timeline's
+     * {@link GES.TimelineElement}-s, then these changes will not actually be taken
+     * into account in the output of the timeline's tracks until the
+     * `ges_timeline_commit()` method is called. This allows you to move its
+     * elements around, say, in response to an end user's mouse dragging, with
+     * little expense before finalising their effect on the produced data.
+     * 
+     * ## Overlaps and Auto-Transitions
+     * 
+     * There are certain restrictions placed on how {@link GES.Source}-s may overlap
+     * in a {@link GES.Track} that belongs to a timeline. These will be enforced by
+     * GES, so the user will not need to keep track of them, but they should
+     * be aware that certain edits will be refused as a result if the overlap
+     * rules would be broken.
+     * 
+     * Consider two {@link GES.Source}-s, `A` and `B`, with start times `startA` and
+     * `startB`, and end times `endA` and `endB`, respectively. The start
+     * time refers to their {@link GES.TimelineElement.start}, and the end time is
+     * their {@link GES.TimelineElement.start} + {@link GES.TimelineElement.duration}. These
+     * two sources *overlap* if:
+     * 
+     * + they share the same {@link GES.TrackElement.track} (non `null`), which belongs
+     *   to the timeline;
+     * + they share the same #GES_TIMELINE_ELEMENT_LAYER_PRIORITY; and
+     * + `startA < endB` and `startB < endA `.
+     * 
+     * Note that when `startA = endB` or `startB = endA` then the two sources
+     * will *touch* at their edges, but are not considered overlapping.
+     * 
+     * If, in addition, `startA < startB < endA`, then we can say that the
+     * end of `A` overlaps the start of `B`.
+     * 
+     * If, instead, `startA <= startB` and `endA >= endB`, then we can say
+     * that `A` fully overlaps `B`.
+     * 
+     * The overlap rules for a timeline are that:
+     * 
+     * 1. One source cannot fully overlap another source.
+     * 2. A source can only overlap the end of up to one other source at its
+     *    start.
+     * 3. A source can only overlap the start of up to one other source at its
+     *    end.
+     * 
+     * The last two rules combined essentially mean that at any given timeline
+     * position, only up to two {@link GES.Source}-s may overlap at that position. So
+     * triple or more overlaps are not allowed.
+     * 
+     * If you switch on {@link GES.Timeline.auto_transition}, then at any moment when
+     * the end of one source (the first source) overlaps the start of another
+     * (the second source), a {@link GES.TransitionClip} will be automatically created
+     * for the pair in the same layer and it will cover their overlap. If the
+     * two elements are edited in a way such that the end of the first source
+     * no longer overlaps the start of the second, the transition will be
+     * automatically removed from the timeline. However, if the two sources
+     * still overlap at the same edges after the edit, then the same
+     * transition object will be kept, but with its timing and layer adjusted
+     * accordingly.
+     * 
+     * NOTE: if you know what you are doing and want to be in full control of the
+     * timeline layout, you can disable the edit APIs with
+     * `ges_timeline_disable_edit_apis`.
+     * 
+     * ## Saving
+     * 
+     * To save/load a timeline, you can use the `ges_timeline_load_from_uri()`
+     * and `ges_timeline_save_to_uri()` methods that use the default format.
+     * 
+     * ## Playing
+     * 
+     * A timeline is a {@link Gst.Bin} with a source {@link Gst.Pad} for each of its
+     * tracks, which you can fetch with `ges_timeline_get_pad_for_track()`. You
+     * will likely want to link these to some compatible sink {@link Gst.Element}-s to
+     * be able to play or capture the content of the timeline.
+     * 
+     * You can use a {@link GES.Pipeline} to easily preview/play the timeline's
+     * content, or render it to a file.
+     * @gir-type Class
+     */
+    class Timeline extends Gst.Bin implements Extractable, MetaContainer, Gst.ChildProxy {
+        static $gtype: GObject.GType<Timeline>;
+
+        // Properties
+        /**
+         * Whether to automatically create a transition whenever two
+         * {@link GES.Source}-s overlap in a track of the timeline. See
+         * {@link GES.Layer.auto_transition} if you want this to only happen in some
+         * layers.
+         * @default false
+         */
+        get auto_transition(): boolean;
+        set auto_transition(val: boolean);
+
+        /**
+         * Whether to automatically create a transition whenever two
+         * {@link GES.Source}-s overlap in a track of the timeline. See
+         * {@link GES.Layer.auto_transition} if you want this to only happen in some
+         * layers.
+         * @default false
+         */
+        get autoTransition(): boolean;
+        set autoTransition(val: boolean);
+
+        /**
+         * The current duration (in nanoseconds) of the timeline. A timeline
+         * 'starts' at time 0, so this is the maximum end time of all of its
+         * {@link GES.TimelineElement}-s.
+         * @read-only
+         * @default 18446744073709551615
+         */
+        get duration(): number;
+
+        /**
+         * The distance (in nanoseconds) at which a {@link GES.TimelineElement} being
+         * moved within the timeline should snap one of its {@link GES.Source}-s with
+         * another {@link GES.Source}-s edge. See {@link GES.EditMode} for which edges can
+         * snap during an edit. 0 means no snapping.
+         * @default 0
+         */
+        get snapping_distance(): number;
+        set snapping_distance(val: bigint | number);
+
+        /**
+         * The distance (in nanoseconds) at which a {@link GES.TimelineElement} being
+         * moved within the timeline should snap one of its {@link GES.Source}-s with
+         * another {@link GES.Source}-s edge. See {@link GES.EditMode} for which edges can
+         * snap during an edit. 0 means no snapping.
+         * @default 0
+         */
+        get snappingDistance(): number;
+        set snappingDistance(val: bigint | number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Timeline.SignalSignatures;
+
+        // Fields
+        layers: Layer[];
+
+        tracks: null[];
+
+        // Constructors
+        constructor(properties?: Partial<Timeline.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): Timeline;
+
+        static new_audio_video(): Timeline;
+
+        static new_from_uri(uri: string): Timeline;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Timeline.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Timeline.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Timeline.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Timeline.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Timeline.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Timeline.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @param group 
+         * @virtual
+         */
+        vfunc_group_added(group: Group): void;
+
+        /**
+         * @param layer 
+         * @virtual
+         */
+        vfunc_layer_added(layer: Layer): void;
+
+        /**
+         * @param layer 
+         * @virtual
+         */
+        vfunc_layer_removed(layer: Layer): void;
+
+        /**
+         * @param track 
+         * @virtual
+         */
+        vfunc_track_added(track: Track): void;
+
+        /**
+         * @param track 
+         * @virtual
+         */
+        vfunc_track_removed(track: Track): void;
+
+        // Methods
+        /**
+         * Add a layer to the timeline.
+         * 
+         * If the layer contains {@link GES.Clip}-s, then this may trigger the creation of
+         * their core track element children for the timeline's tracks, and the
+         * placement of the clip's children in the tracks of the timeline using
+         * {@link GES.Timeline.SignalSignatures.select_tracks_for_object | GES.Timeline::select-tracks-for-object}. Some errors may occur if this
+         * would break one of the configuration rules of the timeline in one of
+         * its tracks. In such cases, some track elements would fail to be added
+         * to their tracks, but this method would still return `true`. As such, it
+         * is advised that you only add clips to layers that already part of a
+         * timeline. In such situations, `ges_layer_add_clip()` is able to fail if
+         * adding the clip would cause such an error.
+         * @param layer The layer to add
+         * @returns `true` if `layer` was properly added.
+         * @deprecated since 1.18: This method requires you to ensure the layer's {@link GES.Layer.priority} will be unique to the timeline. Use `ges_timeline_append_layer()` and `ges_timeline_move_layer()` instead.
+         */
+        add_layer(layer: Layer): boolean;
+
+        /**
+         * Add a track to the timeline.
+         * 
+         * If the timeline already contains clips, then this may trigger the
+         * creation of their core track element children for the track, and the
+         * placement of the clip's children in the track of the timeline using
+         * {@link GES.Timeline.SignalSignatures.select_tracks_for_object | GES.Timeline::select-tracks-for-object}. Some errors may occur if this
+         * would break one of the configuration rules for the timeline in the
+         * track. In such cases, some track elements would fail to be added to the
+         * track, but this method would still return `true`. As such, it is advised
+         * that you avoid adding tracks to timelines that already contain clips.
+         * @param track The track to add
+         * @returns `true` if `track` was properly added.
+         */
+        add_track(track: Track): boolean;
+
+        /**
+         * Append a newly created layer to the timeline. The layer will
+         * be added at the lowest {@link GES.Layer.priority} (numerically, the highest).
+         * @returns The newly created layer.
+         */
+        append_layer(): Layer;
+
+        /**
+         * Commit all the pending changes of the clips contained in the
+         * timeline.
+         * 
+         * When changes happen in a timeline, they are not immediately executed
+         * internally, in a way that effects the output data of the timeline. You
+         * should call this method when you are done with a set of changes and you
+         * want them to be executed.
+         * 
+         * Any pending changes will be executed in the backend. The
+         * {@link GES.Timeline.SignalSignatures.commited | GES.Timeline::commited} signal will be emitted once this has completed.
+         * You should not try to change the state of the timeline, seek it or add
+         * tracks to it before receiving this signal. You can use
+         * `ges_timeline_commit_sync()` if you do not want to perform other tasks in
+         * the mean time.
+         * 
+         * Note that all the pending changes will automatically be executed when
+         * the timeline goes from #GST_STATE_READY to #GST_STATE_PAUSED, which is
+         * usually triggered by a corresponding state changes in a containing
+         * {@link GES.Pipeline}.
+         * @returns `true` if pending changes were committed, or `false` if nothing needed to be committed.
+         */
+        commit(): boolean;
+
+        /**
+         * Commit all the pending changes of the clips contained in the
+         * timeline and wait for the changes to complete.
+         * 
+         * See `ges_timeline_commit()`.
+         * @returns `true` if pending changes were committed, or `false` if nothing needed to be committed.
+         */
+        commit_sync(): boolean;
+
+        /**
+         * WARNING: When using that mode, GES won't guarantee the coherence of the
+         * timeline. You need to ensure that the rules described in the [Overlaps and
+         * auto transitions](#overlaps-and-autotransitions) section are respected any time
+         * the timeline is [commited](ges_timeline_commit) (otherwise playback will most
+         * probably fail in different ways).
+         * 
+         * When disabling editing APIs, GES won't be able to enforce the rules that
+         * makes the timeline overall state to be valid but some feature won't be
+         * usable:
+         *   * {@link GES.Timeline.snapping_distance}
+         *   * {@link GES.Timeline.auto_transition}
+         * @param disable_edit_apis `true` to disable all the edit APIs so the user is in full control of ensuring timeline state validity `false` otherwise.
+         * @since 1.22
+         */
+        disable_edit_apis(disable_edit_apis: boolean): void;
+
+        /**
+         * Freezes the timeline from being committed. This is usually needed while the
+         * timeline is being rendered to ensure that not change to the timeline are
+         * taken into account during that moment. Once the rendering is done, you
+         * should call `ges_timeline_thaw_commit` so that committing becomes possible
+         * again and any call to `commit()` that happened during the rendering is
+         * actually taken into account.
+         * @since 1.20
+         */
+        freeze_commit(): void;
+
+        /**
+         * Gets {@link GES.Timeline.auto_transition} for the timeline.
+         * @returns The auto-transition of `self`.
+         */
+        get_auto_transition(): boolean;
+
+        /**
+         * Get the current {@link GES.Timeline.duration} of the timeline
+         * @returns The current duration of `timeline`.
+         */
+        get_duration(): Gst.ClockTime;
+
+        /**
+         * @returns `true` if edit APIs are disabled, `false` otherwise.
+         * @since 1.22
+         */
+        get_edit_apis_disabled(): boolean;
+
+        /**
+         * Gets the element contained in the timeline with the given name.
+         * @param name The name of the element to find
+         * @returns The timeline element in `timeline` with the given `name`, or `null` if it was not found.
+         */
+        get_element(name: string): TimelineElement | null;
+
+        /**
+         * This method allows you to convert a timeline {@link Gst.ClockTime} into its
+         * corresponding {@link GES.FrameNumber} in the timeline's output.
+         * @param timestamp The timestamp to get the corresponding frame number of
+         * @returns The frame number `timestamp` corresponds to.
+         * @since 1.18
+         */
+        get_frame_at(timestamp: Gst.ClockTime): FrameNumber;
+
+        /**
+         * This method allows you to convert a timeline output frame number into a
+         * timeline {@link Gst.ClockTime}. For example, this time could be used to seek to a
+         * particular frame in the timeline's output, or as the edit position for
+         * an element within the timeline.
+         * @param frame_number The frame number to get the corresponding timestamp of in the                timeline coordinates
+         * @returns The timestamp corresponding to `frame_number` in the output of `self`.
+         * @since 1.18
+         */
+        get_frame_time(frame_number: FrameNumber): Gst.ClockTime;
+
+        /**
+         * Get the list of {@link GES.Group}-s present in the timeline.
+         * @returns The list of groups that contain clips present in `timeline`'s layers. Must not be changed.
+         */
+        get_groups(): Group[];
+
+        /**
+         * Retrieve the layer whose index in the timeline matches the given
+         * priority.
+         * @param priority The priority/index of the layer to find
+         * @returns The layer with the given `priority`, or `null` if none was found. Since 1.6
+         */
+        get_layer(priority: number): Layer | null;
+
+        /**
+         * Get the list of {@link GES.Layer}-s present in the timeline.
+         * @returns The list of layers present in `timeline` sorted by priority.
+         */
+        get_layers(): Layer[];
+
+        /**
+         * Search for the {@link Gst.Pad} corresponding to the given timeline's track.
+         * You can link to this pad to receive the output data of the given track.
+         * @param track A track
+         * @returns The pad corresponding to `track`, or `null` if there is an error.
+         */
+        get_pad_for_track(track: Track): Gst.Pad | null;
+
+        /**
+         * Gets the {@link GES.Timeline.snapping_distance} for the timeline.
+         * @returns The snapping distance (in nanoseconds) of `timeline`.
+         */
+        get_snapping_distance(): Gst.ClockTime;
+
+        /**
+         * Search for the {@link GES.Track} corresponding to the given timeline's pad.
+         * @param pad A pad
+         * @returns The track corresponding to `pad`, or `null` if there is an error.
+         */
+        get_track_for_pad(pad: Gst.Pad): Track | null;
+
+        /**
+         * Get the list of {@link GES.Track}-s used by the timeline.
+         * @returns The list of tracks used by `timeline`.
+         */
+        get_tracks(): Track[];
+
+        /**
+         * Check whether the timeline is empty or not.
+         * @returns `true` if `timeline` is empty.
+         */
+        is_empty(): boolean;
+
+        /**
+         * Loads the contents of URI into the timeline.
+         * @param uri The URI to load from
+         * @returns `true` if the timeline was loaded successfully from `uri`.
+         * @throws GLib.Error
+         */
+        load_from_uri(uri: string): boolean;
+
+        /**
+         * Moves a layer within the timeline to the index given by
+         * `new_layer_priority`.
+         * An index of 0 corresponds to the layer with the highest priority in a
+         * timeline. If `new_layer_priority` is greater than the number of layers
+         * present in the timeline, it will become the lowest priority layer.
+         * @param layer A layer within `timeline`, whose priority should be changed
+         * @param new_layer_priority The new index for `layer`
+         * @since 1.16
+         */
+        move_layer(layer: Layer, new_layer_priority: number): boolean;
+
+        /**
+         * Paste an element inside the timeline. `element` **must** be the return of
+         * `ges_timeline_element_copy()` with `deep=TRUE`,
+         * and it should not be changed before pasting. `element` itself is not
+         * placed in the timeline, instead a new element is created, alike to the
+         * originally copied element. Note that the originally copied element must
+         * also lie within `timeline`, at both the point of copying and pasting.
+         * 
+         * Pasting may fail if it would place the timeline in an unsupported
+         * configuration.
+         * 
+         * After calling this function `element` should not be used. In particular,
+         * `element` can **not** be pasted again. Instead, you can copy the
+         * returned element and paste that copy (although, this is only possible
+         * if the paste was successful).
+         * 
+         * See also `ges_timeline_element_paste()`.
+         * @param element The element to paste
+         * @param position The position in the timeline `element` should be pasted to, i.e. the {@link GES.TimelineElement.start} value for the pasted element.
+         * @param layer_priority The layer into which the element should be pasted. -1 means paste to the same layer from which `element` has been copied from
+         * @returns The newly created element, or `null` if pasting fails.
+         */
+        paste_element(element: TimelineElement, position: Gst.ClockTime, layer_priority: number): TimelineElement | null;
+
+        /**
+         * Removes a layer from the timeline.
+         * @param layer The layer to remove
+         * @returns `true` if `layer` was properly removed.
+         */
+        remove_layer(layer: Layer): boolean;
+
+        /**
+         * Remove a track from the timeline.
+         * @param track The track to remove
+         * @returns `true` if `track` was properly removed.
+         */
+        remove_track(track: Track): boolean;
+
+        /**
+         * Saves the timeline to the given location. If `formatter_asset` is `null`,
+         * the method will attempt to save in the same format the timeline was
+         * loaded from, before defaulting to the formatter with highest rank.
+         * @param uri The location to save to
+         * @param formatter_asset The formatter asset to use, or `null`
+         * @param overwrite `true` to overwrite file if it exists
+         * @returns `true` if `timeline` was successfully saved to `uri`.
+         * @throws GLib.Error
+         */
+        save_to_uri(uri: string, formatter_asset: Asset | null, overwrite: boolean): boolean;
+
+        /**
+         * Sets {@link GES.Timeline.auto_transition} for the timeline. This will also set
+         * the corresponding {@link GES.Layer.auto_transition} for all of the timeline's
+         * layers to the same value. See `ges_layer_set_auto_transition()` if you
+         * wish to set the layer's {@link GES.Layer.auto_transition} individually.
+         * @param auto_transition Whether transitions should be automatically added to `timeline`'s layers
+         */
+        set_auto_transition(auto_transition: boolean): void;
+
+        /**
+         * Sets {@link GES.Timeline.snapping_distance} for the timeline. This new value
+         * will only effect future snappings and will not be used to snap the
+         * current element positions within the timeline.
+         * @param snapping_distance The snapping distance to use (in nanoseconds)
+         */
+        set_snapping_distance(snapping_distance: Gst.ClockTime): void;
+
+        /**
+         * Thaw the timeline so that comiting becomes possible
+         * again and any call to `commit()` that happened during the rendering is
+         * actually taken into account.
+         * @since 1.20
+         */
+        thaw_commit(): void;
+
+        /**
+         * Get the asset that has been set on the extractable object.
+         * @returns The asset set on `self`, or `null` if no asset has been set.
+         */
+        get_asset(): Asset | null;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @returns The {@link GES.Asset.id} of some associated {@link GES.Asset} that is compatible with `self`'s current state.
+         */
+        get_id(): string;
+
+        /**
+         * Sets the asset for this extractable object.
+         * 
+         * When an object is extracted from an asset using `ges_asset_extract()` its
+         * asset will be automatically set. Note that many classes that implement
+         * {@link GES.Extractable} will automatically create their objects using assets
+         * when you call their `new` methods. However, you can use this method to
+         * associate an object with a compatible asset if it was created by other
+         * means and does not yet have an asset. Or, for some implementations of
+         * {@link GES.Extractable}, you can use this to change the asset of the given
+         * extractable object, which will lead to a change in its state to
+         * match the new asset {@link GES.Asset.id}.
+         * @param asset The asset to set
+         * @returns `true` if `asset` could be successfully set on `self`.
+         */
+        set_asset(asset: Asset): boolean;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @virtual
+         */
+        vfunc_get_id(): string;
+
+        /**
+         * This method is called after the {@link GES.Asset} of an object is
+         * set. If your class supports the asset of an object changing, then you
+         * can use this method to change the parameters of the object to match the
+         * new asset {@link GES.Asset.id}. If setting the asset should be able to fail,
+         * you should implement `set_asset_full` instead.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset(asset: Asset): void;
+
+        /**
+         * Like `set_asset`, but also allows you to return `false`
+         * to indicate a failure to change the object in response to a change in
+         * its asset.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset_full(asset: Asset): boolean;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Emits the {@link Gst.ChildProxy.SignalSignatures.child_added | Gst.ChildProxy::child-added} signal.
+         * @param child the newly added child
+         * @param name the name of the new child
+         */
+        child_added(child: GObject.Object, name: string): void;
+
+        /**
+         * Emits the {@link Gst.ChildProxy.SignalSignatures.child_removed | Gst.ChildProxy::child-removed} signal.
+         * @param child the removed child
+         * @param name the name of the old child
+         */
+        child_removed(child: GObject.Object, name: string): void;
+
+        /**
+         * Fetches a child by its number.
+         * @param index the child's position in the child list
+         * @returns the child object or `null` if     not found (index too high).
+         */
+        get_child_by_index<T = GObject.Object>(index: number): T;
+
+        /**
+         * Looks up a child element by the given name.
+         * 
+         * This virtual method has a default implementation that uses {@link Gst.Object}
+         * together with `gst_object_get_name()`. If the interface is to be used with
+         * `GObjects`, this methods needs to be overridden.
+         * @param name the child's name
+         * @returns the child object or `null` if     not found.
+         */
+        get_child_by_name<T = GObject.Object>(name: string): T;
+
+        /**
+         * Looks up a child element by the given full-path name.
+         * 
+         * Similar to `gst_child_proxy_get_child_by_name()`, this method
+         * searches and returns a child given a name. The difference is that
+         * this method allows a hierarchical path in the form of
+         * child1::child2::child3. In the later example this method would
+         * return a reference to child3, if found. The name should be made of
+         * element names only and should not contain any property names.
+         * @param name the full-path child's name
+         * @returns the child object or `null` if     not found.
+         * @since 1.22
+         */
+        get_child_by_name_recurse<T = GObject.Object>(name: string): T;
+
+        /**
+         * Gets the number of child objects this parent contains.
+         * @returns the number of child objects
+         */
+        get_children_count(): number;
+
+        /**
+         * Gets a single property using the GstChildProxy mechanism.
+         * You are responsible for freeing it by calling `g_value_unset()`
+         * @param name name of the property
+         */
+        get_property(name: string): unknown;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with GObject.Object.get_property
+        get_property(...args: never[]): any;
+
+        /**
+         * Looks up which object and {@link GObject.ParamSpec} would be effected by the given `name`.
+         * @param name name of the property to look up
+         * @returns `true` if `target` and `pspec` could be found. `false` otherwise. In that case the values for `pspec` and `target` are not modified. Unref `target` after usage. For plain {@link GObject.Object} `target` is the same as `object`.
+         */
+        lookup(name: string): [boolean, GObject.Object | null, GObject.ParamSpec | null];
+
+        /**
+         * Sets a single property using the GstChildProxy mechanism.
+         * @param name name of the property to set
+         * @param value new {@link GObject.Value} for the property
+         */
+        set_property(name: string, value: GObject.Value | any): void;
+
+        /**
+         * Emits the {@link Gst.ChildProxy.SignalSignatures.child_added | Gst.ChildProxy::child-added} signal.
+         * @param child the newly added child
+         * @param name the name of the new child
+         * @virtual
+         */
+        vfunc_child_added(child: GObject.Object, name: string): void;
+
+        /**
+         * Emits the {@link Gst.ChildProxy.SignalSignatures.child_removed | Gst.ChildProxy::child-removed} signal.
+         * @param child the removed child
+         * @param name the name of the old child
+         * @virtual
+         */
+        vfunc_child_removed(child: GObject.Object, name: string): void;
+
+        /**
+         * Fetches a child by its number.
+         * @param index the child's position in the child list
+         * @virtual
+         */
+        vfunc_get_child_by_index<T = GObject.Object>(index: number): T;
+
+        /**
+         * Looks up a child element by the given name.
+         * 
+         * This virtual method has a default implementation that uses {@link Gst.Object}
+         * together with `gst_object_get_name()`. If the interface is to be used with
+         * `GObjects`, this methods needs to be overridden.
+         * @param name the child's name
+         * @virtual
+         */
+        vfunc_get_child_by_name<T = GObject.Object>(name: string): T;
+
+        /**
+         * Gets the number of child objects this parent contains.
+         * @virtual
+         */
+        vfunc_get_children_count(): number;
+
+        /**
+         * Increases the reference count of `object`.
+         * 
+         * Since GLib 2.56, if `GLIB_VERSION_MAX_ALLOWED` is 2.56 or greater, the type
+         * of `object` will be propagated to the return type (using the GCC `typeof()`
+         * extension), so any casting the caller needs to do on the return type must be
+         * explicit.
+         * @returns the same `object`
+         */
+        ref(): GObject.Object;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with Gst.Object.ref
+        ref(...args: never[]): any;
+
+        /**
+         * Decreases the reference count of `object`. When its reference count
+         * drops to 0, the object is finalized (i.e. its memory is freed).
+         * 
+         * If the pointer to the {@link GObject.Object} may be reused in future (for example, if it is
+         * an instance variable of another object), it is recommended to clear the
+         * pointer to `null` rather than retain a dangling pointer to a potentially
+         * invalid {@link GObject.Object} instance. Use `g_clear_object()` for this.
+         */
+        unref(): void;
+    }
+
+
+    namespace TimelineElement {
+        // Signal signatures
+        interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures, MetaContainer.SignalSignatures {
+            /**
+             * Emitted when the element has a new child property registered. See
+             * `ges_timeline_element_add_child_property()`.
+             * 
+             * Note that some GES elements will be automatically created with
+             * pre-registered children properties. You can use
+             * `ges_timeline_element_list_children_properties()` to list these.
+             * @signal
+             * @since 1.18
+             * @run-first
+             */
+            "child-property-added": (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+            /**
+             * Emitted when the element has a child property unregistered. See
+             * `ges_timeline_element_remove_child_property()`.
+             * @signal
+             * @since 1.18
+             * @run-first
+             */
+            "child-property-removed": (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+            /**
+             * Emitted when a child of the element has one of its registered
+             * properties set. See `ges_timeline_element_add_child_property()`.
+             * Note that unlike {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify}, a child property name can not be
+             * used as a signal detail.
+             * @signal
+             * @detailed
+             * @run-first
+             */
+            "deep-notify": (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+            /**
+             * Emitted when a child of the element has one of its registered
+             * properties set. See `ges_timeline_element_add_child_property()`.
+             * Note that unlike {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify}, a child property name can not be
+             * used as a signal detail.
+             * @signal
+             * @detailed
+             * @run-first
+             */
+            "deep-notify::duration": (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+            /**
+             * Emitted when a child of the element has one of its registered
+             * properties set. See `ges_timeline_element_add_child_property()`.
+             * Note that unlike {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify}, a child property name can not be
+             * used as a signal detail.
+             * @signal
+             * @detailed
+             * @run-first
+             */
+            "deep-notify::in-point": (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+            /**
+             * Emitted when a child of the element has one of its registered
+             * properties set. See `ges_timeline_element_add_child_property()`.
+             * Note that unlike {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify}, a child property name can not be
+             * used as a signal detail.
+             * @signal
+             * @detailed
+             * @run-first
+             */
+            "deep-notify::max-duration": (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+            /**
+             * Emitted when a child of the element has one of its registered
+             * properties set. See `ges_timeline_element_add_child_property()`.
+             * Note that unlike {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify}, a child property name can not be
+             * used as a signal detail.
+             * @signal
+             * @detailed
+             * @run-first
+             */
+            "deep-notify::name": (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+            /**
+             * Emitted when a child of the element has one of its registered
+             * properties set. See `ges_timeline_element_add_child_property()`.
+             * Note that unlike {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify}, a child property name can not be
+             * used as a signal detail.
+             * @signal
+             * @detailed
+             * @run-first
+             */
+            "deep-notify::parent": (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+            /**
+             * Emitted when a child of the element has one of its registered
+             * properties set. See `ges_timeline_element_add_child_property()`.
+             * Note that unlike {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify}, a child property name can not be
+             * used as a signal detail.
+             * @signal
+             * @detailed
+             * @run-first
+             */
+            "deep-notify::priority": (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+            /**
+             * Emitted when a child of the element has one of its registered
+             * properties set. See `ges_timeline_element_add_child_property()`.
+             * Note that unlike {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify}, a child property name can not be
+             * used as a signal detail.
+             * @signal
+             * @detailed
+             * @run-first
+             */
+            "deep-notify::serialize": (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+            /**
+             * Emitted when a child of the element has one of its registered
+             * properties set. See `ges_timeline_element_add_child_property()`.
+             * Note that unlike {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify}, a child property name can not be
+             * used as a signal detail.
+             * @signal
+             * @detailed
+             * @run-first
+             */
+            "deep-notify::start": (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+            /**
+             * Emitted when a child of the element has one of its registered
+             * properties set. See `ges_timeline_element_add_child_property()`.
+             * Note that unlike {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify}, a child property name can not be
+             * used as a signal detail.
+             * @signal
+             * @detailed
+             * @run-first
+             */
+            "deep-notify::timeline": (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+            [key: `deep-notify::${string}`]: (prop_object: GObject.Object, prop: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            duration: bigint | number;
+            in_point: bigint | number;
+            inPoint: bigint | number;
+            max_duration: bigint | number;
+            maxDuration: bigint | number;
+            name: string | null;
+            parent: TimelineElement | null;
+            priority: number;
+            serialize: boolean;
+            start: bigint | number;
+            timeline: Timeline | null;
+        }
+    }
+
+    /**
+     * A {@link GES.TimelineElement} will have some temporal extent in its
+     * corresponding {@link GES.TimelineElement.timeline}, controlled by its
+     * {@link GES.TimelineElement.start} and {@link GES.TimelineElement.duration}. This
+     * determines when its content will be displayed, or its effect applied,
+     * in the timeline. Several objects may overlap within a given
+     * {@link GES.Timeline}, in which case their {@link GES.TimelineElement.priority} is used
+     * to determine their ordering in the timeline. Priority is mostly handled
+     * internally by {@link GES.Layer}-s and {@link GES.Clip}-s.
+     * 
+     * A timeline element can have a {@link GES.TimelineElement.parent},
+     * such as a {@link GES.Clip}, which is responsible for controlling its timing.
+     * 
+     * ## Editing
+     * 
+     * Elements can be moved around in their {@link GES.TimelineElement.timeline} by
+     * setting their {@link GES.TimelineElement.start} and
+     * {@link GES.TimelineElement.duration} using `ges_timeline_element_set_start()`
+     * and `ges_timeline_element_set_duration()`. Additionally, which parts of
+     * the underlying content are played in the timeline can be adjusted by
+     * setting the {@link GES.TimelineElement.in_point} using
+     * `ges_timeline_element_set_inpoint()`. The library also provides
+     * `ges_timeline_element_edit()`, with various {@link GES.EditMode}-s, which can
+     * adjust these properties in a convenient way, as well as introduce
+     * similar changes in neighbouring or later elements in the timeline.
+     * 
+     * However, a timeline may refuse a change in these properties if they
+     * would place the timeline in an unsupported configuration. See
+     * {@link GES.Timeline} for its overlap rules.
+     * 
+     * Additionally, an edit may be refused if it would place one of the
+     * timing properties out of bounds (such as a negative time value for
+     * {@link GES.TimelineElement.start}, or having insufficient internal
+     * content to last for the desired {@link GES.TimelineElement.duration}).
+     * 
+     * ## Time Coordinates
+     * 
+     * There are three main sets of time coordinates to consider when using
+     * timeline elements:
+     * 
+     * + Timeline coordinates: these are the time coordinates used in the
+     *   output of the timeline in its {@link GES.Track}-s. Each track share the same
+     *   coordinates, so there is only one set of coordinates for the
+     *   timeline. These extend indefinitely from 0. The times used for
+     *   editing (including setting {@link GES.TimelineElement.start} and
+     *   {@link GES.TimelineElement.duration}) use these coordinates, since these
+     *   define when an element is present and for how long the element lasts
+     *   for in the timeline.
+     * + Internal source coordinates: these are the time coordinates used
+     *   internally at the element's output. This is only really defined for
+     *   {@link GES.TrackElement}-s, where it refers to time coordinates used at the
+     *   final source pad of the wrapped {@link Gst.Element}-s. However, these
+     *   coordinates may also be used in a {@link GES.Clip} in reference to its
+     *   children. In particular, these are the coordinates used for
+     *   {@link GES.TimelineElement.in_point} and {@link GES.TimelineElement.max_duration}.
+     * + Internal sink coordinates: these are the time coordinates used
+     *   internally at the element's input. A {@link GES.Source} has no input, so
+     *   these would be undefined. Otherwise, for most {@link GES.TrackElement}-s
+     *   these will be the same set of coordinates as the internal source
+     *   coordinates because the element does not change the timing
+     *   internally. Only {@link GES.BaseEffect} can support elements where these
+     *   are different. See {@link GES.BaseEffect} for more information.
+     * 
+     * You can determine the timeline time for a given internal source time
+     * in a {@link GES.Track} in a {@link GES.Clip} using
+     * `ges_clip_get_timeline_time_from_internal_time()`, and vice versa using
+     * `ges_clip_get_internal_time_from_timeline_time()`, for the purposes of
+     * editing and setting timings properties.
+     * 
+     * ## Children Properties
+     * 
+     * If a timeline element owns another {@link Gst.Object} and wishes to expose
+     * some of its properties, it can do so by registering the property as one
+     * of the timeline element's children properties using
+     * `ges_timeline_element_add_child_property()`. The registered property of
+     * the child can then be read and set using the
+     * `ges_timeline_element_get_child_property()` and
+     * `ges_timeline_element_set_child_property()` methods, respectively. Some
+     * sub-classed objects will be created with pre-registered children
+     * properties; for example, to expose part of an underlying {@link Gst.Element}
+     * that is used internally. The registered properties can be listed with
+     * `ges_timeline_element_list_children_properties()`.
+     * @gir-type Class
+     */
+    abstract class TimelineElement extends GObject.InitiallyUnowned implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<TimelineElement>;
+
+        // Properties
+        /**
+         * The duration that the element is in effect for in the timeline (a
+         * time difference in nanoseconds using the time coordinates of the
+         * timeline). For example, for a source element, this would determine
+         * for how long it should output its internal content for. For an
+         * operation element, this would determine for how long its effect
+         * should be applied to any source content.
+         * @default 18446744073709551615
+         */
+        get duration(): number;
+        set duration(val: bigint | number);
+
+        /**
+         * The initial offset to use internally when outputting content (in
+         * nanoseconds, but in the time coordinates of the internal content).
+         * 
+         * For example, for a {@link GES.VideoUriSource} that references some media
+         * file, the "internal content" is the media file data, and the
+         * in-point would correspond to some timestamp in the media file.
+         * When playing the timeline, and when the element is first reached at
+         * timeline-time {@link GES.TimelineElement.start}, it will begin outputting the
+         * data from the timestamp in-point **onwards**, until it reaches the
+         * end of its {@link GES.TimelineElement.duration} in the timeline.
+         * 
+         * For elements that have no internal content, this should be kept
+         * as 0.
+         * @default 0
+         */
+        get in_point(): number;
+        set in_point(val: bigint | number);
+
+        /**
+         * The initial offset to use internally when outputting content (in
+         * nanoseconds, but in the time coordinates of the internal content).
+         * 
+         * For example, for a {@link GES.VideoUriSource} that references some media
+         * file, the "internal content" is the media file data, and the
+         * in-point would correspond to some timestamp in the media file.
+         * When playing the timeline, and when the element is first reached at
+         * timeline-time {@link GES.TimelineElement.start}, it will begin outputting the
+         * data from the timestamp in-point **onwards**, until it reaches the
+         * end of its {@link GES.TimelineElement.duration} in the timeline.
+         * 
+         * For elements that have no internal content, this should be kept
+         * as 0.
+         * @default 0
+         */
+        get inPoint(): number;
+        set inPoint(val: bigint | number);
+
+        /**
+         * The full duration of internal content that is available (a time
+         * difference in nanoseconds using the time coordinates of the internal
+         * content).
+         * 
+         * This will act as a cap on the {@link GES.TimelineElement.in_point} of the
+         * element (which is in the same time coordinates), and will sometimes
+         * be used to limit the {@link GES.TimelineElement.duration} of the element in
+         * the timeline.
+         * 
+         * For example, for a {@link GES.VideoUriSource} that references some media
+         * file, this would be the length of the media file.
+         * 
+         * For elements that have no internal content, or whose content is
+         * indefinite, this should be kept as #GST_CLOCK_TIME_NONE.
+         * @default 18446744073709551615
+         */
+        get max_duration(): number;
+        set max_duration(val: bigint | number);
+
+        /**
+         * The full duration of internal content that is available (a time
+         * difference in nanoseconds using the time coordinates of the internal
+         * content).
+         * 
+         * This will act as a cap on the {@link GES.TimelineElement.in_point} of the
+         * element (which is in the same time coordinates), and will sometimes
+         * be used to limit the {@link GES.TimelineElement.duration} of the element in
+         * the timeline.
+         * 
+         * For example, for a {@link GES.VideoUriSource} that references some media
+         * file, this would be the length of the media file.
+         * 
+         * For elements that have no internal content, or whose content is
+         * indefinite, this should be kept as #GST_CLOCK_TIME_NONE.
+         * @default 18446744073709551615
+         */
+        get maxDuration(): number;
+        set maxDuration(val: bigint | number);
+
+        /**
+         * The name of the element. This should be unique within its timeline.
+         * @default null
+         */
+        get name(): string | null;
+        set name(val: string | null);
+
+        /**
+         * The parent container of the element.
+         */
+        get parent(): TimelineElement | null;
+        set parent(val: TimelineElement | null);
+
+        /**
+         * The priority of the element.
+         * @deprecated since 1.10: Priority management is now done by GES itself.
+         * @default 0
+         */
+        get priority(): number;
+        set priority(val: number);
+
+        /**
+         * Whether the element should be serialized.
+         * @default true
+         */
+        get serialize(): boolean;
+        set serialize(val: boolean);
+
+        /**
+         * The starting position of the element in the timeline (in nanoseconds
+         * and in the time coordinates of the timeline). For example, for a
+         * source element, this would determine the time at which it should
+         * start outputting its internal content. For an operation element, this
+         * would determine the time at which it should start applying its effect
+         * to any source content.
+         * @default 0
+         */
+        get start(): number;
+        set start(val: bigint | number);
+
+        /**
+         * The timeline that the element lies within.
+         */
+        get timeline(): Timeline | null;
+        set timeline(val: Timeline | null);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: TimelineElement.SignalSignatures;
+
+        // Fields
+        asset: Asset;
+
+        inpoint: Gst.ClockTime;
+
+        maxduration: Gst.ClockTime;
+
+        // Constructors
+        constructor(properties?: Partial<TimelineElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof TimelineElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TimelineElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof TimelineElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TimelineElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof TimelineElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<TimelineElement.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * Prepare `copy` for pasting as a copy of `self`. At least by
+         * copying the children properties of `self` into `copy`.
+         * @param copy 
+         * @virtual
+         */
+        vfunc_deep_copy(copy: TimelineElement): void;
+
+        /**
+         * Gets the priority of the layer the element is in. A {@link GES.Group} may span
+         * several layers, so this would return the highest priority (numerically,
+         * the smallest) amongst them.
+         * @since 1.16
+         * @virtual
+         */
+        vfunc_get_layer_priority(): number;
+
+        /**
+         * Get the "natural" framerate of `self`. This is to say, for example
+         * for a {@link GES.VideoUriSource} the framerate of the source.
+         * 
+         * Note that a {@link GES.AudioSource} may also have a natural framerate if it derives
+         * from the same {@link GES.SourceClip} asset as a {@link GES.VideoSource}, and its value will
+         * be that of the video source. For example, if the uri of a {@link GES.UriClip} points
+         * to a file that contains both a video and audio stream, then the corresponding
+         * {@link GES.AudioUriSource} will share the natural framerate of the corresponding
+         * {@link GES.VideoUriSource}.
+         * @since 1.18
+         * @virtual
+         */
+        vfunc_get_natural_framerate(): [boolean, number, number];
+
+        /**
+         * Gets the track types that the element can interact with, i.e. the type
+         * of {@link GES.Track} it can exist in, or will create {@link GES.TrackElement}-s for.
+         * @since 1.6.0
+         * @virtual
+         */
+        vfunc_get_track_types(): TrackType;
+
+        /**
+         * Looks up a child property of the element.
+         * 
+         * `prop_name` can either be in the format "prop-name" or
+         * "TypeName::prop-name", where "prop-name" is the name of the property
+         * to look up (as used in `g_object_get()`), and "TypeName" is the type name
+         * of the child (as returned by G_OBJECT_TYPE_NAME()). The latter format is
+         * useful when two children of different types share the same property
+         * name.
+         * 
+         * The first child found with the given "prop-name" property that was
+         * registered with `ges_timeline_element_add_child_property()` (and of the
+         * type "TypeName", if it was given) will be passed to `child`, and the
+         * registered specification of this property will be passed to `pspec`.
+         * @param prop_name The name of a child property
+         * @virtual
+         */
+        vfunc_lookup_child(prop_name: string): [boolean, GObject.Object | null, GObject.ParamSpec | null];
+
+        /**
+         * Edits the start time of an element within its timeline in ripple mode.
+         * See `ges_timeline_element_edit()` with #GES_EDIT_MODE_RIPPLE and
+         * #GES_EDGE_NONE.
+         * @param start The new start time of `self` in ripple mode
+         * @virtual
+         */
+        vfunc_ripple(start: number): boolean;
+
+        /**
+         * Edits the end time of an element within its timeline in ripple mode.
+         * See `ges_timeline_element_edit()` with #GES_EDIT_MODE_RIPPLE and
+         * #GES_EDGE_END.
+         * @param end The new end time of `self` in ripple mode
+         * @virtual
+         */
+        vfunc_ripple_end(end: number): boolean;
+
+        /**
+         * Edits the end time of an element within its timeline in roll mode.
+         * See `ges_timeline_element_edit()` with #GES_EDIT_MODE_ROLL and
+         * #GES_EDGE_END.
+         * @param end The new end time of `self` in roll mode
+         * @virtual
+         */
+        vfunc_roll_end(end: number): boolean;
+
+        /**
+         * Edits the start time of an element within its timeline in roll mode.
+         * See `ges_timeline_element_edit()` with #GES_EDIT_MODE_ROLL and
+         * #GES_EDGE_START.
+         * @param start The new start time of `self` in roll mode
+         * @virtual
+         */
+        vfunc_roll_start(start: number): boolean;
+
+        /**
+         * Method for setting the child property given by
+         * `pspec` on `child` to `value`. Default implementation will use
+         * `g_object_set_property()`.
+         * @param child 
+         * @param pspec 
+         * @param value 
+         * @since 1.16
+         * @virtual
+         */
+        vfunc_set_child_property(child: GObject.Object, pspec: GObject.ParamSpec, value: unknown): void;
+
+        /**
+         * Similar to `set_child_property`, except setting can fail, with the `error`
+         * being optionally set. Default implementation will call `set_child_property`
+         * and return `true`.
+         * @param child 
+         * @param pspec 
+         * @param value 
+         * @since 1.18
+         * @virtual
+         */
+        vfunc_set_child_property_full(child: GObject.Object, pspec: GObject.ParamSpec, value: unknown): boolean;
+
+        /**
+         * Sets {@link GES.TimelineElement.duration} for the element.
+         * 
+         * Whilst the element is part of a {@link GES.Timeline}, this is the same as
+         * editing the element with `ges_timeline_element_edit()` under
+         * #GES_EDIT_MODE_TRIM with #GES_EDGE_END. In particular, the
+         * {@link GES.TimelineElement.duration} of the element may be snapped to a
+         * different timeline time difference from the one given. In addition,
+         * setting may fail if it would place the timeline in an unsupported
+         * configuration, or the element does not have enough internal content to
+         * last the desired duration.
+         * @param duration The desired duration in its timeline
+         * @virtual
+         */
+        vfunc_set_duration(duration: Gst.ClockTime): boolean;
+
+        /**
+         * Sets {@link GES.TimelineElement.in_point} for the element. If the new in-point
+         * is above the current {@link GES.TimelineElement.max_duration} of the element,
+         * this method will fail.
+         * @param inpoint The in-point, in internal time coordinates
+         * @virtual
+         */
+        vfunc_set_inpoint(inpoint: Gst.ClockTime): boolean;
+
+        /**
+         * Sets {@link GES.TimelineElement.max_duration} for the element. If the new
+         * maximum duration is below the current {@link GES.TimelineElement.in_point} of
+         * the element, this method will fail.
+         * @param maxduration The maximum duration, in internal time coordinates
+         * @virtual
+         */
+        vfunc_set_max_duration(maxduration: Gst.ClockTime): boolean;
+
+        /**
+         * Sets the {@link GES.TimelineElement.parent} for the element.
+         * 
+         * This is used internally and you should normally not call this. A
+         * {@link GES.Container} will set the {@link GES.TimelineElement.parent} of its children
+         * in `ges_container_add()` and `ges_container_remove()`.
+         * 
+         * Note, if `parent` is not `null`, `self` must not already have a parent
+         * set. Therefore, if you wish to switch parents, you will need to call
+         * this function twice: first to set the parent to `null`, and then to the
+         * new parent.
+         * 
+         * If `parent` is not `null`, you must ensure it already has a
+         * (non-floating) reference to `self` before calling this.
+         * @param parent 
+         * @virtual
+         */
+        vfunc_set_parent(parent: TimelineElement): boolean;
+
+        /**
+         * Sets the priority of the element within the containing layer.
+         * @param priority The priority
+         * @deprecated since 1.10: All priority management is done by GES itself now. To set {@link GES.Effect} priorities `ges_clip_set_top_effect_index` should be used.
+         * @virtual
+         */
+        vfunc_set_priority(priority: number): boolean;
+
+        /**
+         * Sets {@link GES.TimelineElement.start} for the element. If the element has a
+         * parent, this will also move its siblings with the same shift.
+         * 
+         * Whilst the element is part of a {@link GES.Timeline}, this is the same as
+         * editing the element with `ges_timeline_element_edit()` under
+         * #GES_EDIT_MODE_NORMAL with #GES_EDGE_NONE. In particular, the
+         * {@link GES.TimelineElement.start} of the element may be snapped to a different
+         * timeline time from the one given. In addition, setting may fail if it
+         * would place the timeline in an unsupported configuration.
+         * @param start The desired start position of the element in its timeline
+         * @virtual
+         */
+        vfunc_set_start(start: Gst.ClockTime): boolean;
+
+        /**
+         * Edits the start time of an element within its timeline in trim mode.
+         * See `ges_timeline_element_edit()` with #GES_EDIT_MODE_TRIM and
+         * #GES_EDGE_START.
+         * @param start The new start time of `self` in trim mode
+         * @virtual
+         */
+        vfunc_trim(start: number): boolean;
+
+        // Methods
+        /**
+         * Register a property of a child of the element to allow it to be
+         * written with `ges_timeline_element_set_child_property()` and read with
+         * `ges_timeline_element_get_child_property()`. A change in the property
+         * will also appear in the {@link GES.TimelineElement.SignalSignatures.deep_notify | GES.TimelineElement::deep-notify} signal.
+         * 
+         * `pspec` should be unique from other children properties that have been
+         * registered on `self`.
+         * @param pspec The specification for the property to add
+         * @param child The {@link Gst.Object} who the property belongs to
+         * @returns `true` if the property was successfully registered.
+         */
+        add_child_property(pspec: GObject.ParamSpec, child: GObject.Object): boolean;
+
+        /**
+         * Create a copy of `self`. All the properties of `self` are copied into
+         * a new element, with the exception of {@link GES.TimelineElement.parent},
+         * {@link GES.TimelineElement.timeline} and {@link GES.TimelineElement.name}. Other data,
+         * such the list of a {@link GES.Container}'s children, is **not** copied.
+         * 
+         * If `deep` is `true`, then the new element is prepared so that it can be
+         * used in `ges_timeline_element_paste()` or `ges_timeline_paste_element()`.
+         * In the case of copying a {@link GES.Container}, this ensures that the children
+         * of `self` will also be pasted. The new element should not be used for
+         * anything else and can only be used **once** in a pasting operation. In
+         * particular, the new element itself is not an actual 'deep' copy of
+         * `self`, but should be thought of as an intermediate object used for a
+         * single paste operation.
+         * @param deep Whether the copy is needed for pasting
+         * @returns The newly create element, copied from `self`.
+         */
+        copy(deep: boolean): TimelineElement;
+
+        /**
+         * See `ges_timeline_element_edit_full()`, which also gives an error.
+         * 
+         * Note that the `layers` argument is currently ignored, so you should
+         * just pass `null`.
+         * @param layers A whitelist of layers where the edit can be performed, `null` allows all layers in the timeline.
+         * @param new_layer_priority The priority/index of the layer `self` should be moved to. -1 means no move
+         * @param mode The edit mode
+         * @param edge The edge of `self` where the edit should occur
+         * @param position The edit position: a new location for the edge of `self` (in nanoseconds) in the timeline coordinates
+         * @returns `true` if the edit of `self` completed, `false` on failure.
+         * @since 1.18
+         */
+        edit(layers: Layer[] | null, new_layer_priority: bigint | number, mode: EditMode, edge: Edge, position: bigint | number): boolean;
+
+        /**
+         * Edits the element within its timeline by adjusting its
+         * {@link GES.TimelineElement.start}, {@link GES.TimelineElement.duration} or
+         * {@link GES.TimelineElement.in_point}, and potentially doing the same for
+         * other elements in the timeline. See {@link GES.EditMode} for details about each
+         * edit mode. An edit may fail if it would place one of these properties
+         * out of bounds, or if it would place the timeline in an unsupported
+         * configuration.
+         * 
+         * Note that if you act on a {@link GES.TrackElement}, this will edit its parent
+         * {@link GES.Clip} instead. Moreover, for any {@link GES.TimelineElement}, if you select
+         * #GES_EDGE_NONE for #GES_EDIT_MODE_NORMAL or #GES_EDIT_MODE_RIPPLE, this
+         * will edit the toplevel instead, but still in such a way as to make the
+         * {@link GES.TimelineElement.start} of `self` reach the edit `position`.
+         * 
+         * Note that if the element's timeline has a
+         * {@link GES.Timeline.snapping_distance} set, then the edit position may be
+         * snapped to the edge of some element under the edited element.
+         * 
+         * `new_layer_priority` can be used to switch `self`, and other elements
+         * moved by the edit, to a new layer. New layers may be be created if the
+         * the corresponding layer priority/index does not yet exist for the
+         * timeline.
+         * @param new_layer_priority The priority/index of the layer `self` should be moved to. -1 means no move
+         * @param mode The edit mode
+         * @param edge The edge of `self` where the edit should occur
+         * @param position The edit position: a new location for the edge of `self` (in nanoseconds) in the timeline coordinates
+         * @returns `true` if the edit of `self` completed, `false` on failure.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        edit_full(new_layer_priority: bigint | number, mode: EditMode, edge: Edge, position: bigint | number): boolean;
+
+        /**
+         * Gets the property of a child of the element.
+         * 
+         * `property_name` can either be in the format "prop-name" or
+         * "TypeName::prop-name", where "prop-name" is the name of the property
+         * to get (as used in `g_object_get()`), and "TypeName" is the type name of
+         * the child (as returned by G_OBJECT_TYPE_NAME()). The latter format is
+         * useful when two children of different types share the same property
+         * name.
+         * 
+         * The first child found with the given "prop-name" property that was
+         * registered with `ges_timeline_element_add_child_property()` (and of the
+         * type "TypeName", if it was given) will have the corresponding
+         * property copied into `value`.
+         * 
+         * Note that `ges_timeline_element_get_child_properties()` may be more
+         * convenient for C programming.
+         * @param property_name The name of the child property to get
+         * @returns `true` if the property was found and copied to `value`.
+         */
+        get_child_property(property_name: string): [boolean, unknown];
+
+        /**
+         * Gets the property of a child of the element. Specifically, the property
+         * corresponding to the `pspec` used in
+         * `ges_timeline_element_add_child_property()` is copied into `value`.
+         * @param pspec The specification of a registered child property to get
+         */
+        get_child_property_by_pspec(pspec: GObject.ParamSpec): unknown;
+
+        /**
+         * Gets the {@link GES.TimelineElement.duration} for the element.
+         * @returns The duration of `self` (in nanoseconds).
+         */
+        get_duration(): Gst.ClockTime;
+
+        /**
+         * Gets the {@link GES.TimelineElement.in_point} for the element.
+         * @returns The in-point of `self` (in nanoseconds).
+         */
+        get_inpoint(): Gst.ClockTime;
+
+        /**
+         * Gets the priority of the layer the element is in. A {@link GES.Group} may span
+         * several layers, so this would return the highest priority (numerically,
+         * the smallest) amongst them.
+         * @returns The priority of the layer `self` is in, or #GES_TIMELINE_ELEMENT_NO_LAYER_PRIORITY if `self` does not exist in a layer.
+         * @since 1.16
+         */
+        get_layer_priority(): number;
+
+        /**
+         * Gets the {@link GES.TimelineElement.max_duration} for the element.
+         * @returns The max-duration of `self` (in nanoseconds).
+         */
+        get_max_duration(): Gst.ClockTime;
+
+        /**
+         * Gets the {@link GES.TimelineElement.name} for the element.
+         * @returns The name of `self`.
+         */
+        get_name(): string | null;
+
+        /**
+         * Get the "natural" framerate of `self`. This is to say, for example
+         * for a {@link GES.VideoUriSource} the framerate of the source.
+         * 
+         * Note that a {@link GES.AudioSource} may also have a natural framerate if it derives
+         * from the same {@link GES.SourceClip} asset as a {@link GES.VideoSource}, and its value will
+         * be that of the video source. For example, if the uri of a {@link GES.UriClip} points
+         * to a file that contains both a video and audio stream, then the corresponding
+         * {@link GES.AudioUriSource} will share the natural framerate of the corresponding
+         * {@link GES.VideoUriSource}.
+         * @returns Whether `self` has a natural framerate or not, `framerate_n` and `framerate_d` will be set to, respectively, 0 and -1 if it is not the case.
+         * @since 1.18
+         */
+        get_natural_framerate(): [boolean, number, number];
+
+        /**
+         * Gets the {@link GES.TimelineElement.parent} for the element.
+         * @returns The parent of `self`, or `null` if `self` has no parent.
+         */
+        get_parent(): TimelineElement | null;
+
+        /**
+         * Gets the {@link GES.TimelineElement.priority} for the element.
+         * @returns The priority of `self`.
+         */
+        get_priority(): number;
+
+        /**
+         * Gets the {@link GES.TimelineElement.start} for the element.
+         * @returns The start of `self` (in nanoseconds).
+         */
+        get_start(): Gst.ClockTime;
+
+        /**
+         * Gets the {@link GES.TimelineElement.timeline} for the element.
+         * @returns The timeline of `self`, or `null` if `self` has no timeline.
+         */
+        get_timeline(): Timeline | null;
+
+        /**
+         * Gets the toplevel {@link GES.TimelineElement.parent} of the element.
+         * @returns The toplevel parent of `self`.
+         */
+        get_toplevel_parent(): TimelineElement;
+
+        /**
+         * Gets the track types that the element can interact with, i.e. the type
+         * of {@link GES.Track} it can exist in, or will create {@link GES.TrackElement}-s for.
+         * @returns The track types that `self` supports.
+         * @since 1.6.0
+         */
+        get_track_types(): TrackType;
+
+        /**
+         * Get a list of children properties of the element, which is a list of
+         * all the specifications passed to
+         * `ges_timeline_element_add_child_property()`.
+         * @returns An array of {@link GObject.ParamSpec} corresponding to the child properties of `self`, or `null` if something went wrong.
+         */
+        list_children_properties(): GObject.ParamSpec[];
+
+        /**
+         * Looks up a child property of the element.
+         * 
+         * `prop_name` can either be in the format "prop-name" or
+         * "TypeName::prop-name", where "prop-name" is the name of the property
+         * to look up (as used in `g_object_get()`), and "TypeName" is the type name
+         * of the child (as returned by G_OBJECT_TYPE_NAME()). The latter format is
+         * useful when two children of different types share the same property
+         * name.
+         * 
+         * The first child found with the given "prop-name" property that was
+         * registered with `ges_timeline_element_add_child_property()` (and of the
+         * type "TypeName", if it was given) will be passed to `child`, and the
+         * registered specification of this property will be passed to `pspec`.
+         * @param prop_name The name of a child property
+         * @returns `true` if a child corresponding to the property was found, in which case `child` and `pspec` are set.
+         */
+        lookup_child(prop_name: string): [boolean, GObject.Object | null, GObject.ParamSpec | null];
+
+        /**
+         * Paste an element inside the same timeline and layer as `self`. `self`
+         * **must** be the return of `ges_timeline_element_copy()` with `deep=TRUE`,
+         * and it should not be changed before pasting.
+         * `self` is not placed in the timeline, instead a new element is created,
+         * alike to the originally copied element. Note that the originally
+         * copied element must stay within the same timeline and layer, at both
+         * the point of copying and pasting.
+         * 
+         * Pasting may fail if it would place the timeline in an unsupported
+         * configuration.
+         * 
+         * After calling this function `element` should not be used. In particular,
+         * `element` can **not** be pasted again. Instead, you can copy the
+         * returned element and paste that copy (although, this is only possible
+         * if the paste was successful).
+         * 
+         * See also `ges_timeline_paste_element()`.
+         * @param paste_position The position in the timeline `element` should be pasted to, i.e. the {@link GES.TimelineElement.start} value for the pasted element.
+         * @returns The newly created element, or `null` if pasting fails.
+         * @since 1.6.0
+         */
+        paste(paste_position: Gst.ClockTime): TimelineElement | null;
+
+        /**
+         * Remove a child property from the element. `pspec` should be a
+         * specification that was passed to
+         * `ges_timeline_element_add_child_property()`. The corresponding property
+         * will no longer be registered as a child property for the element.
+         * @param pspec The specification for the property to remove
+         * @returns `true` if the property was successfully un-registered for `self`.
+         */
+        remove_child_property(pspec: GObject.ParamSpec): boolean;
+
+        /**
+         * Edits the start time of an element within its timeline in ripple mode.
+         * See `ges_timeline_element_edit()` with #GES_EDIT_MODE_RIPPLE and
+         * #GES_EDGE_NONE.
+         * @param start The new start time of `self` in ripple mode
+         * @returns `true` if the ripple edit of `self` completed, `false` on failure.
+         */
+        ripple(start: Gst.ClockTime): boolean;
+
+        /**
+         * Edits the end time of an element within its timeline in ripple mode.
+         * See `ges_timeline_element_edit()` with #GES_EDIT_MODE_RIPPLE and
+         * #GES_EDGE_END.
+         * @param end The new end time of `self` in ripple mode
+         * @returns `true` if the ripple edit of `self` completed, `false` on failure.
+         */
+        ripple_end(end: Gst.ClockTime): boolean;
+
+        /**
+         * Edits the end time of an element within its timeline in roll mode.
+         * See `ges_timeline_element_edit()` with #GES_EDIT_MODE_ROLL and
+         * #GES_EDGE_END.
+         * @param end The new end time of `self` in roll mode
+         * @returns `true` if the roll edit of `self` completed, `false` on failure.
+         */
+        roll_end(end: Gst.ClockTime): boolean;
+
+        /**
+         * Edits the start time of an element within its timeline in roll mode.
+         * See `ges_timeline_element_edit()` with #GES_EDIT_MODE_ROLL and
+         * #GES_EDGE_START.
+         * @param start The new start time of `self` in roll mode
+         * @returns `true` if the roll edit of `self` completed, `false` on failure.
+         */
+        roll_start(start: Gst.ClockTime): boolean;
+
+        /**
+         * See `ges_timeline_element_set_child_property_full()`, which also gives an
+         * error.
+         * 
+         * Note that `ges_timeline_element_set_child_properties()` may be more
+         * convenient for C programming.
+         * @param property_name The name of the child property to set
+         * @param value The value to set the property to
+         * @returns `true` if the property was found and set.
+         */
+        set_child_property(property_name: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the property of a child of the element. Specifically, the property
+         * corresponding to the `pspec` used in
+         * `ges_timeline_element_add_child_property()` is set to `value`.
+         * @param pspec The specification of a registered child property to set
+         * @param value The value to set the property to
+         */
+        set_child_property_by_pspec(pspec: GObject.ParamSpec, value: GObject.Value | any): void;
+
+        /**
+         * Sets the property of a child of the element.
+         * 
+         * `property_name` can either be in the format "prop-name" or
+         * "TypeName::prop-name", where "prop-name" is the name of the property
+         * to set (as used in `g_object_set()`), and "TypeName" is the type name of
+         * the child (as returned by G_OBJECT_TYPE_NAME()). The latter format is
+         * useful when two children of different types share the same property
+         * name.
+         * 
+         * The first child found with the given "prop-name" property that was
+         * registered with `ges_timeline_element_add_child_property()` (and of the
+         * type "TypeName", if it was given) will have the corresponding
+         * property set to `value`. Other children that may have also matched the
+         * property name (and type name) are left unchanged!
+         * @param property_name The name of the child property to set
+         * @param value The value to set the property to
+         * @returns `true` if the property was found and set.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        set_child_property_full(property_name: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets {@link GES.TimelineElement.duration} for the element.
+         * 
+         * Whilst the element is part of a {@link GES.Timeline}, this is the same as
+         * editing the element with `ges_timeline_element_edit()` under
+         * #GES_EDIT_MODE_TRIM with #GES_EDGE_END. In particular, the
+         * {@link GES.TimelineElement.duration} of the element may be snapped to a
+         * different timeline time difference from the one given. In addition,
+         * setting may fail if it would place the timeline in an unsupported
+         * configuration, or the element does not have enough internal content to
+         * last the desired duration.
+         * @param duration The desired duration in its timeline
+         * @returns `true` if `duration` could be set for `self`.
+         */
+        set_duration(duration: Gst.ClockTime): boolean;
+
+        /**
+         * Sets {@link GES.TimelineElement.in_point} for the element. If the new in-point
+         * is above the current {@link GES.TimelineElement.max_duration} of the element,
+         * this method will fail.
+         * @param inpoint The in-point, in internal time coordinates
+         * @returns `true` if `inpoint` could be set for `self`.
+         */
+        set_inpoint(inpoint: Gst.ClockTime): boolean;
+
+        /**
+         * Sets {@link GES.TimelineElement.max_duration} for the element. If the new
+         * maximum duration is below the current {@link GES.TimelineElement.in_point} of
+         * the element, this method will fail.
+         * @param maxduration The maximum duration, in internal time coordinates
+         * @returns `true` if `maxduration` could be set for `self`.
+         */
+        set_max_duration(maxduration: Gst.ClockTime): boolean;
+
+        /**
+         * Sets the {@link GES.TimelineElement.name} for the element. If `null` is given
+         * for `name`, then the library will instead generate a new name based on
+         * the type name of the element, such as the name "uriclip3" for a
+         * {@link GES.UriClip}, and will set that name instead.
+         * 
+         * If `self` already has a {@link GES.TimelineElement.timeline}, you should not
+         * call this function with `name` set to `null`.
+         * 
+         * You should ensure that, within each {@link GES.Timeline}, every element has a
+         * unique name. If you call this function with `name` as `null`, then
+         * the library should ensure that the set generated name is unique from
+         * previously **generated** names. However, if you choose a `name` that
+         * interferes with the naming conventions of the library, the library will
+         * attempt to ensure that the generated names will not conflict with the
+         * chosen name, which may lead to a different name being set instead, but
+         * the uniqueness between generated and user-chosen names is not
+         * guaranteed.
+         * @param name The name `self` should take
+         * @returns `true` if `name` or a generated name for `self` could be set.
+         */
+        set_name(name: string | null): boolean;
+
+        /**
+         * Sets the {@link GES.TimelineElement.parent} for the element.
+         * 
+         * This is used internally and you should normally not call this. A
+         * {@link GES.Container} will set the {@link GES.TimelineElement.parent} of its children
+         * in `ges_container_add()` and `ges_container_remove()`.
+         * 
+         * Note, if `parent` is not `null`, `self` must not already have a parent
+         * set. Therefore, if you wish to switch parents, you will need to call
+         * this function twice: first to set the parent to `null`, and then to the
+         * new parent.
+         * 
+         * If `parent` is not `null`, you must ensure it already has a
+         * (non-floating) reference to `self` before calling this.
+         * @param parent 
+         * @returns `true` if `parent` could be set for `self`.
+         */
+        set_parent(parent: TimelineElement): boolean;
+
+        /**
+         * Sets the priority of the element within the containing layer.
+         * @param priority The priority
+         * @returns `true` if `priority` could be set for `self`.
+         * @deprecated since 1.10: All priority management is done by GES itself now. To set {@link GES.Effect} priorities `ges_clip_set_top_effect_index` should be used.
+         */
+        set_priority(priority: number): boolean;
+
+        /**
+         * Sets {@link GES.TimelineElement.start} for the element. If the element has a
+         * parent, this will also move its siblings with the same shift.
+         * 
+         * Whilst the element is part of a {@link GES.Timeline}, this is the same as
+         * editing the element with `ges_timeline_element_edit()` under
+         * #GES_EDIT_MODE_NORMAL with #GES_EDGE_NONE. In particular, the
+         * {@link GES.TimelineElement.start} of the element may be snapped to a different
+         * timeline time from the one given. In addition, setting may fail if it
+         * would place the timeline in an unsupported configuration.
+         * @param start The desired start position of the element in its timeline
+         * @returns `true` if `start` could be set for `self`.
+         */
+        set_start(start: Gst.ClockTime): boolean;
+
+        /**
+         * Sets the {@link GES.TimelineElement.timeline} of the element.
+         * 
+         * This is used internally and you should normally not call this. A
+         * {@link GES.Clip} will have its {@link GES.TimelineElement.timeline} set through its
+         * {@link GES.Layer}. A {@link GES.Track} will similarly take care of setting the
+         * {@link GES.TimelineElement.timeline} of its {@link GES.TrackElement}-s. A {@link GES.Group}
+         * will adopt the same {@link GES.TimelineElement.timeline} as its children.
+         * 
+         * If `timeline` is `null`, this will stop its current
+         * {@link GES.TimelineElement.timeline} from tracking it, otherwise `timeline` will
+         * start tracking `self`. Note, in the latter case, `self` must not already
+         * have a timeline set. Therefore, if you wish to switch timelines, you
+         * will need to call this function twice: first to set the timeline to
+         * `null`, and then to the new timeline.
+         * @param timeline 
+         * @returns `true` if `timeline` could be set for `self`.
+         */
+        set_timeline(timeline: Timeline): boolean;
+
+        /**
+         * Edits the start time of an element within its timeline in trim mode.
+         * See `ges_timeline_element_edit()` with #GES_EDIT_MODE_TRIM and
+         * #GES_EDGE_START.
+         * @param start The new start time of `self` in trim mode
+         * @returns `true` if the trim edit of `self` completed, `false` on failure.
+         */
+        trim(start: Gst.ClockTime): boolean;
+
+        /**
+         * Get the asset that has been set on the extractable object.
+         * @returns The asset set on `self`, or `null` if no asset has been set.
+         */
+        get_asset(): Asset | null;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @returns The {@link GES.Asset.id} of some associated {@link GES.Asset} that is compatible with `self`'s current state.
+         */
+        get_id(): string;
+
+        /**
+         * Sets the asset for this extractable object.
+         * 
+         * When an object is extracted from an asset using `ges_asset_extract()` its
+         * asset will be automatically set. Note that many classes that implement
+         * {@link GES.Extractable} will automatically create their objects using assets
+         * when you call their `new` methods. However, you can use this method to
+         * associate an object with a compatible asset if it was created by other
+         * means and does not yet have an asset. Or, for some implementations of
+         * {@link GES.Extractable}, you can use this to change the asset of the given
+         * extractable object, which will lead to a change in its state to
+         * match the new asset {@link GES.Asset.id}.
+         * @param asset The asset to set
+         * @returns `true` if `asset` could be successfully set on `self`.
+         */
+        set_asset(asset: Asset): boolean;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @virtual
+         */
+        vfunc_get_id(): string;
+
+        /**
+         * This method is called after the {@link GES.Asset} of an object is
+         * set. If your class supports the asset of an object changing, then you
+         * can use this method to change the parameters of the object to match the
+         * new asset {@link GES.Asset.id}. If setting the asset should be able to fail,
+         * you should implement `set_asset_full` instead.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset(asset: Asset): void;
+
+        /**
+         * Like `set_asset`, but also allows you to return `false`
+         * to indicate a failure to change the object in response to a change in
+         * its asset.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset_full(asset: Asset): boolean;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+    }
+
+
+    namespace TitleClip {
+        // Signal signatures
+        interface SignalSignatures extends SourceClip.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::background": (pspec: GObject.ParamSpec) => void;
+            "notify::color": (pspec: GObject.ParamSpec) => void;
+            "notify::font-desc": (pspec: GObject.ParamSpec) => void;
+            "notify::halignment": (pspec: GObject.ParamSpec) => void;
+            "notify::text": (pspec: GObject.ParamSpec) => void;
+            "notify::valignment": (pspec: GObject.ParamSpec) => void;
+            "notify::xpos": (pspec: GObject.ParamSpec) => void;
+            "notify::ypos": (pspec: GObject.ParamSpec) => void;
+            "notify::duration-limit": (pspec: GObject.ParamSpec) => void;
+            "notify::layer": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceClip.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            background: number;
+            color: number;
+            font_desc: string | null;
+            fontDesc: string | null;
+            halignment: TextHAlign;
+            text: string | null;
+            valignment: TextVAlign;
+            xpos: number;
+            ypos: number;
+        }
+    }
+
+    /**
+     * Renders the given text in the specified font, at specified position, and
+     * with the specified background pattern.
+     * @gir-type Class
+     */
+    class TitleClip extends SourceClip implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<TitleClip>;
+
+        // Properties
+        /**
+         * The background of the text
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` or `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         * @default 4294967295
+         */
+        get background(): number;
+        set background(val: number);
+
+        /**
+         * The color of the text
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` or `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         * @default 4294967295
+         */
+        get color(): number;
+        set color(val: number);
+
+        /**
+         * Pango font description string
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` or `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         * @default Serif 36
+         */
+        get font_desc(): string | null;
+        set font_desc(val: string | null);
+
+        /**
+         * Pango font description string
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` or `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         * @default Serif 36
+         */
+        get fontDesc(): string | null;
+        set fontDesc(val: string | null);
+
+        /**
+         * Horizontal alignment of the text
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` or `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         * @default GES.TextHAlign.CENTER
+         */
+        get halignment(): TextHAlign;
+        set halignment(val: TextHAlign);
+
+        /**
+         * The text to diplay
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` or `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        get text(): string | null;
+        set text(val: string | null);
+
+        /**
+         * Vertical alignent of the text
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` or `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         * @default GES.TextVAlign.BASELINE
+         */
+        get valignment(): TextVAlign;
+        set valignment(val: TextVAlign);
+
+        /**
+         * The horizontal position of the text
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` or `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         * @default 0.5
+         */
+        get xpos(): number;
+        set xpos(val: number);
+
+        /**
+         * The vertical position of the text
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` or `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         * @default 0.5
+         */
+        get ypos(): number;
+        set ypos(val: number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: TitleClip.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<TitleClip.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): TitleClip;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof TitleClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TitleClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof TitleClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TitleClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof TitleClip.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<TitleClip.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the background used by `self`.
+         * @returns The color used by `self`.
+         * @deprecated since 1.6: use `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        get_background_color(): number;
+
+        /**
+         * Get the pango font description used by `self`.
+         * @returns The pango font description used by `self`.
+         * @deprecated since 1.6: use `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        get_font_desc(): string | null;
+
+        /**
+         * Get the horizontal aligment used by `self`.
+         * @returns The horizontal aligment used by `self`.
+         * @deprecated since 1.6: use `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        get_halignment(): TextHAlign;
+
+        /**
+         * Get the text currently set on `self`.
+         * @returns The text currently set on `self`.
+         * @deprecated since 1.6: use `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        get_text(): string | null;
+
+        /**
+         * Get the color used by `self`.
+         * @returns The color used by `self`.
+         * @deprecated since 1.6: use `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        get_text_color(): number;
+
+        /**
+         * Get the vertical aligment used by `self`.
+         * @returns The vertical aligment used by `self`.
+         * @deprecated since 1.6: use `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        get_valignment(): TextVAlign;
+
+        /**
+         * Get the horizontal position used by `self`.
+         * @returns The horizontal position used by `self`.
+         * @deprecated since 1.6: use `ges_timeline_element_get_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        get_xpos(): number;
+
+        /**
+         * Get the vertical position used by `self`.
+         * @returns The vertical position used by `self`.
+         * @deprecated since 1.6: use `ges_timeline_element_get_children_property` instead
+         */
+        get_ypos(): number;
+
+        /**
+         * Sets the background of the text.
+         * @param background The color `self` is being set to
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        set_background(background: number): void;
+
+        /**
+         * Sets the color of the text.
+         * @param color The color `self` is being set to
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        set_color(color: number): void;
+
+        /**
+         * Sets the pango font description of the text.
+         * @param font_desc the pango font description
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        set_font_desc(font_desc: string | null): void;
+
+        /**
+         * Sets the horizontal aligment of the text.
+         * @param halign {@link GES.TextHAlign}
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        set_halignment(halign: TextHAlign): void;
+
+        /**
+         * Sets the text this clip will render.
+         * @param text the text to render. an internal copy of this text will be made.
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        set_text(text: string | null): void;
+
+        /**
+         * Sets the vertical aligment of the text.
+         * @param valign {@link GES.TextVAlign}
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        set_valignment(valign: TextVAlign): void;
+
+        /**
+         * Sets the horizontal position of the text.
+         * @param position The horizontal position `self` is being set to
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        set_xpos(position: number): void;
+
+        /**
+         * Sets the vertical position of the text.
+         * @param position The vertical position `self` is being set to
+         * @deprecated since 1.6: use `ges_timeline_element_set_children_properties` instead. See {@link GES.TitleSource} for more information about exposed properties
+         */
+        set_ypos(position: number): void;
+    }
+
+
+    namespace TitleSource {
+        // Signal signatures
+        interface SignalSignatures extends VideoSource.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends VideoSource.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * {@link GES.TitleSource} is a GESTimelineElement that implements the notion
+     * of titles in GES.
+     * @gir-type Class
+     */
+    class TitleSource extends VideoSource implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<TitleSource>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: TitleSource.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<TitleSource.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof TitleSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TitleSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof TitleSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TitleSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof TitleSource.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<TitleSource.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the background used by `source`.
+         * @returns The background used by `source`.
+         */
+        get_background_color(): number;
+
+        /**
+         * Get the pango font description used by `source`.
+         * @returns The pango font description used by this `source`.
+         * @deprecated since 1.16: Use ges_timeline_element_get_child_property instead (this actually returns a newly allocated string)
+         */
+        get_font_desc(): string | null;
+
+        /**
+         * Get the horizontal aligment used by `source`.
+         * @returns The horizontal aligment used by `source`.
+         */
+        get_halignment(): TextHAlign;
+
+        /**
+         * Get the text currently set on the `source`.
+         * @returns The text currently set on the `source`.
+         * @deprecated since 1.16: Use ges_timeline_element_get_child_property instead (this actually returns a newly allocated string)
+         */
+        get_text(): string | null;
+
+        /**
+         * Get the color used by `source`.
+         * @returns The color used by `source`.
+         */
+        get_text_color(): number;
+
+        /**
+         * Get the vertical aligment used by `source`.
+         * @returns The vertical aligment used by `source`.
+         */
+        get_valignment(): TextVAlign;
+
+        /**
+         * Get the horizontal position used by `source`.
+         * @returns The horizontal position used by `source`.
+         */
+        get_xpos(): number;
+
+        /**
+         * Get the vertical position used by `source`.
+         * @returns The vertical position used by `source`.
+         */
+        get_ypos(): number;
+
+        /**
+         * Sets the color of the background
+         * @param color the color `self` is being set to
+         */
+        set_background_color(color: number): void;
+
+        /**
+         * Set the pango font description this source will use to render
+         * the text.
+         * @param font_desc the pango font description
+         */
+        set_font_desc(font_desc: string | null): void;
+
+        /**
+         * Sets the vertical aligment of the text.
+         * @param halign {@link GES.TextHAlign}
+         */
+        set_halignment(halign: TextHAlign): void;
+
+        /**
+         * Sets the text this track element will render.
+         * @param text the text to render. an internal copy of this text will be made.
+         * @deprecated use ges_track_element_get/set_children_properties on the GESTrackElement instead
+         */
+        set_text(text: string | null): void;
+
+        /**
+         * Sets the color of the text.
+         * @param color the color `self` is being set to
+         */
+        set_text_color(color: number): void;
+
+        /**
+         * Sets the vertical aligment of the text.
+         * @param valign {@link GES.TextVAlign}
+         */
+        set_valignment(valign: TextVAlign): void;
+
+        /**
+         * Sets the horizontal position of the text.
+         * @param position the horizontal position `self` is being set to
+         */
+        set_xpos(position: number): void;
+
+        /**
+         * Sets the vertical position of the text.
+         * @param position the color `self` is being set to
+         */
+        set_ypos(position: number): void;
+    }
+
+
+    namespace Track {
+        // Signal signatures
+        interface SignalSignatures extends Gst.Bin.SignalSignatures, MetaContainer.SignalSignatures, Gst.ChildProxy.SignalSignatures {
+            /**
+             * This signal will be emitted once the changes initiated by
+             * `ges_track_commit()` have been executed in the backend. In particular,
+             * this will be emitted whenever the underlying #nlecomposition has been
+             * committed (see #nlecomposition::commited).
+             * @signal
+             * @run-last
+             */
+            commited: () => void;
+            /**
+             * Will be emitted after a track element is added to the track.
+             * @signal
+             * @run-first
+             */
+            "track-element-added": (effect: TrackElement) => void;
+            /**
+             * Will be emitted after a track element is removed from the track.
+             * @signal
+             * @run-first
+             */
+            "track-element-removed": (effect: TrackElement) => void;
+            "notify::caps": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::mixing": (pspec: GObject.ParamSpec) => void;
+            "notify::restriction-caps": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::async-handling": (pspec: GObject.ParamSpec) => void;
+            "notify::message-forward": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Gst.Bin.ConstructorProps, MetaContainer.ConstructorProps, Gst.ChildProxy.ConstructorProps {
+            caps: Gst.Caps | null;
+            duration: bigint | number;
+            id: string;
+            mixing: boolean;
+            restriction_caps: Gst.Caps | null;
+            restrictionCaps: Gst.Caps | null;
+            track_type: TrackType;
+            trackType: TrackType;
+        }
+    }
+
+    /**
+     * A {@link GES.Track} acts an output source for a {@link GES.Timeline}. Each one
+     * essentially provides an additional {@link Gst.Pad} for the timeline, with
+     * {@link GES.Track.restriction_caps} capabilities. Internally, a track
+     * wraps an #nlecomposition filtered by a #capsfilter.
+     * 
+     * A track will contain a number of {@link GES.TrackElement}-s, and its role is
+     * to select and activate these elements according to their timings when
+     * the timeline in played. For example, a track would activate a
+     * {@link GES.Source} when its {@link GES.TimelineElement.start} is reached by outputting
+     * its data for its {@link GES.TimelineElement.duration}. Similarly, a
+     * {@link GES.Operation} would be activated by applying its effect to the source
+     * data, starting from its {@link GES.TimelineElement.start} time and lasting for
+     * its {@link GES.TimelineElement.duration}.
+     * 
+     * For most users, it will usually be sufficient to add newly created
+     * tracks to a timeline, but never directly add an element to a track.
+     * Whenever a {@link GES.Clip} is added to a timeline, the clip adds its
+     * elements to the timeline's tracks and assumes responsibility for
+     * updating them.
+     * @gir-type Class
+     */
+    class Track extends Gst.Bin implements MetaContainer, Gst.ChildProxy {
+        static $gtype: GObject.GType<Track>;
+
+        // Properties
+        /**
+         * The capabilities used to choose the output of the {@link GES.Track}'s
+         * elements. Internally, this is used to select output streams when
+         * several may be available, by determining whether its {@link Gst.Pad} is
+         * compatible (see `NleObject:caps` for #nlecomposition). As such,
+         * this is used as a weaker indication of the desired output type of the
+         * track, **before** the {@link GES.Track.restriction_caps} is applied.
+         * Therefore, this should be set to a *generic* superset of the
+         * {@link GES.Track.restriction_caps}, such as "video/x-raw(ANY)". In addition,
+         * it should match with the track's {@link GES.Track.track_type}.
+         * 
+         * Note that when you set this property, the {@link Gst.CapsFeatures} of all its
+         * {@link Gst.Structure}-s will be automatically set to #GST_CAPS_FEATURES_ANY.
+         * 
+         * Once a track has been added to a {@link GES.Timeline}, you should not change
+         * this.
+         * 
+         * Default value: #GST_CAPS_ANY.
+         * @construct-only
+         */
+        get caps(): Gst.Caps | null;
+
+        /**
+         * Current duration of the track
+         * 
+         * Default value: O
+         * @read-only
+         * @default 1000000000
+         */
+        get duration(): number;
+
+        /**
+         * The #nlecomposition:id of the underlying #nlecomposition.
+         * @since 1.18
+         * @default null
+         */
+        get id(): string;
+        set id(val: string);
+
+        /**
+         * Whether the track should support the mixing of {@link GES.Layer} data, such
+         * as composing the video data of each layer (when part of the video
+         * data is transparent, the next layer will become visible) or adding
+         * together the audio data. As such, for audio and video tracks, you'll
+         * likely want to keep this set to `true`.
+         * @default true
+         */
+        get mixing(): boolean;
+        set mixing(val: boolean);
+
+        /**
+         * The capabilities that specifies the final output format of the
+         * {@link GES.Track}. For example, for a video track, it would specify the
+         * height, width, framerate and other properties of the stream.
+         * 
+         * You may change this property after the track has been added to a
+         * {@link GES.Timeline}, but it must remain compatible with the track's
+         * {@link GES.Track.caps}.
+         * 
+         * Default value: #GST_CAPS_ANY.
+         */
+        get restriction_caps(): Gst.Caps | null;
+        set restriction_caps(val: Gst.Caps | null);
+
+        /**
+         * The capabilities that specifies the final output format of the
+         * {@link GES.Track}. For example, for a video track, it would specify the
+         * height, width, framerate and other properties of the stream.
+         * 
+         * You may change this property after the track has been added to a
+         * {@link GES.Timeline}, but it must remain compatible with the track's
+         * {@link GES.Track.caps}.
+         * 
+         * Default value: #GST_CAPS_ANY.
+         */
+        get restrictionCaps(): Gst.Caps | null;
+        set restrictionCaps(val: Gst.Caps | null);
+
+        /**
+         * The track type of the track. This controls the type of
+         * {@link GES.TrackElement}-s that can be added to the track. This should
+         * match with the track's {@link GES.Track.caps}.
+         * 
+         * Once a track has been added to a {@link GES.Timeline}, you should not change
+         * this.
+         * @construct-only
+         * @default GES.TrackType.CUSTOM
+         */
+        get track_type(): TrackType;
+
+        /**
+         * The track type of the track. This controls the type of
+         * {@link GES.TrackElement}-s that can be added to the track. This should
+         * match with the track's {@link GES.Track.caps}.
+         * 
+         * Once a track has been added to a {@link GES.Timeline}, you should not change
+         * this.
+         * @construct-only
+         * @default GES.TrackType.CUSTOM
+         */
+        get trackType(): TrackType;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Track.SignalSignatures;
+
+        // Fields
+        type: TrackType;
+
+        // Constructors
+        constructor(properties?: Partial<Track.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](type: TrackType, caps: Gst.Caps): Track;
+
+        // Conflicted with Gst.Bin.new
+        static ["new"](...args: never[]): any;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Track.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Track.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Track.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Track.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Track.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Track.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * See `ges_track_add_element()`, which also gives an error.
+         * @param object The element to add
+         * @returns `true` if `object` was successfully added to `track`.
+         */
+        add_element(object: TrackElement): boolean;
+
+        /**
+         * Adds the given track element to the track, which takes ownership of the
+         * element.
+         * 
+         * Note that this can fail if it would break a configuration rule of the
+         * track's {@link GES.Timeline}.
+         * 
+         * Note that a {@link GES.TrackElement} can only be added to one track.
+         * @param object The element to add
+         * @returns `true` if `object` was successfully added to `track`.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        add_element_full(object: TrackElement): boolean;
+
+        /**
+         * Commits all the pending changes for the elements contained in the
+         * track.
+         * 
+         * When changes are made to the timing or priority of elements within a
+         * track, they are not directly executed for the underlying
+         * #nlecomposition and its children. This method will finally execute
+         * these changes so they are reflected in the data output of the track.
+         * 
+         * Any pending changes will be executed in the backend. The
+         * {@link GES.Timeline.SignalSignatures.commited | GES.Timeline::commited} signal will be emitted once this has completed.
+         * 
+         * Note that `ges_timeline_commit()` will call this method on all of its
+         * tracks, so you are unlikely to need to use this directly.
+         * @returns `true` if pending changes were committed, or `false` if nothing needed to be committed.
+         */
+        commit(): boolean;
+
+        /**
+         * Get the {@link GES.Track.caps} of the track.
+         * @returns The caps of `track`.
+         */
+        get_caps(): Gst.Caps | null;
+
+        /**
+         * Gets the track elements contained in the track. The returned list is
+         * sorted by the element's {@link GES.TimelineElement.priority} and
+         * {@link GES.TimelineElement.start}.
+         * @returns A list of all the {@link GES.TrackElement}-s in `track`.
+         */
+        get_elements(): TrackElement[];
+
+        /**
+         * Gets the {@link GES.Track.mixing} of the track.
+         * @returns Whether `track` is mixing.
+         */
+        get_mixing(): boolean;
+
+        /**
+         * Gets the {@link GES.Track.restriction_caps} of the track.
+         * @returns The restriction-caps of `track`.
+         * @since 1.18
+         */
+        get_restriction_caps(): Gst.Caps | null;
+
+        /**
+         * Get the timeline this track belongs to.
+         * @returns The timeline that `track` belongs to, or `null` if it does not belong to a timeline.
+         */
+        get_timeline(): Timeline | null;
+
+        /**
+         * See `ges_track_remove_element_full()`, which also returns an error.
+         * @param object The element to remove
+         * @returns `true` if `object` was successfully removed from `track`.
+         */
+        remove_element(object: TrackElement): boolean;
+
+        /**
+         * Removes the given track element from the track, which revokes
+         * ownership of the element.
+         * @param object The element to remove
+         * @returns `true` if `object` was successfully removed from `track`.
+         * @since 1.18
+         * @throws GLib.Error
+         */
+        remove_element_full(object: TrackElement): boolean;
+
+        /**
+         * Sets the {@link GES.Track.mixing} for the track.
+         * @param mixing Whether `track` should be mixing
+         */
+        set_mixing(mixing: boolean): void;
+
+        /**
+         * Sets the {@link GES.Track.restriction_caps} for the track.
+         * 
+         * > **NOTE**: Restriction caps are **not** taken into account when
+         * > using {@link GES.Pipeline.mode}=#GES_PIPELINE_MODE_SMART_RENDER.
+         * @param caps The new restriction-caps for `track`
+         */
+        set_restriction_caps(caps: Gst.Caps): void;
+
+        /**
+         * Informs the track that it belongs to the given timeline. Calling this
+         * does not actually add the track to the timeline. For that, you should
+         * use `ges_timeline_add_track()`, which will also take care of informing
+         * the track that it belongs to the timeline. As such, there is no need
+         * for you to call this method.
+         * @param timeline 
+         */
+        set_timeline(timeline: Timeline): void;
+
+        /**
+         * Updates the {@link GES.Track.restriction_caps} of the track using the fields
+         * found in the given caps. Each of the {@link Gst.Structure}-s in `caps` is
+         * compared against the existing structure with the same index in the
+         * current {@link GES.Track.restriction_caps}. If there is no corresponding
+         * existing structure at that index, then the new structure is simply
+         * copied to that index. Otherwise, any fields in the new structure are
+         * copied into the existing structure. This will replace existing values,
+         * and may introduce new ones, but any fields 'missing' in the new
+         * structure are left unchanged in the existing structure.
+         * 
+         * For example, if the existing {@link GES.Track.restriction_caps} are
+         * "video/x-raw, width=480, height=360", and the updating caps is
+         * "video/x-raw, format=I420, width=500; video/x-bayer, width=400", then
+         * the new {@link GES.Track.restriction_caps} after calling this will be
+         * "video/x-raw, width=500, height=360, format=I420; video/x-bayer,
+         * width=400".
+         * @param caps The caps to update the restriction-caps with
+         */
+        update_restriction_caps(caps: Gst.Caps): void;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Emits the {@link Gst.ChildProxy.SignalSignatures.child_added | Gst.ChildProxy::child-added} signal.
+         * @param child the newly added child
+         * @param name the name of the new child
+         */
+        child_added(child: GObject.Object, name: string): void;
+
+        /**
+         * Emits the {@link Gst.ChildProxy.SignalSignatures.child_removed | Gst.ChildProxy::child-removed} signal.
+         * @param child the removed child
+         * @param name the name of the old child
+         */
+        child_removed(child: GObject.Object, name: string): void;
+
+        /**
+         * Fetches a child by its number.
+         * @param index the child's position in the child list
+         * @returns the child object or `null` if     not found (index too high).
+         */
+        get_child_by_index<T = GObject.Object>(index: number): T;
+
+        /**
+         * Looks up a child element by the given name.
+         * 
+         * This virtual method has a default implementation that uses {@link Gst.Object}
+         * together with `gst_object_get_name()`. If the interface is to be used with
+         * `GObjects`, this methods needs to be overridden.
+         * @param name the child's name
+         * @returns the child object or `null` if     not found.
+         */
+        get_child_by_name<T = GObject.Object>(name: string): T;
+
+        /**
+         * Looks up a child element by the given full-path name.
+         * 
+         * Similar to `gst_child_proxy_get_child_by_name()`, this method
+         * searches and returns a child given a name. The difference is that
+         * this method allows a hierarchical path in the form of
+         * child1::child2::child3. In the later example this method would
+         * return a reference to child3, if found. The name should be made of
+         * element names only and should not contain any property names.
+         * @param name the full-path child's name
+         * @returns the child object or `null` if     not found.
+         * @since 1.22
+         */
+        get_child_by_name_recurse<T = GObject.Object>(name: string): T;
+
+        /**
+         * Gets the number of child objects this parent contains.
+         * @returns the number of child objects
+         */
+        get_children_count(): number;
+
+        /**
+         * Gets a single property using the GstChildProxy mechanism.
+         * You are responsible for freeing it by calling `g_value_unset()`
+         * @param name name of the property
+         */
+        get_property(name: string): unknown;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with GObject.Object.get_property
+        get_property(...args: never[]): any;
+
+        /**
+         * Looks up which object and {@link GObject.ParamSpec} would be effected by the given `name`.
+         * @param name name of the property to look up
+         * @returns `true` if `target` and `pspec` could be found. `false` otherwise. In that case the values for `pspec` and `target` are not modified. Unref `target` after usage. For plain {@link GObject.Object} `target` is the same as `object`.
+         */
+        lookup(name: string): [boolean, GObject.Object | null, GObject.ParamSpec | null];
+
+        /**
+         * Sets a single property using the GstChildProxy mechanism.
+         * @param name name of the property to set
+         * @param value new {@link GObject.Value} for the property
+         */
+        set_property(name: string, value: GObject.Value | any): void;
+
+        /**
+         * Emits the {@link Gst.ChildProxy.SignalSignatures.child_added | Gst.ChildProxy::child-added} signal.
+         * @param child the newly added child
+         * @param name the name of the new child
+         * @virtual
+         */
+        vfunc_child_added(child: GObject.Object, name: string): void;
+
+        /**
+         * Emits the {@link Gst.ChildProxy.SignalSignatures.child_removed | Gst.ChildProxy::child-removed} signal.
+         * @param child the removed child
+         * @param name the name of the old child
+         * @virtual
+         */
+        vfunc_child_removed(child: GObject.Object, name: string): void;
+
+        /**
+         * Fetches a child by its number.
+         * @param index the child's position in the child list
+         * @virtual
+         */
+        vfunc_get_child_by_index<T = GObject.Object>(index: number): T;
+
+        /**
+         * Looks up a child element by the given name.
+         * 
+         * This virtual method has a default implementation that uses {@link Gst.Object}
+         * together with `gst_object_get_name()`. If the interface is to be used with
+         * `GObjects`, this methods needs to be overridden.
+         * @param name the child's name
+         * @virtual
+         */
+        vfunc_get_child_by_name<T = GObject.Object>(name: string): T;
+
+        /**
+         * Gets the number of child objects this parent contains.
+         * @virtual
+         */
+        vfunc_get_children_count(): number;
+
+        /**
+         * Increases the reference count of `object`.
+         * 
+         * Since GLib 2.56, if `GLIB_VERSION_MAX_ALLOWED` is 2.56 or greater, the type
+         * of `object` will be propagated to the return type (using the GCC `typeof()`
+         * extension), so any casting the caller needs to do on the return type must be
+         * explicit.
+         * @returns the same `object`
+         */
+        ref(): GObject.Object;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with Gst.Object.ref
+        ref(...args: never[]): any;
+
+        /**
+         * Decreases the reference count of `object`. When its reference count
+         * drops to 0, the object is finalized (i.e. its memory is freed).
+         * 
+         * If the pointer to the {@link GObject.Object} may be reused in future (for example, if it is
+         * an instance variable of another object), it is recommended to clear the
+         * pointer to `null` rather than retain a dangling pointer to a potentially
+         * invalid {@link GObject.Object} instance. Use `g_clear_object()` for this.
+         */
+        unref(): void;
+    }
+
+
+    namespace TrackElement {
+        // Signal signatures
+        interface SignalSignatures extends TimelineElement.SignalSignatures, MetaContainer.SignalSignatures {
+            /**
+             * This is emitted when a control binding is added to a child property
+             * of the track element.
+             * @signal
+             * @run-first
+             */
+            "control-binding-added": (control_binding: Gst.ControlBinding) => void;
+            /**
+             * This is emitted when a control binding is removed from a child
+             * property of the track element.
+             * @signal
+             * @run-first
+             */
+            "control-binding-removed": (control_binding: Gst.ControlBinding) => void;
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends TimelineElement.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            active: boolean;
+            auto_clamp_control_sources: boolean;
+            autoClampControlSources: boolean;
+            has_internal_source: boolean;
+            hasInternalSource: boolean;
+            track: Track | null;
+            track_type: TrackType;
+            trackType: TrackType;
+        }
+    }
+
+    /**
+     * A {@link GES.TrackElement} is a {@link GES.TimelineElement} that specifically belongs
+     * to a single {@link GES.Track} of its {@link GES.TimelineElement.timeline}. Its
+     * {@link GES.TimelineElement.start} and {@link GES.TimelineElement.duration} specify its
+     * temporal extent in the track. Specifically, a track element wraps some
+     * nleobject, such as an #nlesource or #nleoperation, which can be
+     * retrieved with `ges_track_element_get_nleobject()`, and its
+     * {@link GES.TimelineElement.start}, {@link GES.TimelineElement.duration},
+     * {@link GES.TimelineElement.in_point}, {@link GES.TimelineElement.priority} and
+     * {@link GES.TrackElement.active} properties expose the corresponding nleobject
+     * properties. When a track element is added to a track, its nleobject is
+     * added to the corresponding #nlecomposition that the track wraps.
+     * 
+     * Most users will not have to work directly with track elements since a
+     * {@link GES.Clip} will automatically create track elements for its timeline's
+     * tracks and take responsibility for updating them. The only track
+     * elements that are not automatically created by clips, but a user is
+     * likely to want to create, are {@link GES.Effect}-s.
+     * 
+     * ## Control Bindings for Children Properties
+     * 
+     * You can set up control bindings for a track element child property
+     * using `ges_track_element_set_control_source()`. A
+     * `GstTimedValueControlSource` should specify the timed values using the
+     * internal source coordinates (see {@link GES.TimelineElement}). By default,
+     * these will be updated to lie between the {@link GES.TimelineElement.in_point}
+     * and out-point of the element. This can be switched off by setting
+     * {@link GES.TrackElement.auto_clamp_control_sources} to `false`.
+     * @gir-type Class
+     */
+    abstract class TrackElement extends TimelineElement implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<TrackElement>;
+
+        // Properties
+        /**
+         * Whether the effect of the element should be applied in its
+         * {@link GES.TrackElement.track}. If set to `false`, it will not be used in
+         * the output of the track.
+         * @default true
+         */
+        get active(): boolean;
+        set active(val: boolean);
+
+        /**
+         * Whether the control sources on the element (see
+         * `ges_track_element_set_control_source()`) will be automatically
+         * updated whenever the {@link GES.TimelineElement.in_point} or out-point of the
+         * element change in value.
+         * 
+         * See `ges_track_element_clamp_control_source()` for how this is done
+         * per control source.
+         * 
+         * Default value: `true`
+         * @since 1.18
+         * @default true
+         */
+        get auto_clamp_control_sources(): boolean;
+        set auto_clamp_control_sources(val: boolean);
+
+        /**
+         * Whether the control sources on the element (see
+         * `ges_track_element_set_control_source()`) will be automatically
+         * updated whenever the {@link GES.TimelineElement.in_point} or out-point of the
+         * element change in value.
+         * 
+         * See `ges_track_element_clamp_control_source()` for how this is done
+         * per control source.
+         * 
+         * Default value: `true`
+         * @since 1.18
+         * @default true
+         */
+        get autoClampControlSources(): boolean;
+        set autoClampControlSources(val: boolean);
+
+        /**
+         * This property is used to determine whether the 'internal time'
+         * properties of the element have any meaning. In particular, unless
+         * this is set to `true`, the {@link GES.TimelineElement.in_point} and
+         * {@link GES.TimelineElement.max_duration} can not be set to any value other
+         * than the default 0 and #GST_CLOCK_TIME_NONE, respectively.
+         * 
+         * If an element has some *internal* *timed* source {@link Gst.Element} that it
+         * reads stream data from as part of its function in a {@link GES.Track}, then
+         * you'll likely want to set this to `true` to allow the
+         * {@link GES.TimelineElement.in_point} and {@link GES.TimelineElement.max_duration} to
+         * be set.
+         * 
+         * The default value is determined by the {@link GES.TrackElementClass}
+         * `default_has_internal_source` class property. For most
+         * {@link GES.SourceClass}-es, this will be `true`, with the exception of those
+         * that have a potentially *static* source, such as {@link GES.ImageSourceClass}
+         * and {@link GES.TitleSourceClass}. Otherwise, this will usually be `false`.
+         * 
+         * For most {@link GES.Operation}-s you will likely want to leave this set to
+         * `false`. The exception may be for an operation that reads some stream
+         * data from some private internal source as part of manipulating the
+         * input data from the usual linked upstream {@link GES.TrackElement}.
+         * 
+         * For example, you may want to set this to `true` for a
+         * #GES_TRACK_TYPE_VIDEO operation that wraps a #textoverlay that reads
+         * from a subtitle file and places its text on top of the received video
+         * data. The {@link GES.TimelineElement.in_point} of the element would be used
+         * to shift the initial seek time on the #textoverlay away from 0, and
+         * the {@link GES.TimelineElement.max_duration} could be set to reflect the
+         * time at which the subtitle file runs out of data.
+         * 
+         * Note that GES can not support track elements that have both internal
+         * content and manipulate the timing of their data streams (time
+         * effects).
+         * @since 1.18
+         * @default false
+         */
+        get has_internal_source(): boolean;
+        set has_internal_source(val: boolean);
+
+        /**
+         * This property is used to determine whether the 'internal time'
+         * properties of the element have any meaning. In particular, unless
+         * this is set to `true`, the {@link GES.TimelineElement.in_point} and
+         * {@link GES.TimelineElement.max_duration} can not be set to any value other
+         * than the default 0 and #GST_CLOCK_TIME_NONE, respectively.
+         * 
+         * If an element has some *internal* *timed* source {@link Gst.Element} that it
+         * reads stream data from as part of its function in a {@link GES.Track}, then
+         * you'll likely want to set this to `true` to allow the
+         * {@link GES.TimelineElement.in_point} and {@link GES.TimelineElement.max_duration} to
+         * be set.
+         * 
+         * The default value is determined by the {@link GES.TrackElementClass}
+         * `default_has_internal_source` class property. For most
+         * {@link GES.SourceClass}-es, this will be `true`, with the exception of those
+         * that have a potentially *static* source, such as {@link GES.ImageSourceClass}
+         * and {@link GES.TitleSourceClass}. Otherwise, this will usually be `false`.
+         * 
+         * For most {@link GES.Operation}-s you will likely want to leave this set to
+         * `false`. The exception may be for an operation that reads some stream
+         * data from some private internal source as part of manipulating the
+         * input data from the usual linked upstream {@link GES.TrackElement}.
+         * 
+         * For example, you may want to set this to `true` for a
+         * #GES_TRACK_TYPE_VIDEO operation that wraps a #textoverlay that reads
+         * from a subtitle file and places its text on top of the received video
+         * data. The {@link GES.TimelineElement.in_point} of the element would be used
+         * to shift the initial seek time on the #textoverlay away from 0, and
+         * the {@link GES.TimelineElement.max_duration} could be set to reflect the
+         * time at which the subtitle file runs out of data.
+         * 
+         * Note that GES can not support track elements that have both internal
+         * content and manipulate the timing of their data streams (time
+         * effects).
+         * @since 1.18
+         * @default false
+         */
+        get hasInternalSource(): boolean;
+        set hasInternalSource(val: boolean);
+
+        /**
+         * The track that this element belongs to, or `null` if it does not
+         * belong to a track.
+         * @read-only
+         */
+        get track(): Track | null;
+
+        /**
+         * The track type of the element, which determines the type of track the
+         * element can be added to (see {@link GES.Track.track_type}). This should
+         * correspond to the type of data that the element can produce or
+         * process.
+         * @default GES.TrackType.UNKNOWN
+         */
+        get track_type(): TrackType;
+        set track_type(val: TrackType);
+
+        /**
+         * The track type of the element, which determines the type of track the
+         * element can be added to (see {@link GES.Track.track_type}). This should
+         * correspond to the type of data that the element can produce or
+         * process.
+         * @default GES.TrackType.UNKNOWN
+         */
+        get trackType(): TrackType;
+        set trackType(val: TrackType);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: TrackElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<TrackElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof TrackElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TrackElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof TrackElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TrackElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof TrackElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<TrackElement.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * Notify when the {@link GES.TrackElement.active} property changes
+         * @param active Whether the element is active or not inside the #nlecomposition
+         * @virtual
+         */
+        vfunc_active_changed(active: boolean): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_changed(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_create_element(): Gst.Element;
+
+        /**
+         * @virtual
+         */
+        vfunc_create_gnl_object(): Gst.Element;
+
+        /**
+         * Looks up which `element` and `pspec` would be effected by the given `name`. If various
+         * contained elements have this property name you will get the first one, unless you
+         * specify the class name in `name`.
+         * @param prop_name Name of the property to look up. You can specify the name of the     class as such: "ClassName::property-name", to guarantee that you get the     proper GParamSpec in case various GstElement-s contain the same property     name. If you don't do so, you will get the first element found, having     this property and the and the corresponding GParamSpec.
+         * @deprecated since 1.14: Use `ges_timeline_element_lookup_child`
+         * @virtual
+         */
+        vfunc_lookup_child(prop_name: string): [boolean, Gst.Element | null, GObject.ParamSpec | null];
+
+        // Methods
+        /**
+         * Adds all the properties of a {@link Gst.Element} that match the criteria as
+         * children properties of the track element. If the name of `element`'s
+         * {@link Gst.ElementFactory} is not in `blacklist`, and the factory's
+         * #GST_ELEMENT_METADATA_KLASS contains at least one member of
+         * `wanted_categories` (e.g. #GST_ELEMENT_FACTORY_KLASS_DECODER), then
+         * all the properties of `element` that are also in `whitelist` are added as
+         * child properties of `self` using
+         * `ges_timeline_element_add_child_property()`.
+         * 
+         * This is intended to be used by subclasses when constructing.
+         * @param element The child object to retrieve properties from
+         * @param wanted_categories An array of element factory "klass" categories to whitelist, or `null` to accept all categories
+         * @param blacklist A blacklist of element factory names, or `null` to not blacklist any element factory
+         * @param whitelist A whitelist of element property names, or `null` to whitelist all writeable properties
+         */
+        add_children_props(element: Gst.Element, wanted_categories: string[] | null, blacklist: string[] | null, whitelist: string[] | null): void;
+
+        /**
+         * Clamp the `GstTimedValueControlSource` for the specified child property
+         * to lie between the {@link GES.TimelineElement.in_point} and out-point of the
+         * element. The out-point is the #GES_TIMELINE_ELEMENT_END of the element
+         * translated from the timeline coordinates to the internal source
+         * coordinates of the element.
+         * 
+         * If the property does not have a `GstTimedValueControlSource` set by
+         * `ges_track_element_set_control_source()`, nothing happens. Otherwise, if
+         * a timed value for the control source lies before the in-point of the
+         * element, or after its out-point, then it will be removed. At the
+         * in-point and out-point times, a new interpolated value will be placed.
+         * @param property_name The name of the child property to clamp the control source of
+         * @since 1.18
+         */
+        clamp_control_source(property_name: string): void;
+
+        /**
+         * Edits the element within its track.
+         * @param layers A whitelist of layers where the edit can be performed, `null` allows all layers in the timeline
+         * @param mode The edit mode
+         * @param edge The edge of `object` where the edit should occur
+         * @param position The edit position: a new location for the edge of `object` (in nanoseconds)
+         * @returns `true` if the edit of `object` completed, `false` on failure.
+         * @deprecated since 1.18: use `ges_timeline_element_edit` instead.
+         */
+        edit(layers: Layer[] | null, mode: EditMode, edge: Edge, position: bigint | number): boolean;
+
+        /**
+         * @param args 
+         */
+    // Conflicted with GES.TimelineElement.edit
+        edit(...args: never[]): any;
+
+        /**
+         * Get all the control bindings that have been created for the children
+         * properties of the track element using
+         * `ges_track_element_set_control_source()`. The keys used in the returned
+         * hash table are the child property names that were passed to
+         * `ges_track_element_set_control_source()`, and their values are the
+         * corresponding created {@link Gst.ControlBinding}.
+         * @returns A hash table containing all child-property-name/control-binding pairs for `trackelement`.
+         */
+        get_all_control_bindings(): { [key: string]: Gst.ControlBinding };
+
+        /**
+         * Gets {@link GES.TrackElement.auto_clamp_control_sources}.
+         * @returns Whether the control sources for the child properties of `object` are automatically clamped.
+         * @since 1.18
+         */
+        get_auto_clamp_control_sources(): boolean;
+
+        /**
+         * Gets the control binding that was created for the specified child
+         * property of the track element using
+         * `ges_track_element_set_control_source()`. The given `property_name` must
+         * be the same name of the child property that was passed to
+         * `ges_track_element_set_control_source()`.
+         * @param property_name The name of the child property to return the control binding of
+         * @returns The control binding that was created for the specified child property of `object`, or `null` if `property_name` does not correspond to any control binding.
+         */
+        get_control_binding(property_name: string): Gst.ControlBinding | null;
+
+        /**
+         * Get the {@link Gst.Element} that the track element's underlying nleobject
+         * controls.
+         * @returns The {@link Gst.Element} being controlled by the nleobject that `object` wraps.
+         */
+        get_element(): Gst.Element | null;
+
+        /**
+         * Get the GNonLin object this object is controlling.
+         * @returns The GNonLin object this object is controlling.
+         * @deprecated use `ges_track_element_get_nleobject` instead.
+         */
+        get_gnlobject(): Gst.Element;
+
+        /**
+         * Get the nleobject that this element wraps.
+         * @returns The nleobject that `object` wraps.
+         * @since 1.6
+         */
+        get_nleobject(): Gst.Element;
+
+        /**
+         * Get the {@link GES.TrackElement.track} for the element.
+         * @returns The track that `object` belongs to, or `null` if it does not belong to a track.
+         */
+        get_track(): Track | null;
+
+        /**
+         * Gets the {@link GES.TrackElement.track_type} for the element.
+         * @returns The track-type of `object`.
+         */
+        get_track_type(): TrackType;
+
+        /**
+         * Gets {@link GES.TrackElement.active} for the element.
+         * @returns `true` if `object` is active in its track.
+         */
+        is_active(): boolean;
+
+        /**
+         * Get whether the given track element is a core track element. That is,
+         * it was created by the `create_track_elements` {@link GES.ClipClass} method for
+         * some {@link GES.Clip}.
+         * 
+         * Note that such a track element can only be added to a clip that shares
+         * the same {@link GES.Asset} as the clip that created it. For example, you are
+         * allowed to move core children between clips that resulted from
+         * `ges_container_ungroup()`, but you could not move the core child from a
+         * {@link GES.UriClip} to a {@link GES.TitleClip} or another {@link GES.UriClip} with a different
+         * {@link GES.UriClip.uri}.
+         * 
+         * Moreover, if a core track element is added to a clip, it will always be
+         * added as a core child. Therefore, if this returns `true`, then `element`
+         * will be a core child of its parent clip.
+         * @returns `true` if `element` is a core track element.
+         * @since 1.18
+         */
+        is_core(): boolean;
+
+        /**
+         * Gets an array of {@link GObject.ParamSpec}* for all configurable properties of the
+         * children of `object`.
+         * @returns An array of {@link GObject.ParamSpec}* which should be freed after use or `null` if something went wrong.
+         * @deprecated Use `ges_timeline_element_list_children_properties`
+         */
+        list_children_properties(): GObject.ParamSpec[];
+
+        /**
+         * Looks up which `element` and `pspec` would be effected by the given `name`. If various
+         * contained elements have this property name you will get the first one, unless you
+         * specify the class name in `name`.
+         * @param prop_name Name of the property to look up. You can specify the name of the     class as such: "ClassName::property-name", to guarantee that you get the     proper GParamSpec in case various GstElement-s contain the same property     name. If you don't do so, you will get the first element found, having     this property and the and the corresponding GParamSpec.
+         * @returns TRUE if `element` and `pspec` could be found. FALSE otherwise. In that case the values for `pspec` and `element` are not modified. Unref `element` after usage.
+         * @deprecated Use `ges_timeline_element_lookup_child`
+         */
+        lookup_child(prop_name: string): [boolean, Gst.Element | null, GObject.ParamSpec | null];
+
+        /**
+         * Removes the {@link Gst.ControlBinding} that was created for the specified child
+         * property of the track element using
+         * `ges_track_element_set_control_source()`. The given `property_name` must
+         * be the same name of the child property that was passed to
+         * `ges_track_element_set_control_source()`.
+         * @param property_name The name of the child property to remove the control binding from
+         * @returns `true` if the control binding was removed from the specified child property of `object`, or `false` if an error occurred.
+         */
+        remove_control_binding(property_name: string): boolean;
+
+        /**
+         * Sets {@link GES.TrackElement.active} for the element.
+         * @param active Whether `object` should be active in its track
+         * @returns `true` if the property was *toggled*.
+         */
+        set_active(active: boolean): boolean;
+
+        /**
+         * Sets {@link GES.TrackElement.auto_clamp_control_sources}. If set to `true`, this
+         * will immediately clamp all the control sources.
+         * @param auto_clamp Whether to automatically clamp the control sources for the child properties of `object`
+         * @since 1.18
+         */
+        set_auto_clamp_control_sources(auto_clamp: boolean): void;
+
+        /**
+         * Creates a {@link Gst.ControlBinding} for the specified child property of the
+         * track element using the given control source. The given `property_name`
+         * should refer to an existing child property of the track element, as
+         * used in `ges_timeline_element_lookup_child()`.
+         * 
+         * If `binding_type` is "direct", then the control binding is created with
+         * `gst_direct_control_binding_new()` using the given control source. If
+         * `binding_type` is "direct-absolute", it is created with
+         * `gst_direct_control_binding_new_absolute()` instead.
+         * @param source The control source to bind the child property to
+         * @param property_name The name of the child property to control
+         * @param binding_type The type of binding to create ("direct" or "direct-absolute")
+         * @returns `true` if the specified child property could be bound to `source`, or `false` if an error occurred.
+         */
+        set_control_source(source: Gst.ControlSource, property_name: string, binding_type: string): boolean;
+
+        /**
+         * Sets {@link GES.TrackElement.has_internal_source} for the element. If this is
+         * set to `false`, this method will also set the
+         * {@link GES.TimelineElement.in_point} of the element to 0 and its
+         * {@link GES.TimelineElement.max_duration} to #GST_CLOCK_TIME_NONE.
+         * @param has_internal_source Whether the `object` should be allowed to have its 'internal time' properties set.
+         * @returns `false` if `has_internal_source` is forbidden for `object` and `true` in any other case.
+         * @since 1.18
+         */
+        set_has_internal_source(has_internal_source: boolean): boolean;
+
+        /**
+         * Sets the {@link GES.TrackElement.track_type} for the element.
+         * @param type The new track-type for `object`
+         */
+        set_track_type(type: TrackType): void;
+
+        /**
+         * Get the asset that has been set on the extractable object.
+         * @returns The asset set on `self`, or `null` if no asset has been set.
+         */
+        get_asset(): Asset | null;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @returns The {@link GES.Asset.id} of some associated {@link GES.Asset} that is compatible with `self`'s current state.
+         */
+        get_id(): string;
+
+        /**
+         * Sets the asset for this extractable object.
+         * 
+         * When an object is extracted from an asset using `ges_asset_extract()` its
+         * asset will be automatically set. Note that many classes that implement
+         * {@link GES.Extractable} will automatically create their objects using assets
+         * when you call their `new` methods. However, you can use this method to
+         * associate an object with a compatible asset if it was created by other
+         * means and does not yet have an asset. Or, for some implementations of
+         * {@link GES.Extractable}, you can use this to change the asset of the given
+         * extractable object, which will lead to a change in its state to
+         * match the new asset {@link GES.Asset.id}.
+         * @param asset The asset to set
+         * @returns `true` if `asset` could be successfully set on `self`.
+         */
+        set_asset(asset: Asset): boolean;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @virtual
+         */
+        vfunc_get_id(): string;
+
+        /**
+         * This method is called after the {@link GES.Asset} of an object is
+         * set. If your class supports the asset of an object changing, then you
+         * can use this method to change the parameters of the object to match the
+         * new asset {@link GES.Asset.id}. If setting the asset should be able to fail,
+         * you should implement `set_asset_full` instead.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset(asset: Asset): void;
+
+        /**
+         * Like `set_asset`, but also allows you to return `false`
+         * to indicate a failure to change the object in response to a change in
+         * its asset.
+         * @param asset 
+         * @virtual
+         */
+        vfunc_set_asset_full(asset: Asset): boolean;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+    }
+
+
+    namespace TrackElementAsset {
+        // Signal signatures
+        interface SignalSignatures extends Asset.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::extractable-type": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy-target": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Asset.ConstructorProps, MetaContainer.ConstructorProps, Gio.AsyncInitable.ConstructorProps, Gio.Initable.ConstructorProps {
+            track_type: TrackType;
+            trackType: TrackType;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class TrackElementAsset extends Asset implements MetaContainer, Gio.AsyncInitable<TrackElementAsset>, Gio.Initable {
+        static $gtype: GObject.GType<TrackElementAsset>;
+
+        // Properties
+        /**
+         * @default GES.TrackType.UNKNOWN
+         */
+        get track_type(): TrackType;
+        set track_type(val: TrackType);
+
+        /**
+         * @default GES.TrackType.UNKNOWN
+         */
+        get trackType(): TrackType;
+        set trackType(val: TrackType);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: TrackElementAsset.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<TrackElementAsset.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof TrackElementAsset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TrackElementAsset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof TrackElementAsset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TrackElementAsset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof TrackElementAsset.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<TrackElementAsset.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * Result: `true` if `self` has a natural framerate `false` otherwise
+         * @since 1.18
+         * @virtual
+         */
+        vfunc_get_natural_framerate(): [boolean, number, number];
+
+        // Methods
+        /**
+         * Result: `true` if `self` has a natural framerate `false` otherwise
+         * @since 1.18
+         */
+        get_natural_framerate(): [boolean, number, number];
+
+        /**
+         * Get the GESAssetTrackType the {@link GES.TrackElement} extracted from `self`
+         * should get into
+         * @returns a {@link GES.TrackType}
+         */
+        get_track_type(): TrackType;
+
+        /**
+         * Set the {@link GES.TrackType} the {@link GES.TrackElement} extracted from `self`
+         * should get into
+         * @param type A {@link GES.TrackType}
+         */
+        set_track_type(type: TrackType): void;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @returns `true` if successful. If an error has occurred, this function will return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Finishes the async construction for the various g_async_initable_new
+         * calls, returning the created object or `null` on error.
+         * @param res the {@link Gio.AsyncResult} from the callback
+         * @returns a newly created {@link GObject.Object},      or `null` on error. Free with `g_object_unref()`.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        new_finish(res: Gio.AsyncResult): TrackElementAsset;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @returns `true` if successful. If an error has occurred, this function will     return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init(cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    namespace Transition {
+        // Signal signatures
+        interface SignalSignatures extends Operation.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Operation.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * Base class for media transitions.
+     * @gir-type Class
+     */
+    abstract class Transition extends Operation implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<Transition>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Transition.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Transition.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Transition.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Transition.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Transition.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Transition.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Transition.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Transition.SignalSignatures[K]>): void;
+    }
+
+
+    namespace TransitionClip {
+        // Signal signatures
+        interface SignalSignatures extends BaseTransitionClip.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::vtype": (pspec: GObject.ParamSpec) => void;
+            "notify::duration-limit": (pspec: GObject.ParamSpec) => void;
+            "notify::layer": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends BaseTransitionClip.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            vtype: VideoStandardTransitionType;
+        }
+    }
+
+    /**
+     * Creates an object that mixes together the two underlying objects, A and B.
+     * The A object is assumed to have a higher prioirity (lower number) than the
+     * B object. At the transition in point, only A will be visible, and by the
+     * end only B will be visible.
+     * 
+     * The shape of the video transition depends on the value of the "vtype"
+     * property. The default value is "crossfade". For audio, only "crossfade" is
+     * supported.
+     * 
+     * The ID of the ExtractableType is the nickname of the vtype property value. Note
+     * that this value can be changed after creation and the GESExtractable.asset value
+     * will be updated when needed.
+     * @gir-type Class
+     */
+    class TransitionClip extends BaseTransitionClip implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<TransitionClip>;
+
+        // Properties
+        /**
+         * a {@link GES.VideoStandardTransitionType} representing the wipe to use
+         * @default GES.VideoStandardTransitionType.CROSSFADE
+         */
+        get vtype(): VideoStandardTransitionType;
+        set vtype(val: VideoStandardTransitionType);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: TransitionClip.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<TransitionClip.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](vtype: VideoStandardTransitionType): TransitionClip;
+
+        static new_for_nick(nick: string): TransitionClip;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof TransitionClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TransitionClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof TransitionClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, TransitionClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof TransitionClip.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<TransitionClip.SignalSignatures[K]>): void;
+    }
+
+
+    namespace UriClip {
+        // Signal signatures
+        interface SignalSignatures extends SourceClip.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::is-image": (pspec: GObject.ParamSpec) => void;
+            "notify::mute": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::uri": (pspec: GObject.ParamSpec) => void;
+            "notify::duration-limit": (pspec: GObject.ParamSpec) => void;
+            "notify::layer": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceClip.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            is_image: boolean;
+            isImage: boolean;
+            mute: boolean;
+            supported_formats: TrackType;
+            supportedFormats: TrackType;
+            uri: string;
+        }
+    }
+
+    /**
+     * Represents all the output streams from a particular uri. It is assumed that
+     * the URI points to a file of some type.
+     * @gir-type Class
+     */
+    class UriClip extends SourceClip implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<UriClip>;
+
+        // Properties
+        /**
+         * Whether this uri clip represents a still image or not. This must be set
+         * before create_track_elements is called.
+         * @default false
+         */
+        get is_image(): boolean;
+        set is_image(val: boolean);
+
+        /**
+         * Whether this uri clip represents a still image or not. This must be set
+         * before create_track_elements is called.
+         * @default false
+         */
+        get isImage(): boolean;
+        set isImage(val: boolean);
+
+        /**
+         * Whether the sound will be played or not.
+         * @default false
+         */
+        get mute(): boolean;
+        set mute(val: boolean);
+
+        /**
+         * @default GES.TrackType.UNKNOWN
+         */
+        get supported_formats(): TrackType;
+        set supported_formats(val: TrackType);
+
+        /**
+         * @default GES.TrackType.UNKNOWN
+         */
+        get supportedFormats(): TrackType;
+        set supportedFormats(val: TrackType);
+
+        /**
+         * The location of the file/resource to use.
+         * @construct-only
+         * @default null
+         */
+        get uri(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: UriClip.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<UriClip.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](uri: string): UriClip;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof UriClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, UriClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof UriClip.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, UriClip.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof UriClip.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<UriClip.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the location of the resource.
+         * @returns The location of the resource.
+         */
+        get_uri(): string;
+
+        /**
+         * Lets you know if the audio track of `self` is muted or not.
+         * @returns `true` if the audio track of `self` is muted, `false` otherwise.
+         */
+        is_muted(): boolean;
+
+        /**
+         * Sets whether the clip is a still image or not.
+         * @param is_image `true` if `self` is a still image, `false` otherwise
+         */
+        set_is_image(is_image: boolean): void;
+
+        /**
+         * Sets whether the audio track of this clip is muted or not.
+         * @param mute `true` to mute `self` audio track, `false` to unmute it
+         */
+        set_mute(mute: boolean): void;
+    }
+
+
+    namespace UriClipAsset {
+        // Signal signatures
+        interface SignalSignatures extends SourceClipAsset.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::is-nested-timeline": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-formats": (pspec: GObject.ParamSpec) => void;
+            "notify::extractable-type": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy-target": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceClipAsset.ConstructorProps, MetaContainer.ConstructorProps, Gio.AsyncInitable.ConstructorProps, Gio.Initable.ConstructorProps {
+            duration: bigint | number;
+            is_nested_timeline: boolean;
+            isNestedTimeline: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class UriClipAsset extends SourceClipAsset implements MetaContainer, Gio.AsyncInitable<UriClipAsset>, Gio.Initable {
+        static $gtype: GObject.GType<UriClipAsset>;
+
+        // Properties
+        /**
+         * The duration (in nanoseconds) of the media file
+         * @default 18446744073709551615
+         */
+        get duration(): number;
+        set duration(val: bigint | number);
+
+        /**
+         * The duration (in nanoseconds) of the media file
+         * @since 1.18
+         * @read-only
+         * @default false
+         */
+        get is_nested_timeline(): boolean;
+
+        /**
+         * The duration (in nanoseconds) of the media file
+         * @since 1.18
+         * @read-only
+         * @default false
+         */
+        get isNestedTimeline(): boolean;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: UriClipAsset.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<UriClipAsset.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof UriClipAsset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, UriClipAsset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof UriClipAsset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, UriClipAsset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof UriClipAsset.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<UriClipAsset.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Finalize the request of an async {@link GES.UriClipAsset}
+         * @param res The {@link Gio.AsyncResult} from which to get the newly created {@link GES.UriClipAsset}
+         * @since 1.16
+         */
+        static finish(res: Gio.AsyncResult): UriClipAsset;
+
+        /**
+         * Creates a {@link GES.UriClipAsset} for `uri`
+         * 
+         * Example of request of a GESUriClipAsset:
+         * 
+         * ```
+         * // The request callback
+         * static void
+         * filesource_asset_loaded_cb (GESAsset * source, GAsyncResult * res, gpointer user_data)
+         * {
+         *   GError *error = NULL;
+         *   GESUriClipAsset *filesource_asset;
+         * 
+         *   filesource_asset = ges_uri_clip_asset_finish (res, &error);
+         *   if (filesource_asset) {
+         *    gst_print ("The file: %s is usable as a FileSource, it is%s an image and lasts %" GST_TIME_FORMAT,
+         *        ges_asset_get_id (GES_ASSET (filesource_asset))
+         *        ges_uri_clip_asset_is_image (filesource_asset) ? "" : " not",
+         *        GST_TIME_ARGS (ges_uri_clip_asset_get_duration (filesource_asset));
+         *   } else {
+         *    gst_print ("The file: %s is *not* usable as a FileSource because: %s",
+         *        ges_asset_get_id (source), error->message);
+         *   }
+         * 
+         *   gst_object_unref (mfs);
+         * }
+         * 
+         * // The request:
+         * ges_uri_clip_asset_new (uri, (GAsyncReadyCallback) filesource_asset_loaded_cb, user_data);
+         * ```
+         * 
+         * @param uri The URI of the file for which to create a {@link GES.UriClipAsset}
+         * @param cancellable optional %GCancellable object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the initialization is finished
+         */
+        static ["new"](uri: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<UriClipAsset> | null): void;
+
+        /**
+         * Creates a {@link GES.UriClipAsset} for `uri` synchonously. You should avoid
+         * to use it in application, and rather create {@link GES.UriClipAsset} asynchronously
+         * @param uri The URI of the file for which to create a {@link GES.UriClipAsset}. You can also use multi file uris for {@link GES.MultiFileSource}.
+         */
+        static request_sync(uri: string): UriClipAsset;
+
+        /**
+         * @param timeout The timeout to set
+         */
+        static set_timeout(timeout: Gst.ClockTime): void;
+
+        // Methods
+        /**
+         * Gets duration of the file represented by `self`
+         * @returns The duration of `self`
+         */
+        get_duration(): Gst.ClockTime;
+
+        /**
+         * Gets {@link GstPbutils.DiscovererInfo} about the file
+         * @returns {@link GstPbutils.DiscovererInfo} of specified asset
+         */
+        get_info(): GstPbutils.DiscovererInfo;
+
+        /**
+         * Gets maximum duration of the file represented by `self`,
+         * it is usually the same as GESUriClipAsset::duration,
+         * but in the case of nested timelines, for example, they
+         * are different as those can be extended 'infinitely'.
+         * @returns The maximum duration of `self`
+         * @since 1.18
+         */
+        get_max_duration(): Gst.ClockTime;
+
+        /**
+         * Get the GESUriSourceAsset `self` containes
+         * @returns a {@link GLib.List} of {@link GES.UriSourceAsset}
+         */
+        get_stream_assets(): UriSourceAsset[];
+
+        /**
+         * Gets Whether the file represented by `self` is an image or not
+         * @returns Whether the file represented by `self` is an image or not
+         * @since 1.18
+         */
+        is_image(): boolean;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @returns `true` if successful. If an error has occurred, this function will return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Finishes the async construction for the various g_async_initable_new
+         * calls, returning the created object or `null` on error.
+         * @param res the {@link Gio.AsyncResult} from the callback
+         * @returns a newly created {@link GObject.Object},      or `null` on error. Free with `g_object_unref()`.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        new_finish(res: Gio.AsyncResult): UriClipAsset;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_finish(res: Gio.AsyncResult): boolean;
+    }
+
+
+    namespace UriSourceAsset {
+        // Signal signatures
+        interface SignalSignatures extends TrackElementAsset.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::extractable-type": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy-target": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends TrackElementAsset.ConstructorProps, MetaContainer.ConstructorProps, Gio.AsyncInitable.ConstructorProps, Gio.Initable.ConstructorProps {}
+    }
+
+    /**
+     * Asset to create a stream specific {@link GES.Source} for a media file.
+     * 
+     * NOTE: You should never request such a {@link GES.Asset} as they will be created automatically
+     * by {@link GES.UriClipAsset}-s.
+     * @gir-type Class
+     */
+    class UriSourceAsset extends TrackElementAsset implements MetaContainer, Gio.AsyncInitable<UriSourceAsset>, Gio.Initable {
+        static $gtype: GObject.GType<UriSourceAsset>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: UriSourceAsset.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<UriSourceAsset.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof UriSourceAsset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, UriSourceAsset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof UriSourceAsset.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, UriSourceAsset.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof UriSourceAsset.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<UriSourceAsset.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the {@link GES.UriClipAsset} `self` is contained in
+         * @returns a {@link GES.UriClipAsset}
+         */
+        get_filesource_asset(): UriClipAsset;
+
+        /**
+         * Get the {@link GstPbutils.DiscovererStreamInfo} user by `asset`
+         * @returns a {@link GES.UriClipAsset}
+         */
+        get_stream_info(): GstPbutils.DiscovererStreamInfo;
+
+        get_stream_uri(): string;
+
+        /**
+         * Check if `asset` contains a single image
+         * @returns `true` if the video stream corresponds to an image (i.e. only contains one frame)
+         * @since 1.18
+         */
+        is_image(): boolean;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @returns `true` if successful. If an error has occurred, this function will return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Finishes the async construction for the various g_async_initable_new
+         * calls, returning the created object or `null` on error.
+         * @param res the {@link Gio.AsyncResult} from the callback
+         * @returns a newly created {@link GObject.Object},      or `null` on error. Free with `g_object_unref()`.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        new_finish(res: Gio.AsyncResult): UriSourceAsset;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_finish(res: Gio.AsyncResult): boolean;
+    }
+
+
+    namespace VideoSource {
+        // Signal signatures
+        interface SignalSignatures extends Source.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Source.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * Base class for video sources
+     * @gir-type Class
+     */
+    abstract class VideoSource extends Source implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<VideoSource>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: VideoSource.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<VideoSource.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof VideoSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VideoSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof VideoSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VideoSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof VideoSource.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<VideoSource.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Retrieves the natural size of the video stream. The natural size, is
+         * the size at which it will be displayed if no scaling is being applied.
+         * 
+         * NOTE: The sources take into account the potential video rotation applied
+         * by the #videoflip element that is inside the source, effects applied on
+         * the clip which potentially also rotate the element are not taken into
+         * account.
+         * @returns `true` if the object has a natural size, `false` otherwise.
+         * @since 1.18
+         */
+        get_natural_size(): [boolean, number, number];
+    }
+
+
+    namespace VideoTestSource {
+        // Signal signatures
+        interface SignalSignatures extends VideoSource.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends VideoSource.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {}
+    }
+
+    /**
+     * ### Children Properties
+     * 
+     *  {{ libs/GESVideoTestSource-children-props.md }}
+     * @gir-type Class
+     */
+    class VideoTestSource extends VideoSource implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<VideoTestSource>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: VideoTestSource.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<VideoTestSource.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof VideoTestSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VideoTestSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof VideoTestSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VideoTestSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof VideoTestSource.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<VideoTestSource.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the video pattern used by the `source`.
+         * @returns The video pattern used by the `source`.
+         */
+        get_pattern(): VideoTestPattern;
+
+        /**
+         * Sets the source to use the given `pattern`.
+         * @param pattern a {@link GES.VideoTestPattern}
+         */
+        set_pattern(pattern: VideoTestPattern): void;
+    }
+
+
+    namespace VideoTrack {
+        // Signal signatures
+        interface SignalSignatures extends Track.SignalSignatures, MetaContainer.SignalSignatures, Gst.ChildProxy.SignalSignatures {
+            "notify::caps": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::mixing": (pspec: GObject.ParamSpec) => void;
+            "notify::restriction-caps": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::async-handling": (pspec: GObject.ParamSpec) => void;
+            "notify::message-forward": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Track.ConstructorProps, MetaContainer.ConstructorProps, Gst.ChildProxy.ConstructorProps {}
+    }
+
+    /**
+     * A {@link GES.VideoTrack} is a default video {@link GES.Track}, with a
+     * #GES_TRACK_TYPE_VIDEO {@link GES.Track.track_type} and "video/x-raw(ANY)"
+     * {@link GES.Track.caps}.
+     * 
+     * By default, a video track will have its {@link GES.Track.restriction_caps}
+     * set to "video/x-raw" with the following properties:
+     * 
+     * - width: 1280
+     * - height: 720
+     * - framerate: 30/1
+     * 
+     * These fields are needed for negotiation purposes, but you can change
+     * their values if you wish. It is advised that you do so using
+     * `ges_track_update_restriction_caps()` with new values for the fields you
+     * wish to change, and any additional fields you may want to add. Unlike
+     * using `ges_track_set_restriction_caps()`, this will ensure that these
+     * default fields will at least have some value set.
+     * @gir-type Class
+     */
+    class VideoTrack extends Track implements MetaContainer, Gst.ChildProxy {
+        static $gtype: GObject.GType<VideoTrack>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: VideoTrack.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<VideoTrack.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): VideoTrack;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof VideoTrack.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VideoTrack.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof VideoTrack.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VideoTrack.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof VideoTrack.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<VideoTrack.SignalSignatures[K]>): void;
+
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Increases the reference count of `object`.
+         * 
+         * Since GLib 2.56, if `GLIB_VERSION_MAX_ALLOWED` is 2.56 or greater, the type
+         * of `object` will be propagated to the return type (using the GCC `typeof()`
+         * extension), so any casting the caller needs to do on the return type must be
+         * explicit.
+         * @returns the same `object`
+         */
+        ref(): GObject.Object;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with Gst.Object.ref
+        ref(...args: never[]): any;
+
+        /**
+         * Decreases the reference count of `object`. When its reference count
+         * drops to 0, the object is finalized (i.e. its memory is freed).
+         * 
+         * If the pointer to the {@link GObject.Object} may be reused in future (for example, if it is
+         * an instance variable of another object), it is recommended to clear the
+         * pointer to `null` rather than retain a dangling pointer to a potentially
+         * invalid {@link GObject.Object} instance. Use `g_clear_object()` for this.
+         */
+        unref(): void;
+    }
+
+
+    namespace VideoTransition {
+        // Signal signatures
+        interface SignalSignatures extends Transition.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::border": (pspec: GObject.ParamSpec) => void;
+            "notify::invert": (pspec: GObject.ParamSpec) => void;
+            "notify::transition-type": (pspec: GObject.ParamSpec) => void;
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Transition.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            border: number;
+            invert: boolean;
+            transition_type: VideoStandardTransitionType;
+            transitionType: VideoStandardTransitionType;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class VideoTransition extends Transition implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<VideoTransition>;
+
+        // Properties
+        /**
+         * This value represents the border width of the transition.
+         * @default 0
+         */
+        get border(): number;
+        set border(val: number);
+
+        /**
+         * This value represents the direction of the transition.
+         * @deprecated since 1.20: Use ges_timeline_element_[sg]et_child_property instead.
+         * @default false
+         */
+        get invert(): boolean;
+        set invert(val: boolean);
+
+        /**
+         * @default GES.VideoStandardTransitionType.CROSSFADE
+         */
+        get transition_type(): VideoStandardTransitionType;
+        set transition_type(val: VideoStandardTransitionType);
+
+        /**
+         * @default GES.VideoStandardTransitionType.CROSSFADE
+         */
+        get transitionType(): VideoStandardTransitionType;
+        set transitionType(val: VideoStandardTransitionType);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: VideoTransition.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<VideoTransition.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): VideoTransition;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof VideoTransition.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VideoTransition.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof VideoTransition.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VideoTransition.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof VideoTransition.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<VideoTransition.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the border property of `self`, this value represents
+         * the border width of the transition.
+         * @returns The border values of `self` or -1 if not meaningful (this will happen when not using a smpte transition).
+         * @deprecated since 1.20: Use ges_timeline_element_get_child_property instead.
+         */
+        get_border(): number;
+
+        /**
+         * Get the transition type used by `trans`.
+         * @returns The transition type used by `trans`.
+         */
+        get_transition_type(): VideoStandardTransitionType;
+
+        /**
+         * Get the invert property of `self`, this value represents
+         * the direction of the transition.
+         * @returns The invert value of `self`
+         * @deprecated since 1.20: Use ges_timeline_element_get_child_property instead.
+         */
+        is_inverted(): boolean;
+
+        /**
+         * Set the border property of `self`, this value represents
+         * the border width of the transition. In case this value does
+         * not make sense for the current transition type, it is cached
+         * for later use.
+         * @param value The value of the border to set on `object`
+         * @deprecated since 1.20: Use ges_timeline_element_set_child_property instead.
+         */
+        set_border(value: number): void;
+
+        /**
+         * Set the invert property of `self`, this value represents
+         * the direction of the transition. In case this value does
+         * not make sense for the current transition type, it is cached
+         * for later use.
+         * @param inverted `true` if the transition should be inverted `false` otherwise
+         * @deprecated since 1.20: Use ges_timeline_element_set_child_property instead.
+         */
+        set_inverted(inverted: boolean): void;
+
+        /**
+         * Sets the transition being used to `type`.
+         * @param type a {@link GES.VideoStandardTransitionType}
+         * @returns `true` if the transition type was properly changed, else `false`.
+         */
+        set_transition_type(type: VideoStandardTransitionType): boolean;
+    }
+
+
+    namespace VideoUriSource {
+        // Signal signatures
+        interface SignalSignatures extends VideoSource.SignalSignatures, MetaContainer.SignalSignatures {
+            "notify::uri": (pspec: GObject.ParamSpec) => void;
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::auto-clamp-control-sources": (pspec: GObject.ParamSpec) => void;
+            "notify::has-internal-source": (pspec: GObject.ParamSpec) => void;
+            "notify::track": (pspec: GObject.ParamSpec) => void;
+            "notify::track-type": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::in-point": (pspec: GObject.ParamSpec) => void;
+            "notify::max-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::serialize": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::timeline": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends VideoSource.ConstructorProps, Extractable.ConstructorProps, MetaContainer.ConstructorProps {
+            uri: string;
+        }
+    }
+
+    /**
+     * ### Children Properties
+     * 
+     *  {{ libs/GESVideoUriSource-children-props.md }}
+     * @gir-type Class
+     */
+    class VideoUriSource extends VideoSource implements Extractable, MetaContainer {
+        static $gtype: GObject.GType<VideoUriSource>;
+
+        // Properties
+        /**
+         * The location of the file/resource to use.
+         * @construct-only
+         * @default null
+         */
+        get uri(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: VideoUriSource.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<VideoUriSource.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof VideoUriSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VideoUriSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof VideoUriSource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VideoUriSource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof VideoUriSource.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<VideoUriSource.SignalSignatures[K]>): void;
+    }
+
+
+    namespace XmlFormatter {
+        // Signal signatures
+        interface SignalSignatures extends BaseXmlFormatter.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends BaseXmlFormatter.ConstructorProps, Extractable.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class XmlFormatter extends BaseXmlFormatter implements Extractable {
+        static $gtype: GObject.GType<XmlFormatter>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: XmlFormatter.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<XmlFormatter.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof XmlFormatter.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, XmlFormatter.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof XmlFormatter.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, XmlFormatter.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof XmlFormatter.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<XmlFormatter.SignalSignatures[K]>): void;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type AssetClass = typeof Asset;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class AssetPrivate {
+        static $gtype: GObject.GType<AssetPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type AudioSourceClass = typeof AudioSource;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class AudioSourcePrivate {
+        static $gtype: GObject.GType<AudioSourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type AudioTestSourceClass = typeof AudioTestSource;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class AudioTestSourcePrivate {
+        static $gtype: GObject.GType<AudioTestSourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type AudioTrackClass = typeof AudioTrack;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class AudioTrackPrivate {
+        static $gtype: GObject.GType<AudioTrackPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type AudioTransitionClass = typeof AudioTransition;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class AudioTransitionPrivate {
+        static $gtype: GObject.GType<AudioTransitionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type AudioUriSourceClass = typeof AudioUriSource;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class AudioUriSourcePrivate {
+        static $gtype: GObject.GType<AudioUriSourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type BaseEffectClass = typeof BaseEffect;
+
+    /**
+     * @gir-type Alias
+     */
+    type BaseEffectClipClass = typeof BaseEffectClip;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class BaseEffectClipPrivate {
+        static $gtype: GObject.GType<BaseEffectClipPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class BaseEffectPrivate {
+        static $gtype: GObject.GType<BaseEffectPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type BaseTransitionClipClass = typeof BaseTransitionClip;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class BaseTransitionClipPrivate {
+        static $gtype: GObject.GType<BaseTransitionClipPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type BaseXmlFormatterClass = typeof BaseXmlFormatter;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class BaseXmlFormatterPrivate {
+        static $gtype: GObject.GType<BaseXmlFormatterPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ClipAssetClass = typeof ClipAsset;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ClipAssetPrivate {
+        static $gtype: GObject.GType<ClipAssetPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ClipClass = typeof Clip;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ClipPrivate {
+        static $gtype: GObject.GType<ClipPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type CommandLineFormatterClass = typeof CommandLineFormatter;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class CommandLineFormatterPrivate {
+        static $gtype: GObject.GType<CommandLineFormatterPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ContainerClass = typeof Container;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ContainerPrivate {
+        static $gtype: GObject.GType<ContainerPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type DiscovererManagerClass = typeof DiscovererManager;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class DiscovererManagerPrivate {
+        static $gtype: GObject.GType<DiscovererManagerPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type EffectAssetClass = typeof EffectAsset;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class EffectAssetPrivate {
+        static $gtype: GObject.GType<EffectAssetPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type EffectClass = typeof Effect;
+
+    /**
+     * @gir-type Alias
+     */
+    type EffectClipClass = typeof EffectClip;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class EffectClipPrivate {
+        static $gtype: GObject.GType<EffectClipPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class EffectPrivate {
+        static $gtype: GObject.GType<EffectPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ExtractableInterface = typeof Extractable;
+
+    /**
+     * @gir-type Alias
+     */
+    type FormatterClass = typeof Formatter;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class FormatterPrivate {
+        static $gtype: GObject.GType<FormatterPrivate>;
+    }
+
+
+    /**
+     * Metadata type that holds information about the positioning, size,
+     * transparency and composition operator of a video frame in the timeline
+     * composition.
+     * @gir-type Struct
+     * @since 1.24
+     */
+    class FrameCompositionMeta {
+        static $gtype: GObject.GType<FrameCompositionMeta>;
+
+        // Fields
+        alpha: number;
+
+        posx: number;
+
+        posy: number;
+
+        height: number;
+
+        width: number;
+
+        zorder: number;
+
+        operator: number;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type GroupClass = typeof Group;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class GroupPrivate {
+        static $gtype: GObject.GType<GroupPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ImageSourceClass = typeof ImageSource;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ImageSourcePrivate {
+        static $gtype: GObject.GType<ImageSourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type LayerClass = typeof Layer;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class LayerPrivate {
+        static $gtype: GObject.GType<LayerPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MarkerClass = typeof Marker;
+
+    /**
+     * @gir-type Alias
+     */
+    type MarkerListClass = typeof MarkerList;
+
+    /**
+     * @gir-type Alias
+     */
+    type MetaContainerInterface = typeof MetaContainer;
+
+    /**
+     * @gir-type Alias
+     */
+    type MultiFileSourceClass = typeof MultiFileSource;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MultiFileSourcePrivate {
+        static $gtype: GObject.GType<MultiFileSourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type OperationClass = typeof Operation;
+
+    /**
+     * @gir-type Alias
+     */
+    type OperationClipClass = typeof OperationClip;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class OperationClipPrivate {
+        static $gtype: GObject.GType<OperationClipPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class OperationPrivate {
+        static $gtype: GObject.GType<OperationPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type OverlayClipClass = typeof OverlayClip;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class OverlayClipPrivate {
+        static $gtype: GObject.GType<OverlayClipPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type PipelineClass = typeof Pipeline;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class PipelinePrivate {
+        static $gtype: GObject.GType<PipelinePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type PitiviFormatterClass = typeof PitiviFormatter;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class PitiviFormatterPrivate {
+        static $gtype: GObject.GType<PitiviFormatterPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ProjectClass = typeof Project;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ProjectPrivate {
+        static $gtype: GObject.GType<ProjectPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceClass = typeof Source;
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceClipAssetClass = typeof SourceClipAsset;
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceClipClass = typeof SourceClip;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceClipPrivate {
+        static $gtype: GObject.GType<SourceClipPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourcePrivate {
+        static $gtype: GObject.GType<SourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type TestClipClass = typeof TestClip;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TestClipPrivate {
+        static $gtype: GObject.GType<TestClipPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type TextOverlayClass = typeof TextOverlay;
+
+    /**
+     * @gir-type Alias
+     */
+    type TextOverlayClipClass = typeof TextOverlayClip;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TextOverlayClipPrivate {
+        static $gtype: GObject.GType<TextOverlayClipPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TextOverlayPrivate {
+        static $gtype: GObject.GType<TextOverlayPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type TimelineClass = typeof Timeline;
+
+    /**
+     * @gir-type Alias
+     */
+    type TimelineElementClass = typeof TimelineElement;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TimelineElementPrivate {
+        static $gtype: GObject.GType<TimelineElementPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TimelinePrivate {
+        static $gtype: GObject.GType<TimelinePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type TitleClipClass = typeof TitleClip;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TitleClipPrivate {
+        static $gtype: GObject.GType<TitleClipPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type TitleSourceClass = typeof TitleSource;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TitleSourcePrivate {
+        static $gtype: GObject.GType<TitleSourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type TrackClass = typeof Track;
+
+    /**
+     * @gir-type Alias
+     */
+    type TrackElementAssetClass = typeof TrackElementAsset;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TrackElementAssetPrivate {
+        static $gtype: GObject.GType<TrackElementAssetPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type TrackElementClass = typeof TrackElement;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TrackElementPrivate {
+        static $gtype: GObject.GType<TrackElementPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TrackPrivate {
+        static $gtype: GObject.GType<TrackPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type TransitionClass = typeof Transition;
+
+    /**
+     * @gir-type Alias
+     */
+    type TransitionClipClass = typeof TransitionClip;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TransitionClipPrivate {
+        static $gtype: GObject.GType<TransitionClipPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TransitionPrivate {
+        static $gtype: GObject.GType<TransitionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type UriClipAssetClass = typeof UriClipAsset;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class UriClipAssetPrivate {
+        static $gtype: GObject.GType<UriClipAssetPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type UriClipClass = typeof UriClip;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class UriClipPrivate {
+        static $gtype: GObject.GType<UriClipPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class UriSource {
+        static $gtype: GObject.GType<UriSource>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type UriSourceAssetClass = typeof UriSourceAsset;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class UriSourceAssetPrivate {
+        static $gtype: GObject.GType<UriSourceAssetPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type VideoSourceClass = typeof VideoSource;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class VideoSourcePrivate {
+        static $gtype: GObject.GType<VideoSourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type VideoTestSourceClass = typeof VideoTestSource;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class VideoTestSourcePrivate {
+        static $gtype: GObject.GType<VideoTestSourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type VideoTrackClass = typeof VideoTrack;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class VideoTrackPrivate {
+        static $gtype: GObject.GType<VideoTrackPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type VideoTransitionClass = typeof VideoTransition;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class VideoTransitionPrivate {
+        static $gtype: GObject.GType<VideoTransitionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type VideoUriSourceClass = typeof VideoUriSource;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class VideoUriSourcePrivate {
+        static $gtype: GObject.GType<VideoUriSourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type XmlFormatterClass = typeof XmlFormatter;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class XmlFormatterPrivate {
+        static $gtype: GObject.GType<XmlFormatterPrivate>;
+    }
+
+
+    namespace Extractable {
+        /**
+         * Interface for implementing Extractable.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+             * that the object has no set asset, or even that such an asset does not
+             * yet exist in the GES cache. Instead, this will return the asset
+             * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+             * as determined by the {@link GES.Extractable} implementer. If it was indeed
+             * extracted from an asset, this should return the same as its
+             * corresponding asset {@link GES.Asset.id}.
+             * @virtual
+             */
+            vfunc_get_id(): string;
+
+            /**
+             * This method is called after the {@link GES.Asset} of an object is
+             * set. If your class supports the asset of an object changing, then you
+             * can use this method to change the parameters of the object to match the
+             * new asset {@link GES.Asset.id}. If setting the asset should be able to fail,
+             * you should implement `set_asset_full` instead.
+             * @param asset 
+             * @virtual
+             */
+            vfunc_set_asset(asset: Asset): void;
+
+            /**
+             * Like `set_asset`, but also allows you to return `false`
+             * to indicate a failure to change the object in response to a change in
+             * its asset.
+             * @param asset 
+             * @virtual
+             */
+            vfunc_set_asset_full(asset: Asset): boolean;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps {}
+    }
+
+    export interface ExtractableNamespace {
+        $gtype: GObject.GType<Extractable>;
+        prototype: Extractable;
+    }
+    /**
+     * A {@link GObject.Object} that implements the {@link GES.Extractable} interface can be
+     * extracted from a {@link GES.Asset} using `ges_asset_extract()`.
+     * 
+     * Each extractable type will have its own way of interpreting the
+     * {@link GES.Asset.id} of an asset (or, if it is associated with a specific
+     * subclass of {@link GES.Asset}, the asset subclass may handle the
+     * interpretation of the {@link GES.Asset.id}). By default, the requested asset
+     * {@link GES.Asset.id} will be ignored by a {@link GES.Extractable} and will be set to
+     * the type name of the extractable instead. Also by default, when the
+     * requested asset is extracted, the returned object will simply be a
+     * newly created default object of that extractable type. You should check
+     * the documentation for each extractable type to see if they differ from
+     * the default.
+     * 
+     * After the object is extracted, it will have a reference to the asset it
+     * came from, which you can retrieve using `ges_extractable_get_asset()`.
+     * @gir-type Interface
+     */
+    interface Extractable extends GObject.InitiallyUnowned, Extractable.Interface {
+
+        // Methods
+        /**
+         * Get the asset that has been set on the extractable object.
+         * @returns The asset set on `self`, or `null` if no asset has been set.
+         */
+        get_asset(): Asset | null;
+
+        /**
+         * Gets the {@link GES.Asset.id} of some associated asset. It may be the case
+         * that the object has no set asset, or even that such an asset does not
+         * yet exist in the GES cache. Instead, this will return the asset
+         * {@link GES.Asset.id} that is _compatible_ with the current state of the object,
+         * as determined by the {@link GES.Extractable} implementer. If it was indeed
+         * extracted from an asset, this should return the same as its
+         * corresponding asset {@link GES.Asset.id}.
+         * @returns The {@link GES.Asset.id} of some associated {@link GES.Asset} that is compatible with `self`'s current state.
+         */
+        get_id(): string;
+
+        /**
+         * Sets the asset for this extractable object.
+         * 
+         * When an object is extracted from an asset using `ges_asset_extract()` its
+         * asset will be automatically set. Note that many classes that implement
+         * {@link GES.Extractable} will automatically create their objects using assets
+         * when you call their `new` methods. However, you can use this method to
+         * associate an object with a compatible asset if it was created by other
+         * means and does not yet have an asset. Or, for some implementations of
+         * {@link GES.Extractable}, you can use this to change the asset of the given
+         * extractable object, which will lead to a change in its state to
+         * match the new asset {@link GES.Asset.id}.
+         * @param asset The asset to set
+         * @returns `true` if `asset` could be successfully set on `self`.
+         */
+        set_asset(asset: Asset): boolean;
+    }
+
+
+    export const Extractable: ExtractableNamespace & {
+        new (): Extractable; // This allows `obj instanceof Extractable`
+    };
+
+    namespace MetaContainer {
+        // Signal signatures
+        interface SignalSignatures {
+            /**
+             * This is emitted for a meta container whenever the metadata under one
+             * of its fields changes, is set for the first time, or is removed. In
+             * the latter case, `value` will be `null`.
+             * @signal
+             * @detailed
+             * @run-first
+             */
+            "notify-meta": (key: string, value: unknown | null) => void;
+            [key: `notify-meta::${string}`]: (key: string, value: unknown | null) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    export interface MetaContainerNamespace {
+        $gtype: GObject.GType<MetaContainer>;
+        prototype: MetaContainer;
+    }
+    /**
+     * A {@link GObject.Object} that implements {@link GES.MetaContainer} can have metadata set on
+     * it, that is data that is unimportant to its function within GES, but
+     * may hold some useful information. In particular,
+     * `ges_meta_container_set_meta()` can be used to store any {@link GObject.Value} under
+     * any generic field (specified by a string key). The same method can also
+     * be used to remove the field by passing `null`. A number of convenience
+     * methods are also provided to make it easier to set common value types.
+     * The metadata can then be read with `ges_meta_container_get_meta()` and
+     * similar convenience methods.
+     * 
+     * ## Registered Fields
+     * 
+     * By default, any {@link GObject.Value} can be set for a metadata field. However, you
+     * can register some fields as static, that is they only allow values of a
+     * specific type to be set under them, using
+     * `ges_meta_container_register_meta()` or
+     * `ges_meta_container_register_static_meta()`. The set {@link GES.MetaFlag} will
+     * determine whether the value can be changed, but even if it can be
+     * changed, it must be changed to a value of the same type.
+     * 
+     * Internally, some GES objects will be initialized with static metadata
+     * fields. These will correspond to some standard keys, such as
+     * #GES_META_VOLUME.
+     * @gir-type Interface
+     */
+    interface MetaContainer extends GObject.Object {
+
+        // Methods
+        /**
+         * Deserializes the given string, and adds and sets the found fields and
+         * their values on the container. The string should be the return of
+         * `ges_meta_container_metas_to_string()`.
+         * @param str A string to deserialize and add to `container`
+         * @returns `true` if the fields in `str` was successfully deserialized and added to `container`.
+         */
+        add_metas_from_string(str: string): boolean;
+
+        /**
+         * Checks whether the specified field has been registered as static, and
+         * gets the registered type and flags of the field, as used in
+         * `ges_meta_container_register_meta()` and
+         * `ges_meta_container_register_static_meta()`.
+         * @param meta_item The key for the `container` field to check
+         * @returns `true` if the `meta_item` field has been registered on `container`.
+         */
+        check_meta_registered(meta_item: string): [boolean, MetaFlag | null, GObject.GType | null];
+
+        /**
+         * Calls the given function on each of the meta container's set metadata
+         * fields.
+         * @param func A function to call on each of    `container`'s set metadata fields
+         */
+        foreach(func: MetaForeachFunc): void;
+
+        /**
+         * Gets the current boolean value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the boolean value under `meta_item` was copied to `dest`.
+         */
+        get_boolean(meta_item: string): [boolean, boolean];
+
+        /**
+         * Gets the current date value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date value under `meta_item` was copied to `dest`.
+         */
+        get_date(meta_item: string): [boolean, GLib.Date | null];
+
+        /**
+         * Gets the current date time value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the date time value under `meta_item` was copied to `dest`.
+         */
+        get_date_time(meta_item: string): [boolean, Gst.DateTime | null];
+
+        /**
+         * Gets the current double value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the double value under `meta_item` was copied to `dest`.
+         */
+        get_double(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current float value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the float value under `meta_item` was copied to `dest`.
+         */
+        get_float(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int value under `meta_item` was copied to `dest`.
+         */
+        get_int(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current int64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the int64 value under `meta_item` was copied to `dest`.
+         */
+        get_int64(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current marker list value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param key The key for the `container` field to get
+         * @returns A copy of the marker list value under `key`, or `null` if it could not be fetched.
+         * @since 1.18
+         */
+        get_marker_list(key: string): MarkerList | null;
+
+        /**
+         * Gets the current value of the specified field of the meta container.
+         * @param key The key for the `container` field to get
+         * @returns The value under `key`, or `null` if `container` does not have the field set.
+         */
+        get_meta(key: string): unknown | null;
+
+        /**
+         * Gets the current string value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns The string value under `meta_item`, or `null` if it could not be fetched.
+         */
+        get_string(meta_item: string): string | null;
+
+        /**
+         * Gets the current uint value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint value under `meta_item` was copied to `dest`.
+         */
+        get_uint(meta_item: string): [boolean, number];
+
+        /**
+         * Gets the current uint64 value of the specified field of the meta
+         * container. If the field does not have a set value, or it is of the
+         * wrong type, the method will fail.
+         * @param meta_item The key for the `container` field to get
+         * @returns `true` if the uint64 value under `meta_item` was copied to `dest`.
+         */
+        get_uint64(meta_item: string): [boolean, number];
+
+        /**
+         * Serializes the set metadata fields of the meta container to a string.
+         * @returns A serialized `container`.
+         */
+        metas_to_string(): string;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given value, and registers the field to only hold a value of the
+         * same type. After calling this, only values of the same type as `value`
+         * can be set for this field. The given flags can be set to make this
+         * field only readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `value` types, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta(flags: MetaFlag, meta_item: string, value: GObject.Value | any): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value, and registers the field to only hold a boolean
+         * typed value. After calling this, only boolean values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold boolean typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_boolean(flags: MetaFlag, meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value, and registers the field to only hold a date
+         * typed value. After calling this, only date values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date(flags: MetaFlag, meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value, and registers the field to only hold a date time
+         * typed value. After calling this, only date time values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold date time typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_date_time(flags: MetaFlag, meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value, and registers the field to only hold a double
+         * typed value. After calling this, only double values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold double typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_double(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value, and registers the field to only hold a float
+         * typed value. After calling this, only float values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold float typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_float(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value, and registers the field to only hold an int
+         * typed value. After calling this, only int values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value, and registers the field to only hold an int64
+         * typed value. After calling this, only int64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold int64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_int64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value, and registers the field to only hold a string
+         * typed value. After calling this, only string values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold string typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_string(flags: MetaFlag, meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value, and registers the field to only hold a uint
+         * typed value. After calling this, only uint values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint(flags: MetaFlag, meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value, and registers the field to only hold a uint64
+         * typed value. After calling this, only uint64 values can be set for
+         * this field. The given flags can be set to make this field only
+         * readable after calling this method.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param value The value to set for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold uint64 typed values, with the given `flags`, and the field was successfully set to `value`.
+         */
+        register_meta_uint64(flags: MetaFlag, meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Registers a static metadata field on the container to only hold the
+         * specified type. After calling this, setting a value under this field
+         * can only succeed if its type matches the registered type of the field.
+         * 
+         * Unlike `ges_meta_container_register_meta()`, no (initial) value is set
+         * for this field, which means you can use this method to reserve the
+         * space to be _optionally_ set later.
+         * 
+         * Note that if a value has already been set for the field being
+         * registered, then its type must match the registering type, and its
+         * value will be left in place. If the field has no set value, then
+         * you will likely want to include #GES_META_WRITABLE in `flags` to allow
+         * the value to be set later.
+         * @param flags Flags to be used for the registered field
+         * @param meta_item The key for the `container` field to register
+         * @param type The required value type for the registered field
+         * @returns `true` if the `meta_item` field was successfully registered on `container` to only hold `type` values, with the given `flags`.
+         * @since 1.18
+         */
+        register_static_meta(flags: MetaFlag, meta_item: string, type: GObject.GType): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given boolean value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_boolean(meta_item: string, value: boolean): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date(meta_item: string, value: GLib.Date): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given date time value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_date_time(meta_item: string, value: Gst.DateTime): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given double value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_double(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given float value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_float(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given int64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_int64(meta_item: string, value: bigint | number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given marker list value.
+         * @param meta_item The key for the `container` field to set
+         * @param list The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         * @since 1.18
+         */
+        set_marker_list(meta_item: string, list: MarkerList): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to a
+         * copy of the given value. If the given `value` is `null`, the field
+         * given by `meta_item` is removed and `true` is returned.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`, or `null` to remove the corresponding field
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_meta(meta_item: string, value: GObject.Value | any | null): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given string value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_string(meta_item: string, value: string): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint(meta_item: string, value: number): boolean;
+
+        /**
+         * Sets the value of the specified field of the meta container to the
+         * given uint64 value.
+         * @param meta_item The key for the `container` field to set
+         * @param value The value to set under `meta_item`
+         * @returns `true` if `value` was set under `meta_item` for `container`.
+         */
+        set_uint64(meta_item: string, value: bigint | number): boolean;
+    }
+
+
+    export const MetaContainer: MetaContainerNamespace & {
+        new (): MetaContainer; // This allows `obj instanceof MetaContainer`
+    };
+
+    /**
+     * A datatype to hold a frame number.
+     * @gir-type Alias
+     */
+    type FrameNumber = bigint | number;
+
+    /**
+     * Name of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L188
+     */
+    const __name__: string;
+
+    /**
+     * Version of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L189
+     */
+    const __version__: string;
+}
+
+export default GES;
+
+}
+
+declare module 'gi://GES' {
+    import GES10 from 'gi://GES?version=1.0';
+    export default GES10;
+}
+// END

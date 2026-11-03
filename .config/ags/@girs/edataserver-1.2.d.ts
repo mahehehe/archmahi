@@ -1,0 +1,21792 @@
+/// <reference path="./libxml2-2.0.d.ts" />
+/// <reference path="./soup-3.0.d.ts" />
+/// <reference path="./gio-2.0.d.ts" />
+/// <reference path="./gobject-2.0.d.ts" />
+/// <reference path="./glib-2.0.d.ts" />
+/// <reference path="./gmodule-2.0.d.ts" />
+/// <reference path="./json-1.0.d.ts" />
+/// <reference path="./camel-1.2.d.ts" />
+
+/**
+ * Type Definitions for Gjs (https://gjs.guide/)
+ *
+ * These type definitions are automatically generated, do not edit them by hand.
+ * If you found a bug fix it in `ts-for-gir` or create a bug report on https://github.com/gjsify/ts-for-gir
+ *
+ * The based EJS template file is used for the generated .d.ts file of each GIR module like Gtk-4.0, GObject-2.0, ...
+ */
+
+declare module 'gi://EDataServer?version=1.2' {
+
+// Module dependencies
+import type libxml2 from 'gi://libxml2?version=2.0';
+import type Soup from 'gi://Soup?version=3.0';
+import type Gio from 'gi://Gio?version=2.0';
+import type GObject from 'gi://GObject?version=2.0';
+import type GLib from 'gi://GLib?version=2.0';
+import type GModule from 'gi://GModule?version=2.0';
+import type Json from 'gi://Json?version=1.0';
+import type Camel from 'gi://Camel?version=1.2';
+
+export namespace EDataServer {
+
+    /**
+     * EDataServer-1.2
+     */
+
+
+    /**
+     * Error codes for {@link EDataServer.Client} operations.
+     * @gir-type Enum
+     * @since 3.2
+     */
+    enum ClientError {
+        /**
+         * Invalid argument was used
+         */
+        INVALID_ARG = 0,
+        /**
+         * The client is busy
+         */
+        BUSY = 1,
+        /**
+         * The source is not loaded
+         */
+        SOURCE_NOT_LOADED = 2,
+        /**
+         * The source is already loaded
+         */
+        SOURCE_ALREADY_LOADED = 3,
+        /**
+         * Authentication failed
+         */
+        AUTHENTICATION_FAILED = 4,
+        /**
+         * Authentication required
+         */
+        AUTHENTICATION_REQUIRED = 5,
+        /**
+         * The repository (client) is offline
+         */
+        REPOSITORY_OFFLINE = 6,
+        /**
+         * The operation is unavailable in offline mode
+         */
+        OFFLINE_UNAVAILABLE = 7,
+        /**
+         * Permission denied for the operation
+         */
+        PERMISSION_DENIED = 8,
+        /**
+         * The operation was cancelled
+         */
+        CANCELLED = 9,
+        /**
+         * The operation cannot be cancelled
+         */
+        COULD_NOT_CANCEL = 10,
+        /**
+         * The operation is not supported
+         */
+        NOT_SUPPORTED = 11,
+        /**
+         * TLS is not available
+         */
+        TLS_NOT_AVAILABLE = 12,
+        /**
+         * Requested authentication method is not supported
+         */
+        UNSUPPORTED_AUTHENTICATION_METHOD = 13,
+        /**
+         * Search size limit exceeded
+         */
+        SEARCH_SIZE_LIMIT_EXCEEDED = 14,
+        /**
+         * Search time limit exceeded
+         */
+        SEARCH_TIME_LIMIT_EXCEEDED = 15,
+        /**
+         * The query was invalid
+         */
+        INVALID_QUERY = 16,
+        /**
+         * The query was refused by the server side
+         */
+        QUERY_REFUSED = 17,
+        /**
+         * A D-Bus error occurred
+         */
+        DBUS_ERROR = 18,
+        /**
+         * Other error
+         */
+        OTHER_ERROR = 19,
+        /**
+         * The client is not opened
+         */
+        NOT_OPENED = 20,
+        /**
+         * The client is out of sync with the server
+         */
+        OUT_OF_SYNC = 21,
+    }
+
+
+    /**
+     * Errors from the #E_COLLATOR_ERROR domain.
+     * @gir-type Struct
+     */
+    class CollatorError extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        /**
+         * An error occured trying to open a collator and access collation data.
+         */
+        static OPEN: number;
+
+        /**
+         * An error occurred converting character encodings
+         */
+        static CONVERSION: number;
+
+        /**
+         * A malformed locale name was given to `e_collator_new()`
+         */
+        static INVALID_LOCALE: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace ConflictResolution {
+        export const $gtype: GObject.GType<ConflictResolution>;
+    }
+
+    /**
+     * Defines what to do when a conflict between the locally stored and
+     * remotely stored object versions happen during object modify or remove.
+     * @gir-type Enum
+     * @since 3.26
+     */
+    enum ConflictResolution {
+        /**
+         * Fail when a write-conflict occurs.
+         */
+        FAIL = 0,
+        /**
+         * Use newer version of the object,
+         *    which can be either the server version or the local version of it.
+         */
+        USE_NEWER = 1,
+        /**
+         * Keep server object on conflict.
+         */
+        KEEP_SERVER = 2,
+        /**
+         * Write local version of the object on conflict.
+         */
+        KEEP_LOCAL = 3,
+        /**
+         * Create a new copy of the object on conflict.
+         */
+        WRITE_COPY = 4,
+    }
+
+
+    /**
+     * Holds status of a task.
+     * @gir-type Enum
+     * @since 3.46
+     */
+    enum GDataTaskStatus {
+        /**
+         * unknown status
+         */
+        UNKNOWN = 0,
+        /**
+         * the task needs action
+         */
+        NEEDS_ACTION = 1,
+        /**
+         * the task is completed
+         */
+        COMPLETED = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace MdnResponsePolicy {
+        export const $gtype: GObject.GType<MdnResponsePolicy>;
+    }
+
+    /**
+     * Policy for responding to Message Disposition Notification requests
+     * (i.e. a Disposition-Notification-To header) when receiving messages.
+     * See RFC 2298 for more information about MDN requests.
+     * @gir-type Enum
+     * @since 3.6
+     */
+    enum MdnResponsePolicy {
+        /**
+         * Never respond to an MDN request.
+         */
+        NEVER = 0,
+        /**
+         * Always respond to an MDN request.
+         */
+        ALWAYS = 1,
+        /**
+         * Ask the user before responding to an MDN request.
+         */
+        ASK = 2,
+    }
+
+
+    /**
+     * Error codes for {@link EDataServer.OAuth2Service} operations.
+     * @gir-type Struct
+     */
+    class OAuth2ServiceError extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        /**
+         * a generic error
+         */
+        static FAILED: number;
+
+        /**
+         * the {@link EDataServer.Source} is not valid for the OAuth2 service
+         */
+        static INVALID_SOURCE: number;
+
+        /**
+         * the OAuth2 secret was not found in the keyring
+         */
+        static SECRET_NOT_FOUND: number;
+
+        /**
+         * the server returned a malformed or unexpected response
+         */
+        static INVALID_RESPONSE: number;
+
+        /**
+         * the access token expired and could not be refreshed
+         */
+        static TOKEN_EXPIRED: number;
+
+        /**
+         * the server rejected the token refresh request
+         */
+        static REFRESH_FAILED: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+    }
+
+
+    /**
+     * A value used during querying authentication URI, to decide whether certain
+     * resource can be used or not. The `E_OAUTH2_SERVICE_NAVIGATION_POLICY_ABORT`
+     * can be used to abort the authentication query, like when user cancelled it.
+     * @gir-type Enum
+     * @since 3.28
+     */
+    enum OAuth2ServiceNavigationPolicy {
+        /**
+         * Deny navigation to the given web resource
+         */
+        DENY = 0,
+        /**
+         * Allow navigation to the given web resource
+         */
+        ALLOW = 1,
+        /**
+         * Abort authentication processing
+         */
+        ABORT = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace ProxyMethod {
+        export const $gtype: GObject.GType<ProxyMethod>;
+    }
+
+    /**
+     * Network proxy configuration methods.
+     * @gir-type Enum
+     * @since 3.12
+     */
+    enum ProxyMethod {
+        /**
+         * Use the default {@link Gio.ProxyResolver} (see `g_proxy_resolver_get_default()`).
+         */
+        DEFAULT = 0,
+        /**
+         * Use the FTP/HTTP/HTTPS/SOCKS settings defined in {@link EDataServer.SourceProxy}.
+         */
+        MANUAL = 1,
+        /**
+         * Use the autoconfiguration URL defined in {@link EDataServer.SourceProxy}.
+         */
+        AUTO = 2,
+        /**
+         * Direct connection; do not use a network proxy.
+         */
+        NONE = 3,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace SourceAuthenticationResult {
+        export const $gtype: GObject.GType<SourceAuthenticationResult>;
+    }
+
+    /**
+     * Status codes used by the `EBackend` authentication wrapper.
+     * @gir-type Enum
+     * @since 3.6
+     */
+    enum SourceAuthenticationResult {
+        /**
+         * Unknown error occurred while authenticating. Since: 3.26
+         */
+        UNKNOWN = -1,
+        /**
+         * An error occurred while authenticating.
+         */
+        ERROR = 0,
+        /**
+         * An SSL certificate check failed. Since: 3.16.
+         */
+        ERROR_SSL_FAILED = 1,
+        /**
+         * Server requesting authentication accepted password.
+         */
+        ACCEPTED = 2,
+        /**
+         * Server requesting authentication rejected password.
+         */
+        REJECTED = 3,
+        /**
+         * Server requesting authentication, but none was given.
+         */
+        REQUIRED = 4,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace SourceConnectionStatus {
+        export const $gtype: GObject.GType<SourceConnectionStatus>;
+    }
+
+    /**
+     * Connection status codes used by the {@link EDataServer.Source} to indicate its connection state.
+     * This is used in combination with authentication of the ESource. For example,
+     * if there are multiple clients asking for a password and a user enters the password
+     * in one of them, then the status will change into 'connecting', which is a signal
+     * do close the password prompt in the other client, because the credentials had
+     * been already provided.
+     * @gir-type Enum
+     * @since 3.16
+     */
+    enum SourceConnectionStatus {
+        /**
+         * The source is currently disconnected from its (possibly remote) data store.
+         */
+        DISCONNECTED = 0,
+        /**
+         * The source asked for credentials with a 'credentials-required' signal and
+         *   is currently awaiting for them.
+         */
+        AWAITING_CREDENTIALS = 1,
+        /**
+         * A user rejected SSL certificate trust for the connection.
+         */
+        SSL_FAILED = 2,
+        /**
+         * The source is currently connecting to its (possibly remote) data store.
+         */
+        CONNECTING = 3,
+        /**
+         * The source is currently connected to its (possibly remote) data store.
+         */
+        CONNECTED = 4,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace SourceCredentialsReason {
+        export const $gtype: GObject.GType<SourceCredentialsReason>;
+    }
+
+    /**
+     * An ESource's authentication reason, used by an ESource::CredentialsRequired method.
+     * @gir-type Enum
+     * @since 3.16
+     */
+    enum SourceCredentialsReason {
+        /**
+         * A return value when there was no 'credentials-required' signal emitted yet,
+         *   or a pair 'authenticate' signal had been received. This value should not
+         *   be used in the call of 'credentials-required'.
+         */
+        UNKNOWN = 0,
+        /**
+         * This is the first attempt to get credentials for the source. It's usually
+         *   used right after the source is opened and the authentication continues with
+         *   a stored credentials, if any.
+         */
+        REQUIRED = 1,
+        /**
+         * The previously used credentials had been rejected by the server. That
+         *   usually means that the user should be asked to provide/correct the credentials.
+         */
+        REJECTED = 2,
+        /**
+         * A secured connection failed due to some server-side certificate issues.
+         */
+        SSL_FAILED = 3,
+        /**
+         * The server returned an error. It is not possible to connect to it
+         *   at the moment usually.
+         */
+        ERROR = 4,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace SourceLDAPAuthentication {
+        export const $gtype: GObject.GType<SourceLDAPAuthentication>;
+    }
+
+    /**
+     * Defines authentication types for LDAP sources.
+     * @gir-type Enum
+     * @since 3.18
+     */
+    enum SourceLDAPAuthentication {
+        /**
+         * Use none authentication type.
+         */
+        NONE = 0,
+        /**
+         * Use an email address for authentication.
+         */
+        EMAIL = 1,
+        /**
+         * Use a bind DN for authentication.
+         */
+        BINDDN = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace SourceLDAPScope {
+        export const $gtype: GObject.GType<SourceLDAPScope>;
+    }
+
+    /**
+     * Defines search scope for LDAP sources.
+     * @gir-type Enum
+     * @since 3.18
+     */
+    enum SourceLDAPScope {
+        /**
+         * One level search scope.
+         */
+        ONELEVEL = 0,
+        /**
+         * Sub-tree search scope.
+         */
+        SUBTREE = 1,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace SourceLDAPSecurity {
+        export const $gtype: GObject.GType<SourceLDAPSecurity>;
+    }
+
+    /**
+     * Defines what connection security should be used for LDAP sources.
+     * @gir-type Enum
+     * @since 3.18
+     */
+    enum SourceLDAPSecurity {
+        /**
+         * Connect insecurely.
+         */
+        NONE = 0,
+        /**
+         * Connect using secure LDAP (LDAPS).
+         */
+        LDAPS = 1,
+        /**
+         * Connect using STARTTLS.
+         */
+        STARTTLS = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace SourceMailCompositionReplyStyle {
+        export const $gtype: GObject.GType<SourceMailCompositionReplyStyle>;
+    }
+
+    /**
+     * Set of preferred reply styles for an {@link EDataServer.SourceMailComposition} extension.
+     * @gir-type Enum
+     * @since 3.20
+     */
+    enum SourceMailCompositionReplyStyle {
+        /**
+         * Use default reply style.
+         */
+        DEFAULT = 0,
+        /**
+         * Use quoted reply style.
+         */
+        QUOTED = 1,
+        /**
+         * Do not quote anything in replies.
+         */
+        DO_NOT_QUOTE = 2,
+        /**
+         * Attach original message in replies.
+         */
+        ATTACH = 3,
+        /**
+         * Use Outlook reply style.
+         */
+        OUTLOOK = 4,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace SourceWeatherUnits {
+        export const $gtype: GObject.GType<SourceWeatherUnits>;
+    }
+
+    /**
+     * Units to be used in an {@link EDataServer.SourceWeather} extension.
+     * @gir-type Enum
+     * @since 3.18
+     */
+    enum SourceWeatherUnits {
+        /**
+         * Fahrenheit units
+         */
+        FAHRENHEIT = 0,
+        /**
+         * Centigrade units
+         */
+        CENTIGRADE = 1,
+        /**
+         * Kelvin units
+         */
+        KELVIN = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace ThreeState {
+        export const $gtype: GObject.GType<ThreeState>;
+    }
+
+    /**
+     * Describes a three-state value, which can be either Off, On or Inconsistent.
+     * @gir-type Enum
+     * @since 3.26
+     */
+    enum ThreeState {
+        /**
+         * the three-state value is Off
+         */
+        OFF = 0,
+        /**
+         * the three-state value is On
+         */
+        ON = 1,
+        /**
+         * the three-state value is neither On, nor Off
+         */
+        INCONSISTENT = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum TimeParseStatus {
+        /**
+         * The time string was parsed successfully.
+         */
+        OK = 0,
+        /**
+         * The time string was empty.
+         */
+        NONE = 1,
+        /**
+         * The time string was not formatted correctly.
+         */
+        INVALID = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace TrustPromptResponse {
+        export const $gtype: GObject.GType<TrustPromptResponse>;
+    }
+
+    /**
+     * Response codes for the trust prompt.
+     * @gir-type Enum
+     * @since 3.8
+     */
+    enum TrustPromptResponse {
+        /**
+         * Unknown response, usually due to some error
+         */
+        UNKNOWN = -1,
+        /**
+         * Reject permanently
+         */
+        REJECT = 0,
+        /**
+         * Accept permanently
+         */
+        ACCEPT = 1,
+        /**
+         * Accept temporarily
+         */
+        ACCEPT_TEMPORARILY = 2,
+        /**
+         * Reject temporarily
+         */
+        REJECT_TEMPORARILY = 3,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum WebDAVACEPrincipalKind {
+        UNKNOWN = 0,
+        HREF = 1,
+        ALL = 2,
+        AUTHENTICATED = 3,
+        UNAUTHENTICATED = 4,
+        PROPERTY = 5,
+        SELF = 6,
+        OWNER = 7,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum WebDAVLockScope {
+        EXCLUSIVE = 0,
+        SHARED = 1,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum WebDAVPrivilegeHint {
+        UNKNOWN = 0,
+        READ = 1,
+        WRITE = 2,
+        WRITE_PROPERTIES = 3,
+        WRITE_CONTENT = 4,
+        UNLOCK = 5,
+        READ_ACL = 6,
+        WRITE_ACL = 7,
+        READ_CURRENT_USER_PRIVILEGE_SET = 8,
+        BIND = 9,
+        UNBIND = 10,
+        ALL = 11,
+        CALDAV_READ_FREE_BUSY = 12,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum WebDAVPrivilegeKind {
+        UNKNOWN = 0,
+        ABSTRACT = 1,
+        AGGREGATE = 2,
+        COMMON = 3,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum WebDAVPropertyChangeKind {
+        SET = 0,
+        REMOVE = 1,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum WebDAVResourceKind {
+        UNKNOWN = 0,
+        ADDRESSBOOK = 1,
+        CALENDAR = 2,
+        PRINCIPAL = 3,
+        COLLECTION = 4,
+        RESOURCE = 5,
+        SUBSCRIBED_ICALENDAR = 6,
+        WEBDAV_NOTES = 7,
+        SCHEDULE_INBOX = 8,
+        SCHEDULE_OUTBOX = 9,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum XmlHashStatus {
+        /**
+         * The compared values are the same.
+         */
+        SAME = 0,
+        /**
+         * The compared values are different.
+         */
+        DIFFERENT = 1,
+        /**
+         * The key to compare against was not found.
+         */
+        NOT_FOUND = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    enum XmlHashType {
+        /**
+         * Use the object UID as the hash key.
+         */
+        OBJECT_UID = 0,
+        /**
+         * Use the property name as the hash key.
+         */
+        PROPERTY = 1,
+    }
+
+
+    /**
+     * The "cache-dir" property indicates the backend's local directory for
+     * cached data.
+     * @since 3.2
+     * @default cache-dir
+     */
+    const CLIENT_BACKEND_PROPERTY_CACHE_DIR: string;
+
+    /**
+     * The "capabilities" property is a comma-separated list of capabilities
+     * supported by the backend.  The preferred method of retrieving and working
+     * with capabilities is `e_client_get_capabilities()` and
+     * `e_client_check_capability()`.
+     * @since 3.2
+     * @default capabilities
+     */
+    const CLIENT_BACKEND_PROPERTY_CAPABILITIES: string;
+
+    /**
+     * The "online" property is "TRUE" when the client is fully opened and
+     * online, "FALSE" at all other times.  See also `e_client_is_online()`.
+     * @since 3.2
+     * @default online
+     */
+    const CLIENT_BACKEND_PROPERTY_ONLINE: string;
+
+    /**
+     * The "opened" property is "TRUE" when the client is fully opened,
+     * "FALSE" at all other times.
+     * @since 3.2
+     * @deprecated since 3.8: Clients don't need to care if they're fully opened                  anymore.  This property will always return `true`.
+     * @default opened
+     */
+    const CLIENT_BACKEND_PROPERTY_OPENED: string;
+
+    /**
+     * The "opening" property is "TRUE" when the client is in the process of
+     * opening, "FALSE" at all other times.
+     * @since 3.2
+     * @deprecated since 3.8: Clients don't need to care if they're fully opened                  anymore.  This property will always return `false`.
+     * @default opening
+     */
+    const CLIENT_BACKEND_PROPERTY_OPENING: string;
+
+    /**
+     * The "online" property is "TRUE" if the backend has only read access
+     * to its data, "FALSE" if the backend can modify its data.  See also
+     * `e_client_is_readonly()`.
+     * @since 3.2
+     * @default readonly
+     */
+    const CLIENT_BACKEND_PROPERTY_READONLY: string;
+
+    /**
+     * The current overall revision string, this can be used as
+     * a quick check to see if data has changed at all since the
+     * last time the revision was observed.
+     * @since 3.4
+     * @default revision
+     */
+    const CLIENT_BACKEND_PROPERTY_REVISION: string;
+
+    /**
+     * @since 2.32
+     * @default CalQueries
+     */
+    const DEBUG_LOG_DOMAIN_CAL_QUERIES: string;
+
+    /**
+     * @since 2.32
+     * @default GLog
+     */
+    const DEBUG_LOG_DOMAIN_GLOG: string;
+
+    /**
+     * @since 2.32
+     * @default USER
+     */
+    const DEBUG_LOG_DOMAIN_USER: string;
+
+    /**
+     * The major version number of the Evolution-Data-Server library.  Like
+     * `eds_major_version()`, but from the headers used at application compile
+     * time, rather than from the library linked against at application run
+     * time.
+     * @default 3
+     */
+    const EDS_MAJOR_VERSION: number;
+
+    /**
+     * The micro version number of the Evolution-Data-Server library.  Like
+     * `eds_micro_version()`, but from the headers used at application compile
+     * time, rather than from the library linked against at application run
+     * time.
+     * @default 1
+     */
+    const EDS_MICRO_VERSION: number;
+
+    /**
+     * The minor version number of the Evolution-Data-Server library.  Like
+     * `eds_minor_version()`, but from the headers used at application compile
+     * time, rather than from the library linked against at application run
+     * time.
+     * @default 62
+     */
+    const EDS_MINOR_VERSION: number;
+
+    /**
+     * A special name, which can be used as a GIO name in the call
+     * to `e_network_monitor_set_gio_name()`, which is used to report
+     * the network as always reachable.
+     * @since 3.22
+     * @default "always-online"
+     */
+    const NETWORK_MONITOR_ALWAYS_ONLINE_NAME: string;
+
+    /**
+     * @default access_token
+     */
+    const OAUTH2_SECRET_ACCESS_TOKEN: string;
+
+    /**
+     * @default expires_after
+     */
+    const OAUTH2_SECRET_EXPIRES_AFTER: string;
+
+    /**
+     * @default refresh_token
+     */
+    const OAUTH2_SECRET_REFRESH_TOKEN: string;
+
+    /**
+     * A name of the named parameter used for passwords in credentials,
+     * used to authenticate users with `e_source_invoke_authenticate_sync()`
+     * and `e_source_invoke_authenticate()`. The named parameter is optional,
+     * different authentication methods can use different names.
+     * @since 3.16
+     * @default password
+     */
+    const SOURCE_CREDENTIAL_PASSWORD: string;
+
+    /**
+     * A name of the named parameter used for SSL/TLS trust in credentials,
+     * used to authenticate users with `e_source_invoke_authenticate_sync()`
+     * and `e_source_invoke_authenticate()`. The named parameter is optional.
+     * Its value corresponds to current ESourceWebdav::ssl-trust property,
+     * in case the ESource has that extension available. This is required
+     * to have up-to-date data on the server side, when the client side
+     * just saved the SSL trust change, which might not be propagated
+     * into the server (factory) side quickly enough. The key is added into
+     * the credentials in `e_source_invoke_authenticate()` automatically, if the
+     * corresponding ESource contain a WebDAV extension and the key
+     * is not part of the credentials already.
+     * @since 3.16
+     * @default ssl-trust
+     */
+    const SOURCE_CREDENTIAL_SSL_TRUST: string;
+
+    /**
+     * A name of the named parameter used for usernames in credentials,
+     * used to authenticate users with `e_source_invoke_authenticate_sync()`
+     * and `e_source_invoke_authenticate()`. The named parameter is optional,
+     * different authentication methods can use different names.
+     * @since 3.16
+     * @default username
+     */
+    const SOURCE_CREDENTIAL_USERNAME: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceAddressBook}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Address Book
+     */
+    const SOURCE_EXTENSION_ADDRESS_BOOK: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceAlarms}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Alarms
+     */
+    const SOURCE_EXTENSION_ALARMS: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceAuthentication}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Authentication
+     */
+    const SOURCE_EXTENSION_AUTHENTICATION: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceAutocomplete}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Autocomplete
+     */
+    const SOURCE_EXTENSION_AUTOCOMPLETE: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceAutoconfig}.  This is also used as a group name in key files.
+     * @since 3.24
+     * @default Autoconfig
+     */
+    const SOURCE_EXTENSION_AUTOCONFIG: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceCalendar}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Calendar
+     */
+    const SOURCE_EXTENSION_CALENDAR: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceCollection}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Collection
+     */
+    const SOURCE_EXTENSION_COLLECTION: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceConflictSearch}.  This is also used as a group name in key files.
+     * @since 3.60
+     * @default Conflict Search
+     */
+    const SOURCE_EXTENSION_CONFLICT_SEARCH: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceContacts}.  This is also used as a group name in key files.
+     * @since 3.18
+     * @default Contacts Backend
+     */
+    const SOURCE_EXTENSION_CONTACTS_BACKEND: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceGoa}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default GNOME Online Accounts
+     */
+    const SOURCE_EXTENSION_GOA: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceLDAP}.  This is also used as a group name in key files.
+     * @since 3.18
+     * @default LDAP Backend
+     */
+    const SOURCE_EXTENSION_LDAP_BACKEND: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceLocal}.  This is also used as a group name in key files.
+     * @since 3.18
+     * @default Local Backend
+     */
+    const SOURCE_EXTENSION_LOCAL_BACKEND: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceMailAccount}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Mail Account
+     */
+    const SOURCE_EXTENSION_MAIL_ACCOUNT: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceMailComposition}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Mail Composition
+     */
+    const SOURCE_EXTENSION_MAIL_COMPOSITION: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceMailIdentity}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Mail Identity
+     */
+    const SOURCE_EXTENSION_MAIL_IDENTITY: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceMailSignature}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Mail Signature
+     */
+    const SOURCE_EXTENSION_MAIL_SIGNATURE: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceMailSubmission}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Mail Submission
+     */
+    const SOURCE_EXTENSION_MAIL_SUBMISSION: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceMailTransport}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Mail Transport
+     */
+    const SOURCE_EXTENSION_MAIL_TRANSPORT: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceMDN}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Message Disposition Notifications
+     */
+    const SOURCE_EXTENSION_MDN: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceMemoList}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Memo List
+     */
+    const SOURCE_EXTENSION_MEMO_LIST: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceOffline}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Offline
+     */
+    const SOURCE_EXTENSION_OFFLINE: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceOpenPGP}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Pretty Good Privacy (OpenPGP)
+     */
+    const SOURCE_EXTENSION_OPENPGP: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceProxy}.  This is also used as a group name in key files.
+     * @since 3.12
+     * @default Proxy
+     */
+    const SOURCE_EXTENSION_PROXY: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceRefresh}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Refresh
+     */
+    const SOURCE_EXTENSION_REFRESH: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceResource}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Resource
+     */
+    const SOURCE_EXTENSION_RESOURCE: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceRevisionGuards}.  This is also used as a group name in key files.
+     * @since 3.8
+     * @default Revision Guards
+     */
+    const SOURCE_EXTENSION_REVISION_GUARDS: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceSecurity}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Security
+     */
+    const SOURCE_EXTENSION_SECURITY: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceSMIME}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Secure MIME (S/MIME)
+     */
+    const SOURCE_EXTENSION_SMIME: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceTaskList}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default Task List
+     */
+    const SOURCE_EXTENSION_TASK_LIST: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceUoa}.  This is also used as a group name in key files.
+     * @since 3.8
+     * @default Ubuntu Online Accounts
+     */
+    const SOURCE_EXTENSION_UOA: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceWeather}.  This is also used as a group name in key files.
+     * @since 3.18
+     * @default Weather Backend
+     */
+    const SOURCE_EXTENSION_WEATHER_BACKEND: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceWebdav}.  This is also used as a group name in key files.
+     * @since 3.6
+     * @default WebDAV Backend
+     */
+    const SOURCE_EXTENSION_WEBDAV_BACKEND: string;
+
+    /**
+     * Pass this extension name to `e_source_get_extension()` to access
+     * {@link EDataServer.SourceWebDAVNotes}.  This is also used as a group name in key files.
+     * @since 3.44
+     * @default WebDAV Notes
+     */
+    const SOURCE_EXTENSION_WEBDAV_NOTES: string;
+
+    /**
+     * Extends {@link GObject.ParamSpecFlags} to indicate the {@link GObject.Object} property is associated
+     * with a key file value.  Use this flag when installing {@link GObject.Object} properties
+     * in {@link EDataServer.SourceExtension} subclasses.
+     * @since 3.6
+     * @default 1
+     */
+    const SOURCE_PARAM_SETTING: number;
+
+    /**
+     * @default access-control
+     */
+    const WEBDAV_CAPABILITY_ACCESS_CONTROL: string;
+
+    /**
+     * @default addressbook
+     */
+    const WEBDAV_CAPABILITY_ADDRESSBOOK: string;
+
+    /**
+     * @default bind
+     */
+    const WEBDAV_CAPABILITY_BIND: string;
+
+    /**
+     * @default calendar-access
+     */
+    const WEBDAV_CAPABILITY_CALENDAR_ACCESS: string;
+
+    /**
+     * @default calendar-auto-schedule
+     */
+    const WEBDAV_CAPABILITY_CALENDAR_AUTO_SCHEDULE: string;
+
+    /**
+     * @default calendar-proxy
+     */
+    const WEBDAV_CAPABILITY_CALENDAR_PROXY: string;
+
+    /**
+     * @default calendar-schedule
+     */
+    const WEBDAV_CAPABILITY_CALENDAR_SCHEDULE: string;
+
+    /**
+     * @default 1
+     */
+    const WEBDAV_CAPABILITY_CLASS_1: string;
+
+    /**
+     * @default 2
+     */
+    const WEBDAV_CAPABILITY_CLASS_2: string;
+
+    /**
+     * @default 3
+     */
+    const WEBDAV_CAPABILITY_CLASS_3: string;
+
+    /**
+     * @default extended-mkcol
+     */
+    const WEBDAV_CAPABILITY_EXTENDED_MKCOL: string;
+
+    /**
+     * @default i;
+     */
+    const WEBDAV_COLLATION_ASCII_CASEMAP: string;
+
+    /**
+     * @default ascii-casemap
+     */
+    const WEBDAV_COLLATION_ASCII_CASEMAP_SUFFIX: string;
+
+    /**
+     * @default i;
+     */
+    const WEBDAV_COLLATION_ASCII_NUMERIC: string;
+
+    /**
+     * @default ascii-numeric
+     */
+    const WEBDAV_COLLATION_ASCII_NUMERIC_SUFFIX: string;
+
+    /**
+     * @default i;
+     */
+    const WEBDAV_COLLATION_OCTET: string;
+
+    /**
+     * @default octet
+     */
+    const WEBDAV_COLLATION_OCTET_SUFFIX: string;
+
+    /**
+     * @default i;
+     */
+    const WEBDAV_COLLATION_UNICODE_CASEMAP: string;
+
+    /**
+     * @default unicode-casemap
+     */
+    const WEBDAV_COLLATION_UNICODE_CASEMAP_SUFFIX: string;
+
+    /**
+     * @default text/calendar; charset="utf-8"
+     */
+    const WEBDAV_CONTENT_TYPE_CALENDAR: string;
+
+    /**
+     * @default text/vcard; charset="utf-8"
+     */
+    const WEBDAV_CONTENT_TYPE_VCARD: string;
+
+    /**
+     * @default application/xml; charset="utf-8"
+     */
+    const WEBDAV_CONTENT_TYPE_XML: string;
+
+    /**
+     * @default infinity
+     */
+    const WEBDAV_DEPTH_INFINITY: string;
+
+    /**
+     * @default 0
+     */
+    const WEBDAV_DEPTH_THIS: string;
+
+    /**
+     * @default 1
+     */
+    const WEBDAV_DEPTH_THIS_AND_CHILDREN: string;
+
+    /**
+     * @default urn:ietf:params:xml:ns:caldav
+     */
+    const WEBDAV_NS_CALDAV: string;
+
+    /**
+     * @default http://calendarserver.org/ns/
+     */
+    const WEBDAV_NS_CALENDARSERVER: string;
+
+    /**
+     * @default urn:ietf:params:xml:ns:carddav
+     */
+    const WEBDAV_NS_CARDDAV: string;
+
+    /**
+     * @default DAV:
+     */
+    const WEBDAV_NS_DAV: string;
+
+    /**
+     * @default http://apple.com/ns/ical/
+     */
+    const WEBDAV_NS_ICAL: string;
+
+    /**
+     * Thread safe variant of `g_object_bind_property()`. See its documentation
+     * for more information on arguments and return value.
+     * @param source the source {@link GObject.Object}
+     * @param source_property the property on `source` to bind
+     * @param target the target {@link GObject.Object}
+     * @param target_property the property on `target` to bind
+     * @param flags flags to pass to {@link GObject.Binding}
+     * @since 3.16
+     */
+    function binding_bind_property(source: GObject.Object, source_property: string, target: GObject.Object, target_property: string, flags: GObject.BindingFlags): GObject.Binding;
+
+    /**
+     * Thread safe variant of `g_object_bind_property_with_closures()`. See its
+     * documentation for more information on arguments and return value.
+     * @param source the source {@link GObject.Object}
+     * @param source_property the property on `source` to bind
+     * @param target the target {@link GObject.Object}
+     * @param target_property the property on `target` to bind
+     * @param flags flags to pass to {@link GObject.Binding}
+     * @param transform_to a {@link GObject.Closure} wrapping the transformation function   from the `source` to the `target`, or `null` to use the default
+     * @param transform_from a {@link GObject.Closure} wrapping the transformation function   from the `target` to the `source`, or `null` to use the default
+     * @returns the {@link GObject.Binding} instance representing the   binding between the two {@link GObject.Object} instances. The binding is released   whenever the {@link GObject.Binding} reference count reaches zero.
+     * @since 3.16
+     */
+    function binding_bind_property_full(source: GObject.Object, source_property: string, target: GObject.Object, target_property: string, flags: GObject.BindingFlags, transform_to: GObject.Closure | null, transform_from: GObject.Closure | null): GObject.Binding;
+
+    /**
+     * Transforms an enumeration nickname to its corresponding value.
+     * @param binding a {@link GObject.Binding}
+     * @param source_value a {@link GObject.Value} of type #G_TYPE_STRING
+     * @param target_value a {@link GObject.Value} whose type is derived from #G_TYPE_ENUM
+     * @param not_used not used
+     * @returns `true` if the enum nickname has a corresponding value
+     * @since 3.4
+     */
+    function binding_transform_enum_nick_to_value(binding: GObject.Binding, source_value: GObject.Value | any, target_value: GObject.Value | any, not_used: null): boolean;
+
+    /**
+     * Transforms an enumeration value to its corresponding nickname.
+     * @param binding a {@link GObject.Binding}
+     * @param source_value a {@link GObject.Value} whose type is derived from #G_TYPE_ENUM
+     * @param target_value a {@link GObject.Value} of type #G_TYPE_STRING
+     * @param not_used not used
+     * @returns `true` if the enum value has a corresponding nickname
+     * @since 3.4
+     */
+    function binding_transform_enum_value_to_nick(binding: GObject.Binding, source_value: GObject.Value | any, target_value: GObject.Value | any, not_used: null): boolean;
+
+    /**
+     * Adds a new category, with its corresponding icon, to the
+     * configuration database.
+     * 
+     * This function is thread safe.
+     * @param category name of category to add.
+     * @param unused DEPRECATED! associated color. DEPRECATED!
+     * @param icon_file full path of the icon associated to the category.
+     * @param searchable whether the category can be used for searching in the GUI.
+     */
+    function categories_add(category: string, unused: string, icon_file: string, searchable: boolean): void;
+
+    /**
+     * Gets the icon file associated with the given category and returns a copy of
+     * it.
+     * 
+     * This function is thread safe.
+     * @param category category to retrieve the icon file for.
+     * @returns icon file name; free with `g_free()`.
+     * @since 3.16
+     */
+    function categories_dup_icon_file_for(category: string): string;
+
+    /**
+     * Returns a sorted list of all the category names currently configured.
+     * 
+     * This function is thread safe.
+     * @returns a sorted {@link GLib.List} containing the names of the categories. The list should be freed using `g_list_free()`, and the names of the categories should be freed using `g_free()`. Everything can be freed simultaneously using `g_list_free_full()`.
+     * @since 3.16
+     */
+    function categories_dup_list(): string[];
+
+    /**
+     * Checks whether the given category is available in the configuration.
+     * 
+     * This function is thread safe.
+     * @param category category to be searched.
+     * @returns `true` if the category is available, `false` otherwise.
+     */
+    function categories_exist(category: string): boolean;
+
+    /**
+     * Gets the icon file associated with the given category.
+     * 
+     * This function is mostly thread safe, but as the icon file name is not
+     * copied, it may be freed by another thread after being returned by this
+     * function. Use `e_categories_dup_icon_file_for()` instead.
+     * @param category category to retrieve the icon file for.
+     * @returns icon file name.
+     * @deprecated since 3.16: This function is not entirely thread safe. Use `e_categories_dup_icon_file_for()` instead.
+     */
+    function categories_get_icon_file_for(category: string): string;
+
+    /**
+     * Returns a sorted list of all the category names currently configured.
+     * 
+     * This function is mostly thread safe, but as the category names are not
+     * copied, they may be freed by another thread after being returned by this
+     * function. Use `e_categories_dup_list()` instead.
+     * @returns a sorted GList containing the names of the categories. The list should be freed using `g_list_free()`, but the names of the categories should not be touched at all, they are internal strings.
+     * @deprecated since 3.16: This function is not entirely thread safe. Use `e_categories_dup_list()` instead.
+     */
+    function categories_get_list(): string[];
+
+    /**
+     * Gets whether the given calendar is to be used for searches in the GUI.
+     * 
+     * This function is thread safe.
+     * 
+     * Return value; `true`% if the category is searchable, `false`% if not.
+     * @param category category name.
+     */
+    function categories_is_searchable(category: string): boolean;
+
+    /**
+     * Registers callback to be called on change of any category.
+     * Pair listener and user_data is used to distinguish between listeners.
+     * Listeners can be unregistered with `e_categories_unregister_change_listener`.
+     * 
+     * This function is thread safe.
+     * @param listener the callback to be called on any category change.
+     * @since 2.24
+     */
+    function categories_register_change_listener(listener: GObject.Callback): void;
+
+    /**
+     * Removes the given category from the configuration.
+     * 
+     * This function is thread safe.
+     * @param category category to be removed.
+     */
+    function categories_remove(category: string): void;
+
+    /**
+     * Sets the icon file associated with the given category.
+     * 
+     * This function is thread safe.
+     * @param category category to set the icon file for.
+     * @param icon_file icon file.
+     */
+    function categories_set_icon_file_for(category: string, icon_file: string): void;
+
+    /**
+     * Removes previously registered callback from the list of listeners on changes.
+     * If it was not registered, then does nothing.
+     * 
+     * This function is thread safe.
+     * @param listener Callback to be removed.
+     * @since 2.24
+     */
+    function categories_unregister_change_listener(listener: GObject.Callback): void;
+
+    function collator_error_quark(): GLib.Quark;
+
+    /**
+     * Returns the value set by `e_data_server_util_set_dbus_call_timeout()`.
+     * @returns the D-Bus call timeout in milliseconds
+     * @since 3.0
+     * @deprecated since 3.8: This value is not used anywhere.
+     */
+    function data_server_util_get_dbus_call_timeout(): number;
+
+    /**
+     * Sets default timeout, in milliseconds, for calls of `g_dbus_proxy_call()`
+     * family functions.
+     * 
+     * -1 means the default value as set by D-Bus itself.
+     * G_MAXINT means no timeout at all.
+     * 
+     * Default value is set also by configure option --with-dbus-call-timeout=ms
+     * and -1 is used when not set.
+     * @param timeout_msec default timeout for D-Bus calls in miliseconds
+     * @since 3.0
+     * @deprecated since 3.8: This value is not used anywhere.
+     */
+    function data_server_util_set_dbus_call_timeout(timeout_msec: number): void;
+
+    /**
+     * @since 2.32
+     */
+    function debug_log_clear(): void;
+
+    /**
+     * Disables all domains from the `domains` array.
+     * @param domains an array of domains to disable
+     * @since 2.32
+     */
+    function debug_log_disable_domains(domains: string[]): void;
+
+    /**
+     * Saves current log information to the given `filename`.
+     * @param filename a filename to save logged information to
+     * @returns whether succeeded
+     * @since 2.32
+     * @throws GLib.Error
+     */
+    function debug_log_dump(filename: string): boolean;
+
+    /**
+     * Saves current log information to a file "e-debug-log-YYYY-MM-DD-HH-mm-ss.txt"
+     * in the user's HOME directory.
+     * @returns whether succeeded
+     * @since 2.32
+     * @throws GLib.Error
+     */
+    function debug_log_dump_to_dated_file(): boolean;
+
+    /**
+     * Enables all domains from the `domains` array.
+     * @param domains an array of domains to enable
+     * @since 2.32
+     */
+    function debug_log_enable_domains(domains: string[]): void;
+
+    /**
+     * @since 2.32
+     */
+    function debug_log_get_max_lines(): number;
+
+    /**
+     * @param domain a log domain
+     * @returns whether the given log domain is enabled, which means   that any logging to this domain is recorded.
+     * @since 2.32
+     */
+    function debug_log_is_domain_enabled(domain: string): boolean;
+
+    /**
+     * Loads configuration for the logging from the given `filename`.
+     * @param filename a configuration file name
+     * @returns whether succeeded
+     * @since 2.32
+     * @throws GLib.Error
+     */
+    function debug_log_load_configuration(filename: string): boolean;
+
+    /**
+     * Limits how many lines the log can have.
+     * @param num_lines number of lines
+     * @since 2.32
+     */
+    function debug_log_set_max_lines(num_lines: number): void;
+
+    /**
+     * Checks that the Evolution-Data-Server library in use is compatible with
+     * the given version.  Generally you would pass in the constants
+     * #EDS_MAJOR_VERSION, #EDS_MINOR_VERSION, #EDS_MICRO_VERSION as the three
+     * arguments to this function.  That produces a check that the library in
+     * use is compatible with the version of Evolution-Data-Server the
+     * application or module was compiled against.
+     * @param required_major the required major version
+     * @param required_minor the required minor version
+     * @param required_micro the required micro version
+     * @returns `null` if the Evolution-Data-Server library is compatible with the given version, or a string describing the version mismatch.  The returned string is owned by libedataserver and must not be modified or freed.
+     * @since 2.24
+     */
+    function eds_check_version(required_major: number, required_minor: number, required_micro: number): string | null;
+
+    /**
+     * Fetches the appropriate enumeration value for `string` in the given
+     * enum type `type` and stores the result in `enum_value`
+     * @param enum_type The enum type
+     * @param string The string containing the enum value or nick
+     * @param enum_value A return location to store the result
+     * @returns `true` if the string was a valid name or nick        for the given `type`, `false` if the conversion failed.
+     * @since 3.8
+     */
+    function enum_from_string(enum_type: GObject.GType, string: string, enum_value: number): boolean;
+
+    /**
+     * Converts an enum value to a string using strings from the GType system.
+     * @param enum_type An enum type
+     * @param enum_value The enum value to convert
+     * @returns the string representing `eval`
+     * @since 3.8
+     */
+    function enum_to_string(enum_type: GObject.GType, enum_value: number): string;
+
+    /**
+     * Asynchronously deletes `file`.  If `file` is a directory, its contents
+     * are deleted recursively before `file` itself is deleted.  The recursive
+     * delete operation will stop on the first error.
+     * 
+     * If `cancellable` is not `null`, then the operation can be cancelled
+     * by triggering the cancellable object before the operation finishes.
+     * 
+     * When the operation is finished, `callback` will be called.  You can then
+     * call `e_file_recursive_delete_finish()` to get the result of the operation.
+     * @param file a {@link Gio.File} to delete
+     * @param io_priority the I/O priority of the request
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @since 3.6
+     */
+    function file_recursive_delete(file: Gio.File, io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+    /**
+     * Asynchronously deletes `file`.  If `file` is a directory, its contents
+     * are deleted recursively before `file` itself is deleted.  The recursive
+     * delete operation will stop on the first error.
+     * 
+     * If `cancellable` is not `null`, then the operation can be cancelled
+     * by triggering the cancellable object before the operation finishes.
+     * 
+     * When the operation is finished, `callback` will be called.  You can then
+     * call `e_file_recursive_delete_finish()` to get the result of the operation.
+     * @param file a {@link Gio.File} to delete
+     * @param io_priority the I/O priority of the request
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+     * @since 3.6
+     */
+    function file_recursive_delete(file: Gio.File, io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<Gio.File> | null): void;
+    /**
+     * Asynchronously deletes `file`.  If `file` is a directory, its contents
+     * are deleted recursively before `file` itself is deleted.  The recursive
+     * delete operation will stop on the first error.
+     * 
+     * If `cancellable` is not `null`, then the operation can be cancelled
+     * by triggering the cancellable object before the operation finishes.
+     * 
+     * When the operation is finished, `callback` will be called.  You can then
+     * call `e_file_recursive_delete_finish()` to get the result of the operation.
+     * @param file a {@link Gio.File} to delete
+     * @param io_priority the I/O priority of the request
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+     * @since 3.6
+     */
+    function file_recursive_delete(file: Gio.File, io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<Gio.File> | null): globalThis.Promise<boolean> | void;
+
+    /**
+     * Finishes the operation started with `e_file_recursive_delete()`.
+     * 
+     * If the operation was cancelled, the error #G_IO_ERROR_CANCELLED will be
+     * returned.
+     * @param file a {@link Gio.File} to delete
+     * @param result a {@link Gio.AsyncResult}
+     * @returns `true` if the file was deleted, `false` otherwise
+     * @since 3.6
+     * @throws GLib.Error
+     */
+    function file_recursive_delete_finish(file: Gio.File, result: Gio.AsyncResult): boolean;
+
+    /**
+     * Deletes `file`.  If `file` is a directory, its contents are deleted
+     * recursively before `file` itself is deleted.  The recursive delete
+     * operation will stop on the first error.
+     * 
+     * If `cancellable` is not `null`, then the operation can be cancelled
+     * by triggering the cancellable object from another thread.  If the
+     * operation was cancelled, the error #G_IO_ERROR_CANCELLED will be
+     * returned.
+     * @param file a {@link Gio.File} to delete
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @returns `true` if the file was deleted, `false` otherwise
+     * @since 3.6
+     * @throws GLib.Error
+     */
+    function file_recursive_delete_sync(file: Gio.File, cancellable: Gio.Cancellable | null): boolean;
+
+    /**
+     * @param string 
+     */
+    function filename_make_safe(string: string): void;
+
+    /**
+     * Creates a local path constructed from `basepath` / `fileprefix` + "-" + `filename`,
+     * and makes sure the path `basepath` exists. If creation of
+     * the path fails, then NULL is returned.
+     * @param basepath base path of a file name; this is left unchanged
+     * @param fileprefix prefix for the filename; this is encoded
+     * @param filename file name to use; this is encoded; can be `null`
+     * @param fileindex used when `filename` is NULL, then the filename        is generated as "file" + fileindex
+     * @returns Full local path like `g_build_filename()` except that `fileprefix` and `filename` are encoded to create a proper file elements for a file system. Free returned pointer with `g_free()`.
+     * @since 3.4
+     */
+    function filename_mkdir_encoded(basepath: string, fileprefix: string, filename: string | null, fileindex: number): string | null;
+
+    /**
+     * Converts the `free_form_exp` to an S-Expression using the S-Expression
+     * builders defined in the `symbols`. The `symbols` should have one symbol
+     * with an empty string as its name, which is used for words which do not
+     * have a symbol name prefix.
+     * 
+     * The `symbols` is a NULL-terminated array of known symbols. The NULL should
+     * be set for the symbol's name.
+     * @param free_form_exp a Free Form Expression
+     * @param symbols known symbols, which can be used in the Free From Expression
+     * @returns converted `free_form_exp` into S-Expression, `null` on error.    Free the returned string with a `g_free()`, when done with it.
+     * @since 3.16
+     */
+    function free_form_exp_to_sexp(free_form_exp: string, symbols: FreeFormExpSymbol): string | null;
+
+    /**
+     * Adds a Task:completed property `value` into the `builder`, which
+     * should have started an object member.
+     * 
+     * When the `value` is 0, then adds a NULL-object, to indicate
+     * removal of the property.
+     * @param builder a {@link Json.Builder} with a started object member
+     * @param value a Task::completed property value, as Unix time
+     * @since 3.46
+     */
+    function gdata_task_add_completed(builder: Json.Builder, value: bigint | number): void;
+
+    /**
+     * Adds a Task::due property `value` into the `builder`, which
+     * should have started an object member.
+     * 
+     * When the `value` is 0, then adds a NULL-object, to indicate
+     * removal of the property.
+     * @param builder a {@link Json.Builder} with a started object member
+     * @param value a Task::due property value, as Unix time
+     * @since 3.46
+     */
+    function gdata_task_add_due(builder: Json.Builder, value: bigint | number): void;
+
+    /**
+     * Adds a Task::id property `value` into the `builder`, which
+     * should have started an object member.
+     * @param builder a {@link Json.Builder} with a started object member
+     * @param value a Task::id property value
+     * @since 3.46
+     */
+    function gdata_task_add_id(builder: Json.Builder, value: string): void;
+
+    /**
+     * Adds a Task::notes property `value` into the `builder`, which
+     * should have started an object member.
+     * 
+     * When the `value` is `null`, then adds a NULL-object, to indicate removal
+     * of the property.
+     * @param builder a {@link Json.Builder} with a started object member
+     * @param value a Task::notes property value
+     * @since 3.46
+     */
+    function gdata_task_add_notes(builder: Json.Builder, value: string | null): void;
+
+    /**
+     * Adds a Task::status property `value` into the `builder`, which
+     * should have started an object member.
+     * 
+     * When the `value` is {@link EDataServer.GDataTaskStatus.UNKNOWN}, then adds a NULL-object,
+     * to indicate removal of the property.
+     * @param builder a {@link Json.Builder} with a started object member
+     * @param value a Task::status property value
+     * @since 3.46
+     */
+    function gdata_task_add_status(builder: Json.Builder, value: GDataTaskStatus): void;
+
+    /**
+     * Adds a Task::title property `value` into the `builder`, which
+     * should have started an object member.
+     * @param builder a {@link Json.Builder} with a started object member
+     * @param value a Task::title property value
+     * @since 3.46
+     */
+    function gdata_task_add_title(builder: Json.Builder, value: string): void;
+
+    /**
+     * Returns Task::completed property, as Unix time.
+     * @param task a GData Task
+     * @returns Task::completed property or 0, when not found
+     * @since 3.46
+     */
+    function gdata_task_get_completed(task: Json.Object): number;
+
+    /**
+     * Returns Task::deleted property, as Unix time.
+     * @param task a GData Task
+     * @returns Task::deleted property or `false`, when not found
+     * @since 3.46
+     */
+    function gdata_task_get_deleted(task: Json.Object): boolean;
+
+    /**
+     * Returns Task::due property, as Unix time.
+     * @param task a GData Task
+     * @returns Task::due property or 0, when not found
+     * @since 3.46
+     */
+    function gdata_task_get_due(task: Json.Object): number;
+
+    /**
+     * Returns Task::etag property.
+     * @param task a GData Task
+     * @returns Task::etag property or `null`, when not found
+     * @since 3.46
+     */
+    function gdata_task_get_etag(task: Json.Object): string | null;
+
+    /**
+     * Returns Task::hidden property, as Unix time.
+     * @param task a GData Task
+     * @returns Task::hidden property or `false`, when not found
+     * @since 3.46
+     */
+    function gdata_task_get_hidden(task: Json.Object): boolean;
+
+    /**
+     * Returns Task::id property.
+     * @param task a GData Task
+     * @returns Task::id property or `null`, when not found
+     * @since 3.46
+     */
+    function gdata_task_get_id(task: Json.Object): string | null;
+
+    /**
+     * Returns Task::notes property.
+     * @param task a GData Task
+     * @returns Task::notes property or `null`, when not found
+     * @since 3.46
+     */
+    function gdata_task_get_notes(task: Json.Object): string | null;
+
+    /**
+     * Returns Task::parent property.
+     * @param task a GData Task
+     * @returns Task::parent property or `null`, when not found
+     * @since 3.46
+     */
+    function gdata_task_get_parent(task: Json.Object): string | null;
+
+    /**
+     * Returns Task::position property.
+     * @param task a GData Task
+     * @returns Task::position property or `null`, when not found
+     * @since 3.46
+     */
+    function gdata_task_get_position(task: Json.Object): string | null;
+
+    /**
+     * Returns Task::selfLink property.
+     * @param task a GData TaskList
+     * @returns Task::selfLink property or `null`, when not found
+     * @since 3.46
+     */
+    function gdata_task_get_self_link(task: Json.Object): string | null;
+
+    /**
+     * Returns Task::status property.
+     * @param task a GData Task
+     * @returns Task::status property as {@link EDataServer.GDataTaskStatus} or {@link EDataServer.GDataTaskStatus.UNKNOWN},    when not found or has set an unknown value.
+     * @since 3.46
+     */
+    function gdata_task_get_status(task: Json.Object): GDataTaskStatus;
+
+    /**
+     * Returns Task::title property.
+     * @param task a GData Task
+     * @returns Task::title property or `null`, when not found
+     * @since 3.46
+     */
+    function gdata_task_get_title(task: Json.Object): string | null;
+
+    /**
+     * Returns Task::updated property, as Unix time.
+     * @param task a GData Task
+     * @returns Task::updated property or 0, when not found
+     * @since 3.46
+     */
+    function gdata_task_get_updated(task: Json.Object): number;
+
+    /**
+     * Adds a TaskList::id property `value` into the `builder`, which
+     * should have started an object member.
+     * @param builder a {@link Json.Builder} with a started object member
+     * @param value a TaskList::id property value
+     * @since 3.46
+     */
+    function gdata_tasklist_add_id(builder: Json.Builder, value: string): void;
+
+    /**
+     * Adds a TaskList::title property `value` into the `builder`, which
+     * should have started an object member.
+     * @param builder a {@link Json.Builder} with a started object member
+     * @param value a TaskList::title property value
+     * @since 3.46
+     */
+    function gdata_tasklist_add_title(builder: Json.Builder, value: string): void;
+
+    /**
+     * Returns TaskList::etag property.
+     * @param tasklist a GData TaskList
+     * @returns TaskList::etag property or `null`, when not found
+     * @since 3.46
+     */
+    function gdata_tasklist_get_etag(tasklist: Json.Object): string | null;
+
+    /**
+     * Returns TaskList::id property.
+     * @param tasklist a GData TaskList
+     * @returns TaskList::id property or `null`, when not found
+     * @since 3.46
+     */
+    function gdata_tasklist_get_id(tasklist: Json.Object): string | null;
+
+    /**
+     * Returns TaskList::selfLink property.
+     * @param tasklist a GData TaskList
+     * @returns TaskList::selfLink property or `null`, when not found
+     * @since 3.46
+     */
+    function gdata_tasklist_get_self_link(tasklist: Json.Object): string | null;
+
+    /**
+     * Returns TaskList::title property.
+     * @param tasklist a GData TaskList
+     * @returns TaskList::title property or `null`, when not found
+     * @since 3.46
+     */
+    function gdata_tasklist_get_title(tasklist: Json.Object): string | null;
+
+    /**
+     * Returns TaskList::updated property, as Unix time.
+     * @param tasklist a GData TaskList
+     * @returns TaskList::updated property or 0, when not found
+     * @since 3.46
+     */
+    function gdata_tasklist_get_updated(tasklist: Json.Object): number;
+
+    /**
+     * Returns a base directory in which to store user-specific,
+     * non-essential cached data for Evolution or Evolution-Data-Server.
+     * 
+     * The returned string is owned by libedataserver and must not be
+     * modified or freed.
+     * @returns base directory for user-specific, non-essential data
+     * @since 2.32
+     */
+    function get_user_cache_dir(): string;
+
+    /**
+     * Returns a base directory in which to store user-specific configuration
+     * information for Evolution or Evolution-Data-Server.
+     * 
+     * The returned string is owned by libedataserver and must not be
+     * modified or freed.
+     * @returns base directory for user-specific configuration information
+     * @since 2.32
+     */
+    function get_user_config_dir(): string;
+
+    /**
+     * Returns a base directory in which to store user-specific data for
+     * Evolution or Evolution-Data-Server.
+     * 
+     * The returned string is owned by libedataserver and must not be
+     * modified or freed.
+     * @returns base directory for user-specific data
+     * @since 2.32
+     */
+    function get_user_data_dir(): string;
+
+    /**
+     * Converts the calendar time time representation `tt` to a broken-down
+     * time representation, store in `tm`, and provides the offset in
+     * seconds from UTC time, stored in `offset`.
+     * @param tt The `time_t` to convert.
+     * @param tm The #tm to store the result in.
+     * @param offset The #int to store the offset in.
+     */
+    function localtime_with_offset(tt: bigint | number, tm: null, offset: number): void;
+
+    /**
+     * Like mktime(3), but assumes UTC instead of local timezone.
+     * @param tm The #tm to convert to a calendar time representation.
+     * @returns The calendar time representation of `tm`.
+     */
+    function mktime_utc(tm: null): number;
+
+    function oauth2_service_error_quark(): GLib.Quark;
+
+    /**
+     * Processes the `compile_value` and returns the result, which is stored
+     * into the `out_glob_buff`. The `out_glob_buff` should be large enough to hold
+     * the processed value and it should be a global memory buffer (usually
+     * statically allocated) initialized to 0, which is used to short-circuit
+     * the call, because the processing is done only if the first element
+     * of the `out_glob_buff` is 0, in all other cases the function
+     * immediately returns the `out_glob_buff`.
+     * @param compile_value a value provided in the compile time
+     * @param out_glob_buff_size size of the `out_glob_buff`
+     * @returns processed `compile_value`, saved into *out_glob_buff
+     * @since 3.46
+     */
+    function oauth2_service_util_compile_value(compile_value: string, out_glob_buff_size: bigint | number): [string, string];
+
+    /**
+     * Extracts either an authorization code from a 'code' argument of the `in_uri`,
+     * or an error code from an 'error' argument of the `in_uri` and an error description
+     * from the 'error_description' argument of the `in_uri`.
+     * @param in_uri a URI returned from the server
+     * @returns `true`, when any of the non-NULL out arguments had been populated.
+     * @since 3.48
+     */
+    function oauth2_service_util_extract_from_uri(in_uri: string): [boolean, string, string, string];
+
+    /**
+     * Sets `value` for `name` to `form`. The `form` should be
+     * the one used in `e_oauth2_service_prepare_authentication_uri_query()`,
+     * `e_oauth2_service_prepare_get_token_form()` or
+     * `e_oauth2_service_prepare_refresh_token_form()`.
+     * 
+     * If the `value` is `null`, then the property named `name` is removed
+     * from the `form` instead.
+     * @param form a {@link GLib.HashTable}
+     * @param name a property name
+     * @param value a property value
+     * @since 3.28
+     */
+    function oauth2_service_util_set_to_form(form: { [key: string]: string }, name: string, value: string | null): void;
+
+    /**
+     * Takes ownership of `value` and sets it for `name` to `form`. The `value`
+     * will be freed with `g_free()`, when no longer needed. The `form` should be
+     * the one used in `e_oauth2_service_prepare_authentication_uri_query()`,
+     * `e_oauth2_service_prepare_get_token_form()` or
+     * `e_oauth2_service_prepare_refresh_token_form()`.
+     * 
+     * If the `value` is `null`, then the property named `name` is removed
+     * from the `form` instead.
+     * @param form a {@link GLib.HashTable}
+     * @param name a property name
+     * @param value a property value
+     * @since 3.28
+     */
+    function oauth2_service_util_take_to_form(form: { [key: string]: string }, name: string, value: string | null): void;
+
+    /**
+     * Transfers the contents of `src_queue` to the tail of `dst_queue`.
+     * When the operation is complete, `src_queue` will be empty.
+     * @param src_queue a source {@link GLib.Queue}
+     * @param dst_queue a destination {@link GLib.Queue}
+     * @since 3.8
+     */
+    function queue_transfer(src_queue: GLib.Queue, dst_queue: GLib.Queue): void;
+
+    /**
+     * Deletes the secret for `uid` from either the default keyring or
+     * session keyring.
+     * 
+     * Note the boolean return value indicates whether the delete operation
+     * itself completed successfully, not whether the secret was found and
+     * deleted. If no such secret was found, the function will still return
+     * `true`. If an error occurs, the function sets `error` and returns `false`.
+     * @param uid a unique identifier of the secret
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @returns `true` on success, `false` on error
+     * @since 3.18
+     * @throws GLib.Error
+     */
+    function secret_store_delete_sync(uid: string, cancellable: Gio.Cancellable | null): boolean;
+
+    /**
+     * Looks up a secret for the `uid`. Both the default and session keyrings
+     * are queried.
+     * 
+     * Note the boolean return value indicates whether the lookup operation
+     * itself completed successfully, not whether the secret was found. If
+     * no secret was found, the function will set `out_secret` to `null`,
+     * but still return `true`. If an error occurs, the function sets `error`
+     * and returns `false`.
+     * @param uid a unique identifier of the secret
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @returns `true` on success, `false` on error
+     * @since 3.18
+     * @throws GLib.Error
+     */
+    function secret_store_lookup_sync(uid: string, cancellable: Gio.Cancellable | null): [boolean, string];
+
+    /**
+     * Stores the `secret` for the `uid`.
+     * 
+     * If `permanently` is `true`, the secret is stored in the default keyring.
+     * Otherwise the secret is stored in the memory-only session keyring. If
+     * an error occurs, the function sets `error` and returns `false`.
+     * @param uid a unique identifier of the secret
+     * @param secret the secret to store
+     * @param label human readable description of the secret
+     * @param permanently store permanently or just for the session
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @returns `true` on success, `false` on error
+     * @since 3.18
+     * @throws GLib.Error
+     */
+    function secret_store_store_sync(uid: string, secret: string, label: string, permanently: boolean, cancellable: Gio.Cancellable | null): boolean;
+
+    /**
+     * Sets up automatic SSL certificate trust handling for `soup_message` using the trust
+     * data stored in `source`'s WebDAV extension. If `soup_message` is about to be sent on
+     * an SSL connection with an invalid certificate, the code checks if the WebDAV
+     * extension already has a trust response for that certificate and verifies it
+     * with `e_source_webdav_verify_ssl_trust()`. If the verification fails, then
+     * the `soup_message` send also fails.
+     * 
+     * This works by connecting to the "network-event" signal on `soup_message` and
+     * connecting to the "accept-certificate" signal on each {@link Gio.TlsConnection} for
+     * which `soup_message` reports a #G_SOCKET_CLIENT_TLS_HANDSHAKING event. These
+     * handlers are torn down automatically when `soup_message` is disposed. This process
+     * is not thread-safe; it is sufficient for safety if all use of `soup_message`'s
+     * session and the disposal of `soup_message` occur in the same thread.
+     * @param soup_message a {@link Soup.Message} about to be sent to the source
+     * @param source an {@link EDataServer.Source} that uses WebDAV
+     * @since 3.16
+     */
+    function soup_ssl_trust_connect(soup_message: Soup.Message, source: Source): void;
+
+    /**
+     * This function is a wrapper around the strftime (3) function, which
+     * converts the &percnt;l and &percnt;k (12h and 24h) format variables
+     * if necessary.
+     * @param string The string array to store the result in.
+     * @param max The size of array `s`.
+     * @param fmt The formatting to use on `tm`.
+     * @param tm The time value to format.
+     * @returns The number of characters placed in `s`.
+     */
+    function strftime(string: string, max: bigint | number, fmt: string, tm: null): number;
+
+    /**
+     * Creates a string representation of the time value `date_tm` and
+     * stores it in `buffer`.  `buffer_size` should be at least 64 to be
+     * safe. If `show_midnight` is `false`, and the time is midnight, then
+     * only the date is stored in `buffer`. If `show_zero_seconds` is
+     * `false`, then if the time has zero seconds only the hour and minute
+     * of the time are stored in `buffer`.
+     * @param date_tm The #tm to convert to a string.
+     * @param use_24_hour_format A `gboolean`.
+     * @param show_midnight A `gboolean`.
+     * @param show_zero_seconds A `gboolean`.
+     * @param buffer A #char buffer to store the time string in.
+     * @param buffer_size The length of `buffer`.
+     */
+    function time_format_date_and_time(date_tm: null, use_24_hour_format: boolean, show_midnight: boolean, show_zero_seconds: boolean, buffer: string, buffer_size: number): void;
+
+    /**
+     * Creates a string representation of a time value in `date_tm` and
+     * stores it in `buffer`. `buffer_size` should be at least 64.
+     * @param date_tm The #tm to convert to a string.
+     * @param use_24_hour_format A `gboolean`.
+     * @param show_zero_seconds A `gboolean`.
+     * @param buffer The #char buffer to store the result in.
+     * @param buffer_size The length of `buffer`.
+     */
+    function time_format_time(date_tm: null, use_24_hour_format: boolean, show_zero_seconds: boolean, buffer: string, buffer_size: number): void;
+
+    /**
+     * Retrieves a date format string with a 4-digit year (D_FMT on systems with
+     * `nl_langinfo()` available). In case the current locale doesn't support 4-digit
+     * year, the function returns format as specified by the locale.
+     * 
+     * Free the returned string with `g_free()`.
+     * @returns a newly-allocated date format string
+     * @since 2.22
+     */
+    function time_get_d_fmt_with_4digit_year(): string;
+
+    /**
+     * Takes in a date string entered by the user and tries to convert it to
+     * a struct #tm.
+     * @param value A date string.
+     * @param result Return value for the parsed date.
+     * @returns An {@link EDataServer.TimeParseStatus} result code indicating whether `value` was an empty string, a valid date, or an invalid date.
+     */
+    function time_parse_date(value: string, result: null): TimeParseStatus;
+
+    /**
+     * Parses a string `value` containing a date and a time and stores the
+     * result in `result`. The date in `value` is expected to be in a format
+     * like "Wed 3/13/00 14:20:00", though `gettext()` is used to support the
+     * appropriate local formats. There is also some leniency on the
+     * format of the string, e.g. the weekday can be skipped or 12-hour
+     * formats with am/pm can be used.
+     * @param value the string to parse a date and time from
+     * @param result a #tm to store the result in
+     * @returns E_TIME_PARSE_OK if the string was successfully parsed,          E_TIME_PARSE_NONE if the string was empty, or          E_TIME_PARSE_INVALID if the string could not be parsed.
+     */
+    function time_parse_date_and_time(value: string, result: null): TimeParseStatus;
+
+    /**
+     * Parses a string `value` containing a date and a time and stores the
+     * result in `result`. The date in `value` is expected to be in a format
+     * like "Wed 3/13/00 14:20:00", though `gettext()` is used to support the
+     * appropriate local formats. There is also some leniency on the
+     * format of the string, e.g. the weekday can be skipped or 12-hour
+     * formats with am/pm can be used.
+     * @param value The string to parse a date and time from.
+     * @param result A #tm to store the result in.
+     * @param two_digit_year set to TRUE, is parsing with two-digit year, else FALSE,    but only when not NULL.
+     * @returns E_TIME_PARSE_OK if the string was successfully parsed,          E_TIME_PARSE_NONE if the string was empty, or          E_TIME_PARSE_INVALID if the string could not be parsed.
+     * @since 2.22
+     */
+    function time_parse_date_and_time_ex(value: string, result: null, two_digit_year: boolean): TimeParseStatus;
+
+    /**
+     * Takes in a date string entered by the user and tries to convert it to
+     * a struct #tm.
+     * @param value A date string.
+     * @param result Return value for the parsed date.
+     * @param two_digit_year set to TRUE, is parsing with two-digit year, else FALSE,    but only when not NULL.
+     * @returns An {@link EDataServer.TimeParseStatus} result code indicating whether `value` was an empty string, a valid date, or an invalid date.
+     * @since 2.22
+     */
+    function time_parse_date_ex(value: string, result: null, two_digit_year: boolean): TimeParseStatus;
+
+    /**
+     * Parses `value` using the `format` saving the parsed date into `out_result`.
+     * Optionally sets whether there had been used two-digit year.
+     * @param value a date string
+     * @param format a `strftime()` format string to use to parse the `value`
+     * @returns An {@link EDataServer.TimeParseStatus} result code indicating whether    the `value` was an empty string, a valid date, or an invalid date.
+     * @since 3.50
+     */
+    function time_parse_date_format(value: string, format: string): [TimeParseStatus, null, boolean];
+
+    /**
+     * Parses `value`, a string containing a time. `value` is expected to be
+     * in a format like "14:20:00". `gettext()` is used to
+     * support the appropriate local formats and slightly
+     * different formats, such as 12-hour formats with am/pm,
+     * are accepted as well.
+     * @param value The string to parse a time from.
+     * @param result A #tm to store the result in.
+     * @returns An {@link EDataServer.TimeParseStatus} result code indicating whether `value` was an empty string, a valid date, or an invalid date.
+     */
+    function time_parse_time(value: string, result: null): TimeParseStatus;
+
+    /**
+     * Similar to `g_timeout_add_seconds_full()`, but also names the {@link GLib.Source} as
+     * `name`.
+     * 
+     * You might find `e_named_timeout_add_seconds()` or
+     * `e_named_timeout_add_seconds_full()` more convenient.  Those macros name
+     * the {@link GLib.Source} implicitly.
+     * @param priority the priority of the timeout source, typically in the            range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH
+     * @param interval the time between calls to the function, in seconds
+     * @param name debug name for the source
+     * @param _function function to call
+     * @returns the ID (greater than 0) of the event source
+     * @since 3.12
+     */
+    function timeout_add_seconds_with_name(priority: number, interval: number, name: string | null, _function: GLib.SourceFunc): number;
+
+    /**
+     * Similar to `g_timeout_add_full()`, but also names the {@link GLib.Source} as `name`.
+     * 
+     * You might find `e_named_timeout_add()` or `e_named_timeout_add_full()` more
+     * convenient.  Those macros name the {@link GLib.Source} implicitly.
+     * @param priority the priority of the timeout source, typically in the            range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH
+     * @param interval the time between calls to the function, in milliseconds            (1/1000ths of a second)
+     * @param name debug name for the source
+     * @param _function function to call
+     * @returns the ID (greather than 0) of the event source
+     * @since 3.12
+     */
+    function timeout_add_with_name(priority: number, interval: number, name: string | null, _function: GLib.SourceFunc): number;
+
+    /**
+     * Calls `func` for all instantiable subtypes of `parent_type`.
+     * 
+     * This is often useful for extending functionality by way of {@link EDataServer.Module}.
+     * A module may register a subtype of `parent_type` in its `e_module_load()`
+     * function.  Then later on the application will call `e_type_traverse()`
+     * to instantiate all registered subtypes of `parent_type`.
+     * @param parent_type the root {@link GObject.GType} to traverse from
+     * @param func the function to call for each visited {@link GObject.GType}
+     * @since 3.4
+     */
+    function type_traverse(parent_type: GObject.GType, func: TypeFunc): void;
+
+    /**
+     * Generate a new unique string for use e.g. in account lists.
+     * @returns The newly generated UID.  The caller should free the string when it's done with it.
+     * @deprecated since 3.26: Use `e_util_generate_uid()` instead.
+     */
+    function uid_new(): string;
+
+    /**
+     * The UTF-8 equivalent of e_strftime ().
+     * @param string The string array to store the result in.
+     * @param max The size of array `s`.
+     * @param fmt The formatting to use on `tm`.
+     * @param tm The time value to format.
+     * @returns The number of characters placed in `s`.
+     */
+    function utf8_strftime(string: string, max: bigint | number, fmt: string, tm: null): number;
+
+    /**
+     * Checks whether the `collection_source` can be used as a credential source
+     * for the `child_source`. The relationship is not tested in the function.
+     * When the `collection_source` is `null`, then it simply returns `false`.
+     * @param collection_source a collection {@link EDataServer.Source}, or `null`
+     * @param child_source a children of `collection_source`
+     * @returns whether `collection_source` can be used as a credential source    for `child_source`, that is, whether they share credentials.
+     * @since 3.28
+     */
+    function util_can_use_collection_as_credential_source(collection_source: null, child_source: null): boolean;
+
+    /**
+     * Changes component `component` in the `inout_uri` to value `value`.
+     * As the {@link GLib.Uri} cannot be modified the `inout_uri` points to a new {@link GLib.Uri}
+     * at the end of the call and the previous structure is unreffed.
+     * 
+     * See: `e_util_change_uri_port()`
+     * @param inout_uri a {@link GLib.Uri}
+     * @param component a string {@link Soup.URIComponent} to change
+     * @param value a value to set, or `null` to unset
+     * @since 3.46
+     */
+    function util_change_uri_component(inout_uri: GLib.Uri, component: Soup.URIComponent, value: string | null): GLib.Uri;
+
+    /**
+     * Changes the port in the `inout_uri` to value `port`.
+     * As the {@link GLib.Uri} cannot be modified the `inout_uri` points to a new {@link GLib.Uri}
+     * at the end of the call and the previous structure is unreffed.
+     * 
+     * See: `e_util_change_uri_component()`
+     * @param inout_uri a {@link GLib.Uri}
+     * @param port the port number to set
+     * @since 3.46
+     */
+    function util_change_uri_port(inout_uri: GLib.Uri, port: number): GLib.Uri;
+
+    /**
+     * Constructs a "data:" URI (of form "data:[mime type][;charset=charset][;base64][,]encoded_data").
+     * The `mime_type` neither the `charset` cannot contain ',' nor ';',
+     * @param mime_type optional MIME type to use, or `null`
+     * @param charset optional charset to use, or `null`
+     * @param is_base64 `true`, when the `data` is base64 encoded
+     * @param data actual data
+     * @returns a newly allocated "data:" URI constructed    from the provided arguments. Free it with `g_free()`, when no longer    needed.
+     * @since 3.60
+     */
+    function util_construct_data_uri(mime_type: string | null, charset: string | null, is_base64: boolean, data: string): string;
+
+    /**
+     * Copies {@link GLib.SList} of {@link GObject.Object}<!-- -->s at the end of `copy_to`.
+     * @param copy_to Where to copy; can be `null`
+     * @param objects {@link GLib.SList} of {@link GObject.Object}<!-- -->s to be copied
+     * @returns New head of `copy_to`. Returned pointer can be freed with `e_util_free_object_slist()`.
+     * @since 3.4
+     * @deprecated since 3.8: Use `g_slist_copy_deep()` instead, and optionally                  `g_slist_concat()` to concatenate the copied list                  to another {@link GLib.SList}.
+     */
+    function util_copy_object_slist(copy_to: GObject.Object[] | null, objects: GObject.Object[]): GObject.Object[];
+
+    /**
+     * Copies {@link GLib.SList} of strings at the end of `copy_to`.
+     * @param copy_to Where to copy; can be `null`
+     * @param strings {@link GLib.SList} of strings to be copied
+     * @returns New head of `copy_to`. Returned pointer can be freed with `e_util_free_string_slist()`.
+     * @since 3.4
+     * @deprecated since 3.8: Use `g_slist_copy_deep()` instead, and optionally                  `g_slist_concat()` to concatenate the copied list                  to another {@link GLib.SList}.
+     */
+    function util_copy_string_slist(copy_to: string[] | null, strings: string[]): string[];
+
+    /**
+     * If `str` is a valid UTF-8 string, the function returns `str` and does
+     * not set `gdbus_str`.
+     * 
+     * If `str` is an invalid UTF-8 string, the function calls
+     * `e_util_utf8_make_valid()` and points `gdbus_str` to the newly-allocated,
+     * valid UTF-8 string, and also returns it.  The caller should free the
+     * string pointed to by `gdbus_str` with `g_free()`.
+     * 
+     * If `str` is `null`, the function returns an empty string and does not
+     * set `gdbus_str`.
+     * 
+     * Admittedly, the function semantics are a little awkward.  The example
+     * below illustrates the easiest way to cope with the `gdbus_str` argument:
+     * 
+     * 
+     * ```
+     *     const gchar *trusted_utf8;
+     *     gchar *allocated = NULL;
+     * 
+     *     trusted_utf8 = e_util_ensure_gdbus_string (untrusted_utf8, &allocated);
+     * 
+     *     Do stuff with trusted_utf8, then clear it.
+     * 
+     *     trusted_utf8 = NULL;
+     * 
+     *     g_free (allocated);
+     *     allocated = NULL;
+     * ```
+     * 
+     * @param str a possibly invalid UTF-8 string, or `null`
+     * @param gdbus_str return location for the corrected string
+     * @returns a valid UTF-8 string
+     * @since 3.0
+     */
+    function util_ensure_gdbus_string(str: string | null, gdbus_str: string): string;
+
+    /**
+     * Checks whether the `filename` is stored under `path`.
+     * It use canonicalized form of the paths before comparing them.
+     * Both the `filename` and `path` are expected to be absolute paths,
+     * is not, `false` is returned.
+     * @param filename a filename
+     * @param path an expected path
+     * @returns whether the `filename` is stored under `path`
+     * @since 3.60
+     */
+    function util_filename_is_in_path(filename: string, path: string): boolean;
+
+    /**
+     * Calls `g_object_unref()` on each member of `objects` if non-`null` and then frees
+     * also `objects` itself.
+     * @param objects a {@link GLib.SList} of nullable {@link GObject.Object}<!-- -->s
+     * @since 3.6
+     */
+    function util_free_nullable_object_slist(objects: GObject.Object[]): void;
+
+    /**
+     * Calls `g_object_unref()` on each member of `objects` and then frees
+     * also `objects` itself.
+     * @param objects a {@link GLib.SList} of {@link GObject.Object}<!-- -->s
+     * @since 3.4
+     * @deprecated since 3.8: Use `g_slist_free_full()` instead.
+     */
+    function util_free_object_slist(objects: GObject.Object[]): void;
+
+    /**
+     * Frees memory previously allocated by `e_util_strv_to_slist()`.
+     * @param strings a {@link GLib.SList} of strings (gchar *)
+     * @since 3.4
+     * @deprecated since 3.8: Use `g_slist_free_full()` instead.
+     */
+    function util_free_string_slist(strings: string[]): void;
+
+    /**
+     * Generates a unique identificator, which can be used as part of
+     * the Message-ID header, or iCalendar component UID, or vCard UID.
+     * The resulting string doesn't contain any host name, it's
+     * a hexa-decimal string with no particular meaning.
+     * 
+     * Free the returned string with `g_free()`, when no longer needed.
+     * @returns generated unique identificator as    a newly allocated string
+     * @since 3.26
+     */
+    function util_generate_uid(): string;
+
+    /**
+     * The `main_path` is a directory, which will be always used. It
+     * should have as its prefix the `replace_prefix`, otherwise
+     * the function returns only the `main_path` in the paths array.
+     * 
+     * When there's exported an environment variable EDS_EXTRA_PREFIXES,
+     * it is used as a list of alternative prefixes where to look for
+     * the `main_path` (rest after the `replace_prefix`).
+     * 
+     * When the `with_modules_dir` is `true`, there's also added
+     * `g_get_user_data_dir()` + "evolution/modules/", aka
+     * ~/.local/share/evolution/modules/, into the resulting array.
+     * @param main_path the main path to work with
+     * @param replace_prefix path prefix to replace
+     * @param with_modules_dir whether to add also the modules directory
+     * @returns a %GPtrArray    with paths to use, including the `main_path`. Free it with    `g_ptr_array_unref()`, when no longer needed.
+     * @since 3.40
+     */
+    function util_get_directory_variants(main_path: string, replace_prefix: string, with_modules_dir: boolean): string[];
+
+    /**
+     * Constructs a full name of the `source` with all of its parents
+     * of the form: "&lt;account-name&gt; : &lt;parent&gt;/&lt;source&gt;" where
+     * the "&lt;parent&gt;/" part can be repeated zero or more times, depending
+     * on the deep level of the `source`.
+     * @param registry an {@link EDataServer.SourceRegistry}
+     * @param source an {@link EDataServer.Source}
+     * @returns Full name of the `source` as a newly allocated    string, which should be freed with `g_free()` when done with it. Since 3.18
+     */
+    function util_get_source_full_name(registry: null, source: null): string;
+
+    /**
+     * Returns a 64-bit integer hopefully uniquely identifying the
+     * thread. To be used in debugging output and logging only.
+     * The returned value is just a cast of a pointer to the 64-bit integer.
+     * 
+     * There is no guarantee that calling e_util_gthread_id () on one
+     * thread first and later after that thread has dies on another won't
+     * return the same integer.
+     * 
+     * On Linux and Win32, known to really return a unique id for each
+     * thread existing at a certain time. No guarantee that ids won't be
+     * reused after a thread has terminated, though.
+     * @param thread A {@link GLib.Thread} pointer
+     * @returns A 64-bit integer.
+     * @since 2.32
+     */
+    function util_gthread_id(thread: GLib.Thread): number;
+
+    /**
+     * Guesses whether the `source` is read only. This is done on some heuristic
+     * like the source backend, where some are known to be read only. That this
+     * function returns `false` does not necessarily mean the source is writable,
+     * it only means the source is not well-known read-only source. To know
+     * for sure open the corresponding {@link EDataServer.Client}, if the `source` references such,
+     * and use `e_client_is_readonly()`.
+     * @param source an {@link EDataServer.Source}
+     * @returns `true`, when the `source` is well-known read-only source, or `false` otherwise
+     * @since 3.50
+     */
+    function util_guess_source_is_readonly(source: null): boolean;
+
+    /**
+     * Check whether the hostname `host` is equal to or a subdomain of `domain`.
+     * Both `host` and `domain` are UTF-8 strings and can be IDNs (which will be
+     * punycode-encoded for comparison).
+     * @param host The hostname to check.
+     * @param domain The domain name.
+     * @returns `true` if `host` is a subdomain of `domain` (or the same domain).          `false` if not, or if either argument is null or in some way          invalid as a domain/hostname.
+     * @since 3.54
+     */
+    function util_host_is_in_domain(host: string | null, domain: string | null): boolean;
+
+    /**
+     * Checks whether the `identity_source` can be used for sending, which means
+     * whether it has configures send mail source.
+     * @param registry an {@link EDataServer.SourceRegistry}
+     * @param identity_source an {@link EDataServer.Source} with mail identity extension
+     * @returns Whether `identity_source` can be used to send messages
+     * @since 3.26
+     */
+    function util_identity_can_send(registry: null, identity_source: null): boolean;
+
+    /**
+     * Calls `g_free()` on `string`, but before it rewrites its content with zeros.
+     * This is suitable to free strings with passwords.
+     * @param str a string to free
+     * @since 3.16
+     */
+    function util_safe_free_string(str: string): void;
+
+    /**
+     * Convert list of strings into NULL-terminates array of strings.
+     * @param strings a {@link GLib.SList} of strings (const gchar *)
+     * @returns Newly allocated `null`-terminated array of strings. Returned pointer should be freed with `g_strfreev()`. Note: Pair function for this is `e_util_strv_to_slist()`.
+     * @since 3.4
+     */
+    function util_slist_to_strv(strings: string[]): string[];
+
+    /**
+     * Compares two {@link EDataServer.Source}-s in a way suitable for user interface.
+     * It can be used as a {@link GLib.CompareFunc}.
+     * 
+     * This is also used by `e_source_registry_build_display_tree()`.
+     * @param source_a the first {@link EDataServer.Source}
+     * @param source_b the second {@link EDataServer.Source}
+     * @returns an integer less than, equal to, or greater than zero,    if `source_a` is <, == or > than `source_b`.
+     * @since 3.40
+     */
+    function util_source_compare_for_sort(source_a: null, source_b: null): number;
+
+    /**
+     * Splits a "data:" URI (of form data:[mime type][;charset=charset][;base64][,]encoded-data) into
+     * respective components. The `out_data_start` points to the first byte inside the `uri`.
+     * @param uri a "data:" URI
+     * @returns whether could split the `uri`
+     * @since 3.60
+     */
+    function util_split_data_uri(uri: string): [boolean, string, string, boolean, string];
+
+    /**
+     * Compares `str1` and `str2` like `g_strcmp0()`, except it handles `null` and
+     * empty strings as equal.
+     * @param str1 a C string or `null`
+     * @param str2 another C string or `null`
+     * @returns an integer less than 0 when `str1` is before `str2`; 0 when    the strings are equal and an integer greated than 0 when `str1` is after `str2`.
+     * @since 3.32
+     */
+    function util_strcmp0(str1: string | null, str2: string | null): number;
+
+    /**
+     * Duplicates `string` and strips off any leading or trailing whitespace.
+     * The resulting string is returned unless it is empty or `null`, in which
+     * case the function returns `null`.
+     * 
+     * Free the returned string with `g_free()`.
+     * @param string a string value, or `null`
+     * @returns a newly-allocated, stripped copy of `string`, or `null`
+     * @since 3.6
+     */
+    function util_strdup_strip(string: string | null): string | null;
+
+    /**
+     * Find the first instance of `needle` in `haystack`, ignoring case for
+     * bytes that are ASCII characters.
+     * @param haystack The string to search in.
+     * @param needle The string to search for.
+     * @returns A pointer to the start of `needle` in `haystack`, or NULL if          `needle` is not found.
+     */
+    function util_strstrcase(haystack: string, needle: string): string | null;
+
+    /**
+     * Compares `v1` and `v2` for equality, handling `null` gracefully.
+     * 
+     * The arguments types are generic for compatibility with {@link GLib.EqualFunc}.
+     * @param v1 a `null`-terminated string array, or `null`
+     * @param v2 another `null`-terminated string array, or `null`
+     * @returns whether `v1` and `v2` are identical
+     * @since 3.12
+     */
+    function util_strv_equal(v1: string[], v2: string[]): boolean;
+
+    /**
+     * Convert NULL-terminated array of strings to a list of strings.
+     * @param strv a NULL-terminated array of strings (const gchar *)
+     * @returns Newly allocated {@link GLib.SList} of newly allocated strings. The returned pointer should be freed with `e_util_free_string_slist()`. Note: Pair function for this is `e_util_slist_to_strv()`.
+     * @since 3.4
+     */
+    function util_strv_to_slist(strv: string): string[];
+
+    /**
+     * Get a UTF-8 character from the beginning of `text`.
+     * @param text The string to take the UTF-8 character from.
+     * @param out The location to store the UTF-8 character in.
+     * @returns A pointer to the next character in `text` after `out`.
+     */
+    function util_unicode_get_utf8(text: string, out: string): string | null;
+
+    /**
+     * Unrefs the given `object` in a dedicated thread. This is useful when unreffing
+     * object deep in call stack when the caller might still use the object and
+     * this being the last reference to it.
+     * @param object a {@link GObject.Object}
+     * @since 3.26
+     */
+    function util_unref_in_thread(object: null): void;
+
+    /**
+     * Returns a newly-allocated NULL-terminated string with invalid characters
+     * replaced by Unicode replacement characters (U+FFFD).
+     * For `null` `data` returns newly allocated empty string ("").
+     * @param data UTF-8 binary data
+     * @param data_bytes length of the binary data
+     * @returns a newly-allocated string
+     * @since 3.6
+     */
+    function util_utf8_data_make_valid(data: string | null, data_bytes: bigint | number): string;
+
+    /**
+     * Converts the `text` into a decomposed variant and strips it, which
+     * allows also cheap case insensitive comparision afterwards. This
+     * produces an output as being used in `e_util_utf8_strstrcasedecomp()`.
+     * @param text a UTF-8 string
+     * @returns A newly allocated string, a decomposed    variant of the `text`. Free with `g_free()`, when no longer needed.
+     * @since 3.26
+     */
+    function util_utf8_decompose(text: string): string;
+
+    /**
+     * Returns a newly-allocated copy of `str`, with invalid characters
+     * replaced by Unicode replacement characters (U+FFFD).
+     * For `null` `str` returns newly allocated empty string ("").
+     * @param str a UTF-8 string
+     * @returns a newly-allocated string
+     * @since 3.0
+     */
+    function util_utf8_make_valid(str: string | null): string;
+
+    /**
+     * Normalizes `str` by making it all lower case and removing any accents from it.
+     * @param str a UTF-8 string
+     * @returns The normalized version of `str`, or `null` if `str` was not valid UTF-8
+     * @since 3.8
+     */
+    function util_utf8_normalize(str: string | null): string | null;
+
+    /**
+     * Returns a newly-allocated copy of `str` with accents removed.
+     * @param str a UTF-8 string, or `null`
+     * @returns a newly-allocated string
+     * @since 2.28
+     */
+    function util_utf8_remove_accents(str: string | null): string | null;
+
+    /**
+     * Compares two UTF-8 strings using approximate case-insensitive ordering.
+     * @param s1 a UTF-8 string
+     * @param s2 another UTF-8 string
+     * @returns < 0 if `s1` compares before `s2`, 0 if they compare equal,          > 0 if `s1` compares after `s2`
+     */
+    function util_utf8_strcasecmp(s1: string, s2: string): number;
+
+    /**
+     * Find the first instance of `needle` in `haystack`, ignoring case. (No
+     * proper case folding or decomposing is done.) Both `needle` and
+     * `haystack` are UTF-8 strings.
+     * @param haystack The string to search in.
+     * @param needle The string to search for.
+     * @returns A pointer to the first instance of `needle` in `haystack`, or          `null` if no match is found, or if either of the strings are          not legal UTF-8 strings.
+     */
+    function util_utf8_strstrcase(haystack: string | null, needle: string | null): string | null;
+
+    /**
+     * Find the first instance of `needle` in `haystack`, where both `needle`
+     * and `haystack` are UTF-8 strings. Both strings are stripped and
+     * decomposed for comparison, and case is ignored.
+     * @param haystack The string to search in.
+     * @param needle The string to search for.
+     * @returns A pointer to the first instance of `needle` in `haystack`,    or `null` if either of the strings are not legal UTF-8 strings.
+     */
+    function util_utf8_strstrcasedecomp(haystack: string, needle: string): string | null;
+
+    /**
+     * Frees an {@link EDataServer.WebDAVAccessControlEntry} previously created with `e_webdav_access_control_entry_new()`
+     * or `e_webdav_access_control_entry_copy()`. The function does nothing, if `ptr` is `null`.
+     * @param ptr an {@link EDataServer.WebDAVAccessControlEntry}
+     * @since 3.26
+     */
+    function webdav_access_control_entry_free(ptr: null): void;
+
+    /**
+     * Frees a `GSList` of discovered sources returned from
+     * `e_webdav_discover_sources_finish()` or `e_webdav_discover_sources_sync()`.
+     * @param discovered_sources A {@link GLib.SList} of discovered sources
+     * @since 3.18
+     */
+    function webdav_discover_free_discovered_sources(discovered_sources: WebDAVDiscoveredSource[]): void;
+
+    /**
+     * Asynchronously runs discovery of the WebDAV sources (CalDAV and CardDAV), eventually
+     * limited by the `only_supports` filter, which can be {@link EDataServer.WebDAVDiscoverSupports.NONE}
+     * to search all types. Note that the list of returned calendars can be more general,
+     * thus check for its actual support type for further filtering of the results.
+     * The `url_use_path` can be used to override actual server path, or even complete URL,
+     * for the given `source`.
+     * 
+     * When the operation is finished, `callback` will be called. You can then
+     * call `e_webdav_discover_sources_finish()` to get the result of the operation.
+     * @param source an {@link EDataServer.Source} from which to take connection details
+     * @param url_use_path optional URL override, or `null`
+     * @param only_supports bit-or of EWebDAVDiscoverSupports, to limit what type of sources to search
+     * @param credentials credentials to use for authentication to the server
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @since 3.18
+     */
+    function webdav_discover_sources(source: Source, url_use_path: string | null, only_supports: number, credentials: NamedParameters | null, cancellable: Gio.Cancellable | null): globalThis.Promise<[string, Gio.TlsCertificateFlags | null, WebDAVDiscoveredSource[] | null, string[] | null]>;
+    /**
+     * Asynchronously runs discovery of the WebDAV sources (CalDAV and CardDAV), eventually
+     * limited by the `only_supports` filter, which can be {@link EDataServer.WebDAVDiscoverSupports.NONE}
+     * to search all types. Note that the list of returned calendars can be more general,
+     * thus check for its actual support type for further filtering of the results.
+     * The `url_use_path` can be used to override actual server path, or even complete URL,
+     * for the given `source`.
+     * 
+     * When the operation is finished, `callback` will be called. You can then
+     * call `e_webdav_discover_sources_finish()` to get the result of the operation.
+     * @param source an {@link EDataServer.Source} from which to take connection details
+     * @param url_use_path optional URL override, or `null`
+     * @param only_supports bit-or of EWebDAVDiscoverSupports, to limit what type of sources to search
+     * @param credentials credentials to use for authentication to the server
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+     * @since 3.18
+     */
+    function webdav_discover_sources(source: Source, url_use_path: string | null, only_supports: number, credentials: NamedParameters | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<Source> | null): void;
+    /**
+     * Asynchronously runs discovery of the WebDAV sources (CalDAV and CardDAV), eventually
+     * limited by the `only_supports` filter, which can be {@link EDataServer.WebDAVDiscoverSupports.NONE}
+     * to search all types. Note that the list of returned calendars can be more general,
+     * thus check for its actual support type for further filtering of the results.
+     * The `url_use_path` can be used to override actual server path, or even complete URL,
+     * for the given `source`.
+     * 
+     * When the operation is finished, `callback` will be called. You can then
+     * call `e_webdav_discover_sources_finish()` to get the result of the operation.
+     * @param source an {@link EDataServer.Source} from which to take connection details
+     * @param url_use_path optional URL override, or `null`
+     * @param only_supports bit-or of EWebDAVDiscoverSupports, to limit what type of sources to search
+     * @param credentials credentials to use for authentication to the server
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+     * @since 3.18
+     */
+    function webdav_discover_sources(source: Source, url_use_path: string | null, only_supports: number, credentials: NamedParameters | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<Source> | null): globalThis.Promise<[string, Gio.TlsCertificateFlags | null, WebDAVDiscoveredSource[] | null, string[] | null]> | void;
+
+    /**
+     * Finishes the operation started with `e_webdav_discover_sources()`. If an
+     * error occurred, the function will set `error` and return `false`. The function
+     * can return success and no discovered sources, the same as it can return failure,
+     * but still set some output arguments, like the certificate related output
+     * arguments with G_TLS_ERROR_BAD_CERTIFICATE error.
+     * 
+     * The return value of `out_certificate_pem` should be freed with `g_free()`
+     * when no longer needed.
+     * 
+     * The return value of `out_discovered_sources` should be freed
+     * with `e_webdav_discover_free_discovered_sources()` when no longer needed.
+     * 
+     * The return value of `out_calendar_user_addresses` should be freed
+     * with g_slist_free_full (calendar_user_addresses, g_free); when
+     * no longer needed.
+     * @param source an {@link EDataServer.Source} on which the operation was started
+     * @param result a {@link Gio.AsyncResult}
+     * @returns `true` on success, `false` on failure
+     * @since 3.18
+     * @throws GLib.Error
+     */
+    function webdav_discover_sources_finish(source: Source, result: Gio.AsyncResult): [boolean, string, Gio.TlsCertificateFlags | null, WebDAVDiscoveredSource[] | null, string[] | null];
+
+    /**
+     * This is the same as `e_webdav_discover_sources()`, it only allows to
+     * provide a callback function (with its user_data), to reference an additional
+     * {@link EDataServer.Source}. It's good to avoid creating its own {@link EDataServer.SourceRegistry} instance to
+     * get it.
+     * 
+     * When the operation is finished, `callback` will be called. You can then
+     * call `e_webdav_discover_sources_finish()` to get the result of the operation.
+     * @param source an {@link EDataServer.Source} from which to take connection details
+     * @param url_use_path optional URL override, or `null`
+     * @param only_supports bit-or of EWebDAVDiscoverSupports, to limit what type of sources to search
+     * @param credentials credentials to use for authentication to the server
+     * @param ref_source_func optional callback to use to get an ESource
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+     * @since 3.30
+     */
+    function webdav_discover_sources_full(source: Source, url_use_path: string | null, only_supports: number, credentials: NamedParameters | null, ref_source_func: WebDAVDiscoverRefSourceFunc | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<Source> | null): void;
+
+    /**
+     * This is the same as `e_webdav_discover_sources_sync()`, it only allows to
+     * provide a callback function (with its user_data), to reference an additional
+     * {@link EDataServer.Source}. It's good to avoid creating its own {@link EDataServer.SourceRegistry} instance to
+     * get it.
+     * @param source an {@link EDataServer.Source} from which to take connection details
+     * @param url_use_path optional URL override, or `null`
+     * @param only_supports bit-or of EWebDAVDiscoverSupports, to limit what type of sources to search
+     * @param credentials credentials to use for authentication to the server
+     * @param ref_source_func optional callback to use to get an ESource
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @returns `true` on success, `false` on failure
+     * @since 3.30
+     * @throws GLib.Error
+     */
+    function webdav_discover_sources_full_sync(source: Source, url_use_path: string | null, only_supports: number, credentials: NamedParameters | null, ref_source_func: WebDAVDiscoverRefSourceFunc | null, cancellable: Gio.Cancellable | null): [boolean, string, Gio.TlsCertificateFlags | null, WebDAVDiscoveredSource[] | null, string[] | null];
+
+    /**
+     * Synchronously runs discovery of the WebDAV sources (CalDAV and CardDAV), eventually
+     * limited by the `only_supports` filter, which can be {@link EDataServer.WebDAVDiscoverSupports.NONE}
+     * to search all types. Note that the list of returned calendars can be more general,
+     * thus check for its actual support type for further filtering of the results.
+     * The `url_use_path` can be used to override actual server path, or even complete URL,
+     * for the given `source`.
+     * 
+     * If an error occurred, the function will set `error` and return `false`. The function
+     * can return success and no discovered sources, the same as it can return failure,
+     * but still set some output arguments, like the certificate related output
+     * arguments with G_TLS_ERROR_BAD_CERTIFICATE error.
+     * 
+     * The return value of `out_certificate_pem` should be freed with `g_free()`
+     * when no longer needed.
+     * 
+     * The return value of `out_discovered_sources` should be freed
+     * with `e_webdav_discover_free_discovered_sources()` when no longer needed.
+     * 
+     * The return value of `out_calendar_user_addresses` should be freed
+     * with g_slist_free_full (calendar_user_addresses, g_free); when
+     * no longer needed.
+     * @param source an {@link EDataServer.Source} from which to take connection details
+     * @param url_use_path optional URL override, or `null`
+     * @param only_supports bit-or of EWebDAVDiscoverSupports, to limit what type of sources to search
+     * @param credentials credentials to use for authentication to the server
+     * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+     * @returns `true` on success, `false` on failure
+     * @since 3.18
+     * @throws GLib.Error
+     */
+    function webdav_discover_sources_sync(source: Source, url_use_path: string | null, only_supports: number, credentials: NamedParameters | null, cancellable: Gio.Cancellable | null): [boolean, string, Gio.TlsCertificateFlags | null, WebDAVDiscoveredSource[] | null, string[] | null];
+
+    /**
+     * Frees an {@link EDataServer.WebDAVPrivilege} previously created with `e_webdav_privilege_new()`
+     * or `e_webdav_privilege_copy()`. The function does nothing, if `ptr` is `null`.
+     * @param ptr an {@link EDataServer.WebDAVPrivilege}
+     * @since 3.26
+     */
+    function webdav_privilege_free(ptr: null): void;
+
+    /**
+     * Frees an {@link EDataServer.WebDAVPropertyChange} previously created with `e_webdav_property_change_new_set()`,
+     * `e_webdav_property_change_new_remove()` or or `e_webdav_property_change_copy()`.
+     * The function does nothing, if `ptr` is `null`.
+     * @param ptr an {@link EDataServer.WebDAVPropertyChange}
+     * @since 3.26
+     */
+    function webdav_property_change_free(ptr: null): void;
+
+    /**
+     * Frees an {@link EDataServer.WebDAVResource} previously created with `e_webdav_resource_new()`
+     * or `e_webdav_resource_copy()`. The function does nothing, if `ptr` is `null`.
+     * @param ptr an {@link EDataServer.WebDAVResource}
+     * @since 3.26
+     */
+    function webdav_resource_free(ptr: null): void;
+
+    /**
+     * Frees the memory used by `hash` and its contents.
+     * @param hash the {@link GLib.HashTable} to destroy
+     */
+    function xml_destroy_hash(hash: { [key: string]: string }): void;
+
+    /**
+     * Writes the given XML document structure to the file given by `filename`.
+     * If an error occurs while saving, the function returns -1 and sets errno.
+     * @param filename path to a file to save to
+     * @param doc an XML document structure
+     * @returns 0 on success, -1 on failure
+     */
+    function xml_save_file(filename: string, doc: libxml2.Doc): number;
+
+    /**
+     * Creates a {@link GLib.HashTable} representation of the #xmlDoc `doc`.
+     * If `type` is * `E_XML_HASH_TYPE_PROPERTY`, all XML nodes will be
+     * indexed in the {@link GLib.HashTable} by name. If `type` is
+     * {@link EDataServer.XmlHashType.OBJECT_UID}, then XML objects will be indexed in
+     * the hash by their UID (other nodes will still be indexed by name).
+     * @param doc The #xmlDoc to store in a hash table.
+     * @param type The value type to use as a key in the hash table.
+     * @returns The newly-created {@link GLib.HashTable} representation of `doc`.
+     */
+    function xml_to_hash(doc: libxml2.Doc, type: XmlHashType): { [key: string]: string };
+
+    /**
+     * Adds a new key/value pair to the {@link EDataServer.XmlHash} `hash`.
+     * @param hash the {@link EDataServer.XmlHash} to add an entry to
+     * @param key the key to use for the entry
+     * @param data the value of the new entry
+     */
+    function xmlhash_add(hash: XmlHash, key: string, data: string): void;
+
+    /**
+     * Compares the value with key equal to `key` in `hash` against
+     * `compare_data`.
+     * @param hash the {@link EDataServer.XmlHash} to compare against
+     * @param key the key of the hash entry to compare with
+     * @param compare_data the data to compare against the hash entry
+     * @returns E_XMLHASH_STATUS_SAME if the value and `compare_data` are          equal,E_XMLHASH_STATUS_DIFFERENT if they are different, or          E_XMLHASH_STATUS_NOT_FOUND if there is no entry in `hash` with          its key equal to `key`.
+     */
+    function xmlhash_compare(hash: XmlHash, key: string, compare_data: string): XmlHashStatus;
+
+    /**
+     * Frees the memory associated with `hash`.
+     * @param hash The {@link EDataServer.XmlHash} to destroy.
+     */
+    function xmlhash_destroy(hash: XmlHash): void;
+
+    /**
+     * Executes `func` against each key/value pair in `hash`.
+     * @param hash an {@link EDataServer.XmlHash}
+     * @param func the {@link EDataServer.XmlHashFunc} to execute on the data in `hash`
+     */
+    function xmlhash_foreach_key(hash: XmlHash, func: XmlHashFunc): void;
+
+    /**
+     * Calls `g_hash_table_foreach_remove()` on `hash`<!-- -->'s internal hash
+     * table.  See `g_hash_table_foreach_remove()` for details.
+     * @param hash an {@link EDataServer.XmlHash}
+     * @param func the {@link EDataServer.XmlHashFunc} to execute on the data in `hash`
+     */
+    function xmlhash_foreach_key_remove(hash: XmlHash, func: XmlHashRemoveFunc): void;
+
+    /**
+     * Remove the entry in `hash` with key equal to `key`, if it exists.
+     * @param hash the {@link EDataServer.XmlHash} to remove an entry from
+     * @param key the key of the entry to remove
+     */
+    function xmlhash_remove(hash: XmlHash, key: string): void;
+
+    /**
+     * Writes the XML represented by `hash` to the file originally passed
+     * to `e_xmlhash_new()`.
+     * @param hash The {@link EDataServer.XmlHash} to write.
+     */
+    function xmlhash_write(hash: XmlHash): void;
+
+    /**
+     * @gir-type Callback
+     */
+    interface FreeFormExpBuildSexpFunc {
+        (word: string, options: string, hint: string): string;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface GDataObjectCallback {
+        (gdata: GDataSession, object: Json.Object): boolean;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface OAuth2ServiceRefSourceFunc {
+        (user_data: null, uid: string): Source | null;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface SourceRefreshFunc {
+        (source: Source): void;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface TypeFunc {
+        (type: GObject.GType): void;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface WebDAVDiscoverRefSourceFunc {
+        (user_data: null, uid: string): Source | null;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface WebDAVPropstatTraverseFunc {
+        (webdav: WebDAVSession, prop_node: libxml2.Node, request_uri: GLib.Uri, href: string | null, status_code: number): boolean;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface XmlHashFunc {
+        (key: string, value: string): void;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface XmlHashRemoveFunc {
+        (key: string, value: string): boolean;
+    }
+
+    /**
+     * Flags of the OAuth2 service.
+     * @gir-type Flags
+     * @since 3.28
+     */
+    enum OAuth2ServiceFlags {
+        /**
+         * No flag set
+         */
+        NONE = 0,
+        /**
+         * the service requires also page
+         *    content to be passed to `e_oauth2_service_extract_authorization_code()`
+         */
+        EXTRACT_REQUIRES_PAGE_CONTENT = 2,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    enum WebDAVACEFlag {
+        UNKNOWN = 0,
+        GRANT = 1,
+        DENY = 2,
+        INVERT = 4,
+        PROTECTED = 8,
+        INHERITED = 16,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    enum WebDAVACLRestrictions {
+        NONE = 0,
+        GRANT_ONLY = 1,
+        NO_INVERT = 2,
+        DENY_BEFORE_GRANT = 4,
+        REQUIRED_PRINCIPAL = 8,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    enum WebDAVDiscoverSupports {
+        NONE = 0,
+        CONTACTS = 1,
+        EVENTS = 2,
+        MEMOS = 4,
+        TASKS = 8,
+        WEBDAV_NOTES = 64,
+        CALENDAR_AUTO_SCHEDULE = 128,
+        SUBSCRIBED_ICALENDAR = 256,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    enum WebDAVListFlags {
+        ALL = 16777215,
+        NONE = 0,
+        SUPPORTS = 1,
+        ETAG = 2,
+        DISPLAY_NAME = 4,
+        CONTENT_TYPE = 8,
+        CONTENT_LENGTH = 16,
+        CREATION_DATE = 32,
+        LAST_MODIFIED = 64,
+        DESCRIPTION = 128,
+        COLOR = 256,
+        ORDER = 512,
+        ONLY_CALENDAR = 268435456,
+        ONLY_ADDRESSBOOK = 536870912,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    enum WebDAVResourceSupports {
+        NONE = 0,
+        CONTACTS = 1,
+        EVENTS = 2,
+        MEMOS = 4,
+        TASKS = 8,
+        FREEBUSY = 16,
+        TIMEZONE = 32,
+        WEBDAV_NOTES = 64,
+        LAST = 64,
+    }
+
+
+    namespace Client {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            /**
+             * @signal
+             * @run-last
+             */
+            "backend-died": () => void;
+            /**
+             * @signal
+             * @run-first
+             */
+            "backend-error": (object: string) => void;
+            /**
+             * @signal
+             * @run-last
+             */
+            "backend-property-changed": (object: string, p0: string) => void;
+            /**
+             * @signal
+             * @run-last
+             */
+            opened: (object: GLib.Error) => void;
+            "notify::capabilities": (pspec: GObject.ParamSpec) => void;
+            "notify::main-context": (pspec: GObject.ParamSpec) => void;
+            "notify::online": (pspec: GObject.ParamSpec) => void;
+            "notify::opened": (pspec: GObject.ParamSpec) => void;
+            "notify::readonly": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            capabilities: never;
+            main_context: GLib.MainContext;
+            mainContext: GLib.MainContext;
+            online: boolean;
+            opened: boolean;
+            readonly: boolean;
+            source: Source;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.2
+     */
+    abstract class Client extends GObject.Object {
+        static $gtype: GObject.GType<Client>;
+
+        // Properties
+        /**
+         * The capabilities of this client
+         * @read-only
+         */
+        get capabilities(): null;
+
+        /**
+         * The main loop context in which notifications for
+         * this client will be delivered.
+         * @read-only
+         */
+        get main_context(): GLib.MainContext;
+
+        /**
+         * The main loop context in which notifications for
+         * this client will be delivered.
+         * @read-only
+         */
+        get mainContext(): GLib.MainContext;
+
+        /**
+         * Whether this client's backing data is online.
+         * @default false
+         */
+        get online(): boolean;
+        set online(val: boolean);
+
+        /**
+         * Whether this client is open and ready to use.
+         * @deprecated since 3.8: This property is no longer relevant and will always be `true` after successfully creating any concrete type of {@link EDataServer.Client}.
+         * @read-only
+         * @default false
+         */
+        get opened(): boolean;
+
+        /**
+         * Whether this client's backing data is readonly.
+         * @read-only
+         * @default false
+         */
+        get readonly(): boolean;
+
+        /**
+         * The {@link EDataServer.Source} for which this client was created.
+         * @construct-only
+         */
+        get source(): Source;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Client.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Client.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Client.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Client.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Client.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Client.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Client.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Client.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @param code an {@link EDataServer.ClientError} code to create
+         * @param custom_msg custom message to use for the error; can be `null`
+         * @since 3.2
+         */
+        static error_create(code: ClientError, custom_msg: string | null): GLib.Error;
+
+        static error_quark(): GLib.Quark;
+
+        /**
+         * Get localized human readable description of the given error code.
+         * @param code an {@link EDataServer.ClientError} error code
+         * @since 3.2
+         */
+        static error_to_string(code: ClientError): string;
+
+        /**
+         * Copies a {@link GLib.SList} of {@link GObject.Object}<!-- -->s to the end of `copy_to`.
+         * @param copy_to Where to copy; may be `null`
+         * @param objects {@link GLib.SList} of {@link GObject.Object}<!-- -->s to be copied
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_util_copy_object_slist()` instead.
+         */
+        static util_copy_object_slist(copy_to: GObject.Object[] | null, objects: GObject.Object[]): GObject.Object[];
+
+        /**
+         * Copies the {@link GLib.SList} of strings to the end of `copy_to`.
+         * @param copy_to Where to copy; may be `null`
+         * @param strings {@link GLib.SList} of strings to be copied
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_util_copy_string_slist()` instead.
+         */
+        static util_copy_string_slist(copy_to: string[] | null, strings: string[]): string[];
+
+        /**
+         * Calls `g_object_unref()` on each member of `objects` and then frees `objects`
+         * itself.
+         * @param objects a {@link GLib.SList} of {@link GObject.Object}<!-- -->s
+         * @since 3.2
+         * @deprecated since 3.8: Use `g_slist_free_full()` instead.
+         */
+        static util_free_object_slist(objects: GObject.Object[]): void;
+
+        /**
+         * Frees memory previously allocated by `e_client_util_strv_to_slist()`.
+         * @param strings a {@link GLib.SList} of strings (gchar *)
+         * @since 3.2
+         * @deprecated since 3.8: Use `g_slist_free_full()` instead.
+         */
+        static util_free_string_slist(strings: string[]): void;
+
+        /**
+         * Parses comma-separated list of values into {@link GLib.SList}.
+         * @param strings string of comma-separated values
+         * @since 3.2
+         */
+        static util_parse_comma_strings(strings: string): string[];
+
+        /**
+         * Convert a list of strings into a `null`-terminated array of strings.
+         * @param strings a {@link GLib.SList} of strings (const gchar *)
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_util_slist_to_strv()` instead.
+         */
+        static util_slist_to_strv(strings: string[]): string[];
+
+        /**
+         * Convert a `null`-terminated array of strings to a list of strings.
+         * @param strv a `null`-terminated array of strings (const gchar *)
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_util_strv_to_slist()` instead.
+         */
+        static util_strv_to_slist(strv: string): string[];
+
+        /**
+         * The function takes a `dbus_error` and tries to find a match in `known_errors`
+         * for it, if it is a G_IO_ERROR, G_IO_ERROR_DBUS_ERROR. If it is anything else
+         * then the `dbus_error` is moved to `client_error`.
+         * 
+         * The `fail_when_none_matched` influences behaviour. If it's `true`, and none of
+         * `known_errors` matches, or this is not a G_IO_ERROR_DBUS_ERROR, then `false`
+         * is returned and the `client_error` is left without change. Otherwise, the
+         * `fail_when_none_matched` is `false`, the error is always processed and will
+         * result in E_CLIENT_ERROR, E_CLIENT_ERROR_OTHER_ERROR if none of `known_error`
+         * matches.
+         * @param dbus_error DBus {@link GLib.Error} to unwrap
+         * @param known_errors List of known errors against which try to match
+         * @param known_errors_count How many items are stored in `known_errors`
+         * @param known_errors_domain Error domain for `known_errors`
+         * @param fail_when_none_matched Whether to fail when none of `known_errors` matches
+         * @since 3.2
+         * @deprecated since 3.8: This function is no longer used.
+         */
+        static util_unwrap_dbus_error(dbus_error: GLib.Error, known_errors: ClientErrorsList, known_errors_count: number, known_errors_domain: GLib.Quark, fail_when_none_matched: boolean): [boolean, GLib.Error];
+
+        // Virtual methods
+        /**
+         * @virtual
+         */
+        vfunc_backend_died(): void;
+
+        /**
+         * @param error_msg 
+         * @virtual
+         */
+        vfunc_backend_error(error_msg: string): void;
+
+        /**
+         * @param prop_name 
+         * @param prop_value 
+         * @virtual
+         */
+        vfunc_backend_property_changed(prop_name: string, prop_value: string): void;
+
+        /**
+         * Queries `client`'s backend for a property of name `prop_name`.
+         * The call is finished by `e_client_get_backend_property_finish()`
+         * from the `callback`.
+         * @param prop_name property name, whose value to retrieve; cannot be `null`
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @virtual
+         */
+        vfunc_get_backend_property(prop_name: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes previous call of `e_client_get_backend_property()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @since 3.2
+         * @virtual
+         */
+        vfunc_get_backend_property_finish(result: Gio.AsyncResult): [boolean, string];
+
+        /**
+         * Queries `client`'s backend for a property of name `prop_name`.
+         * @param prop_name property name, whose value to retrieve; cannot be `null`
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @since 3.2
+         * @virtual
+         */
+        vfunc_get_backend_property_sync(prop_name: string, cancellable: Gio.Cancellable | null): [boolean, string];
+
+        /**
+         * Opens the `client`, making it ready for queries and other operations.
+         * The call is finished by `e_client_open_finish()` from the `callback`.
+         * @param only_if_exists this parameter is not used anymore
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_book_client_connect()` and                  `e_book_client_connect_finish()` or                  `e_cal_client_connect()` and                  `e_cal_client_connect_finish()` instead.
+         * @virtual
+         */
+        vfunc_open(only_if_exists: boolean, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes previous call of `e_client_open()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_book_client_connect()` and                  `e_book_client_connect_finish()` or                  `e_cal_client_connect()` and                  `e_cal_client_connect_finish()` instead.
+         * @virtual
+         */
+        vfunc_open_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Opens the `client`, making it ready for queries and other operations.
+         * @param only_if_exists this parameter is not used anymore
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_book_client_connect_sync()` or                  `e_cal_client_connect_sync()` instead.
+         * @virtual
+         */
+        vfunc_open_sync(only_if_exists: boolean, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * @param error 
+         * @virtual
+         */
+        vfunc_opened(error: GLib.Error): void;
+
+        /**
+         * Initiates refresh on the `client`. Finishing the method doesn't mean
+         * that the refresh is done, backend only notifies whether it started
+         * refreshing or not. Use `e_client_check_refresh_supported()` to check
+         * whether the backend supports this method.
+         * The call is finished by `e_client_refresh_finish()` from the `callback`.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @virtual
+         */
+        vfunc_refresh(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes previous call of `e_client_refresh()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @since 3.2
+         * @virtual
+         */
+        vfunc_refresh_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Initiates refresh on the `client`. Finishing the method doesn't mean
+         * that the refresh is done, backend only notifies whether it started
+         * refreshing or not. Use `e_client_check_refresh_supported()` to check
+         * whether the backend supports this method.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @since 3.2
+         * @virtual
+         */
+        vfunc_refresh_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Removes the backing data for this {@link EDataServer.Client}. For example, with the file
+         * backend this deletes the database file. You cannot get it back!
+         * The call is finished by `e_client_remove_finish()` from the `callback`.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @deprecated since 3.6: Use `e_source_remove()` instead.
+         * @virtual
+         */
+        vfunc_remove(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes previous call of `e_client_remove()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @since 3.2
+         * @deprecated since 3.6: Use `e_source_remove_finish()` instead.
+         * @virtual
+         */
+        vfunc_remove_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Removes the backing data for this {@link EDataServer.Client}. For example, with the file
+         * backend this deletes the database file. You cannot get it back!
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @since 3.2
+         * @deprecated since 3.6: Use `e_source_remove_sync()` instead.
+         * @virtual
+         */
+        vfunc_remove_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Initiates retrieval of capabilities on the `client`. This is usually
+         * required only once, after the `client` is opened. The returned value
+         * is cached and any subsequent call of `e_client_get_capabilities()` and
+         * `e_client_check_capability()` is using the cached value.
+         * The call is finished by `e_client_retrieve_capabilities_finish()`
+         * from the `callback`.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_client_get_capabilities()` instead.
+         * @virtual
+         */
+        vfunc_retrieve_capabilities(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes previous call of `e_client_retrieve_capabilities()`.
+         * Returned value of `capabilities` should be freed with `g_free()`,
+         * when no longer needed.
+         * @param result a {@link Gio.AsyncResult}
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_client_get_capabilities()` instead.
+         * @virtual
+         */
+        vfunc_retrieve_capabilities_finish(result: Gio.AsyncResult): [boolean, string];
+
+        /**
+         * Initiates retrieval of capabilities on the `client`. This is usually
+         * required only once, after the `client` is opened. The returned value
+         * is cached and any subsequent call of `e_client_get_capabilities()` and
+         * `e_client_check_capability()` is using the cached value. Returned value
+         * of `capabilities` should be freed with `g_free()`, when no longer needed.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_client_get_capabilities()` instead.
+         * @virtual
+         */
+        vfunc_retrieve_capabilities_sync(cancellable: Gio.Cancellable | null): [boolean, string];
+
+        /**
+         * Retrieves `client` properties to match server-side values, without waiting
+         * for the D-Bus property change notifications delivery.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.16
+         * @virtual
+         */
+        vfunc_retrieve_properties_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Sets `client`'s backend property of name `prop_name`
+         * to value `prop_value`. The call is finished
+         * by `e_client_set_backend_property_finish()` from the `callback`.
+         * @param prop_name property name, whose value to change; cannot be `null`
+         * @param prop_value property value, to set; cannot be `null`
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @deprecated since 3.8: Clients cannot set backend properties.  Any attempt                  will fail with an {@link EDataServer.ClientError.NOT_SUPPORTED} error.
+         * @virtual
+         */
+        vfunc_set_backend_property(prop_name: string, prop_value: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes previous call of `e_client_set_backend_property()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @since 3.2
+         * @deprecated since 3.8: Clients cannot set backend properties.  Any attempt                  will fail with an {@link EDataServer.ClientError.NOT_SUPPORTED} error.
+         * @virtual
+         */
+        vfunc_set_backend_property_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Sets `client`'s backend property of name `prop_name`
+         * to value `prop_value`.
+         * @param prop_name property name, whose value to change; cannot be `null`
+         * @param prop_value property value, to set; cannot be `null`
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @since 3.2
+         * @deprecated since 3.8: Clients cannot set backend properties.  Any attempt                  will fail with an {@link EDataServer.ClientError.NOT_SUPPORTED} error.
+         * @virtual
+         */
+        vfunc_set_backend_property_sync(prop_name: string, prop_value: string, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Unwraps D-Bus error to local error. `dbus_error` is automatically freed.
+         * `dbus_erorr` and `out_error` can point to the same variable.
+         * @param dbus_error a {@link GLib.Error} returned bu D-Bus
+         * @since 3.2
+         * @deprecated since 3.8: Use `g_dbus_error_strip_remote_error()` instead.
+         * @virtual
+         */
+        vfunc_unwrap_dbus_error(dbus_error: GLib.Error): void;
+
+        // Methods
+        /**
+         * Cancels all pending operations started on `client`.
+         * @since 3.2
+         * @deprecated since 3.8: The function no longer does anything.
+         */
+        cancel_all(): void;
+
+        /**
+         * Check if backend supports particular capability.
+         * To get all capabilities use `e_client_get_capabilities()`.
+         * @param capability a capability
+         * @returns {@link GLib.SList} of const strings of capabilities
+         * @since 3.2
+         */
+        check_capability(capability: string): boolean;
+
+        /**
+         * Checks whether a client supports explicit refreshing
+         * (see `e_client_refresh()`).
+         * @returns TRUE if the client supports refreshing, FALSE otherwise.
+         * @since 3.2
+         */
+        check_refresh_supported(): boolean;
+
+        /**
+         * Returns a D-Bus bus name that will be used to connect the
+         * client to the backend subprocess.
+         * @returns a newly-allocated string representing a D-Bus bus          name that will be used to connect the client to          the backend subprocess. The string should be          freed by the caller using `g_free()`.
+         * @since 3.16
+         */
+        dup_bus_name(): string;
+
+        /**
+         * Queries `client`'s backend for a property of name `prop_name`.
+         * The call is finished by `e_client_get_backend_property_finish()`
+         * from the `callback`.
+         * @param prop_name property name, whose value to retrieve; cannot be `null`
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @since 3.2
+         */
+        get_backend_property(prop_name: string, cancellable: Gio.Cancellable | null): globalThis.Promise<string>;
+
+        /**
+         * Queries `client`'s backend for a property of name `prop_name`.
+         * The call is finished by `e_client_get_backend_property_finish()`
+         * from the `callback`.
+         * @param prop_name property name, whose value to retrieve; cannot be `null`
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         */
+        get_backend_property(prop_name: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Queries `client`'s backend for a property of name `prop_name`.
+         * The call is finished by `e_client_get_backend_property_finish()`
+         * from the `callback`.
+         * @param prop_name property name, whose value to retrieve; cannot be `null`
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         */
+        get_backend_property(prop_name: string, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<string> | void;
+
+        /**
+         * Finishes previous call of `e_client_get_backend_property()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.2
+         * @throws GLib.Error
+         */
+        get_backend_property_finish(result: Gio.AsyncResult): [boolean, string];
+
+        /**
+         * Queries `client`'s backend for a property of name `prop_name`.
+         * @param prop_name property name, whose value to retrieve; cannot be `null`
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.2
+         * @throws GLib.Error
+         */
+        get_backend_property_sync(prop_name: string, cancellable: Gio.Cancellable | null): [boolean, string];
+
+        /**
+         * Get list of strings with capabilities advertised by a backend.
+         * This list, together with inner strings, is owned by the `client`.
+         * To check for individual capabilities use `e_client_check_capability()`.
+         * @returns {@link GLib.SList} of const strings          of capabilities
+         * @since 3.2
+         */
+        get_capabilities(): string[];
+
+        /**
+         * Get the {@link EDataServer.Source} that this client has assigned.
+         * @returns The source.
+         * @since 3.2
+         */
+        get_source(): Source;
+
+        /**
+         * Check if this `client` is connected.
+         * @returns `true` if this `client` is connected, otherwise `false`.
+         * @since 3.2
+         */
+        is_online(): boolean;
+
+        /**
+         * Check if this `client` is fully opened. This includes
+         * everything from `e_client_open()` call up to the authentication,
+         * if required by a backend. Client cannot do any other operation
+         * during the opening phase except of authenticate or cancel it.
+         * Every other operation results in an {@link EDataServer.ClientError.BUSY} error.
+         * @returns always `true`
+         * @since 3.2
+         * @deprecated since 3.8: Clients don't need to care if they're fully opened                  anymore.  This function always returns `true`.
+         */
+        is_opened(): boolean;
+
+        /**
+         * Check if this `client` is read-only.
+         * @returns `true` if this `client` is read-only, otherwise `false`.
+         * @since 3.2
+         */
+        is_readonly(): boolean;
+
+        /**
+         * Opens the `client`, making it ready for queries and other operations.
+         * The call is finished by `e_client_open_finish()` from the `callback`.
+         * @param only_if_exists this parameter is not used anymore
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_book_client_connect()` and                  `e_book_client_connect_finish()` or                  `e_cal_client_connect()` and                  `e_cal_client_connect_finish()` instead.
+         */
+        open(only_if_exists: boolean, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Opens the `client`, making it ready for queries and other operations.
+         * The call is finished by `e_client_open_finish()` from the `callback`.
+         * @param only_if_exists this parameter is not used anymore
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_book_client_connect()` and                  `e_book_client_connect_finish()` or                  `e_cal_client_connect()` and                  `e_cal_client_connect_finish()` instead.
+         */
+        open(only_if_exists: boolean, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Opens the `client`, making it ready for queries and other operations.
+         * The call is finished by `e_client_open_finish()` from the `callback`.
+         * @param only_if_exists this parameter is not used anymore
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_book_client_connect()` and                  `e_book_client_connect_finish()` or                  `e_cal_client_connect()` and                  `e_cal_client_connect_finish()` instead.
+         */
+        open(only_if_exists: boolean, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes previous call of `e_client_open()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_book_client_connect()` and                  `e_book_client_connect_finish()` or                  `e_cal_client_connect()` and                  `e_cal_client_connect_finish()` instead.
+         * @throws GLib.Error
+         */
+        open_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Opens the `client`, making it ready for queries and other operations.
+         * @param only_if_exists this parameter is not used anymore
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_book_client_connect_sync()` or                  `e_cal_client_connect_sync()` instead.
+         * @throws GLib.Error
+         */
+        open_sync(only_if_exists: boolean, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Returns the {@link GLib.MainContext} on which event sources for `client` are to
+         * be attached.
+         * 
+         * The returned {@link GLib.MainContext} is referenced for thread-safety and must be
+         * unreferenced with `g_main_context_unref()` when finished with it.
+         * @returns a {@link GLib.MainContext}
+         * @since 3.8
+         */
+        ref_main_context(): GLib.MainContext;
+
+        /**
+         * Initiates refresh on the `client`. Finishing the method doesn't mean
+         * that the refresh is done, backend only notifies whether it started
+         * refreshing or not. Use `e_client_check_refresh_supported()` to check
+         * whether the backend supports this method.
+         * The call is finished by `e_client_refresh_finish()` from the `callback`.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @since 3.2
+         */
+        refresh(cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Initiates refresh on the `client`. Finishing the method doesn't mean
+         * that the refresh is done, backend only notifies whether it started
+         * refreshing or not. Use `e_client_check_refresh_supported()` to check
+         * whether the backend supports this method.
+         * The call is finished by `e_client_refresh_finish()` from the `callback`.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         */
+        refresh(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Initiates refresh on the `client`. Finishing the method doesn't mean
+         * that the refresh is done, backend only notifies whether it started
+         * refreshing or not. Use `e_client_check_refresh_supported()` to check
+         * whether the backend supports this method.
+         * The call is finished by `e_client_refresh_finish()` from the `callback`.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         */
+        refresh(cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes previous call of `e_client_refresh()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.2
+         * @throws GLib.Error
+         */
+        refresh_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Initiates refresh on the `client`. Finishing the method doesn't mean
+         * that the refresh is done, backend only notifies whether it started
+         * refreshing or not. Use `e_client_check_refresh_supported()` to check
+         * whether the backend supports this method.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.2
+         * @throws GLib.Error
+         */
+        refresh_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Removes the backing data for this {@link EDataServer.Client}. For example, with the file
+         * backend this deletes the database file. You cannot get it back!
+         * The call is finished by `e_client_remove_finish()` from the `callback`.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @since 3.2
+         * @deprecated since 3.6: Use `e_source_remove()` instead.
+         */
+        remove(cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Removes the backing data for this {@link EDataServer.Client}. For example, with the file
+         * backend this deletes the database file. You cannot get it back!
+         * The call is finished by `e_client_remove_finish()` from the `callback`.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @deprecated since 3.6: Use `e_source_remove()` instead.
+         */
+        remove(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Removes the backing data for this {@link EDataServer.Client}. For example, with the file
+         * backend this deletes the database file. You cannot get it back!
+         * The call is finished by `e_client_remove_finish()` from the `callback`.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @deprecated since 3.6: Use `e_source_remove()` instead.
+         */
+        remove(cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes previous call of `e_client_remove()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.2
+         * @deprecated since 3.6: Use `e_source_remove_finish()` instead.
+         * @throws GLib.Error
+         */
+        remove_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Removes the backing data for this {@link EDataServer.Client}. For example, with the file
+         * backend this deletes the database file. You cannot get it back!
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.2
+         * @deprecated since 3.6: Use `e_source_remove_sync()` instead.
+         * @throws GLib.Error
+         */
+        remove_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Initiates retrieval of capabilities on the `client`. This is usually
+         * required only once, after the `client` is opened. The returned value
+         * is cached and any subsequent call of `e_client_get_capabilities()` and
+         * `e_client_check_capability()` is using the cached value.
+         * The call is finished by `e_client_retrieve_capabilities_finish()`
+         * from the `callback`.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_client_get_capabilities()` instead.
+         */
+        retrieve_capabilities(cancellable: Gio.Cancellable | null): globalThis.Promise<string>;
+
+        /**
+         * Initiates retrieval of capabilities on the `client`. This is usually
+         * required only once, after the `client` is opened. The returned value
+         * is cached and any subsequent call of `e_client_get_capabilities()` and
+         * `e_client_check_capability()` is using the cached value.
+         * The call is finished by `e_client_retrieve_capabilities_finish()`
+         * from the `callback`.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_client_get_capabilities()` instead.
+         */
+        retrieve_capabilities(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Initiates retrieval of capabilities on the `client`. This is usually
+         * required only once, after the `client` is opened. The returned value
+         * is cached and any subsequent call of `e_client_get_capabilities()` and
+         * `e_client_check_capability()` is using the cached value.
+         * The call is finished by `e_client_retrieve_capabilities_finish()`
+         * from the `callback`.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_client_get_capabilities()` instead.
+         */
+        retrieve_capabilities(cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<string> | void;
+
+        /**
+         * Finishes previous call of `e_client_retrieve_capabilities()`.
+         * Returned value of `capabilities` should be freed with `g_free()`,
+         * when no longer needed.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_client_get_capabilities()` instead.
+         * @throws GLib.Error
+         */
+        retrieve_capabilities_finish(result: Gio.AsyncResult): [boolean, string];
+
+        /**
+         * Initiates retrieval of capabilities on the `client`. This is usually
+         * required only once, after the `client` is opened. The returned value
+         * is cached and any subsequent call of `e_client_get_capabilities()` and
+         * `e_client_check_capability()` is using the cached value. Returned value
+         * of `capabilities` should be freed with `g_free()`, when no longer needed.
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.2
+         * @deprecated since 3.8: Use `e_client_get_capabilities()` instead.
+         * @throws GLib.Error
+         */
+        retrieve_capabilities_sync(cancellable: Gio.Cancellable | null): [boolean, string];
+
+        /**
+         * Asynchronously retrieves `client` properties to match server-side values,
+         * without waiting for the D-Bus property change notifications delivery.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_client_retrieve_properties_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.16
+         */
+        retrieve_properties(cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously retrieves `client` properties to match server-side values,
+         * without waiting for the D-Bus property change notifications delivery.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_client_retrieve_properties_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        retrieve_properties(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously retrieves `client` properties to match server-side values,
+         * without waiting for the D-Bus property change notifications delivery.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_client_retrieve_properties_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        retrieve_properties(cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_client_retrieve_properties()`.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        retrieve_properties_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Retrieves `client` properties to match server-side values, without waiting
+         * for the D-Bus property change notifications delivery.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        retrieve_properties_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Sets `client`'s backend property of name `prop_name`
+         * to value `prop_value`. The call is finished
+         * by `e_client_set_backend_property_finish()` from the `callback`.
+         * @param prop_name property name, whose value to change; cannot be `null`
+         * @param prop_value property value, to set; cannot be `null`
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @since 3.2
+         * @deprecated since 3.8: Clients cannot set backend properties.  Any attempt                  will fail with an {@link EDataServer.ClientError.NOT_SUPPORTED} error.
+         */
+        set_backend_property(prop_name: string, prop_value: string, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Sets `client`'s backend property of name `prop_name`
+         * to value `prop_value`. The call is finished
+         * by `e_client_set_backend_property_finish()` from the `callback`.
+         * @param prop_name property name, whose value to change; cannot be `null`
+         * @param prop_value property value, to set; cannot be `null`
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @deprecated since 3.8: Clients cannot set backend properties.  Any attempt                  will fail with an {@link EDataServer.ClientError.NOT_SUPPORTED} error.
+         */
+        set_backend_property(prop_name: string, prop_value: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Sets `client`'s backend property of name `prop_name`
+         * to value `prop_value`. The call is finished
+         * by `e_client_set_backend_property_finish()` from the `callback`.
+         * @param prop_name property name, whose value to change; cannot be `null`
+         * @param prop_value property value, to set; cannot be `null`
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.2
+         * @deprecated since 3.8: Clients cannot set backend properties.  Any attempt                  will fail with an {@link EDataServer.ClientError.NOT_SUPPORTED} error.
+         */
+        set_backend_property(prop_name: string, prop_value: string, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes previous call of `e_client_set_backend_property()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.2
+         * @deprecated since 3.8: Clients cannot set backend properties.  Any attempt                  will fail with an {@link EDataServer.ClientError.NOT_SUPPORTED} error.
+         * @throws GLib.Error
+         */
+        set_backend_property_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Sets `client`'s backend property of name `prop_name`
+         * to value `prop_value`.
+         * @param prop_name property name, whose value to change; cannot be `null`
+         * @param prop_value property value, to set; cannot be `null`
+         * @param cancellable a {@link Gio.Cancellable}; can be `null`
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.2
+         * @deprecated since 3.8: Clients cannot set backend properties.  Any attempt                  will fail with an {@link EDataServer.ClientError.NOT_SUPPORTED} error.
+         * @throws GLib.Error
+         */
+        set_backend_property_sync(prop_name: string, prop_value: string, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Sets a D-Bus bus name that will be used to connect the client
+         * to the backend subprocess.
+         * @param bus_name a string representing a D-Bus bus name
+         * @since 3.16
+         */
+        set_bus_name(bus_name: string): void;
+
+        /**
+         * Unwraps D-Bus error to local error. `dbus_error` is automatically freed.
+         * `dbus_erorr` and `out_error` can point to the same variable.
+         * @param dbus_error a {@link GLib.Error} returned bu D-Bus
+         * @since 3.2
+         * @deprecated since 3.8: Use `g_dbus_error_strip_remote_error()` instead.
+         * @throws GLib.Error
+         */
+        unwrap_dbus_error(dbus_error: GLib.Error): void;
+
+        /**
+         * Asynchronously waits until the `client` is connected (according
+         * to `ESource`::connection-status property), but not longer than `timeout_seconds`.
+         * 
+         * The call is finished by `e_client_wait_for_connected_finish()` from
+         * the `callback`.
+         * @param timeout_seconds a timeout for the wait, in seconds
+         * @param cancellable a {@link Gio.Cancellable}; or `null`
+         * @since 3.16
+         */
+        wait_for_connected(timeout_seconds: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously waits until the `client` is connected (according
+         * to `ESource`::connection-status property), but not longer than `timeout_seconds`.
+         * 
+         * The call is finished by `e_client_wait_for_connected_finish()` from
+         * the `callback`.
+         * @param timeout_seconds a timeout for the wait, in seconds
+         * @param cancellable a {@link Gio.Cancellable}; or `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.16
+         */
+        wait_for_connected(timeout_seconds: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously waits until the `client` is connected (according
+         * to `ESource`::connection-status property), but not longer than `timeout_seconds`.
+         * 
+         * The call is finished by `e_client_wait_for_connected_finish()` from
+         * the `callback`.
+         * @param timeout_seconds a timeout for the wait, in seconds
+         * @param cancellable a {@link Gio.Cancellable}; or `null`
+         * @param callback callback to call when a result is ready
+         * @since 3.16
+         */
+        wait_for_connected(timeout_seconds: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes previous call of `e_client_wait_for_connected()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        wait_for_connected_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Synchronously waits until the `client` is connected (according
+         * to `ESource`::connection-status property), but not longer than `timeout_seconds`.
+         * 
+         * Note: This also calls `e_client_retrieve_properties_sync()` on success, to have
+         *   up-to-date property values on the client side, without a delay due
+         *   to property change notifcations delivery through D-Bus.
+         * @param timeout_seconds a timeout for the wait, in seconds
+         * @param cancellable a {@link Gio.Cancellable}; or `null`
+         * @returns `true` if successful, `false` otherwise.
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        wait_for_connected_sync(timeout_seconds: number, cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    namespace Extension {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::extensible": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            extensible: Extensible;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.4
+     */
+    abstract class Extension extends GObject.Object {
+        static $gtype: GObject.GType<Extension>;
+
+        // Properties
+        /**
+         * The object being extended
+         * @construct-only
+         */
+        get extensible(): Extensible;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Extension.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Extension.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Extension.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Extension.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Extension.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Extension.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Extension.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Extension.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Returns the object that `extension` extends.
+         * @returns the object being extended
+         * @since 3.4
+         */
+        get_extensible(): Extensible;
+    }
+
+
+    namespace GDataSession {
+        // Signal signatures
+        interface SignalSignatures extends SoupSession.SignalSignatures {
+            "notify::credentials": (pspec: GObject.ParamSpec) => void;
+            "notify::force-http1": (pspec: GObject.ParamSpec) => void;
+            "notify::handle-backoff-responses": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+            "notify::accept-language": (pspec: GObject.ParamSpec) => void;
+            "notify::accept-language-auto": (pspec: GObject.ParamSpec) => void;
+            "notify::idle-timeout": (pspec: GObject.ParamSpec) => void;
+            "notify::local-address": (pspec: GObject.ParamSpec) => void;
+            "notify::max-conns": (pspec: GObject.ParamSpec) => void;
+            "notify::max-conns-per-host": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy-resolver": (pspec: GObject.ParamSpec) => void;
+            "notify::remote-connectable": (pspec: GObject.ParamSpec) => void;
+            "notify::timeout": (pspec: GObject.ParamSpec) => void;
+            "notify::tls-database": (pspec: GObject.ParamSpec) => void;
+            "notify::tls-interaction": (pspec: GObject.ParamSpec) => void;
+            "notify::user-agent": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SoupSession.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.46
+     */
+    class GDataSession extends SoupSession {
+        static $gtype: GObject.GType<GDataSession>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: GDataSession.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<GDataSession.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](source: Source): GDataSession;
+
+        // Conflicted with Soup.Session.new
+        static ["new"](...args: never[]): any;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof GDataSession.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, GDataSession.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof GDataSession.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, GDataSession.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof GDataSession.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<GDataSession.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Deletes a task list `tasklist_id`.
+         * @param tasklist_id id of a task list
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasklists_delete_sync(tasklist_id: string, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Gets a task list `tasklist_id` and returns it as a {@link Json.Object},
+         * which should be freed with `json_object_unref()`, when no longer needed.
+         * 
+         * There can be used `e_gdata_tasklist_get_id()`, `e_gdata_tasklist_get_etag()`,
+         * `e_gdata_tasklist_get_title()`, `e_gdata_tasklist_get_self_link()`,
+         * `e_gdata_tasklist_get_updated()` to read the properties of the task list.
+         * @param tasklist_id id of a task list
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasklists_get_sync(tasklist_id: string, cancellable: Gio.Cancellable | null): [boolean, Json.Object];
+
+        /**
+         * Creates a new task list, titled `title`. The `out_inserted_tasklist` should
+         * be freed with `json_object_unref()`, when no longer needed.
+         * @param title title to set
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasklists_insert_sync(title: string, cancellable: Gio.Cancellable | null): [boolean, Json.Object];
+
+        /**
+         * Lists all configured task lists for the user, calling the `cb` for each of them.
+         * @param query an {@link EDataServer.GDataQuery} to limit returned task lists, or `null`
+         * @param cb an {@link EDataServer.GDataObjectCallback} to call for each found task list
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasklists_list_sync(query: GDataQuery | null, cb: GDataObjectCallback, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Changes properties of a task list `tasklist_id`.
+         * 
+         * If not `null`, free the `out_patched_tasklist` with `json_object_unref()`,
+         * when no longer needed.
+         * @param tasklist_id id of a task list
+         * @param tasklist_properties task list properties to change
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasklists_patch_sync(tasklist_id: string, tasklist_properties: Json.Builder, cancellable: Gio.Cancellable | null): [boolean, Json.Object | null];
+
+        /**
+         * Updates a task list `tasklist_id` with values from the `tasklist`.
+         * @param tasklist_id id of a task list
+         * @param tasklist task list object to update the task list with
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasklists_update_sync(tasklist_id: string, tasklist: Json.Builder, cancellable: Gio.Cancellable | null): [boolean, Json.Object | null];
+
+        /**
+         * Clears all completed tasks from the task list `tasklist_id`. The affected tasks
+         * will be marked as 'hidden' and no longer be returned by default when retrieving
+         * all tasks for a task list.
+         * @param tasklist_id id of a task list
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasks_clear_sync(tasklist_id: string, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Deletes a task `task_id` from a task list `tasklist_id`.
+         * @param tasklist_id id of a task list
+         * @param task_id id of a task
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasks_delete_sync(tasklist_id: string, task_id: string, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Gets a task `task_id` from a task list `tasklist_id` and returns it as a {@link Json.Object},
+         * which should be freed with `json_object_unref()`, when no longer needed.
+         * 
+         * There can be used `e_gdata_task_get_id()`, `e_gdata_task_get_etag()`,
+         * `e_gdata_task_get_title()` and other e_gdata_task_... functions
+         * to read the properties of the task.
+         * @param tasklist_id id of a task list
+         * @param task_id id of a task
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasks_get_sync(tasklist_id: string, task_id: string, cancellable: Gio.Cancellable | null): [boolean, Json.Object];
+
+        /**
+         * Creates a new task `task` in the task list `tasklist_id`. The `out_inserted_task` should
+         * be freed with `json_object_unref()`, when no longer needed.
+         * @param tasklist_id id of a task list
+         * @param task a {@link Json.Builder} with the task object
+         * @param parent_task_id parent task identifier, or `null` to create at the top-level
+         * @param previous_task_id previous sibling task identifier, or `null` to create at the first position among its siblings
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasks_insert_sync(tasklist_id: string, task: Json.Builder, parent_task_id: string | null, previous_task_id: string | null, cancellable: Gio.Cancellable | null): [boolean, Json.Object];
+
+        /**
+         * Lists all tasks in the task list `tasklist_id`, calling the `cb` for each of them.
+         * @param tasklist_id id of a task list
+         * @param query an {@link EDataServer.GDataQuery} to limit returned tasks, or `null`
+         * @param cb an {@link EDataServer.GDataObjectCallback} to call for each found task
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasks_list_sync(tasklist_id: string, query: GDataQuery | null, cb: GDataObjectCallback, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Moves the specified task `task_id` to another position in the task
+         * list `tasklist_id`. This can include putting it as a child task under
+         * a new parent and/or move it to a different position among its sibling tasks.
+         * @param tasklist_id id of a task list
+         * @param task_id id of a task
+         * @param parent_task_id parent task identifier, or `null` to move at the top-level
+         * @param previous_task_id previous sibling task identifier, or `null` to move at the first position among its siblings
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasks_move_sync(tasklist_id: string, task_id: string, parent_task_id: string | null, previous_task_id: string | null, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Changes properties `task_properties` of a task `task_id` in the task list `tasklist_id`.
+         * 
+         * If not `null`, free the `out_patched_task` with `json_object_unref()`,
+         * when no longer needed.
+         * @param tasklist_id id of a task list
+         * @param task_id id of a task
+         * @param task_properties task properties to change
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasks_patch_sync(tasklist_id: string, task_id: string, task_properties: Json.Builder, cancellable: Gio.Cancellable | null): [boolean, Json.Object | null];
+
+        /**
+         * Updates a task `task_id` in a task list `tasklist_id` to the values from the `task`.
+         * @param tasklist_id id of a task list
+         * @param task_id id of a task
+         * @param task task object to update the task with
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        tasks_update_sync(tasklist_id: string, task_id: string, task: Json.Builder, cancellable: Gio.Cancellable | null): [boolean, Json.Object | null];
+    }
+
+
+    namespace Module {
+        // Signal signatures
+        interface SignalSignatures extends GObject.TypeModule.SignalSignatures {
+            "notify::filename": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.TypeModule.ConstructorProps, GObject.TypePlugin.ConstructorProps {
+            filename: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.4
+     */
+    class Module extends GObject.TypeModule implements GObject.TypePlugin {
+        static $gtype: GObject.GType<Module>;
+
+        // Properties
+        /**
+         * The filename of the module.
+         * @construct-only
+         * @default null
+         */
+        get filename(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Module.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Module.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](filename: string): Module;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Module.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Module.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Module.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Module.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Module.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Module.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Loads all the modules in the specified directory into memory.  If
+         * you want to unload them (enabling on-demand loading) you must call
+         * `g_type_module_unuse()` on all the modules.  Free the returned list
+         * with `g_list_free()`.
+         * @param dirname pathname for a directory containing modules to load
+         * @since 3.4
+         */
+        static load_all_in_directory(dirname: string): Module[];
+
+        /**
+         * Loads all the modules in the specified directory into memory and the other
+         * custom prefixes returned by `e_util_get_directory_variants()`.  If
+         * you want to unload them (enabling on-demand loading) you must call
+         * `g_type_module_unuse()` on all the modules.  Free the returned list
+         * with `g_list_free()`.
+         * 
+         * When `dirprefix` is `null`, or not a prefix of `dirname`, behaves
+         * the same as `e_module_load_all_in_directory()`.
+         * @param dirname pathname for a directory containing modules to load
+         * @param dirprefix prefix of `dirname`, which can be replaced by custom prefixes, or `null`
+         * @since 3.40
+         */
+        static load_all_in_directory_and_prefixes(dirname: string, dirprefix: string | null): Module[];
+
+        /**
+         * Load the module from the specified filename into memory. If
+         * you want to unload it (enabling on-demand loading) you must call
+         * `g_type_module_unuse()` on the module.
+         * @param filename filename of the module to load
+         * @since 3.16
+         */
+        static load_file(filename: string): Module;
+
+        // Methods
+        /**
+         * Returns the filename of the shared library for `module`.  The
+         * string is owned by `module` and should not be modified or freed.
+         * @returns the filename for `module`
+         * @since 3.4
+         */
+        get_filename(): string;
+
+        /**
+         * Calls the `complete_interface_info` function from the
+         * {@link GObject.TypePluginClass} of `plugin`. There should be no need to use this
+         * function outside of the GObject type system itself.
+         * @param instance_type the {@link GObject.GType} of an instantiatable type to which the interface  is added
+         * @param interface_type the {@link GObject.GType} of the interface whose info is completed
+         * @param info the {@link GObject.InterfaceInfo} to fill in
+         */
+        complete_interface_info(instance_type: GObject.GType, interface_type: GObject.GType, info: GObject.InterfaceInfo): void;
+
+        /**
+         * Calls the `complete_type_info` function from the {@link GObject.TypePluginClass} of `plugin`.
+         * There should be no need to use this function outside of the GObject
+         * type system itself.
+         * @param g_type the {@link GObject.GType} whose info is completed
+         * @param info the {@link GObject.TypeInfo} struct to fill in
+         * @param value_table the {@link GObject.TypeValueTable} to fill in
+         */
+        complete_type_info(g_type: GObject.GType, info: GObject.TypeInfo, value_table: GObject.TypeValueTable): void;
+
+        /**
+         * Calls the `unuse_plugin` function from the {@link GObject.TypePluginClass} of
+         * `plugin`.  There should be no need to use this function outside of
+         * the GObject type system itself.
+         */
+        unuse(): void;
+
+        /**
+         * Calls the `use_plugin` function from the {@link GObject.TypePluginClass} of
+         * `plugin`.  There should be no need to use this function outside of
+         * the GObject type system itself.
+         */
+        use(): void;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with GObject.TypeModule.use
+        use(...args: never[]): any;
+    }
+
+
+    namespace MsOapxbc {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class MsOapxbc extends GObject.Object {
+        static $gtype: GObject.GType<MsOapxbc>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MsOapxbc.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MsOapxbc.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static new_sync(client_id: string, authority: string, cancellable: Gio.Cancellable | null): MsOapxbc;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MsOapxbc.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MsOapxbc.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MsOapxbc.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MsOapxbc.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MsOapxbc.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MsOapxbc.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Synchronously calls acquirePrtSsoCookie() D-Bus method on the Microsoft
+         * OAuth2 broker service and converts the result into a new {@link Soup.Cookie}.
+         * The account object needs to be taken from the accounts list that is returned by
+         * `e_ms_oapxbc_get_accounts_sync()`. The SSO URL is the OAuth2 authentication endpoint.
+         * The scopes are the requested scopes for the OAuth2 service (usually only
+         * https://graph.microsoft.com/.default). The redirect URI is the OAuth2 service
+         * redirect URI.
+         * @param account an account returned from `e_ms_oapxbc_get_accounts_sync()`
+         * @param sso_url an SSO URL to acquire the PRT SSO cookie for.
+         * @param scopes array of scopes
+         * @param redirect_uri redirect URI
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns an acquired cookie, or `null` on error
+         * @since 3.54
+         * @throws GLib.Error
+         */
+        acquire_prt_sso_cookie_sync(account: Json.Object, sso_url: string, scopes: Json.Array, redirect_uri: string, cancellable: Gio.Cancellable | null): Soup.Cookie | null;
+
+        /**
+         * Synchronously calls getAccounts() D-Bus method on the Microsoft
+         * OAuth2 broker service and returns the result as a {@link Json.Object}.
+         * 
+         * The {@link Json.Object} contains the accounts that are currently registered at the broker,
+         * whereby the "accounts" node provides a {@link Json.Array} of account entries. Note, that
+         * the availability of the types and entries needs to be checked by the caller before
+         * accessing them. The accounts entries can be inspected e.g. for the "username" and
+         * "homeAccountId" fields. Then, one entry needs to be selected and passed as-is to
+         * `e_ms_oapxbc_acquire_prt_sso_cookie_sync()`.
+         * @param redirect_uri 
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns the accounts, or `null` on error
+         * @since 3.54
+         * @throws GLib.Error
+         */
+        get_accounts_sync(redirect_uri: string, cancellable: Gio.Cancellable | null): Json.Object | null;
+    }
+
+
+    namespace NetworkMonitor {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures, Gio.NetworkMonitor.SignalSignatures {
+            "notify::gio-name": (pspec: GObject.ParamSpec) => void;
+            "notify::connectivity": (pspec: GObject.ParamSpec) => void;
+            "notify::network-available": (pspec: GObject.ParamSpec) => void;
+            "notify::network-metered": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.Initable.ConstructorProps, Gio.NetworkMonitor.ConstructorProps {
+            gio_name: string;
+            gioName: string;
+        }
+    }
+
+    /**
+     * the functions below. Implements {@link Gio.NetworkMonitorInterface}.
+     * @gir-type Class
+     * @since 3.22
+     */
+    class NetworkMonitor extends GObject.Object implements Gio.Initable, Gio.NetworkMonitor {
+        static $gtype: GObject.GType<NetworkMonitor>;
+
+        // Properties
+        /**
+         * The GIO name of the underlying {@link Gio.NetworkMonitor} to use.
+         * @default null
+         */
+        get gio_name(): string;
+        set gio_name(val: string);
+
+        /**
+         * The GIO name of the underlying {@link Gio.NetworkMonitor} to use.
+         * @default null
+         */
+        get gioName(): string;
+        set gioName(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: NetworkMonitor.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<NetworkMonitor.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof NetworkMonitor.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, NetworkMonitor.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof NetworkMonitor.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, NetworkMonitor.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof NetworkMonitor.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<NetworkMonitor.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Gets the default {@link EDataServer.NetworkMonitor}. The caller should not unref the returned instance.
+         * The {@link EDataServer.NetworkMonitor} implements the {@link Gio.NetworkMonitor} iterface.
+         * @since 3.22
+         */
+        static get_default(): Gio.NetworkMonitor;
+
+        // Methods
+        /**
+         * Get currently set GIO name for the network availability checks.
+         * See `e_network_monitor_set_gio_name()` for more details.
+         * @returns A newly allocated string, a GIO name   of the underlying GNetworkMonitor which is set to be used.   The returned string should be freed with `g_free()`, when   no longer needed.
+         * @since 3.22
+         */
+        dup_gio_name(): string;
+
+        /**
+         * Get a list of available GIO names for the {@link Gio.NetworkMonitor} implementations.
+         * The strings can be used in `e_network_monitor_set_gio_name()`.
+         * @returns A newly allocated {@link GLib.SList},   with newly allocated strings, the GIO names. The {@link GLib.SList} should be freed   with g_slist_free_full (gio_names, g_free); when no longer needed.
+         * @since 3.22
+         */
+        list_gio_names(): string[];
+
+        /**
+         * Set a `gio_name` of the {@link Gio.NetworkMonitor} implementation to use, can be `null`.
+         * Use `e_network_monitor_list_gio_names()` for a list of available
+         * implementations. A special value, `E_NETWORK_MONITOR_ALWAYS_ONLINE_NAME`, can
+         * be used to report the network as always reachable. When an unknown GIO
+         * name is used the default {@link Gio.NetworkMonitor} implementation, as returned
+         * by the `g_network_monitor_get_default()`, will be used.
+         * @param gio_name a GIO name of a {@link Gio.NetworkMonitor} implementation to use, or `null`
+         * @since 3.22
+         */
+        set_gio_name(gio_name: string | null): void;
+
+        /**
+         * More detailed information about the host's network connectivity.
+         * See `g_network_monitor_get_connectivity()` and
+         * {@link Gio.NetworkConnectivity} for more details.
+         * @since 2.44
+         * @read-only
+         * @default Gio.NetworkConnectivity.FULL
+          * @category Inherited from Gio.NetworkMonitor
+         */
+        get connectivity(): Gio.NetworkConnectivity;
+
+        /**
+         * Whether the network is considered available. That is, whether the
+         * system has a default route for at least one of IPv4 or IPv6.
+         * 
+         * Real-world networks are of course much more complicated than
+         * this; the machine may be connected to a wifi hotspot that
+         * requires payment before allowing traffic through, or may be
+         * connected to a functioning router that has lost its own upstream
+         * connectivity. Some hosts might only be accessible when a VPN is
+         * active. Other hosts might only be accessible when the VPN is
+         * not active. Thus, it is best to use `g_network_monitor_can_reach()`
+         * or `g_network_monitor_can_reach_async()` to test for reachability
+         * on a host-by-host basis. (On the other hand, when the property is
+         * `false`, the application can reasonably expect that no remote
+         * hosts at all are reachable, and should indicate this to the user
+         * in its UI.)
+         * 
+         * See also {@link Gio.NetworkMonitor.SignalSignatures.network_changed | Gio.NetworkMonitor::network-changed}.
+         * @since 2.32
+         * @read-only
+         * @default false
+          * @category Inherited from Gio.NetworkMonitor
+         */
+        get network_available(): boolean;
+
+        /**
+         * Whether the network is considered available. That is, whether the
+         * system has a default route for at least one of IPv4 or IPv6.
+         * 
+         * Real-world networks are of course much more complicated than
+         * this; the machine may be connected to a wifi hotspot that
+         * requires payment before allowing traffic through, or may be
+         * connected to a functioning router that has lost its own upstream
+         * connectivity. Some hosts might only be accessible when a VPN is
+         * active. Other hosts might only be accessible when the VPN is
+         * not active. Thus, it is best to use `g_network_monitor_can_reach()`
+         * or `g_network_monitor_can_reach_async()` to test for reachability
+         * on a host-by-host basis. (On the other hand, when the property is
+         * `false`, the application can reasonably expect that no remote
+         * hosts at all are reachable, and should indicate this to the user
+         * in its UI.)
+         * 
+         * See also {@link Gio.NetworkMonitor.SignalSignatures.network_changed | Gio.NetworkMonitor::network-changed}.
+         * @since 2.32
+         * @read-only
+         * @default false
+          * @category Inherited from Gio.NetworkMonitor
+         */
+        get networkAvailable(): boolean;
+
+        /**
+         * Whether the network is considered metered.
+         * 
+         * That is, whether the
+         * system has traffic flowing through the default connection that is
+         * subject to limitations set by service providers. For example, traffic
+         * might be billed by the amount of data transmitted, or there might be a
+         * quota on the amount of traffic per month. This is typical with tethered
+         * connections (3G and 4G) and in such situations, bandwidth intensive
+         * applications may wish to avoid network activity where possible if it will
+         * cost the user money or use up their limited quota. Anything more than a
+         * few hundreds of kilobytes of data usage per hour should be avoided without
+         * asking permission from the user.
+         * 
+         * If more information is required about specific devices then the
+         * system network management API should be used instead (for example,
+         * NetworkManager or ConnMan).
+         * 
+         * If this information is not available then no networks will be
+         * marked as metered.
+         * 
+         * See also {@link Gio.NetworkMonitor.network_available}.
+         * @since 2.46
+         * @read-only
+         * @default false
+          * @category Inherited from Gio.NetworkMonitor
+         */
+        get network_metered(): boolean;
+
+        /**
+         * Whether the network is considered metered.
+         * 
+         * That is, whether the
+         * system has traffic flowing through the default connection that is
+         * subject to limitations set by service providers. For example, traffic
+         * might be billed by the amount of data transmitted, or there might be a
+         * quota on the amount of traffic per month. This is typical with tethered
+         * connections (3G and 4G) and in such situations, bandwidth intensive
+         * applications may wish to avoid network activity where possible if it will
+         * cost the user money or use up their limited quota. Anything more than a
+         * few hundreds of kilobytes of data usage per hour should be avoided without
+         * asking permission from the user.
+         * 
+         * If more information is required about specific devices then the
+         * system network management API should be used instead (for example,
+         * NetworkManager or ConnMan).
+         * 
+         * If this information is not available then no networks will be
+         * marked as metered.
+         * 
+         * See also {@link Gio.NetworkMonitor.network_available}.
+         * @since 2.46
+         * @read-only
+         * @default false
+          * @category Inherited from Gio.NetworkMonitor
+         */
+        get networkMetered(): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @returns `true` if successful. If an error has occurred, this function will     return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Attempts to determine whether or not the host pointed to by
+         * `connectable` can be reached, without actually trying to connect to
+         * it.
+         * 
+         * This may return `true` even when {@link Gio.NetworkMonitor.network_available}
+         * is `false`, if, for example, `monitor` can determine that
+         * `connectable` refers to a host on a local network.
+         * 
+         * If `monitor` believes that an attempt to connect to `connectable`
+         * will succeed, it will return `true`. Otherwise, it will return
+         * `false` and set `error` to an appropriate error (such as
+         * {@link Gio.IOErrorEnum.HOST_UNREACHABLE}).
+         * 
+         * Note that although this does not attempt to connect to
+         * `connectable`, it may still block for a brief period of time (eg,
+         * trying to do multicast DNS on the local network), so if you do not
+         * want to block, you should use `g_network_monitor_can_reach_async()`.
+         * @param connectable a {@link Gio.SocketConnectable}
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @returns `true` if `connectable` is reachable, `false` if not.
+         * @since 2.32
+         * @throws GLib.Error
+         */
+        can_reach(connectable: Gio.SocketConnectable, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously attempts to determine whether or not the host
+         * pointed to by `connectable` can be reached, without actually
+         * trying to connect to it.
+         * 
+         * For more details, see `g_network_monitor_can_reach()`.
+         * 
+         * When the operation is finished, `callback` will be called.
+         * You can then call `g_network_monitor_can_reach_finish()`
+         * to get the result of the operation.
+         * @param connectable a {@link Gio.SocketConnectable}
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         */
+        can_reach_async(connectable: Gio.SocketConnectable, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously attempts to determine whether or not the host
+         * pointed to by `connectable` can be reached, without actually
+         * trying to connect to it.
+         * 
+         * For more details, see `g_network_monitor_can_reach()`.
+         * 
+         * When the operation is finished, `callback` will be called.
+         * You can then call `g_network_monitor_can_reach_finish()`
+         * to get the result of the operation.
+         * @param connectable a {@link Gio.SocketConnectable}
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback}     to call when the request is satisfied
+         */
+        can_reach_async(connectable: Gio.SocketConnectable, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously attempts to determine whether or not the host
+         * pointed to by `connectable` can be reached, without actually
+         * trying to connect to it.
+         * 
+         * For more details, see `g_network_monitor_can_reach()`.
+         * 
+         * When the operation is finished, `callback` will be called.
+         * You can then call `g_network_monitor_can_reach_finish()`
+         * to get the result of the operation.
+         * @param connectable a {@link Gio.SocketConnectable}
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback}     to call when the request is satisfied
+         */
+        can_reach_async(connectable: Gio.SocketConnectable, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes an async network connectivity test.
+         * See `g_network_monitor_can_reach_async()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` if network is reachable, `false` if not.
+         * @throws GLib.Error
+         */
+        can_reach_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Gets a more detailed networking state than
+         * `g_network_monitor_get_network_available()`.
+         * 
+         * If {@link Gio.NetworkMonitor.network_available} is `false`, then the
+         * connectivity state will be {@link Gio.NetworkConnectivity.LOCAL}.
+         * 
+         * If {@link Gio.NetworkMonitor.network_available} is `true`, then the
+         * connectivity state will be {@link Gio.NetworkConnectivity.FULL} (if there
+         * is full Internet connectivity), {@link Gio.NetworkConnectivity.LIMITED} (if
+         * the host has a default route, but appears to be unable to actually
+         * reach the full Internet), or {@link Gio.NetworkConnectivity.PORTAL} (if the
+         * host is trapped behind a "captive portal" that requires some sort
+         * of login or acknowledgement before allowing full Internet access).
+         * 
+         * Note that in the case of {@link Gio.NetworkConnectivity.LIMITED} and
+         * {@link Gio.NetworkConnectivity.PORTAL}, it is possible that some sites are
+         * reachable but others are not. In this case, applications can
+         * attempt to connect to remote servers, but should gracefully fall
+         * back to their "offline" behavior if the connection attempt fails.
+         * @returns the network connectivity state
+         * @since 2.44
+         */
+        get_connectivity(): Gio.NetworkConnectivity;
+
+        /**
+         * Checks if the network is available. "Available" here means that the
+         * system has a default route available for at least one of IPv4 or
+         * IPv6. It does not necessarily imply that the public Internet is
+         * reachable. See {@link Gio.NetworkMonitor.network_available} for more details.
+         * @returns whether the network is available
+         * @since 2.32
+         */
+        get_network_available(): boolean;
+
+        /**
+         * Checks if the network is metered.
+         * See {@link Gio.NetworkMonitor.network_metered} for more details.
+         * @returns whether the connection is metered
+         * @since 2.46
+         */
+        get_network_metered(): boolean;
+
+        /**
+         * Attempts to determine whether or not the host pointed to by
+         * `connectable` can be reached, without actually trying to connect to
+         * it.
+         * 
+         * This may return `true` even when {@link Gio.NetworkMonitor.network_available}
+         * is `false`, if, for example, `monitor` can determine that
+         * `connectable` refers to a host on a local network.
+         * 
+         * If `monitor` believes that an attempt to connect to `connectable`
+         * will succeed, it will return `true`. Otherwise, it will return
+         * `false` and set `error` to an appropriate error (such as
+         * {@link Gio.IOErrorEnum.HOST_UNREACHABLE}).
+         * 
+         * Note that although this does not attempt to connect to
+         * `connectable`, it may still block for a brief period of time (eg,
+         * trying to do multicast DNS on the local network), so if you do not
+         * want to block, you should use `g_network_monitor_can_reach_async()`.
+         * @param connectable a {@link Gio.SocketConnectable}
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @since 2.32
+         * @virtual
+         */
+        vfunc_can_reach(connectable: Gio.SocketConnectable, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously attempts to determine whether or not the host
+         * pointed to by `connectable` can be reached, without actually
+         * trying to connect to it.
+         * 
+         * For more details, see `g_network_monitor_can_reach()`.
+         * 
+         * When the operation is finished, `callback` will be called.
+         * You can then call `g_network_monitor_can_reach_finish()`
+         * to get the result of the operation.
+         * @param connectable a {@link Gio.SocketConnectable}
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback}     to call when the request is satisfied
+         * @virtual
+         */
+        vfunc_can_reach_async(connectable: Gio.SocketConnectable, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes an async network connectivity test.
+         * See `g_network_monitor_can_reach_async()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @virtual
+         */
+        vfunc_can_reach_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * the virtual function pointer for the
+         *  GNetworkMonitor::network-changed signal.
+         * @param network_available 
+         * @virtual
+         */
+        vfunc_network_changed(network_available: boolean): void;
+    }
+
+
+    namespace OAuth2ServiceBase {
+        // Signal signatures
+        interface SignalSignatures extends Extension.SignalSignatures {
+            "notify::extensible": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Extension.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class OAuth2ServiceBase extends Extension {
+        static $gtype: GObject.GType<OAuth2ServiceBase>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: OAuth2ServiceBase.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<OAuth2ServiceBase.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof OAuth2ServiceBase.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OAuth2ServiceBase.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof OAuth2ServiceBase.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OAuth2ServiceBase.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof OAuth2ServiceBase.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<OAuth2ServiceBase.SignalSignatures[K]>): void;
+    }
+
+
+    namespace OAuth2ServiceGoogle {
+        // Signal signatures
+        interface SignalSignatures extends OAuth2ServiceBase.SignalSignatures {
+            "notify::extensible": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends OAuth2ServiceBase.ConstructorProps, OAuth2Service.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class OAuth2ServiceGoogle extends OAuth2ServiceBase implements OAuth2Service {
+        static $gtype: GObject.GType<OAuth2ServiceGoogle>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: OAuth2ServiceGoogle.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<OAuth2ServiceGoogle.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof OAuth2ServiceGoogle.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OAuth2ServiceGoogle.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof OAuth2ServiceGoogle.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OAuth2ServiceGoogle.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof OAuth2ServiceGoogle.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<OAuth2ServiceGoogle.SignalSignatures[K]>): void;
+
+        /**
+         * Checks whether the `service` can be used with the given `source`.
+         * 
+         * The default implementation checks whether the `source` has an {@link EDataServer.SourceAuthentication}
+         * extension and when its method matches `e_oauth2_service_get_name()`, then it automatically
+         * returns `true`. Contrary, when the `source` contains GNOME Online Accounts or Ubuntu
+         * Online Accounts extension, then it returns `false`.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param source an {@link EDataServer.Source}
+         * @returns Whether the `service` can be used for the given `source`
+         * @since 3.28
+         */
+        can_process(source: Source): boolean;
+
+        /**
+         * Deletes token information for the `service` and `source` from the secret store.
+         * @param source an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        delete_token_sync(source: Source, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Additional cookies to be used in the prompt dialog when asking for the user
+         * credentials. The default implementation does not provide any cookies.
+         * @param source an associated {@link EDataServer.Source}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns a {@link GLib.SList} of {@link Soup.Cookie}-s to use, or `null`
+         * @since 3.54
+         */
+        dup_credentials_prompter_cookies_sync(source: Source, cancellable: Gio.Cancellable | null): Soup.Cookie[] | null;
+
+        /**
+         * Tries to extract an authorization code from a web page provided by the server.
+         * The function can be called multiple times, whenever the page load is finished.
+         * The default implementation uses `e_oauth2_service_util_extract_from_uri()` to get
+         * the code from the given `page_uri`.
+         * 
+         * There can happen three states: 1) either the `service` cannot determine
+         * the authentication code from the page information, then the `false` is
+         * returned and the `out_authorization_code` is left untouched; or 2) the server
+         * reported a failure, in which case the function returns `true` and lefts
+         * the `out_authorization_code` untouched; or 3) the `service` could extract
+         * the authentication code from the given arguments, then the function
+         * returns `true` and sets the received authorization code to `out_authorization_code`.
+         * 
+         * The `page_content` is `null`, unless flags returned by `e_oauth2_service_get_flags()`
+         * contain also {@link EDataServer.OAuth2ServiceFlags.EXTRACT_REQUIRES_PAGE_CONTENT}.
+         * 
+         * This method is always called after `e_oauth2_service_get_authentication_policy()`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @returns whether could recognized successful or failed server response.    The `out_authorization_code` is populated on success too.
+         * @since 3.28
+         */
+        extract_authorization_code(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Tries to extract error message from the server response, return `true`,
+         * when an error message could be found, in which case also sets
+         * the `out_error_message` with it. The default implementation uses
+         * `e_oauth2_service_util_extract_from_uri()`, returning either the error
+         * description or the error code, when the description is not found.
+         * 
+         * The `out_error_message` is expected to be plain text.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @returns whether could recognized failed server response.    The `out_error_message` is populated on success.
+         * @since 3.48
+         */
+        extract_error_message(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Reads access token information from the secret store for the `source` and
+         * in case it's expired it refreshes the token, if possible.
+         * 
+         * Free the returned `out_access_token` with `g_free()`, when no longer needed.
+         * @param source an {@link EDataServer.Source}
+         * @param ref_source an {@link EDataServer.OAuth2ServiceRefSourceFunc} function to obtain an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true`, when the returned access token has been set and it's not expired,    `false` otherwise.
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        get_access_token_sync(source: Source, ref_source: OAuth2ServiceRefSourceFunc, cancellable: Gio.Cancellable | null): [boolean, string, number];
+
+        /**
+         * Used to decide what to do when the server redirects to the next page.
+         * The default implementation always returns {@link EDataServer.OAuth2ServiceNavigationPolicy.ALLOW}.
+         * 
+         * This method is called before `e_oauth2_service_extract_authorization_code()` and
+         * can be used to block certain resources or to abort the authentication when
+         * the server redirects to an unexpected page (like when user denies authorization
+         * in the page).
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri a URI of the navigation resource
+         * @returns one of {@link EDataServer.OAuth2ServiceNavigationPolicy}
+         * @since 3.28
+         */
+        get_authentication_policy(source: Source, uri: string): OAuth2ServiceNavigationPolicy;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns an authentication URI, to be used to obtain    the authentication code
+         * @since 3.28
+         */
+        get_authentication_uri(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns application client ID, as provided by the server
+         * @since 3.28
+         */
+        get_client_id(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns application client secret, as provided by the server, or `null`
+         * @since 3.28
+         */
+        get_client_secret(source: Source): string | null;
+
+        /**
+         * Returns a human readable name of the service. This is similar to
+         * `e_oauth2_service_get_name()`, except this string should be localized,
+         * because it will be used in user-visible strings.
+         * @returns the display name of the `service`
+         * @since 3.28
+         */
+        get_display_name(): string;
+
+        /**
+         * @returns bit-or of {@link EDataServer.OAuth2ServiceFlags} for the `service`. The default    implementation returns {@link EDataServer.OAuth2ServiceFlags.NONE}.
+         * @since 3.28
+         */
+        get_flags(): number;
+
+        /**
+         * Returns a unique name of the service. It can be named for example
+         * by the server or the company from which it receives the OAuth2
+         * token and where it refreshes it, like "Company" for login.company.com.
+         * @returns the name of the `service`
+         * @since 3.28
+         */
+        get_name(): string;
+
+        /**
+         * Returns a value for the "redirect_uri" keys in the authenticate and get_token
+         * operations. The default implementation returns "urn:ietf:wg:oauth:2.0:oob".
+         * @param source an associated {@link EDataServer.Source}
+         * @returns The redirect_uri to use, or `null` for none
+         * @since 3.28
+         */
+        get_redirect_uri(source: Source): string | null;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns a URI to be used to refresh the authentication token
+         * @since 3.28
+         */
+        get_refresh_uri(source: Source): string;
+
+        /**
+         * Checks whether the `service` can be used with the given `protocol` and/or `hostname`.
+         * Any of `protocol` and `hostname` can be `null`, but not both. It's up to each implementer
+         * to decide, which of the arguments are important and whether all or only any of them
+         * can be required.
+         * 
+         * The function is meant to check whether the `service` can be offered
+         * for example when configuring a new account. The real usage is
+         * determined by `e_oauth2_service_can_process()`.
+         * 
+         * The default implementation consults org.gnome.evolution-data-server.oauth2-services-hint
+         * GSettings key against given hostname. See its description for more information.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param protocol a protocol to search the service for, like "imap", or `null`
+         * @param hostname a host name to search the service for, like "server.example.com", or `null`
+         * @returns Whether the `service` can be used for the given arguments
+         * @since 3.28
+         */
+        guess_can_process(protocol: string | null, hostname: string | null): boolean;
+
+        /**
+         * The `service` can change what arguments are passed in the authentication URI
+         * in this method. The default implementation sets some values too, namely
+         * "response_type", "client_id", "redirect_uri" and "login_hint", if available
+         * in the `source`. These parameters are always provided, even when the interface
+         * implementer overrides this method.
+         * 
+         * The `uri_query` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri_query query for the URI to use
+         * @since 3.28
+         */
+        prepare_authentication_uri_query(source: Source, uri_query: { [key: string]: string }): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * access token after successfully obtained authorization code.
+         * The default implementation sets some values too, namely
+         * "code", "client_id", "client_secret", "redirect_uri" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param authorization_code authorization code, as returned from `e_oauth2_service_extract_authorization_code()`
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         */
+        prepare_get_token_form(source: Source, authorization_code: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_authentication_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_get_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         */
+        prepare_get_token_message(source: Source, message: Soup.Message): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * to refresh an access token.
+         * The default implementation sets some values too, namely
+         * "refresh_token", "client_id", "client_secret" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param refresh_token a refresh token to be used
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         */
+        prepare_refresh_token_form(source: Source, refresh_token: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_refresh_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_refresh_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         */
+        prepare_refresh_token_message(source: Source, message: Soup.Message): void;
+
+        /**
+         * Queries `service` at `e_oauth2_service_get_refresh_uri()` with a request to obtain
+         * a new access token, associated with the given `authorization_code` and stores
+         * it into the secret store on success.
+         * @param source an {@link EDataServer.Source}
+         * @param authorization_code authorization code provided by the server
+         * @param ref_source an {@link EDataServer.OAuth2ServiceRefSourceFunc} function to obtain an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        receive_and_store_token_sync(source: Source, authorization_code: string, ref_source: OAuth2ServiceRefSourceFunc, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Queries `service` at `e_oauth2_service_get_refresh_uri()` with a request to refresh
+         * existing access token with provided `refresh_token` and stores it into the secret
+         * store on success.
+         * @param source an {@link EDataServer.Source}
+         * @param refresh_token refresh token as provided by the server
+         * @param ref_source an {@link EDataServer.OAuth2ServiceRefSourceFunc} function to obtain an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        refresh_and_store_token_sync(source: Source, refresh_token: string, ref_source: OAuth2ServiceRefSourceFunc, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Checks whether the `service` can be used with the given `source`.
+         * 
+         * The default implementation checks whether the `source` has an {@link EDataServer.SourceAuthentication}
+         * extension and when its method matches `e_oauth2_service_get_name()`, then it automatically
+         * returns `true`. Contrary, when the `source` contains GNOME Online Accounts or Ubuntu
+         * Online Accounts extension, then it returns `false`.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param source an {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_can_process(source: Source): boolean;
+
+        /**
+         * Additional cookies to be used in the prompt dialog when asking for the user
+         * credentials. The default implementation does not provide any cookies.
+         * @param source an associated {@link EDataServer.Source}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @since 3.54
+         * @virtual
+         */
+        vfunc_dup_credentials_prompter_cookies_sync(source: Source, cancellable: Gio.Cancellable | null): Soup.Cookie[] | null;
+
+        /**
+         * Tries to extract an authorization code from a web page provided by the server.
+         * The function can be called multiple times, whenever the page load is finished.
+         * The default implementation uses `e_oauth2_service_util_extract_from_uri()` to get
+         * the code from the given `page_uri`.
+         * 
+         * There can happen three states: 1) either the `service` cannot determine
+         * the authentication code from the page information, then the `false` is
+         * returned and the `out_authorization_code` is left untouched; or 2) the server
+         * reported a failure, in which case the function returns `true` and lefts
+         * the `out_authorization_code` untouched; or 3) the `service` could extract
+         * the authentication code from the given arguments, then the function
+         * returns `true` and sets the received authorization code to `out_authorization_code`.
+         * 
+         * The `page_content` is `null`, unless flags returned by `e_oauth2_service_get_flags()`
+         * contain also {@link EDataServer.OAuth2ServiceFlags.EXTRACT_REQUIRES_PAGE_CONTENT}.
+         * 
+         * This method is always called after `e_oauth2_service_get_authentication_policy()`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_extract_authorization_code(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Tries to extract error message from the server response, return `true`,
+         * when an error message could be found, in which case also sets
+         * the `out_error_message` with it. The default implementation uses
+         * `e_oauth2_service_util_extract_from_uri()`, returning either the error
+         * description or the error code, when the description is not found.
+         * 
+         * The `out_error_message` is expected to be plain text.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @since 3.48
+         * @virtual
+         */
+        vfunc_extract_error_message(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Used to decide what to do when the server redirects to the next page.
+         * The default implementation always returns {@link EDataServer.OAuth2ServiceNavigationPolicy.ALLOW}.
+         * 
+         * This method is called before `e_oauth2_service_extract_authorization_code()` and
+         * can be used to block certain resources or to abort the authentication when
+         * the server redirects to an unexpected page (like when user denies authorization
+         * in the page).
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri a URI of the navigation resource
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_authentication_policy(source: Source, uri: string): OAuth2ServiceNavigationPolicy;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_authentication_uri(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_client_id(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_client_secret(source: Source): string | null;
+
+        /**
+         * Returns a human readable name of the service. This is similar to
+         * `e_oauth2_service_get_name()`, except this string should be localized,
+         * because it will be used in user-visible strings.
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_display_name(): string;
+
+        /**
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_flags(): number;
+
+        /**
+         * Returns a unique name of the service. It can be named for example
+         * by the server or the company from which it receives the OAuth2
+         * token and where it refreshes it, like "Company" for login.company.com.
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_name(): string;
+
+        /**
+         * Returns a value for the "redirect_uri" keys in the authenticate and get_token
+         * operations. The default implementation returns "urn:ietf:wg:oauth:2.0:oob".
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_redirect_uri(source: Source): string | null;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_refresh_uri(source: Source): string;
+
+        /**
+         * Checks whether the `service` can be used with the given `protocol` and/or `hostname`.
+         * Any of `protocol` and `hostname` can be `null`, but not both. It's up to each implementer
+         * to decide, which of the arguments are important and whether all or only any of them
+         * can be required.
+         * 
+         * The function is meant to check whether the `service` can be offered
+         * for example when configuring a new account. The real usage is
+         * determined by `e_oauth2_service_can_process()`.
+         * 
+         * The default implementation consults org.gnome.evolution-data-server.oauth2-services-hint
+         * GSettings key against given hostname. See its description for more information.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param protocol a protocol to search the service for, like "imap", or `null`
+         * @param hostname a host name to search the service for, like "server.example.com", or `null`
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_guess_can_process(protocol: string | null, hostname: string | null): boolean;
+
+        /**
+         * The `service` can change what arguments are passed in the authentication URI
+         * in this method. The default implementation sets some values too, namely
+         * "response_type", "client_id", "redirect_uri" and "login_hint", if available
+         * in the `source`. These parameters are always provided, even when the interface
+         * implementer overrides this method.
+         * 
+         * The `uri_query` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri_query query for the URI to use
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_authentication_uri_query(source: Source, uri_query: { [key: string]: string }): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * access token after successfully obtained authorization code.
+         * The default implementation sets some values too, namely
+         * "code", "client_id", "client_secret", "redirect_uri" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param authorization_code authorization code, as returned from `e_oauth2_service_extract_authorization_code()`
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_get_token_form(source: Source, authorization_code: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_authentication_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_get_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_get_token_message(source: Source, message: Soup.Message): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * to refresh an access token.
+         * The default implementation sets some values too, namely
+         * "refresh_token", "client_id", "client_secret" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param refresh_token a refresh token to be used
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_refresh_token_form(source: Source, refresh_token: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_refresh_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_refresh_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_refresh_token_message(source: Source, message: Soup.Message): void;
+    }
+
+
+    namespace OAuth2ServiceOutlook {
+        // Signal signatures
+        interface SignalSignatures extends OAuth2ServiceBase.SignalSignatures {
+            "notify::extensible": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends OAuth2ServiceBase.ConstructorProps, OAuth2Service.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class OAuth2ServiceOutlook extends OAuth2ServiceBase implements OAuth2Service {
+        static $gtype: GObject.GType<OAuth2ServiceOutlook>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: OAuth2ServiceOutlook.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<OAuth2ServiceOutlook.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof OAuth2ServiceOutlook.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OAuth2ServiceOutlook.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof OAuth2ServiceOutlook.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OAuth2ServiceOutlook.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof OAuth2ServiceOutlook.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<OAuth2ServiceOutlook.SignalSignatures[K]>): void;
+
+        /**
+         * Checks whether the `service` can be used with the given `source`.
+         * 
+         * The default implementation checks whether the `source` has an {@link EDataServer.SourceAuthentication}
+         * extension and when its method matches `e_oauth2_service_get_name()`, then it automatically
+         * returns `true`. Contrary, when the `source` contains GNOME Online Accounts or Ubuntu
+         * Online Accounts extension, then it returns `false`.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param source an {@link EDataServer.Source}
+         * @returns Whether the `service` can be used for the given `source`
+         * @since 3.28
+         */
+        can_process(source: Source): boolean;
+
+        /**
+         * Deletes token information for the `service` and `source` from the secret store.
+         * @param source an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        delete_token_sync(source: Source, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Additional cookies to be used in the prompt dialog when asking for the user
+         * credentials. The default implementation does not provide any cookies.
+         * @param source an associated {@link EDataServer.Source}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns a {@link GLib.SList} of {@link Soup.Cookie}-s to use, or `null`
+         * @since 3.54
+         */
+        dup_credentials_prompter_cookies_sync(source: Source, cancellable: Gio.Cancellable | null): Soup.Cookie[] | null;
+
+        /**
+         * Tries to extract an authorization code from a web page provided by the server.
+         * The function can be called multiple times, whenever the page load is finished.
+         * The default implementation uses `e_oauth2_service_util_extract_from_uri()` to get
+         * the code from the given `page_uri`.
+         * 
+         * There can happen three states: 1) either the `service` cannot determine
+         * the authentication code from the page information, then the `false` is
+         * returned and the `out_authorization_code` is left untouched; or 2) the server
+         * reported a failure, in which case the function returns `true` and lefts
+         * the `out_authorization_code` untouched; or 3) the `service` could extract
+         * the authentication code from the given arguments, then the function
+         * returns `true` and sets the received authorization code to `out_authorization_code`.
+         * 
+         * The `page_content` is `null`, unless flags returned by `e_oauth2_service_get_flags()`
+         * contain also {@link EDataServer.OAuth2ServiceFlags.EXTRACT_REQUIRES_PAGE_CONTENT}.
+         * 
+         * This method is always called after `e_oauth2_service_get_authentication_policy()`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @returns whether could recognized successful or failed server response.    The `out_authorization_code` is populated on success too.
+         * @since 3.28
+         */
+        extract_authorization_code(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Tries to extract error message from the server response, return `true`,
+         * when an error message could be found, in which case also sets
+         * the `out_error_message` with it. The default implementation uses
+         * `e_oauth2_service_util_extract_from_uri()`, returning either the error
+         * description or the error code, when the description is not found.
+         * 
+         * The `out_error_message` is expected to be plain text.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @returns whether could recognized failed server response.    The `out_error_message` is populated on success.
+         * @since 3.48
+         */
+        extract_error_message(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Reads access token information from the secret store for the `source` and
+         * in case it's expired it refreshes the token, if possible.
+         * 
+         * Free the returned `out_access_token` with `g_free()`, when no longer needed.
+         * @param source an {@link EDataServer.Source}
+         * @param ref_source an {@link EDataServer.OAuth2ServiceRefSourceFunc} function to obtain an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true`, when the returned access token has been set and it's not expired,    `false` otherwise.
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        get_access_token_sync(source: Source, ref_source: OAuth2ServiceRefSourceFunc, cancellable: Gio.Cancellable | null): [boolean, string, number];
+
+        /**
+         * Used to decide what to do when the server redirects to the next page.
+         * The default implementation always returns {@link EDataServer.OAuth2ServiceNavigationPolicy.ALLOW}.
+         * 
+         * This method is called before `e_oauth2_service_extract_authorization_code()` and
+         * can be used to block certain resources or to abort the authentication when
+         * the server redirects to an unexpected page (like when user denies authorization
+         * in the page).
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri a URI of the navigation resource
+         * @returns one of {@link EDataServer.OAuth2ServiceNavigationPolicy}
+         * @since 3.28
+         */
+        get_authentication_policy(source: Source, uri: string): OAuth2ServiceNavigationPolicy;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns an authentication URI, to be used to obtain    the authentication code
+         * @since 3.28
+         */
+        get_authentication_uri(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns application client ID, as provided by the server
+         * @since 3.28
+         */
+        get_client_id(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns application client secret, as provided by the server, or `null`
+         * @since 3.28
+         */
+        get_client_secret(source: Source): string | null;
+
+        /**
+         * Returns a human readable name of the service. This is similar to
+         * `e_oauth2_service_get_name()`, except this string should be localized,
+         * because it will be used in user-visible strings.
+         * @returns the display name of the `service`
+         * @since 3.28
+         */
+        get_display_name(): string;
+
+        /**
+         * @returns bit-or of {@link EDataServer.OAuth2ServiceFlags} for the `service`. The default    implementation returns {@link EDataServer.OAuth2ServiceFlags.NONE}.
+         * @since 3.28
+         */
+        get_flags(): number;
+
+        /**
+         * Returns a unique name of the service. It can be named for example
+         * by the server or the company from which it receives the OAuth2
+         * token and where it refreshes it, like "Company" for login.company.com.
+         * @returns the name of the `service`
+         * @since 3.28
+         */
+        get_name(): string;
+
+        /**
+         * Returns a value for the "redirect_uri" keys in the authenticate and get_token
+         * operations. The default implementation returns "urn:ietf:wg:oauth:2.0:oob".
+         * @param source an associated {@link EDataServer.Source}
+         * @returns The redirect_uri to use, or `null` for none
+         * @since 3.28
+         */
+        get_redirect_uri(source: Source): string | null;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns a URI to be used to refresh the authentication token
+         * @since 3.28
+         */
+        get_refresh_uri(source: Source): string;
+
+        /**
+         * Checks whether the `service` can be used with the given `protocol` and/or `hostname`.
+         * Any of `protocol` and `hostname` can be `null`, but not both. It's up to each implementer
+         * to decide, which of the arguments are important and whether all or only any of them
+         * can be required.
+         * 
+         * The function is meant to check whether the `service` can be offered
+         * for example when configuring a new account. The real usage is
+         * determined by `e_oauth2_service_can_process()`.
+         * 
+         * The default implementation consults org.gnome.evolution-data-server.oauth2-services-hint
+         * GSettings key against given hostname. See its description for more information.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param protocol a protocol to search the service for, like "imap", or `null`
+         * @param hostname a host name to search the service for, like "server.example.com", or `null`
+         * @returns Whether the `service` can be used for the given arguments
+         * @since 3.28
+         */
+        guess_can_process(protocol: string | null, hostname: string | null): boolean;
+
+        /**
+         * The `service` can change what arguments are passed in the authentication URI
+         * in this method. The default implementation sets some values too, namely
+         * "response_type", "client_id", "redirect_uri" and "login_hint", if available
+         * in the `source`. These parameters are always provided, even when the interface
+         * implementer overrides this method.
+         * 
+         * The `uri_query` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri_query query for the URI to use
+         * @since 3.28
+         */
+        prepare_authentication_uri_query(source: Source, uri_query: { [key: string]: string }): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * access token after successfully obtained authorization code.
+         * The default implementation sets some values too, namely
+         * "code", "client_id", "client_secret", "redirect_uri" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param authorization_code authorization code, as returned from `e_oauth2_service_extract_authorization_code()`
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         */
+        prepare_get_token_form(source: Source, authorization_code: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_authentication_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_get_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         */
+        prepare_get_token_message(source: Source, message: Soup.Message): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * to refresh an access token.
+         * The default implementation sets some values too, namely
+         * "refresh_token", "client_id", "client_secret" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param refresh_token a refresh token to be used
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         */
+        prepare_refresh_token_form(source: Source, refresh_token: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_refresh_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_refresh_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         */
+        prepare_refresh_token_message(source: Source, message: Soup.Message): void;
+
+        /**
+         * Queries `service` at `e_oauth2_service_get_refresh_uri()` with a request to obtain
+         * a new access token, associated with the given `authorization_code` and stores
+         * it into the secret store on success.
+         * @param source an {@link EDataServer.Source}
+         * @param authorization_code authorization code provided by the server
+         * @param ref_source an {@link EDataServer.OAuth2ServiceRefSourceFunc} function to obtain an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        receive_and_store_token_sync(source: Source, authorization_code: string, ref_source: OAuth2ServiceRefSourceFunc, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Queries `service` at `e_oauth2_service_get_refresh_uri()` with a request to refresh
+         * existing access token with provided `refresh_token` and stores it into the secret
+         * store on success.
+         * @param source an {@link EDataServer.Source}
+         * @param refresh_token refresh token as provided by the server
+         * @param ref_source an {@link EDataServer.OAuth2ServiceRefSourceFunc} function to obtain an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        refresh_and_store_token_sync(source: Source, refresh_token: string, ref_source: OAuth2ServiceRefSourceFunc, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Checks whether the `service` can be used with the given `source`.
+         * 
+         * The default implementation checks whether the `source` has an {@link EDataServer.SourceAuthentication}
+         * extension and when its method matches `e_oauth2_service_get_name()`, then it automatically
+         * returns `true`. Contrary, when the `source` contains GNOME Online Accounts or Ubuntu
+         * Online Accounts extension, then it returns `false`.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param source an {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_can_process(source: Source): boolean;
+
+        /**
+         * Additional cookies to be used in the prompt dialog when asking for the user
+         * credentials. The default implementation does not provide any cookies.
+         * @param source an associated {@link EDataServer.Source}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @since 3.54
+         * @virtual
+         */
+        vfunc_dup_credentials_prompter_cookies_sync(source: Source, cancellable: Gio.Cancellable | null): Soup.Cookie[] | null;
+
+        /**
+         * Tries to extract an authorization code from a web page provided by the server.
+         * The function can be called multiple times, whenever the page load is finished.
+         * The default implementation uses `e_oauth2_service_util_extract_from_uri()` to get
+         * the code from the given `page_uri`.
+         * 
+         * There can happen three states: 1) either the `service` cannot determine
+         * the authentication code from the page information, then the `false` is
+         * returned and the `out_authorization_code` is left untouched; or 2) the server
+         * reported a failure, in which case the function returns `true` and lefts
+         * the `out_authorization_code` untouched; or 3) the `service` could extract
+         * the authentication code from the given arguments, then the function
+         * returns `true` and sets the received authorization code to `out_authorization_code`.
+         * 
+         * The `page_content` is `null`, unless flags returned by `e_oauth2_service_get_flags()`
+         * contain also {@link EDataServer.OAuth2ServiceFlags.EXTRACT_REQUIRES_PAGE_CONTENT}.
+         * 
+         * This method is always called after `e_oauth2_service_get_authentication_policy()`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_extract_authorization_code(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Tries to extract error message from the server response, return `true`,
+         * when an error message could be found, in which case also sets
+         * the `out_error_message` with it. The default implementation uses
+         * `e_oauth2_service_util_extract_from_uri()`, returning either the error
+         * description or the error code, when the description is not found.
+         * 
+         * The `out_error_message` is expected to be plain text.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @since 3.48
+         * @virtual
+         */
+        vfunc_extract_error_message(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Used to decide what to do when the server redirects to the next page.
+         * The default implementation always returns {@link EDataServer.OAuth2ServiceNavigationPolicy.ALLOW}.
+         * 
+         * This method is called before `e_oauth2_service_extract_authorization_code()` and
+         * can be used to block certain resources or to abort the authentication when
+         * the server redirects to an unexpected page (like when user denies authorization
+         * in the page).
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri a URI of the navigation resource
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_authentication_policy(source: Source, uri: string): OAuth2ServiceNavigationPolicy;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_authentication_uri(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_client_id(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_client_secret(source: Source): string | null;
+
+        /**
+         * Returns a human readable name of the service. This is similar to
+         * `e_oauth2_service_get_name()`, except this string should be localized,
+         * because it will be used in user-visible strings.
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_display_name(): string;
+
+        /**
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_flags(): number;
+
+        /**
+         * Returns a unique name of the service. It can be named for example
+         * by the server or the company from which it receives the OAuth2
+         * token and where it refreshes it, like "Company" for login.company.com.
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_name(): string;
+
+        /**
+         * Returns a value for the "redirect_uri" keys in the authenticate and get_token
+         * operations. The default implementation returns "urn:ietf:wg:oauth:2.0:oob".
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_redirect_uri(source: Source): string | null;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_refresh_uri(source: Source): string;
+
+        /**
+         * Checks whether the `service` can be used with the given `protocol` and/or `hostname`.
+         * Any of `protocol` and `hostname` can be `null`, but not both. It's up to each implementer
+         * to decide, which of the arguments are important and whether all or only any of them
+         * can be required.
+         * 
+         * The function is meant to check whether the `service` can be offered
+         * for example when configuring a new account. The real usage is
+         * determined by `e_oauth2_service_can_process()`.
+         * 
+         * The default implementation consults org.gnome.evolution-data-server.oauth2-services-hint
+         * GSettings key against given hostname. See its description for more information.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param protocol a protocol to search the service for, like "imap", or `null`
+         * @param hostname a host name to search the service for, like "server.example.com", or `null`
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_guess_can_process(protocol: string | null, hostname: string | null): boolean;
+
+        /**
+         * The `service` can change what arguments are passed in the authentication URI
+         * in this method. The default implementation sets some values too, namely
+         * "response_type", "client_id", "redirect_uri" and "login_hint", if available
+         * in the `source`. These parameters are always provided, even when the interface
+         * implementer overrides this method.
+         * 
+         * The `uri_query` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri_query query for the URI to use
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_authentication_uri_query(source: Source, uri_query: { [key: string]: string }): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * access token after successfully obtained authorization code.
+         * The default implementation sets some values too, namely
+         * "code", "client_id", "client_secret", "redirect_uri" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param authorization_code authorization code, as returned from `e_oauth2_service_extract_authorization_code()`
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_get_token_form(source: Source, authorization_code: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_authentication_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_get_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_get_token_message(source: Source, message: Soup.Message): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * to refresh an access token.
+         * The default implementation sets some values too, namely
+         * "refresh_token", "client_id", "client_secret" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param refresh_token a refresh token to be used
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_refresh_token_form(source: Source, refresh_token: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_refresh_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_refresh_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_refresh_token_message(source: Source, message: Soup.Message): void;
+    }
+
+
+    namespace OAuth2ServiceYahoo {
+        // Signal signatures
+        interface SignalSignatures extends OAuth2ServiceBase.SignalSignatures {
+            "notify::extensible": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends OAuth2ServiceBase.ConstructorProps, OAuth2Service.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class OAuth2ServiceYahoo extends OAuth2ServiceBase implements OAuth2Service {
+        static $gtype: GObject.GType<OAuth2ServiceYahoo>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: OAuth2ServiceYahoo.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<OAuth2ServiceYahoo.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof OAuth2ServiceYahoo.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OAuth2ServiceYahoo.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof OAuth2ServiceYahoo.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OAuth2ServiceYahoo.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof OAuth2ServiceYahoo.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<OAuth2ServiceYahoo.SignalSignatures[K]>): void;
+
+        /**
+         * Checks whether the `service` can be used with the given `source`.
+         * 
+         * The default implementation checks whether the `source` has an {@link EDataServer.SourceAuthentication}
+         * extension and when its method matches `e_oauth2_service_get_name()`, then it automatically
+         * returns `true`. Contrary, when the `source` contains GNOME Online Accounts or Ubuntu
+         * Online Accounts extension, then it returns `false`.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param source an {@link EDataServer.Source}
+         * @returns Whether the `service` can be used for the given `source`
+         * @since 3.28
+         */
+        can_process(source: Source): boolean;
+
+        /**
+         * Deletes token information for the `service` and `source` from the secret store.
+         * @param source an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        delete_token_sync(source: Source, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Additional cookies to be used in the prompt dialog when asking for the user
+         * credentials. The default implementation does not provide any cookies.
+         * @param source an associated {@link EDataServer.Source}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns a {@link GLib.SList} of {@link Soup.Cookie}-s to use, or `null`
+         * @since 3.54
+         */
+        dup_credentials_prompter_cookies_sync(source: Source, cancellable: Gio.Cancellable | null): Soup.Cookie[] | null;
+
+        /**
+         * Tries to extract an authorization code from a web page provided by the server.
+         * The function can be called multiple times, whenever the page load is finished.
+         * The default implementation uses `e_oauth2_service_util_extract_from_uri()` to get
+         * the code from the given `page_uri`.
+         * 
+         * There can happen three states: 1) either the `service` cannot determine
+         * the authentication code from the page information, then the `false` is
+         * returned and the `out_authorization_code` is left untouched; or 2) the server
+         * reported a failure, in which case the function returns `true` and lefts
+         * the `out_authorization_code` untouched; or 3) the `service` could extract
+         * the authentication code from the given arguments, then the function
+         * returns `true` and sets the received authorization code to `out_authorization_code`.
+         * 
+         * The `page_content` is `null`, unless flags returned by `e_oauth2_service_get_flags()`
+         * contain also {@link EDataServer.OAuth2ServiceFlags.EXTRACT_REQUIRES_PAGE_CONTENT}.
+         * 
+         * This method is always called after `e_oauth2_service_get_authentication_policy()`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @returns whether could recognized successful or failed server response.    The `out_authorization_code` is populated on success too.
+         * @since 3.28
+         */
+        extract_authorization_code(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Tries to extract error message from the server response, return `true`,
+         * when an error message could be found, in which case also sets
+         * the `out_error_message` with it. The default implementation uses
+         * `e_oauth2_service_util_extract_from_uri()`, returning either the error
+         * description or the error code, when the description is not found.
+         * 
+         * The `out_error_message` is expected to be plain text.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @returns whether could recognized failed server response.    The `out_error_message` is populated on success.
+         * @since 3.48
+         */
+        extract_error_message(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Reads access token information from the secret store for the `source` and
+         * in case it's expired it refreshes the token, if possible.
+         * 
+         * Free the returned `out_access_token` with `g_free()`, when no longer needed.
+         * @param source an {@link EDataServer.Source}
+         * @param ref_source an {@link EDataServer.OAuth2ServiceRefSourceFunc} function to obtain an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true`, when the returned access token has been set and it's not expired,    `false` otherwise.
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        get_access_token_sync(source: Source, ref_source: OAuth2ServiceRefSourceFunc, cancellable: Gio.Cancellable | null): [boolean, string, number];
+
+        /**
+         * Used to decide what to do when the server redirects to the next page.
+         * The default implementation always returns {@link EDataServer.OAuth2ServiceNavigationPolicy.ALLOW}.
+         * 
+         * This method is called before `e_oauth2_service_extract_authorization_code()` and
+         * can be used to block certain resources or to abort the authentication when
+         * the server redirects to an unexpected page (like when user denies authorization
+         * in the page).
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri a URI of the navigation resource
+         * @returns one of {@link EDataServer.OAuth2ServiceNavigationPolicy}
+         * @since 3.28
+         */
+        get_authentication_policy(source: Source, uri: string): OAuth2ServiceNavigationPolicy;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns an authentication URI, to be used to obtain    the authentication code
+         * @since 3.28
+         */
+        get_authentication_uri(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns application client ID, as provided by the server
+         * @since 3.28
+         */
+        get_client_id(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns application client secret, as provided by the server, or `null`
+         * @since 3.28
+         */
+        get_client_secret(source: Source): string | null;
+
+        /**
+         * Returns a human readable name of the service. This is similar to
+         * `e_oauth2_service_get_name()`, except this string should be localized,
+         * because it will be used in user-visible strings.
+         * @returns the display name of the `service`
+         * @since 3.28
+         */
+        get_display_name(): string;
+
+        /**
+         * @returns bit-or of {@link EDataServer.OAuth2ServiceFlags} for the `service`. The default    implementation returns {@link EDataServer.OAuth2ServiceFlags.NONE}.
+         * @since 3.28
+         */
+        get_flags(): number;
+
+        /**
+         * Returns a unique name of the service. It can be named for example
+         * by the server or the company from which it receives the OAuth2
+         * token and where it refreshes it, like "Company" for login.company.com.
+         * @returns the name of the `service`
+         * @since 3.28
+         */
+        get_name(): string;
+
+        /**
+         * Returns a value for the "redirect_uri" keys in the authenticate and get_token
+         * operations. The default implementation returns "urn:ietf:wg:oauth:2.0:oob".
+         * @param source an associated {@link EDataServer.Source}
+         * @returns The redirect_uri to use, or `null` for none
+         * @since 3.28
+         */
+        get_redirect_uri(source: Source): string | null;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns a URI to be used to refresh the authentication token
+         * @since 3.28
+         */
+        get_refresh_uri(source: Source): string;
+
+        /**
+         * Checks whether the `service` can be used with the given `protocol` and/or `hostname`.
+         * Any of `protocol` and `hostname` can be `null`, but not both. It's up to each implementer
+         * to decide, which of the arguments are important and whether all or only any of them
+         * can be required.
+         * 
+         * The function is meant to check whether the `service` can be offered
+         * for example when configuring a new account. The real usage is
+         * determined by `e_oauth2_service_can_process()`.
+         * 
+         * The default implementation consults org.gnome.evolution-data-server.oauth2-services-hint
+         * GSettings key against given hostname. See its description for more information.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param protocol a protocol to search the service for, like "imap", or `null`
+         * @param hostname a host name to search the service for, like "server.example.com", or `null`
+         * @returns Whether the `service` can be used for the given arguments
+         * @since 3.28
+         */
+        guess_can_process(protocol: string | null, hostname: string | null): boolean;
+
+        /**
+         * The `service` can change what arguments are passed in the authentication URI
+         * in this method. The default implementation sets some values too, namely
+         * "response_type", "client_id", "redirect_uri" and "login_hint", if available
+         * in the `source`. These parameters are always provided, even when the interface
+         * implementer overrides this method.
+         * 
+         * The `uri_query` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri_query query for the URI to use
+         * @since 3.28
+         */
+        prepare_authentication_uri_query(source: Source, uri_query: { [key: string]: string }): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * access token after successfully obtained authorization code.
+         * The default implementation sets some values too, namely
+         * "code", "client_id", "client_secret", "redirect_uri" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param authorization_code authorization code, as returned from `e_oauth2_service_extract_authorization_code()`
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         */
+        prepare_get_token_form(source: Source, authorization_code: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_authentication_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_get_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         */
+        prepare_get_token_message(source: Source, message: Soup.Message): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * to refresh an access token.
+         * The default implementation sets some values too, namely
+         * "refresh_token", "client_id", "client_secret" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param refresh_token a refresh token to be used
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         */
+        prepare_refresh_token_form(source: Source, refresh_token: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_refresh_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_refresh_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         */
+        prepare_refresh_token_message(source: Source, message: Soup.Message): void;
+
+        /**
+         * Queries `service` at `e_oauth2_service_get_refresh_uri()` with a request to obtain
+         * a new access token, associated with the given `authorization_code` and stores
+         * it into the secret store on success.
+         * @param source an {@link EDataServer.Source}
+         * @param authorization_code authorization code provided by the server
+         * @param ref_source an {@link EDataServer.OAuth2ServiceRefSourceFunc} function to obtain an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        receive_and_store_token_sync(source: Source, authorization_code: string, ref_source: OAuth2ServiceRefSourceFunc, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Queries `service` at `e_oauth2_service_get_refresh_uri()` with a request to refresh
+         * existing access token with provided `refresh_token` and stores it into the secret
+         * store on success.
+         * @param source an {@link EDataServer.Source}
+         * @param refresh_token refresh token as provided by the server
+         * @param ref_source an {@link EDataServer.OAuth2ServiceRefSourceFunc} function to obtain an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        refresh_and_store_token_sync(source: Source, refresh_token: string, ref_source: OAuth2ServiceRefSourceFunc, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Checks whether the `service` can be used with the given `source`.
+         * 
+         * The default implementation checks whether the `source` has an {@link EDataServer.SourceAuthentication}
+         * extension and when its method matches `e_oauth2_service_get_name()`, then it automatically
+         * returns `true`. Contrary, when the `source` contains GNOME Online Accounts or Ubuntu
+         * Online Accounts extension, then it returns `false`.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param source an {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_can_process(source: Source): boolean;
+
+        /**
+         * Additional cookies to be used in the prompt dialog when asking for the user
+         * credentials. The default implementation does not provide any cookies.
+         * @param source an associated {@link EDataServer.Source}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @since 3.54
+         * @virtual
+         */
+        vfunc_dup_credentials_prompter_cookies_sync(source: Source, cancellable: Gio.Cancellable | null): Soup.Cookie[] | null;
+
+        /**
+         * Tries to extract an authorization code from a web page provided by the server.
+         * The function can be called multiple times, whenever the page load is finished.
+         * The default implementation uses `e_oauth2_service_util_extract_from_uri()` to get
+         * the code from the given `page_uri`.
+         * 
+         * There can happen three states: 1) either the `service` cannot determine
+         * the authentication code from the page information, then the `false` is
+         * returned and the `out_authorization_code` is left untouched; or 2) the server
+         * reported a failure, in which case the function returns `true` and lefts
+         * the `out_authorization_code` untouched; or 3) the `service` could extract
+         * the authentication code from the given arguments, then the function
+         * returns `true` and sets the received authorization code to `out_authorization_code`.
+         * 
+         * The `page_content` is `null`, unless flags returned by `e_oauth2_service_get_flags()`
+         * contain also {@link EDataServer.OAuth2ServiceFlags.EXTRACT_REQUIRES_PAGE_CONTENT}.
+         * 
+         * This method is always called after `e_oauth2_service_get_authentication_policy()`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_extract_authorization_code(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Tries to extract error message from the server response, return `true`,
+         * when an error message could be found, in which case also sets
+         * the `out_error_message` with it. The default implementation uses
+         * `e_oauth2_service_util_extract_from_uri()`, returning either the error
+         * description or the error code, when the description is not found.
+         * 
+         * The `out_error_message` is expected to be plain text.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @since 3.48
+         * @virtual
+         */
+        vfunc_extract_error_message(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Used to decide what to do when the server redirects to the next page.
+         * The default implementation always returns {@link EDataServer.OAuth2ServiceNavigationPolicy.ALLOW}.
+         * 
+         * This method is called before `e_oauth2_service_extract_authorization_code()` and
+         * can be used to block certain resources or to abort the authentication when
+         * the server redirects to an unexpected page (like when user denies authorization
+         * in the page).
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri a URI of the navigation resource
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_authentication_policy(source: Source, uri: string): OAuth2ServiceNavigationPolicy;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_authentication_uri(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_client_id(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_client_secret(source: Source): string | null;
+
+        /**
+         * Returns a human readable name of the service. This is similar to
+         * `e_oauth2_service_get_name()`, except this string should be localized,
+         * because it will be used in user-visible strings.
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_display_name(): string;
+
+        /**
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_flags(): number;
+
+        /**
+         * Returns a unique name of the service. It can be named for example
+         * by the server or the company from which it receives the OAuth2
+         * token and where it refreshes it, like "Company" for login.company.com.
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_name(): string;
+
+        /**
+         * Returns a value for the "redirect_uri" keys in the authenticate and get_token
+         * operations. The default implementation returns "urn:ietf:wg:oauth:2.0:oob".
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_redirect_uri(source: Source): string | null;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_get_refresh_uri(source: Source): string;
+
+        /**
+         * Checks whether the `service` can be used with the given `protocol` and/or `hostname`.
+         * Any of `protocol` and `hostname` can be `null`, but not both. It's up to each implementer
+         * to decide, which of the arguments are important and whether all or only any of them
+         * can be required.
+         * 
+         * The function is meant to check whether the `service` can be offered
+         * for example when configuring a new account. The real usage is
+         * determined by `e_oauth2_service_can_process()`.
+         * 
+         * The default implementation consults org.gnome.evolution-data-server.oauth2-services-hint
+         * GSettings key against given hostname. See its description for more information.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param protocol a protocol to search the service for, like "imap", or `null`
+         * @param hostname a host name to search the service for, like "server.example.com", or `null`
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_guess_can_process(protocol: string | null, hostname: string | null): boolean;
+
+        /**
+         * The `service` can change what arguments are passed in the authentication URI
+         * in this method. The default implementation sets some values too, namely
+         * "response_type", "client_id", "redirect_uri" and "login_hint", if available
+         * in the `source`. These parameters are always provided, even when the interface
+         * implementer overrides this method.
+         * 
+         * The `uri_query` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri_query query for the URI to use
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_authentication_uri_query(source: Source, uri_query: { [key: string]: string }): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * access token after successfully obtained authorization code.
+         * The default implementation sets some values too, namely
+         * "code", "client_id", "client_secret", "redirect_uri" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param authorization_code authorization code, as returned from `e_oauth2_service_extract_authorization_code()`
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_get_token_form(source: Source, authorization_code: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_authentication_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_get_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_get_token_message(source: Source, message: Soup.Message): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * to refresh an access token.
+         * The default implementation sets some values too, namely
+         * "refresh_token", "client_id", "client_secret" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param refresh_token a refresh token to be used
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_refresh_token_form(source: Source, refresh_token: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_refresh_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_refresh_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         * @virtual
+         */
+        vfunc_prepare_refresh_token_message(source: Source, message: Soup.Message): void;
+    }
+
+
+    namespace OAuth2Services {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, Extensible.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.28
+     */
+    class OAuth2Services extends GObject.Object implements Extensible {
+        static $gtype: GObject.GType<OAuth2Services>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: OAuth2Services.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<OAuth2Services.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): OAuth2Services;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof OAuth2Services.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OAuth2Services.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof OAuth2Services.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OAuth2Services.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof OAuth2Services.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<OAuth2Services.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * This is the same as `e_oauth2_services_is_oauth2_alias()`, except
+         * it creates its own {@link EDataServer.OAuth2Services} instance and frees it at the end.
+         * The {@link EDataServer.OAuth2Services} is implemented as a singleton, thus it won't be
+         * much trouble, as long as there is something else having created one
+         * instance.
+         * @param auth_method an authentication method, or `null`
+         * @since 3.28
+         */
+        static is_oauth2_alias_static(auth_method: string | null): boolean;
+
+        /**
+         * @since 3.28
+         */
+        static is_supported(): boolean;
+
+        // Methods
+        /**
+         * Adds the `service` to the list of known OAuth2 services into `services`.
+         * It also adds a reference to `service`.
+         * @param service an {@link EDataServer.OAuth2Service} to add
+         * @since 3.28
+         */
+        add(service: OAuth2Service): void;
+
+        /**
+         * Searches the list of currently known OAuth2 services for the one which
+         * can be used with the given `source`.
+         * 
+         * The returned {@link EDataServer.OAuth2Service} is referenced for thread safety, if found.
+         * @param source an {@link EDataServer.Source}
+         * @returns a referenced {@link EDataServer.OAuth2Service}, which can be used    with given `source`, or `null`, when none was found.
+         * @since 3.28
+         */
+        find(source: Source): OAuth2Service | null;
+
+        /**
+         * Searches the list of currently known OAuth2 services for the one which
+         * can be used with the given `protocol` and/or `hostname`.
+         * Any of `protocol` and `hostname` can be `null`, but not both.
+         * It's up to each {@link EDataServer.OAuth2Service} to decide, which of the arguments
+         * are important and whether all or only any of them can be required.
+         * 
+         * The returned {@link EDataServer.OAuth2Service} is referenced for thread safety, if found.
+         * @param protocol a protocol to search the service for, like "imap", or `null`
+         * @param hostname a host name to search the service for, like "server.example.com", or `null`
+         * @returns a referenced {@link EDataServer.OAuth2Service}, which can be used    with given constraints, or `null`, when none was found.
+         * @since 3.28
+         */
+        guess(protocol: string | null, hostname: string | null): OAuth2Service | null;
+
+        /**
+         * @param auth_method an authentication method, or `null`
+         * @returns whether exists any {@link EDataServer.OAuth2Service}, with the same name as `auth_method`. See: `e_oauth2_services_is_oauth2_alias_static()`
+         * @since 3.28
+         */
+        is_oauth2_alias(auth_method: string | null): boolean;
+
+        /**
+         * Lists all currently known services, which had been added
+         * with `e_oauth2_services_add()`. Free the returned {@link GLib.SList} with
+         * g_slist_remove_full (known_services, g_object_unref);
+         * when no longer needed.
+         * @returns a newly allocated {@link GLib.SList}    with all currently known {@link EDataServer.OAuth2Service} referenced instances
+         * @since 3.28
+         */
+        list(): OAuth2Service[];
+
+        /**
+         * Removes the `service` from the list of known services in `services`.
+         * The function does nothing, if the `service` had not been added.
+         * @param service an {@link EDataServer.OAuth2Service} to remove
+         * @since 3.28
+         */
+        remove(service: OAuth2Service): void;
+
+        /**
+         * Returns a list of {@link EDataServer.Extension} objects bound to `extensible` whose
+         * types are ancestors of `extension_type`.  For a complete list of
+         * extension objects bound to `extensible`, pass `E_TYPE_EXTENSION`.
+         * 
+         * The list itself should be freed with `g_list_free()`.  The extension
+         * objects are owned by `extensible` and should not be unreferenced.
+         * @param extension_type the type of extensions to list
+         * @returns a list of extension objects derived from `extension_type`
+         * @since 3.4
+         */
+        list_extensions(extension_type: GObject.GType): Extension[];
+
+        /**
+         * Creates an instance of all instantiable subtypes of {@link EDataServer.Extension} which
+         * target the class of `extensible`.  The lifetimes of these newly created
+         * {@link EDataServer.Extension} objects are bound to `extensible` such that they are finalized
+         * when `extensible` is finalized.
+         * @since 3.4
+         */
+        load_extensions(): void;
+
+        /**
+         * Similar to `e_extensible_load_extensions()`, only loads newly discovered
+         * extensions again. This can help in case a new module had been loaded
+         * to the process, which provides the extensions for the `extensible`.
+         * @since 3.46
+         */
+        reload_extensions(): void;
+    }
+
+
+    namespace SoupAuthBearer {
+        // Signal signatures
+        interface SignalSignatures extends Soup.Auth.SignalSignatures {
+            "notify::authority": (pspec: GObject.ParamSpec) => void;
+            "notify::is-authenticated": (pspec: GObject.ParamSpec) => void;
+            "notify::is-cancelled": (pspec: GObject.ParamSpec) => void;
+            "notify::is-for-proxy": (pspec: GObject.ParamSpec) => void;
+            "notify::realm": (pspec: GObject.ParamSpec) => void;
+            "notify::scheme-name": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Soup.Auth.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.10
+     */
+    class SoupAuthBearer extends Soup.Auth {
+        static $gtype: GObject.GType<SoupAuthBearer>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SoupAuthBearer.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SoupAuthBearer.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SoupAuthBearer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SoupAuthBearer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SoupAuthBearer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SoupAuthBearer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SoupAuthBearer.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SoupAuthBearer.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Clears the rejection flag set when the server responds with 401 Unauthorized.
+         * The time-based token expiry is preserved, so the existing token can be
+         * re-sent without a redundant token refresh from the credential provider.
+         * @since 3.62
+         */
+        clear_rejected(): void;
+
+        /**
+         * @returns Whether the set token is expired. It is considered expired even   if the `e_soup_auth_bearer_set_access_token()` was called set yet.
+         * @since 3.24
+         */
+        is_expired(): boolean;
+
+        /**
+         * This function is analogous to `soup_auth_authenticate()` for "Basic" HTTP
+         * authentication, except it takes an OAuth 2.0 access token instead of a
+         * username and password.
+         * 
+         * If `expires_in_seconds` is greater than zero, `soup_auth_is_authenticated()`
+         * will return `false` after the given number of seconds have elapsed.
+         * @param access_token an OAuth 2.0 access token
+         * @param expires_in_seconds expiry for `access_token`, or 0 if unknown
+         * @since 3.10
+         */
+        set_access_token(access_token: string, expires_in_seconds: number): void;
+    }
+
+
+    namespace SoupSession {
+        // Signal signatures
+        interface SignalSignatures extends Soup.Session.SignalSignatures {
+            "notify::credentials": (pspec: GObject.ParamSpec) => void;
+            "notify::force-http1": (pspec: GObject.ParamSpec) => void;
+            "notify::handle-backoff-responses": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+            "notify::accept-language": (pspec: GObject.ParamSpec) => void;
+            "notify::accept-language-auto": (pspec: GObject.ParamSpec) => void;
+            "notify::idle-timeout": (pspec: GObject.ParamSpec) => void;
+            "notify::local-address": (pspec: GObject.ParamSpec) => void;
+            "notify::max-conns": (pspec: GObject.ParamSpec) => void;
+            "notify::max-conns-per-host": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy-resolver": (pspec: GObject.ParamSpec) => void;
+            "notify::remote-connectable": (pspec: GObject.ParamSpec) => void;
+            "notify::timeout": (pspec: GObject.ParamSpec) => void;
+            "notify::tls-database": (pspec: GObject.ParamSpec) => void;
+            "notify::tls-interaction": (pspec: GObject.ParamSpec) => void;
+            "notify::user-agent": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Soup.Session.ConstructorProps {
+            credentials: NamedParameters;
+            force_http1: boolean;
+            forceHttp1: boolean;
+            handle_backoff_responses: boolean;
+            handleBackoffResponses: boolean;
+            source: Source | null;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.26
+     */
+    class SoupSession extends Soup.Session {
+        static $gtype: GObject.GType<SoupSession>;
+
+        // Properties
+        /**
+         * The {@link EDataServer.NamedParameters} containing login credentials.
+         * @since 3.26
+         */
+        get credentials(): NamedParameters;
+        set credentials(val: NamedParameters);
+
+        /**
+         * Whether the messages created by the session should force use
+         * of HTTP/1 instead of trying HTTP/2 first and fallback to the HTTP/1
+         * when the newer version failed to connect.
+         * 
+         * See `e_soup_session_set_force_http1()` for more information about the limitations.
+         * @since 3.48
+         * @default false
+         */
+        get force_http1(): boolean;
+        set force_http1(val: boolean);
+
+        /**
+         * Whether the messages created by the session should force use
+         * of HTTP/1 instead of trying HTTP/2 first and fallback to the HTTP/1
+         * when the newer version failed to connect.
+         * 
+         * See `e_soup_session_set_force_http1()` for more information about the limitations.
+         * @since 3.48
+         * @default false
+         */
+        get forceHttp1(): boolean;
+        set forceHttp1(val: boolean);
+
+        /**
+         * Set to `true`, which is the default, to automatically handle backoff responses
+         * from the server, that is, when the server requests the client to retry later.
+         * 
+         * Note: This handles only the synchronous functions to send the messages. Clients
+         * using the asynchronous API need to handle the backoff responses on their own.
+         * @since 3.54
+         * @default true
+         */
+        get handle_backoff_responses(): boolean;
+        set handle_backoff_responses(val: boolean);
+
+        /**
+         * Set to `true`, which is the default, to automatically handle backoff responses
+         * from the server, that is, when the server requests the client to retry later.
+         * 
+         * Note: This handles only the synchronous functions to send the messages. Clients
+         * using the asynchronous API need to handle the backoff responses on their own.
+         * @since 3.54
+         * @default true
+         */
+        get handleBackoffResponses(): boolean;
+        set handleBackoffResponses(val: boolean);
+
+        /**
+         * The {@link EDataServer.Source} being used for this soup session.
+         * @since 3.26
+         * @construct-only
+         */
+        get source(): Source | null;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SoupSession.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SoupSession.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](source: Source): SoupSession;
+
+        // Conflicted with Soup.Session.new
+        static ["new"](...args: never[]): any;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SoupSession.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SoupSession.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SoupSession.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SoupSession.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SoupSession.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SoupSession.SignalSignatures[K]>): void;
+
+        // Static methods
+        static error_quark(): GLib.Quark;
+
+        /**
+         * Checks whether `e_soup_session_set_force_http1()` can be used
+         * to force HTTP/1 usage. This depends on the libsoup version
+         * the data server had been compiled with.
+         * @since 3.48
+         */
+        static util_get_force_http1_supported(): boolean;
+
+        /**
+         * Returns bytes read from the message response, when the message send failed.
+         * This can be used to examine detailed error returned by the server in
+         * the response body.
+         * @param message a {@link Soup.Message}
+         * @since 3.46
+         */
+        static util_get_message_bytes(message: Soup.Message): Uint8Array | null;
+
+        /**
+         * Normalizes the path of the `uri`, aka encodes characters, which should
+         * be encoded, if needed. Returns, modified URI when any change had been made to the path.
+         * It doesn't touch other parts of the `uri`.
+         * @param uri a {@link GLib.Uri} to normalize the path for
+         * @since 3.46
+         */
+        static util_normalize_uri_path(uri: GLib.Uri): GLib.Uri | null;
+
+        /**
+         * Returns referenced request data for the `message`, as being previously
+         * set by the `e_soup_session_util_set_message_request_body()` or
+         * `e_soup_session_util_set_message_request_body_from_data()`.
+         * 
+         * Do not call this function while the `message` is queued in
+         * a {@link EDataServer.SoupSession}, nor modify the input stream position until
+         * the `message` lefts the {@link EDataServer.SoupSession}.
+         * @param message a {@link Soup.Message}
+         * @since 3.46
+         */
+        static util_ref_message_request_body(message: Soup.Message): [Gio.InputStream | null, number];
+
+        /**
+         * Sets the request body of the `message` from the `input_stream` of the `length`, with optional
+         * `content_type`. The function makes sure the `message` request body is set again
+         * when the message is restarted.
+         * 
+         * The `input_stream` should implement the {@link Gio.Seekable} interface.
+         * @param message a {@link Soup.Message}
+         * @param content_type optional Content-Type of the `data`, or `null`
+         * @param input_stream the request body data as a {@link Gio.InputStream}
+         * @param length length of the `data`
+         * @since 3.46
+         */
+        static util_set_message_request_body(message: Soup.Message, content_type: string | null, input_stream: Gio.InputStream, length: bigint | number): void;
+
+        /**
+         * Sets the request body of the `message` from the `data` of the `length`, with optional
+         * `content_type`. The function makes sure the `message` request body is set again
+         * when the message is restarted.
+         * 
+         * When the `create_copy` is `true`, the `free_func` should be `null`.
+         * @param message a {@link Soup.Message}
+         * @param create_copy whether to create copy of the `data`
+         * @param content_type optional Content-Type of the `data`, or `null`
+         * @param data the request body data
+         * @param length length of the `data`
+         * @since 3.46
+         */
+        static util_set_message_request_body_from_data(message: Soup.Message, create_copy: boolean, content_type: string | null, data: null, length: bigint | number): void;
+
+        /**
+         * Returns the `reason_phrase`, if it's non-`null` and non-empty, a static string
+         * corresponding to `status_code`. In case neither that can be found a localized
+         * "Unknown error" message is returned.
+         * @param status_code an HTTP status code
+         * @param reason_phrase preferred string to use for the message, or `null`
+         * @since 3.26
+         */
+        static util_status_to_string(status_code: number, reason_phrase: string | null): string;
+
+        // Methods
+        /**
+         * Checks result of the `message` and sets the `error` if it failed.
+         * When it failed and the `read_bytes` is provided, then these are
+         * set to `message`'s response body, thus it can be used later.
+         * @param message a {@link Soup.Message}
+         * @param read_bytes optional bytes which had been read from the stream, or `null`
+         * @param bytes_length how many bytes had been read; ignored when `read_bytes` is `null`
+         * @returns Whether succeeded, aka `true`, when no error recognized    and `false` otherwise.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        check_result(message: Soup.Message, read_bytes: null, bytes_length: bigint | number): boolean;
+
+        /**
+         * @returns A copy of the credentials being    previously set with `e_soup_session_set_credentials()`, or `null` when    none are set. Free the returned pointer with `e_named_parameters_free()`,    when no longer needed.
+         * @since 3.26
+         */
+        dup_credentials(): NamedParameters | null;
+
+        /**
+         * @returns Whether the last connection attempt required any credentials.    Authentications like OAuth2 do not want extra credentials to work.
+         * @since 3.28
+         */
+        get_authentication_requires_credentials(): boolean;
+
+        /**
+         * Returns whether it's forced to use HTTP/1 for the messages
+         * created by the `session`. See `e_soup_session_set_force_http1()`
+         * for more information about the limitations.
+         * @returns whether it's forced to use HTTP/1
+         * @since 3.48
+         */
+        get_force_http1(): boolean;
+
+        /**
+         * Returns whether the `session` can handle backoff responses from the server.
+         * See `e_soup_session_set_handle_backoff_responses()` for more information about
+         * the limitations.
+         * @returns whether the `session` handles backoff responses
+         * @since 3.54
+         */
+        get_handle_backoff_responses(): boolean;
+
+        /**
+         * @returns Current log level, as {@link Soup.LoggerLogLevel}
+         * @since 3.26
+         */
+        get_log_level(): Soup.LoggerLogLevel;
+
+        /**
+         * Returns an {@link EDataServer.Source} associated with the `session`, if such was set in the creation time.
+         * @returns Associated {@link EDataServer.Source} with the `session`, or `null`.
+         * @since 3.26
+         */
+        get_source(): Source | null;
+
+        /**
+         * Populates `out_certificate_pem` and `out_certificate_errors` with the last values
+         * returned on #G_TLS_ERROR_BAD_CERTIFICATE error.
+         * @returns Whether the information was available and set to the out parameters.
+         * @since 3.26
+         */
+        get_ssl_error_details(): [boolean, string, Gio.TlsCertificateFlags | null];
+
+        /**
+         * Handles authentication failure and sets appropriate value to the `out_auth_result`
+         * for the provided `op_error` and used `credentials`. Converts the `op_error`
+         * into an appropriate error returned in the `error`.
+         * 
+         * Also updates connection status on the associated {@link EDataServer.Source} with the `session`.
+         * @param credentials credentials used for the authentication
+         * @param op_error a {@link GLib.Error} of the authentication operation
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        handle_authentication_failure(credentials: NamedParameters | null, op_error: GLib.Error): [SourceAuthenticationResult, string, Gio.TlsCertificateFlags | null];
+
+        /**
+         * Creates a new {@link Soup.Message}, similar to `soup_message_new()`,
+         * but also presets request headers with "User-Agent" to be "Evolution/version"
+         * and with "Connection" to be "close".
+         * 
+         * See also `e_soup_session_new_message_from_uri()`.
+         * @param method an HTTP method
+         * @param uri_string a URI string to use for the request
+         * @returns a new {@link Soup.Message}, or `null` on error
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        new_message(method: string, uri_string: string): Soup.Message;
+
+        /**
+         * Creates a new {@link Soup.Message}, similar to `soup_message_new_from_uri()`,
+         * but also presets request headers with "User-Agent" to be "Evolution/version"
+         * and with "Connection" to be "close".
+         * 
+         * See also `e_soup_session_new_message()`.
+         * @param method an HTTP method
+         * @param uri a {@link GLib.Uri} to use for the request
+         * @returns a new {@link Soup.Message}, or `null` on error
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        new_message_from_uri(method: string, uri: GLib.Uri): Soup.Message;
+
+        /**
+         * Prepares the `message` to be a sent asynchronously with
+         * `e_soup_session_send_message()`. The returned pointer is passed
+         * to the `e_soup_session_send_message()` as the prepare_data
+         * parameter.
+         * @param message a {@link Soup.Message} to prepare for asynchronous send
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns prepare data for `e_soup_session_send_message()`,   or `null` on error.
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        prepare_message_send_sync(message: Soup.Message, cancellable: Gio.Cancellable | null): null;
+
+        /**
+         * Asynchronously sends the `message`. Finish the call with
+         * `e_soup_session_send_message_finish()`.
+         * 
+         * The `prepare_data` is a result of the `e_soup_session_prepare_message_send_sync()`
+         * and this function assumes ownership of it. The `prepare_data` cannot be used
+         * again after this call.
+         * @param message a {@link Soup.Message} to send
+         * @param io_priority the I/O priority of the request, like `G_PRIORITY_DEFAULT`
+         * @param prepare_data data returned from `e_soup_session_prepare_message_send_sync()`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.46
+         */
+        send_message(message: Soup.Message, io_priority: number, prepare_data: null, cancellable: Gio.Cancellable | null): globalThis.Promise<[Gio.InputStream | null, string, Gio.TlsCertificateFlags | null]>;
+
+        /**
+         * Asynchronously sends the `message`. Finish the call with
+         * `e_soup_session_send_message_finish()`.
+         * 
+         * The `prepare_data` is a result of the `e_soup_session_prepare_message_send_sync()`
+         * and this function assumes ownership of it. The `prepare_data` cannot be used
+         * again after this call.
+         * @param message a {@link Soup.Message} to send
+         * @param io_priority the I/O priority of the request, like `G_PRIORITY_DEFAULT`
+         * @param prepare_data data returned from `e_soup_session_prepare_message_send_sync()`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback the callback to invoke once the request is finished
+         * @since 3.46
+         */
+        send_message(message: Soup.Message, io_priority: number, prepare_data: null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously sends the `message`. Finish the call with
+         * `e_soup_session_send_message_finish()`.
+         * 
+         * The `prepare_data` is a result of the `e_soup_session_prepare_message_send_sync()`
+         * and this function assumes ownership of it. The `prepare_data` cannot be used
+         * again after this call.
+         * @param message a {@link Soup.Message} to send
+         * @param io_priority the I/O priority of the request, like `G_PRIORITY_DEFAULT`
+         * @param prepare_data data returned from `e_soup_session_prepare_message_send_sync()`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback the callback to invoke once the request is finished
+         * @since 3.46
+         */
+        send_message(message: Soup.Message, io_priority: number, prepare_data: null, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<[Gio.InputStream | null, string, Gio.TlsCertificateFlags | null]> | void;
+
+        /**
+         * Finishes the call of `e_soup_session_send_message()`. This is supposed to
+         * be called from the callback passed to the `e_soup_session_send_message()`.
+         * 
+         * The optional `out_certificate_pem` and `out_certificate_errors` are set,
+         * when provided, only if the operation failed with a TLS/SSL error.
+         * 
+         * Make sure the {@link Gio.InputStream} is read and freed from the same thread,
+         * and with the same thread default main context, which this function
+         * was called from, otherwise it can break libsoup3.
+         * @param result a {@link Gio.AsyncResult} object
+         * @returns a {@link Gio.InputStream} for reading the response body, or `null` on error
+         * @since 3.46
+         * @throws GLib.Error
+         */
+        send_message_finish(result: Gio.AsyncResult): [Gio.InputStream | null, string, Gio.TlsCertificateFlags | null];
+
+        /**
+         * Similar to `e_soup_session_send_message_sync()`, except it reads
+         * whole response content into memory and returns it as a {@link GLib.ByteArray}.
+         * Use `e_soup_session_send_message_sync()` when you want to have
+         * more control on the content read.
+         * @param message a {@link Soup.Message} to send
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns A newly allocated {@link GLib.ByteArray},    which contains whole content from the URI pointed to by `message`.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        send_message_simple_sync(message: Soup.Message, cancellable: Gio.Cancellable | null): Uint8Array;
+
+        /**
+         * Synchronously sends prepared message and returns {@link Gio.InputStream}
+         * that can be used to read its contents.
+         * 
+         * This calls `soup_session_send()` internally, but it also setups
+         * the `message` according to {@link EDataServer.SoupSession.source} authentication
+         * settings. It also extracts information about used certificate,
+         * in case of G_TLS_ERROR_BAD_CERTIFICATE error and keeps it
+         * for later use by `e_soup_session_get_ssl_error_details()`.
+         * 
+         * Use `e_soup_session_send_message_simple_sync()` to read whole
+         * content into a {@link GLib.ByteArray}.
+         * 
+         * Note that SoupSession doesn't log content read from GInputStream,
+         * thus the caller may print the read content on its own when needed.
+         * 
+         * Note the `message` is fully filled only after there is anything
+         * read from the resulting {@link Gio.InputStream}, thus use
+         * `e_soup_session_check_result()` to verify that the receive had
+         * been finished properly.
+         * 
+         * Make sure the {@link Gio.InputStream} is read and freed from the same thread,
+         * and with the same thread default main context, which this function
+         * was called from, otherwise it can break libsoup3.
+         * @param message a {@link Soup.Message} to send
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns A newly allocated {@link Gio.InputStream},    that can be used to read from the URI pointed to by `message`.    Free it with `g_object_unref()`, when no longer needed.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        send_message_sync(message: Soup.Message, cancellable: Gio.Cancellable | null): Gio.InputStream;
+
+        /**
+         * Sets credentials to use for connection. Using `null` for `credentials`
+         * unsets previous value.
+         * @param credentials an {@link EDataServer.NamedParameters} with credentials to use, or `null`
+         * @since 3.26
+         */
+        set_credentials(credentials: NamedParameters | null): void;
+
+        /**
+         * Sets whether the messages created through the `session` using
+         * `e_soup_session_new_message()` or `e_soup_session_new_message_from_uri()`
+         * should force use of the HTTP/1, instead of trying HTTP/2 and fallback to HTTP/1,
+         * when the newer version cannot be used.
+         * 
+         * The property has no effect when `e_soup_session_util_get_force_http1_supported()`
+         * returns `false`.
+         * @param force_http1 the value to set
+         * @since 3.48
+         */
+        set_force_http1(force_http1: boolean): void;
+
+        /**
+         * Sets whether to automatically handle backoff responses from the server,
+         * that is, when the server requests the client to retry later.
+         * 
+         * Note: This handles only the synchronous functions to send the messages. Clients
+         * using the asynchronous API need to handle the backoff responses on their own.
+         * @param handle_backoff_responses the value to set
+         * @since 3.54
+         */
+        set_handle_backoff_responses(handle_backoff_responses: boolean): void;
+
+        /**
+         * Setups logging for the `session`. The `logging_level` can be one of:
+         * "all" - log whole raw communication;
+         * "body" - the same as "all";
+         * "headers" - log the headers only;
+         * "min" - minimal logging;
+         * "1" - the same as "all".
+         * Any other value, including `null`, disables logging.
+         * 
+         * Use `e_soup_session_get_log_level()` to get current log level.
+         * @param logging_level logging level to setup, or `null`
+         * @since 3.26
+         */
+        setup_logging(logging_level: string | null): void;
+    }
+
+
+    namespace Source {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            /**
+             * Let's the backend know provided credentials to use to login
+             * to (possibly remote) data store.
+             * @signal
+             * @run-last
+             */
+            authenticate: (credentials: NamedParameters) => void;
+            /**
+             * The ::changed signal is emitted when a property in `source` or
+             * one of its extension objects changes.  A common use for this
+             * signal is to notify a `GtkTreeModel` containing data collected
+             * from {@link EDataServer.Source}<!-- -->s that it needs to update a row.
+             * @signal
+             * @run-last
+             */
+            changed: () => void;
+            /**
+             * The ::credentials-required signal is emitted when the `source`
+             * requires credentials to connect to (possibly remote)
+             * data store. The credentials can be passed to the backend using
+             * `e_source_invoke_authenticate()` function.
+             * @signal
+             * @run-last
+             */
+            "credentials-required": (reason: SourceCredentialsReason, certificate_pem: string, certificate_errors: Gio.TlsCertificateFlags, error: GLib.Error) => void;
+            "notify::connection-status": (pspec: GObject.ParamSpec) => void;
+            "notify::display-name": (pspec: GObject.ParamSpec) => void;
+            "notify::enabled": (pspec: GObject.ParamSpec) => void;
+            "notify::main-context": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::remote-creatable": (pspec: GObject.ParamSpec) => void;
+            "notify::remote-deletable": (pspec: GObject.ParamSpec) => void;
+            "notify::removable": (pspec: GObject.ParamSpec) => void;
+            "notify::uid": (pspec: GObject.ParamSpec) => void;
+            "notify::writable": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.Initable.ConstructorProps, Gio.ProxyResolver.ConstructorProps {
+            connection_status: SourceConnectionStatus;
+            connectionStatus: SourceConnectionStatus;
+            display_name: string;
+            displayName: string;
+            enabled: boolean;
+            main_context: GLib.MainContext;
+            mainContext: GLib.MainContext;
+            parent: string | null;
+            remote_creatable: boolean;
+            remoteCreatable: boolean;
+            remote_deletable: boolean;
+            remoteDeletable: boolean;
+            removable: boolean;
+            uid: string;
+            writable: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class Source extends GObject.Object implements Gio.Initable, Gio.ProxyResolver {
+        static $gtype: GObject.GType<Source>;
+
+        // Properties
+        /**
+         * Connection status of the source
+         * @read-only
+         * @default EDataServer.SourceConnectionStatus.DISCONNECTED
+         */
+        get connection_status(): SourceConnectionStatus;
+
+        /**
+         * Connection status of the source
+         * @read-only
+         * @default EDataServer.SourceConnectionStatus.DISCONNECTED
+         */
+        get connectionStatus(): SourceConnectionStatus;
+
+        /**
+         * The human-readable name of the data source
+         * @default Unnamed
+         */
+        get display_name(): string;
+        set display_name(val: string);
+
+        /**
+         * The human-readable name of the data source
+         * @default Unnamed
+         */
+        get displayName(): string;
+        set displayName(val: string);
+
+        /**
+         * Whether the data source is enabled
+         * @default true
+         */
+        get enabled(): boolean;
+        set enabled(val: boolean);
+
+        /**
+         * The main loop context on which to attach event sources
+         * @construct-only
+         */
+        get main_context(): GLib.MainContext;
+
+        /**
+         * The main loop context on which to attach event sources
+         * @construct-only
+         */
+        get mainContext(): GLib.MainContext;
+
+        /**
+         * The unique identity of the parent data source
+         * @default null
+         */
+        get parent(): string | null;
+        set parent(val: string | null);
+
+        /**
+         * Whether the data source can create remote resources
+         * @read-only
+         * @default false
+         */
+        get remote_creatable(): boolean;
+
+        /**
+         * Whether the data source can create remote resources
+         * @read-only
+         * @default false
+         */
+        get remoteCreatable(): boolean;
+
+        /**
+         * Whether the data source can delete remote resources
+         * @read-only
+         * @default false
+         */
+        get remote_deletable(): boolean;
+
+        /**
+         * Whether the data source can delete remote resources
+         * @read-only
+         * @default false
+         */
+        get remoteDeletable(): boolean;
+
+        /**
+         * Whether the data source is removable
+         * @read-only
+         * @default false
+         */
+        get removable(): boolean;
+
+        /**
+         * The unique identity of the data source
+         * @construct-only
+         * @default null
+         */
+        get uid(): string;
+
+        /**
+         * Whether the data source is writable
+         * @read-only
+         * @default false
+         */
+        get writable(): boolean;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Source.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Source.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](dbus_object: Gio.DBusObject | null, main_context: GLib.MainContext | null): Source;
+
+        static new_with_uid(uid: string, main_context: GLib.MainContext | null): Source;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Source.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Source.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Source.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Source.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Source.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Source.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Converts a {@link GObject.ParamSpec} name (e.g. "foo-bar" or "foo_bar")
+         * to "CamelCase" for use as a {@link GLib.KeyFile} key (e.g. "FooBar").
+         * 
+         * This function is made public only to aid in account migration.
+         * Applications should not need to use this.
+         * @param param_name a {@link GObject.ParamSpec} name
+         * @since 3.6
+         */
+        static parameter_to_key(param_name: string): string;
+
+        // Virtual methods
+        /**
+         * @param credentials 
+         * @virtual
+         */
+        vfunc_authenticate(credentials: NamedParameters): void;
+
+        /**
+         * Emits the {@link EDataServer.Source.SignalSignatures.changed | EDataServer.Source::changed} signal from an idle callback in
+         * `source`'s {@link EDataServer.Source.main_context}.
+         * 
+         * This function is primarily intended for use by {@link EDataServer.SourceExtension}
+         * when emitting a {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify} signal on one of its properties.
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_changed(): void;
+
+        /**
+         * @param reason 
+         * @param certificate_pem 
+         * @param certificate_errors 
+         * @param op_error 
+         * @virtual
+         */
+        vfunc_credentials_required(reason: SourceCredentialsReason, certificate_pem: string, certificate_errors: Gio.TlsCertificateFlags, op_error: GLib.Error): void;
+
+        /**
+         * Asynchronously obtains the OAuth 2.0 access token for `source` along
+         * with its expiry in seconds from the current time (or 0 if unknown).
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_get_oauth2_access_token_finish()` to get the result of the
+         * operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request            is satisfied
+         * @since 3.8
+         * @virtual
+         */
+        vfunc_get_oauth2_access_token(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes the operation started with `e_source_get_oauth2_access_token()`.
+         * 
+         * Free the returned access token with `g_free()` when finished with it.
+         * If an error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @since 3.8
+         * @virtual
+         */
+        vfunc_get_oauth2_access_token_finish(result: Gio.AsyncResult): [boolean, string, number];
+
+        /**
+         * Obtains the OAuth 2.0 access token for `source` along with its expiry
+         * in seconds from the current time (or 0 if unknown).
+         * 
+         * Free the returned access token with `g_free()` when finished with it.
+         * If an error occurs, the function will set `error` and return `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.8
+         * @virtual
+         */
+        vfunc_get_oauth2_access_token_sync(cancellable: Gio.Cancellable | null): [boolean, string, number];
+
+        /**
+         * @param dbus_source 
+         * @param arg_credentials 
+         * @param cancellable 
+         * @virtual
+         */
+        vfunc_invoke_authenticate_impl(dbus_source: null, arg_credentials: string, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * @param dbus_source 
+         * @param arg_reason 
+         * @param arg_certificate_pem 
+         * @param arg_certificate_errors 
+         * @param arg_dbus_error_name 
+         * @param arg_dbus_error_message 
+         * @param cancellable 
+         * @virtual
+         */
+        vfunc_invoke_credentials_required_impl(dbus_source: null, arg_reason: string, arg_certificate_pem: string, arg_certificate_errors: string, arg_dbus_error_name: string, arg_dbus_error_message: string, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously creates a new remote resource by picking out relevant
+         * details from `scratch_source`.  The `scratch_source` must be an {@link EDataServer.Source}
+         * with no {@link Gio.DBusObject}.  The `source` must be {@link EDataServer.Source.remote_creatable}.
+         * 
+         * The details required to create the resource vary by `ECollectionBackend`,
+         * but in most cases the `scratch_source` need only define the resource type
+         * (address book, calendar, etc.), a display name for the resource, and
+         * possibly a server-side path or ID for the resource.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_remote_create_finish()` to get the result of the operation.
+         * @param scratch_source an {@link EDataServer.Source} describing the resource to create
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_remote_create(scratch_source: Source, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes the operation started with `e_source_remote_create()`.  If
+         * an error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_remote_create_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Creates a new remote resource by picking out relevant details from
+         * `scratch_source`.  The `scratch_source` must be an {@link EDataServer.Source} with no
+         * {@link Gio.DBusObject}.  The `source` must be {@link EDataServer.Source.remote_creatable}.
+         * 
+         * The details required to create the resource vary by `ECollectionBackend`,
+         * but in most cases the `scratch_source` need only define the resource type
+         * (address book, calendar, etc.), a display name for the resource, and
+         * possibly a server-side path or ID for the resource.
+         * 
+         * If an error occurs, the function will set `error` and return `false`.
+         * @param scratch_source an {@link EDataServer.Source} describing the resource to create
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_remote_create_sync(scratch_source: Source, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously deletes the resource represented by `source` from a remote
+         * server.  The `source` must be {@link EDataServer.Source.remote_deletable}.  This will also
+         * delete the key file for `source` and broadcast its removal to all clients,
+         * similar to `e_source_remove()`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_remote_delete_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_remote_delete(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes the operation started with `e_source_remote_delete()`.  If
+         * an error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_remote_delete_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Deletes the resource represented by `source` from a remote server.
+         * The `source` must be {@link EDataServer.Source.remote_deletable}.  This will also delete
+         * the key file for `source` and broadcast its removal to all clients,
+         * similar to `e_source_remove_sync()`.
+         * 
+         * If an error occurs, the function will set `error` and return `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_remote_delete_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously requests the D-Bus service to delete the key files for
+         * `source` and all of its descendants and broadcast their removal to all
+         * clients.  The `source` must be {@link EDataServer.Source.removable}.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_remove_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_remove(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes the operation started with `e_source_remove()`.  If an
+         * error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_remove_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Requests the D-Bus service to delete the key files for `source` and all of
+         * its descendants and broadcast their removal to all clients.  The `source`
+         * must be {@link EDataServer.Source.removable}.
+         * 
+         * If an error occurs, the functon will set `error` and return `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_remove_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * @param cancellable 
+         * @virtual
+         */
+        vfunc_unset_last_credentials_required_arguments_impl(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously submits the current contents of `source` to the D-Bus
+         * service to be written to disk and broadcast to other clients.  The
+         * `source` must be {@link EDataServer.Source.writable}.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_write_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_write(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes the operation started with `e_source_write()`.  If an
+         * error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_write_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Submits the current contents of `source` to the D-Bus service to be
+         * written to disk and broadcast to other clients.  The `source` must
+         * be {@link EDataServer.Source.writable}.
+         * 
+         * If an error occurs, the functon will set `error` and return `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         * @virtual
+         */
+        vfunc_write_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        // Methods
+        /**
+         * This function essentially glues together `source` and `serivce` so their
+         * configuration settings stay synchronized.  The glue itself is a shared
+         * {@link Camel.Settings} instance.
+         * 
+         * Call this function immediately after creating a new {@link Camel.Service} with
+         * `camel_session_add_service()`.
+         * @param service a {@link Camel.Service}
+         * @since 3.6
+         */
+        camel_configure_service(service: Camel.Service): void;
+
+        /**
+         * Emits the {@link EDataServer.Source.SignalSignatures.changed | EDataServer.Source::changed} signal from an idle callback in
+         * `source`'s {@link EDataServer.Source.main_context}.
+         * 
+         * This function is primarily intended for use by {@link EDataServer.SourceExtension}
+         * when emitting a {@link GObject.Object.SignalSignatures.notify | GObject.Object::notify} signal on one of its properties.
+         * @since 3.6
+         */
+        changed(): void;
+
+        /**
+         * Compares two {@link EDataServer.Source} instances by their display names.  Useful for
+         * ordering sources in a user interface.
+         * @param source2 the second {@link EDataServer.Source}
+         * @returns a negative value if `source1` compares before `source2`, zero if          they compare equal, or a positive value if `source1` compares          after `source2`
+         * @since 3.6
+         */
+        compare_by_display_name(source2: Source): number;
+
+        /**
+         * Asynchronously deletes the password for `source` from either the default
+         * keyring or session keyring.  This operation does not rely on the registry
+         * service and therefore works for any {@link EDataServer.Source} -- registered or "scratch".
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_delete_password_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.12
+         */
+        delete_password(cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously deletes the password for `source` from either the default
+         * keyring or session keyring.  This operation does not rely on the registry
+         * service and therefore works for any {@link EDataServer.Source} -- registered or "scratch".
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_delete_password_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.12
+         */
+        delete_password(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously deletes the password for `source` from either the default
+         * keyring or session keyring.  This operation does not rely on the registry
+         * service and therefore works for any {@link EDataServer.Source} -- registered or "scratch".
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_delete_password_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.12
+         */
+        delete_password(cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_delete_password()`.
+         * 
+         * Note the boolean return value indicates whether the delete operation
+         * itself completed successfully, not whether a password was found and
+         * deleted.  If no password was found, the function will still return
+         * `true`.  If an error occurs, the function sets `error` and returns `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.12
+         * @throws GLib.Error
+         */
+        delete_password_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Deletes the password for `source` from either the default keyring or
+         * session keyring.  This operation does not rely on the registry service
+         * and therefore works for any {@link EDataServer.Source} -- registered or "scratch".
+         * 
+         * Note the boolean return value indicates whether the delete operation
+         * itself completed successfully, not whether a password was found and
+         * deleted.  If no password was found, the function will still return
+         * `true`.  If an error occurs, the function sets `error` and returns `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.12
+         * @throws GLib.Error
+         */
+        delete_password_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Thread-safe variation of `e_source_get_display_name()`.
+         * Use this function when accessing `source` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.Source.display_name}
+         * @since 3.6
+         */
+        dup_display_name(): string;
+
+        /**
+         * Thread-safe variation of `e_source_get_parent()`.
+         * Use this function when accessing `source` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.Source.parent}
+         * @since 3.6
+         */
+        dup_parent(): string | null;
+
+        /**
+         * Creates a label string based on `source`'s {@link EDataServer.Source.display_name} for use
+         * with `SecretItem`.
+         * @returns a newly-allocated secret label
+         * @since 3.12
+         */
+        dup_secret_label(): string;
+
+        /**
+         * Thread-safe variation of `e_source_get_uid()`.
+         * Use this function when accessing `source` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.Source.uid}
+         * @since 3.6
+         */
+        dup_uid(): string;
+
+        /**
+         * Emits locally (in this process only) the ESource::credentials-required
+         * signal with given parameters. That's the difference with `e_source_invoke_credentials_required()`,
+         * which calls the signal globally, within each client.
+         * @param reason an {@link EDataServer.SourceCredentialsReason}, why the credentials are required
+         * @param certificate_pem PEM-encoded secure connection certificate, or an empty string
+         * @param certificate_errors a bit-or of {@link Gio.TlsCertificateFlags} for secure connection certificate
+         * @param op_error a {@link GLib.Error} with a description of the previous credentials error, or `null`
+         * @since 3.16
+         */
+        emit_credentials_required(reason: SourceCredentialsReason, certificate_pem: string, certificate_errors: Gio.TlsCertificateFlags, op_error: GLib.Error | null): void;
+
+        /**
+         * Checks two {@link EDataServer.Source} instances for equality.  {@link EDataServer.Source} instances are
+         * equal if their unique identifier strings are equal.
+         * @param source2 the second {@link EDataServer.Source}
+         * @returns `true` if `source1` and `source2` are equal
+         * @since 3.6
+         */
+        equal(source2: Source): boolean;
+
+        /**
+         * Obtain current connection status of the `source`.
+         * @returns Current connection status of the `source`.
+         * @since 3.16
+         */
+        get_connection_status(): SourceConnectionStatus;
+
+        /**
+         * Returns the display name for `source`.  Use the display name to
+         * represent the {@link EDataServer.Source} in a user interface.
+         * @returns the display name for `source`
+         * @since 3.6
+         */
+        get_display_name(): string;
+
+        /**
+         * Returns `true` if `source` is enabled.
+         * 
+         * An application should try to honor this setting if at all possible,
+         * even if it does not provide a way to change the setting through its
+         * user interface.  Disabled data sources should generally be hidden.
+         * 
+         * <note><para>
+         *   This function does not take into account `source`'s ancestors in the
+         *   {@link EDataServer.Source} hierarchy, each of which have their own enabled state.  If
+         *   any of `source`'s ancestors are disabled, then `source` itself should
+         *   be treated as disabled.  Use `e_source_registry_check_enabled()` to
+         *   easily check for this.
+         * </para></note>
+         * @returns whether `source` is enabled
+         * @since 3.6
+         */
+        get_enabled(): boolean;
+
+        /**
+         * Returns an instance of some {@link EDataServer.SourceExtension} subclass which registered
+         * itself under `extension_name`.  If no such instance exists within `source`,
+         * one will be created.  It is the caller's responsibility to know which
+         * subclass is being returned.
+         * 
+         * If you just want to test for the existence of an extension within `source`
+         * without creating it, use `e_source_has_extension()`.
+         * 
+         * Extension instances are owned by their {@link EDataServer.Source} and should not be
+         * referenced directly.  Instead, reference the {@link EDataServer.Source} instance and
+         * use this function to fetch the extension instance as needed.
+         * @param extension_name an extension name
+         * @returns an instance of some {@link EDataServer.SourceExtension} subclass
+         * @since 3.6
+         */
+        get_extension(extension_name: string): SourceExtension;
+
+        /**
+         * Asynchronously calls the GetLastCredentialsRequiredArguments method
+         * on the server side, to get the last values used for the 'credentials-required'
+         * signal. See `e_source_get_last_credentials_required_arguments_sync()` for
+         * more information.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_get_last_credentials_required_arguments_finish()` to get
+         * the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.16
+         */
+        get_last_credentials_required_arguments(cancellable: Gio.Cancellable | null): globalThis.Promise<[SourceCredentialsReason, string, Gio.TlsCertificateFlags, GLib.Error]>;
+
+        /**
+         * Asynchronously calls the GetLastCredentialsRequiredArguments method
+         * on the server side, to get the last values used for the 'credentials-required'
+         * signal. See `e_source_get_last_credentials_required_arguments_sync()` for
+         * more information.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_get_last_credentials_required_arguments_finish()` to get
+         * the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        get_last_credentials_required_arguments(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously calls the GetLastCredentialsRequiredArguments method
+         * on the server side, to get the last values used for the 'credentials-required'
+         * signal. See `e_source_get_last_credentials_required_arguments_sync()` for
+         * more information.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_get_last_credentials_required_arguments_finish()` to get
+         * the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        get_last_credentials_required_arguments(cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<[SourceCredentialsReason, string, Gio.TlsCertificateFlags, GLib.Error]> | void;
+
+        /**
+         * Finishes the operation started with `e_source_get_last_credentials_required_arguments()`.
+         * See `e_source_get_last_credentials_required_arguments_sync()` for more information
+         * about the output arguments.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        get_last_credentials_required_arguments_finish(result: Gio.AsyncResult): [boolean, SourceCredentialsReason, string, Gio.TlsCertificateFlags, GLib.Error];
+
+        /**
+         * Retrieves the last used arguments of the 'credentials-required' signal emission.
+         * If there was none emitted yet, or a corresponding 'authenitcate' had been emitted
+         * already, then the `out_reason` is set to #E_SOURCE_CREDENTIALS_REASON_UNKNOWN
+         * and the value of other 'out' arguments is set to no values.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`. The result gchar
+         * values should be freed with `g_free()` when no longer needed.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        get_last_credentials_required_arguments_sync(cancellable: Gio.Cancellable | null): [boolean, SourceCredentialsReason, string, Gio.TlsCertificateFlags, GLib.Error];
+
+        /**
+         * Asynchronously obtains the OAuth 2.0 access token for `source` along
+         * with its expiry in seconds from the current time (or 0 if unknown).
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_get_oauth2_access_token_finish()` to get the result of the
+         * operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.8
+         */
+        get_oauth2_access_token(cancellable: Gio.Cancellable | null): globalThis.Promise<[string, number]>;
+
+        /**
+         * Asynchronously obtains the OAuth 2.0 access token for `source` along
+         * with its expiry in seconds from the current time (or 0 if unknown).
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_get_oauth2_access_token_finish()` to get the result of the
+         * operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request            is satisfied
+         * @since 3.8
+         */
+        get_oauth2_access_token(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously obtains the OAuth 2.0 access token for `source` along
+         * with its expiry in seconds from the current time (or 0 if unknown).
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_get_oauth2_access_token_finish()` to get the result of the
+         * operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request            is satisfied
+         * @since 3.8
+         */
+        get_oauth2_access_token(cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<[string, number]> | void;
+
+        /**
+         * Finishes the operation started with `e_source_get_oauth2_access_token()`.
+         * 
+         * Free the returned access token with `g_free()` when finished with it.
+         * If an error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.8
+         * @throws GLib.Error
+         */
+        get_oauth2_access_token_finish(result: Gio.AsyncResult): [boolean, string, number];
+
+        /**
+         * Obtains the OAuth 2.0 access token for `source` along with its expiry
+         * in seconds from the current time (or 0 if unknown).
+         * 
+         * Free the returned access token with `g_free()` when finished with it.
+         * If an error occurs, the function will set `error` and return `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.8
+         * @throws GLib.Error
+         */
+        get_oauth2_access_token_sync(cancellable: Gio.Cancellable | null): [boolean, string, number];
+
+        /**
+         * Returns the unique identifier string of the parent {@link EDataServer.Source}.
+         * @returns the UID of the parent {@link EDataServer.Source}
+         * @since 3.6
+         */
+        get_parent(): string | null;
+
+        /**
+         * Returns whether new resources can be created on a remote server by
+         * calling `e_source_remote_create()` on `source`.
+         * 
+         * Generally this is only `true` if `source` has an {@link EDataServer.SourceCollection}
+         * extension, which means there is an `ECollectionBackend` in the D-Bus
+         * service that can handle create requests.  If `source` does not have
+         * this capability, calls to `e_source_remote_create()` will fail.
+         * @returns whether `source` can create remote resources
+         * @since 3.6
+         */
+        get_remote_creatable(): boolean;
+
+        /**
+         * Returns whether the resource represented by `source` can be deleted
+         * from a remote server by calling `e_source_remote_delete()`.
+         * 
+         * Generally this is only `true` if `source` is a child of an {@link EDataServer.Source}
+         * which has an {@link EDataServer.SourceCollection} extension, which means there is an
+         * `ECollectionBackend` in the D-Bus service that can handle delete
+         * requests.  If `source` does not have this capability, calls to
+         * `e_source_remote_delete()` will fail.
+         * @returns whether `source` can delete remote resources
+         * @since 3.6
+         */
+        get_remote_deletable(): boolean;
+
+        /**
+         * Returns whether the D-Bus service will allow `source` to be removed.
+         * If `source` is not writable, calls to `e_source_remove()` will fail.
+         * @returns whether `source` is removable
+         * @since 3.6
+         */
+        get_removable(): boolean;
+
+        /**
+         * Returns the unique identifier string for `source`.
+         * @returns the UID for `source`
+         * @since 3.6
+         */
+        get_uid(): string;
+
+        /**
+         * Returns whether the D-Bus service will accept changes to `source`.
+         * If `source` is not writable, calls to `e_source_write()` will fail.
+         * @returns whether `source` is writable
+         * @since 3.6
+         */
+        get_writable(): boolean;
+
+        /**
+         * Checks whether `source` has an {@link EDataServer.SourceExtension} with the given name.
+         * @param extension_name an extension name
+         * @returns `true` if `source` has such an extension, `false` if not
+         * @since 3.6
+         */
+        has_extension(extension_name: string): boolean;
+
+        /**
+         * Generates a hash value for `source`.  This function is intended for
+         * easily hashing an {@link EDataServer.Source} to add to a {@link GLib.HashTable} or similar data
+         * structure.
+         * @returns a hash value for `source`.
+         * @since 3.6
+         */
+        hash(): number;
+
+        /**
+         * Asynchronously calls the InvokeAuthenticate method on the server side,
+         * thus the backend knows what credentials to use to connect to its (possibly
+         * remote) data store.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_invoke_authenticate_finish()` to get the result of the operation.
+         * @param credentials an {@link EDataServer.NamedParameters} structure with credentials to use; can be `null`    to use those from the last call
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.16
+         */
+        invoke_authenticate(credentials: NamedParameters | null, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously calls the InvokeAuthenticate method on the server side,
+         * thus the backend knows what credentials to use to connect to its (possibly
+         * remote) data store.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_invoke_authenticate_finish()` to get the result of the operation.
+         * @param credentials an {@link EDataServer.NamedParameters} structure with credentials to use; can be `null`    to use those from the last call
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        invoke_authenticate(credentials: NamedParameters | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously calls the InvokeAuthenticate method on the server side,
+         * thus the backend knows what credentials to use to connect to its (possibly
+         * remote) data store.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_invoke_authenticate_finish()` to get the result of the operation.
+         * @param credentials an {@link EDataServer.NamedParameters} structure with credentials to use; can be `null`    to use those from the last call
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        invoke_authenticate(credentials: NamedParameters | null, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_invoke_authenticate()`.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        invoke_authenticate_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Calls the InvokeAuthenticate method on the server side, thus the backend
+         * knows what credentials to use to connect to its (possibly remote) data store.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param credentials an {@link EDataServer.NamedParameters} structure with credentials to use; can be `null`    to use those from the last call
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        invoke_authenticate_sync(credentials: NamedParameters | null, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously calls the InvokeCredentialsRequired method on the server side,
+         * to inform clients that credentials are required.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_invoke_credentials_required_finish()` to get the result of the operation.
+         * @param reason an {@link EDataServer.SourceCredentialsReason}, why the credentials are required
+         * @param certificate_pem PEM-encoded secure connection certificate, or an empty string
+         * @param certificate_errors a bit-or of {@link Gio.TlsCertificateFlags} for secure connection certificate
+         * @param op_error a {@link GLib.Error} with a description of the previous credentials error, or `null`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.16
+         */
+        invoke_credentials_required(reason: SourceCredentialsReason, certificate_pem: string, certificate_errors: Gio.TlsCertificateFlags, op_error: GLib.Error | null, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously calls the InvokeCredentialsRequired method on the server side,
+         * to inform clients that credentials are required.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_invoke_credentials_required_finish()` to get the result of the operation.
+         * @param reason an {@link EDataServer.SourceCredentialsReason}, why the credentials are required
+         * @param certificate_pem PEM-encoded secure connection certificate, or an empty string
+         * @param certificate_errors a bit-or of {@link Gio.TlsCertificateFlags} for secure connection certificate
+         * @param op_error a {@link GLib.Error} with a description of the previous credentials error, or `null`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        invoke_credentials_required(reason: SourceCredentialsReason, certificate_pem: string, certificate_errors: Gio.TlsCertificateFlags, op_error: GLib.Error | null, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously calls the InvokeCredentialsRequired method on the server side,
+         * to inform clients that credentials are required.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_invoke_credentials_required_finish()` to get the result of the operation.
+         * @param reason an {@link EDataServer.SourceCredentialsReason}, why the credentials are required
+         * @param certificate_pem PEM-encoded secure connection certificate, or an empty string
+         * @param certificate_errors a bit-or of {@link Gio.TlsCertificateFlags} for secure connection certificate
+         * @param op_error a {@link GLib.Error} with a description of the previous credentials error, or `null`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        invoke_credentials_required(reason: SourceCredentialsReason, certificate_pem: string, certificate_errors: Gio.TlsCertificateFlags, op_error: GLib.Error | null, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_invoke_credentials_required()`.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        invoke_credentials_required_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Let's the client-side know that credentials are required. The `reason` defines which
+         * parameters are used. The client passed the credentials with an `e_source_invoke_authenticate()`
+         * call.
+         * 
+         * The {@link EDataServer.SourceCredentialsReason.REQUIRED} is used for the first credentials prompt,
+         * when the client can return credentials as stored from the previous success login.
+         * 
+         * The {@link EDataServer.SourceCredentialsReason.REJECTED} is used when the previously used credentials
+         * had been rejected by the server. That usually means that the user should be asked
+         * to provide/correct the credentials.
+         * 
+         * The {@link EDataServer.SourceCredentialsReason.SSL_FAILED} is used when a secured connection failed
+         * due to some server-side certificate issues.
+         * 
+         * The {@link EDataServer.SourceCredentialsReason.ERROR} is used when the server returned an error.
+         * It is not possible to connect to it at the moment usually.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param reason an {@link EDataServer.SourceCredentialsReason}, why the credentials are required
+         * @param certificate_pem PEM-encoded secure connection certificate, or an empty string
+         * @param certificate_errors a bit-or of {@link Gio.TlsCertificateFlags} for secure connection certificate
+         * @param op_error a {@link GLib.Error} with a description of the previous credentials error, or `null`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        invoke_credentials_required_sync(reason: SourceCredentialsReason, certificate_pem: string, certificate_errors: Gio.TlsCertificateFlags, op_error: GLib.Error | null, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously looks up a password for `source`.  Both the default and
+         * session keyrings are queried.  This operation does not rely on the
+         * registry service and therefore works for any {@link EDataServer.Source} -- registered
+         * or "scratch".
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_lookup_password_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.12
+         */
+        lookup_password(cancellable: Gio.Cancellable | null): globalThis.Promise<string>;
+
+        /**
+         * Asynchronously looks up a password for `source`.  Both the default and
+         * session keyrings are queried.  This operation does not rely on the
+         * registry service and therefore works for any {@link EDataServer.Source} -- registered
+         * or "scratch".
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_lookup_password_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.12
+         */
+        lookup_password(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously looks up a password for `source`.  Both the default and
+         * session keyrings are queried.  This operation does not rely on the
+         * registry service and therefore works for any {@link EDataServer.Source} -- registered
+         * or "scratch".
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_lookup_password_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.12
+         */
+        lookup_password(cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<string> | void;
+
+        /**
+         * Finishes the operation started with `e_source_lookup_password()`.
+         * 
+         * Note the boolean return value indicates whether the lookup operation
+         * itself completed successfully, not whether a password was found.  If
+         * no password was found, the function will set `out_password` to `null`
+         * but still return `true`.  If an error occurs, the function sets `error`
+         * and returns `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.12
+         * @throws GLib.Error
+         */
+        lookup_password_finish(result: Gio.AsyncResult): [boolean, string];
+
+        /**
+         * Looks up a password for `source`.  Both the default and session keyrings
+         * are queried.  This operation does not rely on the registry service and
+         * therefore works for any {@link EDataServer.Source} -- registered or "scratch".
+         * 
+         * Note the boolean return value indicates whether the lookup operation
+         * itself completed successfully, not whether a password was found.  If
+         * no password was found, the function will set `out_password` to `null`
+         * but still return `true`.  If an error occurs, the function sets `error`
+         * and returns `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.12
+         * @throws GLib.Error
+         */
+        lookup_password_sync(cancellable: Gio.Cancellable | null): [boolean, string];
+
+        /**
+         * Asynchronously loads a signature from the signature file for `source`,
+         * which is given by `e_source_mail_signature_get_file()`.
+         * 
+         * If the signature file is executable, it will be executed and its output
+         * captured as the email signature content.  If the signature file is not
+         * executable, the email signature content is read directly from the file.
+         * 
+         * When the operation is finished, `callback` will be called.  You can
+         * then call `e_source_mail_signature_load_finish()` to get the result of
+         * the operation.
+         * @param io_priority the I/O priority of the request
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         */
+        mail_signature_load(io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<[string, number]>;
+
+        /**
+         * Asynchronously loads a signature from the signature file for `source`,
+         * which is given by `e_source_mail_signature_get_file()`.
+         * 
+         * If the signature file is executable, it will be executed and its output
+         * captured as the email signature content.  If the signature file is not
+         * executable, the email signature content is read directly from the file.
+         * 
+         * When the operation is finished, `callback` will be called.  You can
+         * then call `e_source_mail_signature_load_finish()` to get the result of
+         * the operation.
+         * @param io_priority the I/O priority of the request
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        mail_signature_load(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously loads a signature from the signature file for `source`,
+         * which is given by `e_source_mail_signature_get_file()`.
+         * 
+         * If the signature file is executable, it will be executed and its output
+         * captured as the email signature content.  If the signature file is not
+         * executable, the email signature content is read directly from the file.
+         * 
+         * When the operation is finished, `callback` will be called.  You can
+         * then call `e_source_mail_signature_load_finish()` to get the result of
+         * the operation.
+         * @param io_priority the I/O priority of the request
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        mail_signature_load(io_priority: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<[string, number]> | void;
+
+        /**
+         * Finishes an operation started with `e_source_mail_signature_load()`.  The
+         * signature file contents are placed in `contents`, and `length` is set to
+         * the size of the `contents` string.  The `contents` string should be freed
+         * with `g_free()` when no longer needed.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on failure
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        mail_signature_load_finish(result: Gio.AsyncResult): [boolean, string, number];
+
+        /**
+         * Loads a signature from the signature file for `source`, which is
+         * given by `e_source_mail_signature_get_file()`.  The signature contents
+         * are placed in `contents`, and `length` is set to the size of the `contents`
+         * string.  The `contents` string should be freed with `g_free()` when no
+         * longer needed.
+         * 
+         * If the signature file is executable, it will be executed and its output
+         * captured as the email signature content.  If the signature file is not
+         * executable, the email signature content is read directly from the file.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on failure
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        mail_signature_load_sync(cancellable: Gio.Cancellable | null): [boolean, string, number];
+
+        /**
+         * Asynchrously replaces the signature file for `source` with the given
+         * `contents` of `length` bytes.  The signature file for `source` is given
+         * by `e_source_mail_signature_get_file()`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can
+         * then call `e_source_mail_signature_replace_finish()` to get the result
+         * of the operation.
+         * @param contents the signature contents
+         * @param length the length of `contents` in bytes
+         * @param io_priority the I/O priority of the request
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         */
+        mail_signature_replace(contents: string, length: bigint | number, io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchrously replaces the signature file for `source` with the given
+         * `contents` of `length` bytes.  The signature file for `source` is given
+         * by `e_source_mail_signature_get_file()`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can
+         * then call `e_source_mail_signature_replace_finish()` to get the result
+         * of the operation.
+         * @param contents the signature contents
+         * @param length the length of `contents` in bytes
+         * @param io_priority the I/O priority of the request
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        mail_signature_replace(contents: string, length: bigint | number, io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchrously replaces the signature file for `source` with the given
+         * `contents` of `length` bytes.  The signature file for `source` is given
+         * by `e_source_mail_signature_get_file()`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can
+         * then call `e_source_mail_signature_replace_finish()` to get the result
+         * of the operation.
+         * @param contents the signature contents
+         * @param length the length of `contents` in bytes
+         * @param io_priority the I/O priority of the request
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        mail_signature_replace(contents: string, length: bigint | number, io_priority: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes an operation started with `e_source_mail_signature_replace()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on failure
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        mail_signature_replace_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Replaces the signature file for `source` with the given `contents`
+         * of `length` bytes.  The signature file for `source` is given by
+         * `e_source_mail_signature_get_file()`.
+         * @param contents the signature contents
+         * @param length the length of `contents` in bytes
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on failure
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        mail_signature_replace_sync(contents: string, length: bigint | number, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously replaces the signature file for `source` with a symbolic
+         * link to `symlink_target`, which should be an executable file that prints
+         * a mail signature to standard output.  The signature file for `source`
+         * is given by `e_source_mail_signature_get_file()`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can
+         * then call `e_source_mail_signature_symlink_finish()` to get the result
+         * of the operation.
+         * @param symlink_target executable filename to link to
+         * @param io_priority the I/O priority of the request
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         */
+        mail_signature_symlink(symlink_target: string, io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously replaces the signature file for `source` with a symbolic
+         * link to `symlink_target`, which should be an executable file that prints
+         * a mail signature to standard output.  The signature file for `source`
+         * is given by `e_source_mail_signature_get_file()`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can
+         * then call `e_source_mail_signature_symlink_finish()` to get the result
+         * of the operation.
+         * @param symlink_target executable filename to link to
+         * @param io_priority the I/O priority of the request
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        mail_signature_symlink(symlink_target: string, io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously replaces the signature file for `source` with a symbolic
+         * link to `symlink_target`, which should be an executable file that prints
+         * a mail signature to standard output.  The signature file for `source`
+         * is given by `e_source_mail_signature_get_file()`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can
+         * then call `e_source_mail_signature_symlink_finish()` to get the result
+         * of the operation.
+         * @param symlink_target executable filename to link to
+         * @param io_priority the I/O priority of the request
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        mail_signature_symlink(symlink_target: string, io_priority: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes an operation started with `e_source_mail_signature_symlink()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on failure
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        mail_signature_symlink_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Replaces the signature file for `source` with a symbolic link to
+         * `symlink_target`, which should be an executable file that prints
+         * a mail signature to standard output.  The signature file for
+         * `source` is given by `e_source_mail_signature_get_file()`.
+         * @param symlink_target executable filename to link to
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on failure
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        mail_signature_symlink_sync(symlink_target: string, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously determines what proxy, if any, to use to connect to `uri`.
+         * See `e_source_proxy_lookup_sync()` for more details.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_proxy_lookup_finish()` to get the result of the operation.
+         * @param uri a URI representing the destination to connect to
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.12
+         */
+        proxy_lookup(uri: string, cancellable: Gio.Cancellable | null): globalThis.Promise<string[] | null>;
+
+        /**
+         * Asynchronously determines what proxy, if any, to use to connect to `uri`.
+         * See `e_source_proxy_lookup_sync()` for more details.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_proxy_lookup_finish()` to get the result of the operation.
+         * @param uri a URI representing the destination to connect to
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.12
+         */
+        proxy_lookup(uri: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously determines what proxy, if any, to use to connect to `uri`.
+         * See `e_source_proxy_lookup_sync()` for more details.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_proxy_lookup_finish()` to get the result of the operation.
+         * @param uri a URI representing the destination to connect to
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.12
+         */
+        proxy_lookup(uri: string, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<string[] | null> | void;
+
+        /**
+         * Finishes the operation started with `e_source_proxy_lookup()`.
+         * 
+         * Free the returned proxy URIs with `g_strfreev()` when finished with them.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns a `null`-terminated array of proxy    URIs, or `null`
+         * @since 3.12
+         * @throws GLib.Error
+         */
+        proxy_lookup_finish(result: Gio.AsyncResult): string[] | null;
+
+        /**
+         * Looks into `source`'s {@link EDataServer.SourceProxy} extension to determine what proxy,
+         * if any, to use to connect to `uri`.  The returned proxy URIs are of the
+         * same form described by `g_proxy_resolver_lookup()`.
+         * 
+         * The proxy extension's {@link EDataServer.SourceProxy.method} controls how proxy URIs are
+         * determined:
+         * 
+         * When using `E_PROXY_METHOD_DEFAULT`, the function will defer to the
+         * {@link Gio.ProxyResolver} returned by `g_proxy_resolver_get_default()`.
+         * 
+         * When using `E_PROXY_METHOD_MANUAL`, the function will configure a
+         * {@link Gio.SimpleProxyResolver} from the HTTP, HTTPS, FTP and SOCKS properties,
+         * as well as {@link EDataServer.SourceProxy.ignore_hosts}.
+         * 
+         * When using `E_PROXY_METHOD_AUTO`, the function will execute a proxy
+         * auto-config (PAC) file at {@link EDataServer.SourceProxy.autoconfig_url}.
+         * 
+         * When using `E_PROXY_METHOD_NONE`, the function will only return
+         * <literal>direct://</literal>.
+         * 
+         * If `source` does not have an {@link EDataServer.SourceProxy} extension, the function sets
+         * `error` to `G_IO_ERROR_NOT_SUPPORTED` and returns `null`.
+         * 
+         * Free the returned proxy URIs with `g_strfreev()` when finished with them.
+         * @param uri a URI representing the destination to connect to
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns a `null`-terminated array of proxy URIs,    or `null`
+         * @since 3.12
+         * @throws GLib.Error
+         */
+        proxy_lookup_sync(uri: string, cancellable: Gio.Cancellable | null): string[] | null;
+
+        /**
+         * Returns the {@link Gio.DBusObject} that was passed to `e_source_new()`.
+         * 
+         * The returned {@link Gio.DBusObject} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the {@link Gio.DBusObject} for `source`, or `null`
+         * @since 3.6
+         */
+        ref_dbus_object(): Gio.DBusObject | null;
+
+        /**
+         * Returns the {@link GLib.MainContext} on which event sources for `source` are to
+         * be attached.
+         * 
+         * The returned {@link GLib.MainContext} is referenced for thread-safety and must be
+         * unreferenced with `g_main_context_unref()` when finished with it.
+         * @returns a {@link GLib.MainContext}
+         * @since 3.6
+         */
+        ref_main_context(): GLib.MainContext;
+
+        /**
+         * This is a simple way to schedule a periodic data source refresh.
+         * 
+         * Adds a timeout {@link GLib.Source} to `context` and handles all the bookkeeping
+         * if `source`'s refresh {@link EDataServer.SourceRefresh.enabled} state or its refresh
+         * {@link EDataServer.SourceRefresh.interval_minutes} value changes.  The `callback` is
+         * expected to dispatch an asynchronous job to connect to and fetch
+         * updates from a remote server.
+         * 
+         * The returned ID can be passed to `e_source_refresh_remove_timeout()` to
+         * remove the timeout from `context`.  Note the ID is a private handle and
+         * cannot be passed to `g_source_remove()`.
+         * @param context a {@link GLib.MainContext}, or `null` (if `null`, the default           context will be used)
+         * @param callback function to call on each timeout
+         * @returns a refresh timeout ID
+         * @since 3.6
+         */
+        refresh_add_timeout(context: GLib.MainContext | null, callback: SourceRefreshFunc): number;
+
+        /**
+         * For all timeouts added with `e_source_refresh_add_timeout()`, invokes
+         * the {@link EDataServer.SourceRefreshFunc} callback immediately and then, if the refresh
+         * {@link EDataServer.SourceRefresh.enabled} state is TRUE, reschedules the timeout.
+         * 
+         * This function is called automatically when the {@link EDataServer.Source} switches from
+         * disabled to enabled, but can also be useful when a network connection
+         * becomes available or when waking up from hibernation or suspend.
+         * @since 3.6
+         */
+        refresh_force_timeout(): void;
+
+        /**
+         * Removes a timeout {@link GLib.Source} added by `e_source_refresh_add_timeout()`.
+         * @param refresh_timeout_id a refresh timeout ID
+         * @returns `true` if the timeout was found and removed
+         * @since 3.6
+         */
+        refresh_remove_timeout(refresh_timeout_id: number): boolean;
+
+        /**
+         * Removes all timeout {@link GLib.Source}'s added by `e_source_refresh_add_timeout()`
+         * whose callback data pointer matches `user_data`.
+         * @param user_data user data to match against timeout callbacks
+         * @returns the number of timeouts found and removed
+         * @since 3.6
+         */
+        refresh_remove_timeouts_by_data(user_data: null): number;
+
+        /**
+         * Asynchronously creates a new remote resource by picking out relevant
+         * details from `scratch_source`.  The `scratch_source` must be an {@link EDataServer.Source}
+         * with no {@link Gio.DBusObject}.  The `source` must be {@link EDataServer.Source.remote_creatable}.
+         * 
+         * The details required to create the resource vary by `ECollectionBackend`,
+         * but in most cases the `scratch_source` need only define the resource type
+         * (address book, calendar, etc.), a display name for the resource, and
+         * possibly a server-side path or ID for the resource.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_remote_create_finish()` to get the result of the operation.
+         * @param scratch_source an {@link EDataServer.Source} describing the resource to create
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         */
+        remote_create(scratch_source: Source, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously creates a new remote resource by picking out relevant
+         * details from `scratch_source`.  The `scratch_source` must be an {@link EDataServer.Source}
+         * with no {@link Gio.DBusObject}.  The `source` must be {@link EDataServer.Source.remote_creatable}.
+         * 
+         * The details required to create the resource vary by `ECollectionBackend`,
+         * but in most cases the `scratch_source` need only define the resource type
+         * (address book, calendar, etc.), a display name for the resource, and
+         * possibly a server-side path or ID for the resource.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_remote_create_finish()` to get the result of the operation.
+         * @param scratch_source an {@link EDataServer.Source} describing the resource to create
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        remote_create(scratch_source: Source, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously creates a new remote resource by picking out relevant
+         * details from `scratch_source`.  The `scratch_source` must be an {@link EDataServer.Source}
+         * with no {@link Gio.DBusObject}.  The `source` must be {@link EDataServer.Source.remote_creatable}.
+         * 
+         * The details required to create the resource vary by `ECollectionBackend`,
+         * but in most cases the `scratch_source` need only define the resource type
+         * (address book, calendar, etc.), a display name for the resource, and
+         * possibly a server-side path or ID for the resource.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_remote_create_finish()` to get the result of the operation.
+         * @param scratch_source an {@link EDataServer.Source} describing the resource to create
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        remote_create(scratch_source: Source, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_remote_create()`.  If
+         * an error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        remote_create_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Creates a new remote resource by picking out relevant details from
+         * `scratch_source`.  The `scratch_source` must be an {@link EDataServer.Source} with no
+         * {@link Gio.DBusObject}.  The `source` must be {@link EDataServer.Source.remote_creatable}.
+         * 
+         * The details required to create the resource vary by `ECollectionBackend`,
+         * but in most cases the `scratch_source` need only define the resource type
+         * (address book, calendar, etc.), a display name for the resource, and
+         * possibly a server-side path or ID for the resource.
+         * 
+         * If an error occurs, the function will set `error` and return `false`.
+         * @param scratch_source an {@link EDataServer.Source} describing the resource to create
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        remote_create_sync(scratch_source: Source, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously deletes the resource represented by `source` from a remote
+         * server.  The `source` must be {@link EDataServer.Source.remote_deletable}.  This will also
+         * delete the key file for `source` and broadcast its removal to all clients,
+         * similar to `e_source_remove()`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_remote_delete_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         */
+        remote_delete(cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously deletes the resource represented by `source` from a remote
+         * server.  The `source` must be {@link EDataServer.Source.remote_deletable}.  This will also
+         * delete the key file for `source` and broadcast its removal to all clients,
+         * similar to `e_source_remove()`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_remote_delete_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        remote_delete(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously deletes the resource represented by `source` from a remote
+         * server.  The `source` must be {@link EDataServer.Source.remote_deletable}.  This will also
+         * delete the key file for `source` and broadcast its removal to all clients,
+         * similar to `e_source_remove()`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_remote_delete_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        remote_delete(cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_remote_delete()`.  If
+         * an error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        remote_delete_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Deletes the resource represented by `source` from a remote server.
+         * The `source` must be {@link EDataServer.Source.remote_deletable}.  This will also delete
+         * the key file for `source` and broadcast its removal to all clients,
+         * similar to `e_source_remove_sync()`.
+         * 
+         * If an error occurs, the function will set `error` and return `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        remote_delete_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously requests the D-Bus service to delete the key files for
+         * `source` and all of its descendants and broadcast their removal to all
+         * clients.  The `source` must be {@link EDataServer.Source.removable}.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_remove_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         */
+        remove(cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously requests the D-Bus service to delete the key files for
+         * `source` and all of its descendants and broadcast their removal to all
+         * clients.  The `source` must be {@link EDataServer.Source.removable}.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_remove_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        remove(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously requests the D-Bus service to delete the key files for
+         * `source` and all of its descendants and broadcast their removal to all
+         * clients.  The `source` must be {@link EDataServer.Source.removable}.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_remove_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        remove(cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_remove()`.  If an
+         * error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` of failure
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        remove_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Requests the D-Bus service to delete the key files for `source` and all of
+         * its descendants and broadcast their removal to all clients.  The `source`
+         * must be {@link EDataServer.Source.removable}.
+         * 
+         * If an error occurs, the functon will set `error` and return `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        remove_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Set's current connection status of the `source`.
+         * @param connection_status one of the {@link EDataServer.SourceConnectionStatus}
+         * @since 3.16
+         */
+        set_connection_status(connection_status: SourceConnectionStatus): void;
+
+        /**
+         * Sets the display name for `source`.  The `display_name` argument must be a
+         * valid UTF-8 string.  Use the display name to represent the {@link EDataServer.Source} in a
+         * user interface.
+         * 
+         * The internal copy of `display_name` is automatically stripped of leading
+         * and trailing whitespace.
+         * @param display_name a display name
+         * @since 3.6
+         */
+        set_display_name(display_name: string): void;
+
+        /**
+         * Enables or disables `source`.
+         * 
+         * An application should try to honor this setting if at all possible,
+         * even if it does not provide a way to change the setting through its
+         * user interface.  Disabled data sources should generally be hidden.
+         * @param enabled whether to enable `source`
+         * @since 3.6
+         */
+        set_enabled(enabled: boolean): void;
+
+        /**
+         * Identifies the parent of `source` by its unique identifier string.
+         * This can only be set prior to adding `source` to an {@link EDataServer.SourceRegistry}.
+         * 
+         * The internal copy of {@link EDataServer.Source.parent} is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param parent the UID of the parent {@link EDataServer.Source}, or `null`
+         * @since 3.6
+         */
+        set_parent(parent: string | null): void;
+
+        /**
+         * Asynchronously stores a password for `source`.  This operation does
+         * not rely on the registry service and therefore works for any {@link EDataServer.Source}
+         * -- registered or "scratch".
+         * 
+         * If `permanently` is `true`, the password is stored in the default keyring.
+         * Otherwise the password is stored in the memory-only session keyring.  If
+         * an error occurs, the function sets `error` and returns `false`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_store_password_finish()` to get the result of the operation.
+         * @param password the password to store
+         * @param permanently store permanently or just for the session
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.12
+         */
+        store_password(password: string, permanently: boolean, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously stores a password for `source`.  This operation does
+         * not rely on the registry service and therefore works for any {@link EDataServer.Source}
+         * -- registered or "scratch".
+         * 
+         * If `permanently` is `true`, the password is stored in the default keyring.
+         * Otherwise the password is stored in the memory-only session keyring.  If
+         * an error occurs, the function sets `error` and returns `false`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_store_password_finish()` to get the result of the operation.
+         * @param password the password to store
+         * @param permanently store permanently or just for the session
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.12
+         */
+        store_password(password: string, permanently: boolean, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously stores a password for `source`.  This operation does
+         * not rely on the registry service and therefore works for any {@link EDataServer.Source}
+         * -- registered or "scratch".
+         * 
+         * If `permanently` is `true`, the password is stored in the default keyring.
+         * Otherwise the password is stored in the memory-only session keyring.  If
+         * an error occurs, the function sets `error` and returns `false`.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_store_password_finish()` to get the result of the operation.
+         * @param password the password to store
+         * @param permanently store permanently or just for the session
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.12
+         */
+        store_password(password: string, permanently: boolean, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_store_password()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.12
+         * @throws GLib.Error
+         */
+        store_password_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Stores a password for `source`.  This operation does not rely on the
+         * registry service and therefore works for any {@link EDataServer.Source} -- registered
+         * or "scratch".
+         * 
+         * If `permanently` is `true`, the password is stored in the default keyring.
+         * Otherwise the password is stored in the memory-only session keyring.  If
+         * an error occurs, the function sets `error` and returns `false`.
+         * @param password the password to store
+         * @param permanently store permanently or just for the session
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.12
+         * @throws GLib.Error
+         */
+        store_password_sync(password: string, permanently: boolean, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Outputs the current contents of `source` as a key file string.
+         * Free the returned string with `g_free()`.
+         * @returns a newly-allocated string
+         * @since 3.6
+         */
+        to_string(): [string, number];
+
+        /**
+         * Asynchronously calls the UnsetLastCredentialsRequiredArguments method
+         * on the server side, to unset the last values used for the 'credentials-required'
+         * signal.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_unset_last_credentials_required_arguments_finish()` to get
+         * the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.18
+         */
+        unset_last_credentials_required_arguments(cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously calls the UnsetLastCredentialsRequiredArguments method
+         * on the server side, to unset the last values used for the 'credentials-required'
+         * signal.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_unset_last_credentials_required_arguments_finish()` to get
+         * the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.18
+         */
+        unset_last_credentials_required_arguments(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously calls the UnsetLastCredentialsRequiredArguments method
+         * on the server side, to unset the last values used for the 'credentials-required'
+         * signal.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_unset_last_credentials_required_arguments_finish()` to get
+         * the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.18
+         */
+        unset_last_credentials_required_arguments(cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_unset_last_credentials_required_arguments()`.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.18
+         * @throws GLib.Error
+         */
+        unset_last_credentials_required_arguments_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Unsets the last used arguments of the 'credentials-required' signal emission.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.18
+         * @throws GLib.Error
+         */
+        unset_last_credentials_required_arguments_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously submits the current contents of `source` to the D-Bus
+         * service to be written to disk and broadcast to other clients.  The
+         * `source` must be {@link EDataServer.Source.writable}.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_write_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         */
+        write(cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously submits the current contents of `source` to the D-Bus
+         * service to be written to disk and broadcast to other clients.  The
+         * `source` must be {@link EDataServer.Source.writable}.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_write_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        write(cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously submits the current contents of `source` to the D-Bus
+         * service to be written to disk and broadcast to other clients.  The
+         * `source` must be {@link EDataServer.Source.writable}.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_write_finish()` to get the result of the operation.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        write(cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_write()`.  If an
+         * error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        write_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Submits the current contents of `source` to the D-Bus service to be
+         * written to disk and broadcast to other clients.  The `source` must
+         * be {@link EDataServer.Source.writable}.
+         * 
+         * If an error occurs, the functon will set `error` and return `false`.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        write_sync(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @returns `true` if successful. If an error has occurred, this function will     return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Checks if `resolver` can be used on this system. (This is used
+         * internally; `g_proxy_resolver_get_default()` will only return a proxy
+         * resolver that returns `true` for this method.)
+         * @returns `true` if `resolver` is supported.
+         * @since 2.26
+         */
+        is_supported(): boolean;
+
+        /**
+         * Looks into the system proxy configuration to determine what proxy,
+         * if any, to use to connect to `uri`. The returned proxy URIs are of
+         * the form `<protocol>://[user[:password]@]host[:port]` or
+         * `direct://`, where `<protocol>` could be http, rtsp, socks
+         * or other proxying protocol.
+         * 
+         * If you don't know what network protocol is being used on the
+         * socket, you should use `none` as the URI protocol.
+         * In this case, the resolver might still return a generic proxy type
+         * (such as SOCKS), but would not return protocol-specific proxy types
+         * (such as http).
+         * 
+         * `direct://` is used when no proxy is needed.
+         * Direct connection should not be attempted unless it is part of the
+         * returned array of proxies.
+         * @param uri a URI representing the destination to connect to
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @returns A               NULL-terminated array of proxy URIs. Must be freed               with `g_strfreev()`.
+         * @since 2.26
+         * @throws GLib.Error
+         */
+        lookup(uri: string, cancellable: Gio.Cancellable | null): string[];
+
+        /**
+         * Asynchronous lookup of proxy. See `g_proxy_resolver_lookup()` for more
+         * details.
+         * @param uri a URI representing the destination to connect to
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @since 2.26
+         */
+        lookup_async(uri: string, cancellable: Gio.Cancellable | null): globalThis.Promise<string[]>;
+
+        /**
+         * Asynchronous lookup of proxy. See `g_proxy_resolver_lookup()` for more
+         * details.
+         * @param uri a URI representing the destination to connect to
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @param callback callback to call after resolution completes
+         * @since 2.26
+         */
+        lookup_async(uri: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronous lookup of proxy. See `g_proxy_resolver_lookup()` for more
+         * details.
+         * @param uri a URI representing the destination to connect to
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @param callback callback to call after resolution completes
+         * @since 2.26
+         */
+        lookup_async(uri: string, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<string[]> | void;
+
+        /**
+         * Call this function to obtain the array of proxy URIs when
+         * `g_proxy_resolver_lookup_async()` is complete. See
+         * `g_proxy_resolver_lookup()` for more details.
+         * @param result the result passed to your {@link Gio.AsyncReadyCallback}
+         * @returns A               NULL-terminated array of proxy URIs. Must be freed               with `g_strfreev()`.
+         * @since 2.26
+         * @throws GLib.Error
+         */
+        lookup_finish(result: Gio.AsyncResult): string[];
+
+        /**
+         * Checks if `resolver` can be used on this system. (This is used
+         * internally; `g_proxy_resolver_get_default()` will only return a proxy
+         * resolver that returns `true` for this method.)
+         * @since 2.26
+         * @virtual
+         */
+        vfunc_is_supported(): boolean;
+
+        /**
+         * Looks into the system proxy configuration to determine what proxy,
+         * if any, to use to connect to `uri`. The returned proxy URIs are of
+         * the form `<protocol>://[user[:password]@]host[:port]` or
+         * `direct://`, where `<protocol>` could be http, rtsp, socks
+         * or other proxying protocol.
+         * 
+         * If you don't know what network protocol is being used on the
+         * socket, you should use `none` as the URI protocol.
+         * In this case, the resolver might still return a generic proxy type
+         * (such as SOCKS), but would not return protocol-specific proxy types
+         * (such as http).
+         * 
+         * `direct://` is used when no proxy is needed.
+         * Direct connection should not be attempted unless it is part of the
+         * returned array of proxies.
+         * @param uri a URI representing the destination to connect to
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @since 2.26
+         * @virtual
+         */
+        vfunc_lookup(uri: string, cancellable: Gio.Cancellable | null): string[];
+
+        /**
+         * Asynchronous lookup of proxy. See `g_proxy_resolver_lookup()` for more
+         * details.
+         * @param uri a URI representing the destination to connect to
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @param callback callback to call after resolution completes
+         * @since 2.26
+         * @virtual
+         */
+        vfunc_lookup_async(uri: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Call this function to obtain the array of proxy URIs when
+         * `g_proxy_resolver_lookup_async()` is complete. See
+         * `g_proxy_resolver_lookup()` for more details.
+         * @param result the result passed to your {@link Gio.AsyncReadyCallback}
+         * @since 2.26
+         * @virtual
+         */
+        vfunc_lookup_finish(result: Gio.AsyncResult): string[];
+    }
+
+
+    namespace SourceAddressBook {
+        // Signal signatures
+        interface SignalSignatures extends SourceBackend.SignalSignatures {
+            "notify::order": (pspec: GObject.ParamSpec) => void;
+            "notify::backend-name": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceBackend.ConstructorProps {
+            order: number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceAddressBook extends SourceBackend {
+        static $gtype: GObject.GType<SourceAddressBook>;
+
+        // Properties
+        /**
+         * A sorting order of the source
+         * @default 0
+         */
+        get order(): number;
+        set order(val: number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceAddressBook.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceAddressBook.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceAddressBook.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceAddressBook.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceAddressBook.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceAddressBook.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceAddressBook.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceAddressBook.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns the sorting order of the source, if known. Zero is the default.
+         * @since 3.40
+         */
+        get_order(): number;
+
+        /**
+         * Set the sorting order of the source.
+         * @param order a sorting order
+         * @since 3.40
+         */
+        set_order(order: number): void;
+    }
+
+
+    namespace SourceAlarms {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::for-every-event": (pspec: GObject.ParamSpec) => void;
+            "notify::include-me": (pspec: GObject.ParamSpec) => void;
+            "notify::last-notified": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            for_every_event: boolean;
+            forEveryEvent: boolean;
+            include_me: boolean;
+            includeMe: boolean;
+            last_notified: string | null;
+            lastNotified: string | null;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceAlarms extends SourceExtension {
+        static $gtype: GObject.GType<SourceAlarms>;
+
+        // Properties
+        /**
+         * Show a notification before every event in this source
+         * @default false
+         */
+        get for_every_event(): boolean;
+        set for_every_event(val: boolean);
+
+        /**
+         * Show a notification before every event in this source
+         * @default false
+         */
+        get forEveryEvent(): boolean;
+        set forEveryEvent(val: boolean);
+
+        /**
+         * Include this source in alarm notifications
+         * @default true
+         */
+        get include_me(): boolean;
+        set include_me(val: boolean);
+
+        /**
+         * Include this source in alarm notifications
+         * @default true
+         */
+        get includeMe(): boolean;
+        set includeMe(val: boolean);
+
+        /**
+         * Last alarm notification (in ISO 8601 format)
+         * @default null
+         */
+        get last_notified(): string | null;
+        set last_notified(val: string | null);
+
+        /**
+         * Last alarm notification (in ISO 8601 format)
+         * @default null
+         */
+        get lastNotified(): string | null;
+        set lastNotified(val: string | null);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceAlarms.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceAlarms.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceAlarms.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceAlarms.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceAlarms.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceAlarms.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceAlarms.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceAlarms.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_alarms_get_last_notified()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceAlarms.last_notified}
+         * @since 3.6
+         */
+        dup_last_notified(): string | null;
+
+        /**
+         * Returns whether the user should be alerted about all upcoming appointments
+         * in the calendar described by the {@link EDataServer.Source} to which `extension` belongs.
+         * 
+         * This is used in addition to the GSettings key defall-reminder-enabled
+         * in org.gnome.evolution-data-server.calendar.
+         * @returns whether to show alarms for every event
+         * @since 3.52
+         */
+        get_for_every_event(): boolean;
+
+        /**
+         * Returns whether the user should be alerted about upcoming appointments
+         * in the calendar described by the {@link EDataServer.Source} to which `extension` belongs.
+         * 
+         * Alarm daemons such as evolution-alarm-notify can use this property to
+         * decide which calendars to query for upcoming appointments.
+         * @returns whether to show alarms for upcoming appointments
+         * @since 3.6
+         */
+        get_include_me(): boolean;
+
+        /**
+         * Returns an ISO 8601 formatted timestamp of when the user was last
+         * alerted about an upcoming appointment in the calendar described by
+         * the {@link EDataServer.Source} to which `extension` belongs.  If no valid timestamp
+         * has been set, the function will return `null`.
+         * @returns an ISO 8601 timestamp, or `null`
+         * @since 3.6
+         */
+        get_last_notified(): string | null;
+
+        /**
+         * Sets whether the user should be alerted about every event in
+         * the calendar described by the {@link EDataServer.Source} to which `extension` belongs.
+         * 
+         * This is used in addition to the GSettings key defall-reminder-enabled
+         * in org.gnome.evolution-data-server.calendar.
+         * @param for_every_event whether to show alarms for every event
+         * @since 3.52
+         */
+        set_for_every_event(for_every_event: boolean): void;
+
+        /**
+         * Sets whether the user should be alerted about upcoming appointments in
+         * the calendar described by the {@link EDataServer.Source} to which `extension` belongs.
+         * 
+         * Alarm daemons such as evolution-alarm-notify can use this property to
+         * decide which calendars to query for upcoming appointments.
+         * @param include_me whether to show alarms for upcoming appointments
+         * @since 3.6
+         */
+        set_include_me(include_me: boolean): void;
+
+        /**
+         * Sets an ISO 8601 formatted timestamp of when the user was last
+         * alerted about an upcoming appointment in the calendar described
+         * by the {@link EDataServer.Source} to which `extension` belongs.
+         * 
+         * If `last_notified` is non-`null`, the function will validate the
+         * timestamp before setting the {@link EDataServer.SourceAlarms.last_notified} property.
+         * Invalid timestamps are discarded with a runtime warning.
+         * 
+         * Generally, this function should only be called by an alarm daemon
+         * such as evolution-alarm-notify.
+         * @param last_notified an ISO 8601 timestamp, or `null`
+         * @since 3.6
+         */
+        set_last_notified(last_notified: string | null): void;
+    }
+
+
+    namespace SourceAuthentication {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::connectable": (pspec: GObject.ParamSpec) => void;
+            "notify::credential-name": (pspec: GObject.ParamSpec) => void;
+            "notify::host": (pspec: GObject.ParamSpec) => void;
+            "notify::is-external": (pspec: GObject.ParamSpec) => void;
+            "notify::method": (pspec: GObject.ParamSpec) => void;
+            "notify::port": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy-uid": (pspec: GObject.ParamSpec) => void;
+            "notify::remember-password": (pspec: GObject.ParamSpec) => void;
+            "notify::user": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            connectable: Gio.SocketConnectable;
+            credential_name: string | null;
+            credentialName: string | null;
+            host: string | null;
+            is_external: boolean;
+            isExternal: boolean;
+            method: string | null;
+            port: number;
+            proxy_uid: string;
+            proxyUid: string;
+            remember_password: boolean;
+            rememberPassword: boolean;
+            user: string | null;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceAuthentication extends SourceExtension {
+        static $gtype: GObject.GType<SourceAuthentication>;
+
+        // Properties
+        /**
+         * A {@link Gio.SocketConnectable} constructed from the host and port properties
+         * @read-only
+         */
+        get connectable(): Gio.SocketConnectable;
+
+        /**
+         * What name to use for the authentication method in credentials for authentication.
+         * 
+         * An empty string or `null` means to use E_SOURCE_CREDENTIAL_PASSWORD to pass the stored
+         * "password" into the backend with `e_source_invoke_authenticate()`/_sync()
+         * @default null
+         */
+        get credential_name(): string | null;
+        set credential_name(val: string | null);
+
+        /**
+         * What name to use for the authentication method in credentials for authentication.
+         * 
+         * An empty string or `null` means to use E_SOURCE_CREDENTIAL_PASSWORD to pass the stored
+         * "password" into the backend with `e_source_invoke_authenticate()`/_sync()
+         * @default null
+         */
+        get credentialName(): string | null;
+        set credentialName(val: string | null);
+
+        /**
+         * Host name for the remote account
+         */
+        get host(): string | null;
+        set host(val: string | null);
+
+        /**
+         * Whether the authentication is done by another authentication manager (like any
+         * Single Sign On daemon)
+         * @default false
+         */
+        get is_external(): boolean;
+        set is_external(val: boolean);
+
+        /**
+         * Whether the authentication is done by another authentication manager (like any
+         * Single Sign On daemon)
+         * @default false
+         */
+        get isExternal(): boolean;
+        set isExternal(val: boolean);
+
+        /**
+         * Authentication method
+         * @default none
+         */
+        get method(): string | null;
+        set method(val: string | null);
+
+        /**
+         * Port number for the remote account
+         * @default 0
+         */
+        get port(): number;
+        set port(val: number);
+
+        /**
+         * ESource UID of a proxy profile
+         * @default system-proxy
+         */
+        get proxy_uid(): string;
+        set proxy_uid(val: string);
+
+        /**
+         * ESource UID of a proxy profile
+         * @default system-proxy
+         */
+        get proxyUid(): string;
+        set proxyUid(val: string);
+
+        /**
+         * Whether to offer to remember the password by default when prompted
+         * @default true
+         */
+        get remember_password(): boolean;
+        set remember_password(val: boolean);
+
+        /**
+         * Whether to offer to remember the password by default when prompted
+         * @default true
+         */
+        get rememberPassword(): boolean;
+        set rememberPassword(val: boolean);
+
+        /**
+         * User name for the remote account
+         * @default null
+         */
+        get user(): string | null;
+        set user(val: string | null);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceAuthentication.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceAuthentication.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceAuthentication.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceAuthentication.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceAuthentication.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceAuthentication.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceAuthentication.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceAuthentication.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_authentication_get_credential_name()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceAuthentication.credential_name}
+         * @since 3.16
+         */
+        dup_credential_name(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_authentication_get_host()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceAuthentication.host}
+         * @since 3.6
+         */
+        dup_host(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_authentication_get_method()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceAuthentication.method}
+         * @since 3.6
+         */
+        dup_method(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_authentication_get_proxy_uid()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceAuthentication.proxy_uid}
+         * @since 3.12
+         */
+        dup_proxy_uid(): string;
+
+        /**
+         * Thread-safe variation of `e_source_authentication_get_user()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceAuthentication.user}
+         * @since 3.6
+         */
+        dup_user(): string | null;
+
+        /**
+         * Returns the credential name used to pass the stored or gathered credential
+         * (like password) into the `e_source_invoke_authenticate()`. This is
+         * a counterpart of the authentication method. The `null` means to use
+         * the default name, which is #E_SOURCE_CREDENTIAL_PASSWORD.
+         * @returns the credential name to use for authentication, or `null`
+         * @since 3.16
+         */
+        get_credential_name(): string | null;
+
+        /**
+         * Returns the host name used to authenticate to a remote account.
+         * @returns the host name of a remote account
+         * @since 3.6
+         */
+        get_host(): string | null;
+
+        /**
+         * Get if the authentication is done by an external application such as a
+         * Single Sign On application (e.g. GNOME Online Accounts)
+         * @returns `true` if the authentication is done by an external application, `false` otherwise
+         * @since 3.36
+         */
+        get_is_external(): boolean;
+
+        /**
+         * Returns the authentication method for a remote account.  There are
+         * no pre-defined method names; backends are free to set this however
+         * they wish.  If authentication is not required for a remote account,
+         * the convention is to set {@link EDataServer.SourceAuthentication.method} to "none".
+         * @returns the authentication method for a remote account
+         * @since 3.6
+         */
+        get_method(): string | null;
+
+        /**
+         * Returns the port number used to authenticate to a remote account.
+         * @returns the port number of a remote account
+         * @since 3.6
+         */
+        get_port(): number;
+
+        /**
+         * Returns the {@link EDataServer.Source.uid} of the {@link EDataServer.Source} that holds network proxy
+         * settings for use when connecting to a remote account.
+         * @returns the proxy profile {@link EDataServer.Source.uid}
+         * @since 3.12
+         */
+        get_proxy_uid(): string;
+
+        /**
+         * Returns whether to offer to remember the provided password by default
+         * in password prompts.  This way, if the user unchecks the option it will
+         * be unchecked by default in future password prompts.
+         * @returns whether to offer to remember the password by default
+         * @since 3.10
+         */
+        get_remember_password(): boolean;
+
+        /**
+         * Returns the user name used to authenticate to a remote account.
+         * @returns the user name of a remote account
+         * @since 3.6
+         */
+        get_user(): string | null;
+
+        /**
+         * Returns a {@link Gio.SocketConnectable} instance constructed from `extension`'s
+         * {@link EDataServer.SourceAuthentication.host} and {@link EDataServer.SourceAuthentication.port} properties,
+         * or `null` if the {@link EDataServer.SourceAuthentication.host} is not set.
+         * 
+         * The returned {@link Gio.SocketConnectable} is referenced for thread-safety and must
+         * be unreferenced with `g_object_unref()` when finished with it.
+         * @returns a {@link Gio.SocketConnectable}, or `null`
+         * @since 3.8
+         */
+        ref_connectable(): Gio.SocketConnectable | null;
+
+        /**
+         * This is a convenience function which returns whether authentication
+         * is required at all, regardless of the method used.  This relies on
+         * the convention of setting {@link EDataServer.SourceAuthentication.method} to "none"
+         * when authentication is <emphasis>not</emphasis> required.
+         * @returns whether authentication is required at all
+         * @since 3.6
+         */
+        required(): boolean;
+
+        /**
+         * Sets the credential name used to pass the stored or gathered credential
+         * (like password) into the `e_source_invoke_authenticate()`. This is
+         * a counterpart of the authentication method. The `null` means to use
+         * the default name, which is #E_SOURCE_CREDENTIAL_PASSWORD.
+         * 
+         * The internal copy of `credential_name` is automatically stripped
+         * of leading and trailing whitespace. If the resulting string is
+         * empty, `null` is set instead.
+         * @param credential_name a credential name, or `null`
+         * @since 3.16
+         */
+        set_credential_name(credential_name: string | null): void;
+
+        /**
+         * Sets the host name used to authenticate to a remote account.
+         * 
+         * The internal copy of `host` is automatically stripped of leading and
+         * trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param host a host name, or `null`
+         * @since 3.6
+         */
+        set_host(host: string | null): void;
+
+        /**
+         * Set if the authentication is done by an external application such as a
+         * Single Sign On application (e.g. GNOME Online Accounts)
+         * @param is_external `true` if the authentication is done using an external application, `false` otherwise
+         * @since 3.36
+         */
+        set_is_external(is_external: boolean): void;
+
+        /**
+         * Sets the authentication method for a remote account.  There are no
+         * pre-defined method names; backends are free to set this however they
+         * wish.  If authentication is not required for a remote account, the
+         * convention is to set the method to "none".  In keeping with that
+         * convention, {@link EDataServer.SourceAuthentication.method} will be set to "none" if
+         * `method` is `null` or an empty string.
+         * @param method authentication method, or `null`
+         * @since 3.6
+         */
+        set_method(method: string | null): void;
+
+        /**
+         * Sets the port number used to authenticate to a remote account.
+         * @param port a port number
+         * @since 3.6
+         */
+        set_port(port: number): void;
+
+        /**
+         * Sets the {@link EDataServer.Source.uid} of the {@link EDataServer.Source} that holds network proxy settings
+         * for use when connecting to a remote account.
+         * @param proxy_uid the proxy profile {@link EDataServer.Source.uid}
+         * @since 3.12
+         */
+        set_proxy_uid(proxy_uid: string): void;
+
+        /**
+         * Sets whether to offer to remember the provided password by default in
+         * password prompts.  This way, if the user unchecks the option it will be
+         * unchecked by default in future password prompts.
+         * @param remember_password whether to offer to remember the password by default
+         * @since 3.10
+         */
+        set_remember_password(remember_password: boolean): void;
+
+        /**
+         * Sets the user name used to authenticate to a remote account.
+         * 
+         * The internal copy of `user` is automatically stripped of leading and
+         * trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param user a user name, or `null`
+         * @since 3.6
+         */
+        set_user(user: string | null): void;
+    }
+
+
+    namespace SourceAutocomplete {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::include-me": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            include_me: boolean;
+            includeMe: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceAutocomplete extends SourceExtension {
+        static $gtype: GObject.GType<SourceAutocomplete>;
+
+        // Properties
+        /**
+         * Include this source when autocompleting
+         * @default true
+         */
+        get include_me(): boolean;
+        set include_me(val: boolean);
+
+        /**
+         * Include this source when autocompleting
+         * @default true
+         */
+        get includeMe(): boolean;
+        set includeMe(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceAutocomplete.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceAutocomplete.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceAutocomplete.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceAutocomplete.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceAutocomplete.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceAutocomplete.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceAutocomplete.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceAutocomplete.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Returns whether the address book described by the {@link EDataServer.Source} to which
+         * `extension` belongs should be queried when the user inputs a partial
+         * contact name or email address.
+         * @returns whether to use the autocomplete feature
+         * @since 3.6
+         */
+        get_include_me(): boolean;
+
+        /**
+         * Sets whether the address book described by the {@link EDataServer.Source} to which
+         * `extension` belongs should be queried when the user inputs a partial
+         * contact name or email address.
+         * @param include_me whether to use the autocomplete feature
+         * @since 3.6
+         */
+        set_include_me(include_me: boolean): void;
+    }
+
+
+    namespace SourceAutoconfig {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::revision": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            revision: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.24
+     */
+    class SourceAutoconfig extends SourceExtension {
+        static $gtype: GObject.GType<SourceAutoconfig>;
+
+        // Properties
+        /**
+         * Identifier to map a particular version of a system-wide source to a user-specific source
+         */
+        get revision(): string;
+        set revision(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceAutoconfig.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceAutoconfig.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceAutoconfig.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceAutoconfig.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceAutoconfig.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceAutoconfig.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceAutoconfig.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceAutoconfig.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_autoconfig_get_revision()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceAutoconfig.revision}
+         * @since 3.24
+         */
+        dup_revision(): string;
+
+        /**
+         * Returns the revision of a data source. This maps a particular version of a
+         * system-wide source to a user-specific source.
+         * 
+         * If doesn't match, the system-wide source will be copied to the user-specific
+         * evolution config directory, preserving the already present fields that are
+         * not defined by the system-wide source.
+         * 
+         * If it matches, no copying is done.
+         * @returns revision of the data source
+         * @since 3.24
+         */
+        get_revision(): string;
+
+        /**
+         * Sets the revision used to map a particular version of a system-wide source
+         * to a user-specific source.
+         * 
+         * If doesn't match, the system-wide source will be copied to the user-specific
+         * evolution config directory, preserving the already present fields that are
+         * not defined by the system-wide source.
+         * 
+         * If it matches, no copying is done.
+         * 
+         * The internal copy of `revision` is automatically stripped of leading and
+         * trailing whitespace.
+         * @param revision a revision
+         * @since 3.24
+         */
+        set_revision(revision: string): void;
+    }
+
+
+    namespace SourceBackend {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::backend-name": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            backend_name: string | null;
+            backendName: string | null;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    abstract class SourceBackend extends SourceExtension {
+        static $gtype: GObject.GType<SourceBackend>;
+
+        // Properties
+        /**
+         * The name of the backend handling the data source
+         * @default null
+         */
+        get backend_name(): string | null;
+        set backend_name(val: string | null);
+
+        /**
+         * The name of the backend handling the data source
+         * @default null
+         */
+        get backendName(): string | null;
+        set backendName(val: string | null);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceBackend.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceBackend.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceBackend.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceBackend.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceBackend.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceBackend.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceBackend.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceBackend.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_backend_get_backend_name()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceBackend.backend_name}
+         * @since 3.6
+         */
+        dup_backend_name(): string | null;
+
+        /**
+         * Returns the backend name for `extension`.
+         * @returns the backend name for `extension`
+         * @since 3.6
+         */
+        get_backend_name(): string | null;
+
+        /**
+         * Sets the backend name for `extension`.
+         * 
+         * The internal copy of `backend_name` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param backend_name a backend name, or `null`
+         * @since 3.6
+         */
+        set_backend_name(backend_name: string | null): void;
+    }
+
+
+    namespace SourceCalendar {
+        // Signal signatures
+        interface SignalSignatures extends SourceSelectable.SignalSignatures {
+            "notify::color": (pspec: GObject.ParamSpec) => void;
+            "notify::groups": (pspec: GObject.ParamSpec) => void;
+            "notify::order": (pspec: GObject.ParamSpec) => void;
+            "notify::selected": (pspec: GObject.ParamSpec) => void;
+            "notify::backend-name": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceSelectable.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceCalendar extends SourceSelectable {
+        static $gtype: GObject.GType<SourceCalendar>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceCalendar.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceCalendar.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceCalendar.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCalendar.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceCalendar.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCalendar.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceCalendar.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceCalendar.SignalSignatures[K]>): void;
+    }
+
+
+    namespace SourceCamel {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::settings": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            settings: Camel.Settings;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    abstract class SourceCamel extends SourceExtension {
+        static $gtype: GObject.GType<SourceCamel>;
+
+        // Properties
+        /**
+         * The {@link Camel.Settings} instance being proxied
+         * 
+         * Note: This kind of stomps on CamelSettings' namespace, but it's
+         *     unlikely a CamelSettings subclass would define a property
+         *     named "settings".
+         * @read-only
+         */
+        get settings(): Camel.Settings;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceCamel.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceCamel.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceCamel.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCamel.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceCamel.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCamel.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceCamel.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceCamel.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Generates a custom {@link EDataServer.SourceCamel} subtype for `protocol`.  Instances of the
+         * new subtype will contain a {@link Camel.Settings} instance of type `settings_type`.
+         * 
+         * This function is called as part of `e_source_camel_register_types()` and
+         * should not be called explicitly, except by some groupware packages that
+         * need to share package-specific settings across their mail, calendar and
+         * address book components.  In that case the groupware package may choose
+         * to subclass {@link Camel.Settings} rather than {@link EDataServer.SourceExtension} since libcamel
+         * is the lowest common denominator across all components.  This function
+         * provides a way for the calendar and address book components of such a
+         * package to generate an {@link EDataServer.SourceCamel} subtype for its {@link Camel.Settings}
+         * subtype without having to load all available {@link Camel.Provider} modules.
+         * @param protocol a {@link Camel.Provider} protocol
+         * @param settings_type a subtype of {@link Camel.Settings}
+         * @since 3.6
+         */
+        static generate_subtype(protocol: string, settings_type: GObject.GType): GObject.GType;
+
+        /**
+         * Returns the extension name for the {@link EDataServer.SourceCamel} subtype for `protocol`.
+         * The extension name can then be passed to `e_source_get_extension()` to
+         * obtain an instance of the {@link EDataServer.SourceCamel} subtype.
+         * 
+         * For example, given a protocol named "imap" the function would return
+         * "Imap Backend".
+         * @param protocol a {@link Camel.Provider} protocol
+         * @since 3.6
+         */
+        static get_extension_name(protocol: string): string;
+
+        /**
+         * Returns the {@link GObject.GType} name of the registered {@link EDataServer.SourceCamel} subtype for
+         * `protocol`.
+         * 
+         * For example, given a protocol named "imap" the function would return
+         * "ESourceCamelImap".
+         * @param protocol a {@link Camel.Provider} protocol
+         * @since 3.6
+         */
+        static get_type_name(protocol: string): string;
+
+        /**
+         * Creates and registers subclasses of {@link EDataServer.SourceCamel} for each available
+         * {@link Camel.Provider}.  This function should be called once during application
+         * or library initialization.
+         * @since 3.6
+         */
+        static register_types(): void;
+
+        // Methods
+        /**
+         * Returns `extension`'s {@link EDataServer.SourceCamel.settings} instance, pre-configured
+         * from the {@link EDataServer.Source} to which `extension` belongs.  Changes to the {@link EDataServer.Source}
+         * will automatically propagate to the {@link EDataServer.SourceCamel.settings} instance and
+         * vice versa.
+         * 
+         * This is essentially the glue that binds {@link EDataServer.Source} to {@link Camel.Service}.
+         * See `e_source_camel_configure_service()`.
+         * @returns a configured {@link Camel.Settings} instance
+         * @since 3.6
+         */
+        get_settings(): Camel.Settings;
+    }
+
+
+    namespace SourceCollection {
+        // Signal signatures
+        interface SignalSignatures extends SourceBackend.SignalSignatures {
+            "notify::allow-sources-rename": (pspec: GObject.ParamSpec) => void;
+            "notify::calendar-enabled": (pspec: GObject.ParamSpec) => void;
+            "notify::calendar-url": (pspec: GObject.ParamSpec) => void;
+            "notify::contacts-enabled": (pspec: GObject.ParamSpec) => void;
+            "notify::contacts-url": (pspec: GObject.ParamSpec) => void;
+            "notify::identity": (pspec: GObject.ParamSpec) => void;
+            "notify::mail-enabled": (pspec: GObject.ParamSpec) => void;
+            "notify::backend-name": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceBackend.ConstructorProps {
+            allow_sources_rename: boolean;
+            allowSourcesRename: boolean;
+            calendar_enabled: boolean;
+            calendarEnabled: boolean;
+            calendar_url: string | null;
+            calendarUrl: string | null;
+            contacts_enabled: boolean;
+            contactsEnabled: boolean;
+            contacts_url: string | null;
+            contactsUrl: string | null;
+            identity: string | null;
+            mail_enabled: boolean;
+            mailEnabled: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceCollection extends SourceBackend {
+        static $gtype: GObject.GType<SourceCollection>;
+
+        // Properties
+        /**
+         * Set to TRUE when the collection source allows user rename the child sources
+         * @default false
+         */
+        get allow_sources_rename(): boolean;
+        set allow_sources_rename(val: boolean);
+
+        /**
+         * Set to TRUE when the collection source allows user rename the child sources
+         * @default false
+         */
+        get allowSourcesRename(): boolean;
+        set allowSourcesRename(val: boolean);
+
+        /**
+         * Whether calendar resources are enabled
+         * @default true
+         */
+        get calendar_enabled(): boolean;
+        set calendar_enabled(val: boolean);
+
+        /**
+         * Whether calendar resources are enabled
+         * @default true
+         */
+        get calendarEnabled(): boolean;
+        set calendarEnabled(val: boolean);
+
+        /**
+         * Calendar top URL
+         * @default null
+         */
+        get calendar_url(): string | null;
+        set calendar_url(val: string | null);
+
+        /**
+         * Calendar top URL
+         * @default null
+         */
+        get calendarUrl(): string | null;
+        set calendarUrl(val: string | null);
+
+        /**
+         * Whether contact resources are enabled
+         * @default true
+         */
+        get contacts_enabled(): boolean;
+        set contacts_enabled(val: boolean);
+
+        /**
+         * Whether contact resources are enabled
+         * @default true
+         */
+        get contactsEnabled(): boolean;
+        set contactsEnabled(val: boolean);
+
+        /**
+         * Contacts top URL
+         * @default null
+         */
+        get contacts_url(): string | null;
+        set contacts_url(val: string | null);
+
+        /**
+         * Contacts top URL
+         * @default null
+         */
+        get contactsUrl(): string | null;
+        set contactsUrl(val: string | null);
+
+        /**
+         * Uniquely identifies the account at the service provider
+         * @default null
+         */
+        get identity(): string | null;
+        set identity(val: string | null);
+
+        /**
+         * Whether mail resources are enabled
+         * @default true
+         */
+        get mail_enabled(): boolean;
+        set mail_enabled(val: boolean);
+
+        /**
+         * Whether mail resources are enabled
+         * @default true
+         */
+        get mailEnabled(): boolean;
+        set mailEnabled(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceCollection.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceCollection.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceCollection.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCollection.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceCollection.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCollection.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceCollection.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceCollection.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_collection_get_calendar_url()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceCollection.calendar_url}
+         * @since 3.26
+         */
+        dup_calendar_url(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_collection_get_contacts_url()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceCollection.contacts_url}
+         * @since 3.26
+         */
+        dup_contacts_url(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_collection_get_identity()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceCollection.identity}
+         * @since 3.6
+         */
+        dup_identity(): string | null;
+
+        /**
+         * Returns whether the collection backend allows a user to rename child
+         * sources. It is meant mainly for GUI. The default is `false`.
+         * @returns whether the collection backend allows a user to rename child sources
+         * @since 3.36
+         */
+        get_allow_sources_rename(): boolean;
+
+        /**
+         * Returns whether calendar sources within the collection should be
+         * enabled.
+         * 
+         * An `ECollectionBackend` running within the registry D-Bus service will
+         * automatically synchronize any calendar sources it maintains with the
+         * {@link EDataServer.SourceCollection.calendar_enabled} property.
+         * @returns whether calendar sources should be enabled
+         * @since 3.6
+         */
+        get_calendar_enabled(): boolean;
+
+        /**
+         * Returns the calendar top URL string, that is, where to search for calendar sources.
+         * @returns the calendar top URL, or `null`
+         * @since 3.26
+         */
+        get_calendar_url(): string | null;
+
+        /**
+         * Returns whether address book sources within the collection should be
+         * enabled.
+         * 
+         * An `ECollectionBackend` running within the registry D-Bus service will
+         * automatically synchronize any address book sources it maintains with
+         * the {@link EDataServer.SourceCollection.contacts_enabled} property.
+         * @returns whether address book sources should be enabled
+         * @since 3.6
+         */
+        get_contacts_enabled(): boolean;
+
+        /**
+         * Returns the contacts top URL string, that is, where to search for contact sources.
+         * @returns the contacts top URL, or `null`
+         * @since 3.26
+         */
+        get_contacts_url(): string | null;
+
+        /**
+         * Returns the string used to uniquely identify the user account at
+         * the service provider.  Often this is an email address or user name.
+         * @returns the collection identity
+         * @since 3.6
+         */
+        get_identity(): string | null;
+
+        /**
+         * Returns whether mail sources within the collection should be enabled.
+         * 
+         * An `ECollectionBackend` running within the registry D-Bus service will
+         * automatically synchronize any mail sources it maintains with the
+         * {@link EDataServer.SourceCollection.mail_enabled} property.
+         * @returns whether mail sources should be enabled
+         * @since 3.6
+         */
+        get_mail_enabled(): boolean;
+
+        /**
+         * Sets whether the collection backend allows a user to rename child
+         * sources. It is meant mainly for GUI. The default is `false`.
+         * @param allow_sources_rename whether mail sources should be enabled
+         * @since 3.36
+         */
+        set_allow_sources_rename(allow_sources_rename: boolean): void;
+
+        /**
+         * Sets whether calendar sources within the collection should be enabled.
+         * 
+         * An `ECollectionBackend` running within the registry D-Bus service will
+         * automatically synchronize any calendar sources it maintains with the
+         * {@link EDataServer.SourceCollection.calendar_enabled} property.
+         * 
+         * Calling this function from a registry service client has no effect until
+         * the change is submitted to the registry service through `e_source_write()`,
+         * but there should rarely be any need for clients to call this.
+         * @param calendar_enabled whether calendar sources should be enabled
+         * @since 3.6
+         */
+        set_calendar_enabled(calendar_enabled: boolean): void;
+
+        /**
+         * Sets the calendar top URL, that is, where to search for calendar sources.
+         * 
+         * The internal copy of `calendar_url` is automatically stripped of leading
+         * and trailing whitespace. If the resulting string is empty, `null` is set
+         * instead.
+         * @param calendar_url calendar top URL, or `null`
+         * @since 3.26
+         */
+        set_calendar_url(calendar_url: string | null): void;
+
+        /**
+         * Sets whether address book sources within the collection should be enabled.
+         * 
+         * An `ECollectionBackend` running within the registry D-Bus service will
+         * automatically synchronize any address book sources it maintains with
+         * the {@link EDataServer.SourceCollection.contacts_enabled} property.
+         * 
+         * Calling this function from a registry service client has no effect until
+         * the change is submitted to the registry service through `e_source_write()`,
+         * but there should rarely be any need for clients to call this.
+         * @param contacts_enabled whether address book sources should be enabled
+         * @since 3.6
+         */
+        set_contacts_enabled(contacts_enabled: boolean): void;
+
+        /**
+         * Sets the contacts top URL, that is, where to search for contact sources.
+         * 
+         * The internal copy of `contacts_url` is automatically stripped of leading
+         * and trailing whitespace. If the resulting string is empty, `null` is set
+         * instead.
+         * @param contacts_url contacts top URL, or `null`
+         * @since 3.26
+         */
+        set_contacts_url(contacts_url: string | null): void;
+
+        /**
+         * Sets the string used to uniquely identify the user account at the
+         * service provider.  Often this is an email address or user name.
+         * 
+         * The internal copy of `identity` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is
+         * set instead.
+         * @param identity the collection identity, or `null`
+         * @since 3.6
+         */
+        set_identity(identity: string | null): void;
+
+        /**
+         * Sets whether mail sources within the collection should be enabled.
+         * 
+         * An `ECollectionBackend` running within the registry D-Bus service will
+         * automatically synchronize any mail sources it maintains with the
+         * {@link EDataServer.SourceCollection.mail_enabled} property.
+         * 
+         * Calling this function from a registry service client has no effect until
+         * the changes is submitted to the registry service through `e_source_write()`,
+         * but there should rarely be any need for clients to call this.
+         * @param mail_enabled whether mail sources should be enabled
+         * @since 3.6
+         */
+        set_mail_enabled(mail_enabled: boolean): void;
+    }
+
+
+    namespace SourceConflictSearch {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::include-me": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            include_me: boolean;
+            includeMe: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.60
+     */
+    class SourceConflictSearch extends SourceExtension {
+        static $gtype: GObject.GType<SourceConflictSearch>;
+
+        // Properties
+        /**
+         * @default true
+         */
+        get include_me(): boolean;
+        set include_me(val: boolean);
+
+        /**
+         * @default true
+         */
+        get includeMe(): boolean;
+        set includeMe(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceConflictSearch.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceConflictSearch.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceConflictSearch.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceConflictSearch.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceConflictSearch.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceConflictSearch.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceConflictSearch.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceConflictSearch.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Returns whether the calendar described by the {@link EDataServer.Source} to which
+         * `extension` belongs should be queried for scheduling conflicts when
+         * negotiating a meeting invitation.
+         * @returns whether to search for scheduling conflicts
+         * @since 3.60
+         */
+        get_include_me(): boolean;
+
+        /**
+         * Sets whether the calendar described by the {@link EDataServer.Source} to which `extension`
+         * belongs should be queried for scheduling conflicts when negotiating a
+         * meeting invitation.
+         * @param include_me whether to search for scheduling conflicts
+         * @since 3.60
+         */
+        set_include_me(include_me: boolean): void;
+    }
+
+
+    namespace SourceContacts {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::include-me": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            include_me: boolean;
+            includeMe: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class SourceContacts extends SourceExtension {
+        static $gtype: GObject.GType<SourceContacts>;
+
+        // Properties
+        /**
+         * Include this address book in the contacts calendar
+         * @default false
+         */
+        get include_me(): boolean;
+        set include_me(val: boolean);
+
+        /**
+         * Include this address book in the contacts calendar
+         * @default false
+         */
+        get includeMe(): boolean;
+        set includeMe(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceContacts.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceContacts.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceContacts.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceContacts.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceContacts.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceContacts.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceContacts.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceContacts.SignalSignatures[K]>): void;
+
+        // Methods
+        get_include_me(): boolean;
+
+        /**
+         * @param include_me 
+         */
+        set_include_me(include_me: boolean): void;
+    }
+
+
+    namespace SourceCredentialsProvider {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::registry": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, Extensible.ConstructorProps {
+            registry: GObject.Object;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.16
+     */
+    class SourceCredentialsProvider extends GObject.Object implements Extensible {
+        static $gtype: GObject.GType<SourceCredentialsProvider>;
+
+        // Properties
+        /**
+         * The Source Registry object, which can be either `ESourceregistry` or `ESourceRegistryServer`.
+         * @construct-only
+         */
+        get registry(): GObject.Object;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceCredentialsProvider.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceCredentialsProvider.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](registry: SourceRegistry): SourceCredentialsProvider;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceCredentialsProvider.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCredentialsProvider.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceCredentialsProvider.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCredentialsProvider.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceCredentialsProvider.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceCredentialsProvider.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * Returns referenced {@link EDataServer.Source} with the given `uid`, or `null`, when it could not be found.
+         * @param uid an {@link EDataServer.Source} UID
+         * @since 3.16
+         * @virtual
+         */
+        vfunc_ref_source(uid: string): Source | null;
+
+        // Methods
+        /**
+         * Returns whether a credentials prompt can be shown for the `source`.
+         * @param source an {@link EDataServer.Source}
+         * @returns `true`, when a credentials prompt can be shown for `source`, `false` otherwise.
+         * @since 3.16
+         */
+        can_prompt(source: Source): boolean;
+
+        /**
+         * Returns whether the `source` can store its credentials. When `false` is returned,
+         * an attempt to call `e_source_credentials_provider_store()` or
+         * `e_source_credentials_provider_store_sync()` will fail for this `source`.
+         * @param source an {@link EDataServer.Source}
+         * @returns `true`, when the credentials storing for `source` is possible, `false` otherwise.
+         * @since 3.16
+         */
+        can_store(source: Source): boolean;
+
+        /**
+         * Asynchronously deletes any previously stored credentials for `source`.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_credentials_provider_delete_finish()` to get the result
+         * of the operation.
+         * @param source an {@link EDataServer.Source}, to lookup credentials for
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.16
+         */
+        ["delete"](source: Source, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously deletes any previously stored credentials for `source`.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_credentials_provider_delete_finish()` to get the result
+         * of the operation.
+         * @param source an {@link EDataServer.Source}, to lookup credentials for
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        ["delete"](source: Source, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously deletes any previously stored credentials for `source`.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_credentials_provider_delete_finish()` to get the result
+         * of the operation.
+         * @param source an {@link EDataServer.Source}, to lookup credentials for
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        ["delete"](source: Source, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_credentials_provider_delete()`.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        delete_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Deletes any previously stored credentials for `source`.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param source an {@link EDataServer.Source}, to store credentials for
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        delete_sync(source: Source, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously looks up for credentials for `source`.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_credentials_provider_lookup_finish()` to get the result
+         * of the operation.
+         * @param source an {@link EDataServer.Source}, to lookup credentials for
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.16
+         */
+        lookup(source: Source, cancellable: Gio.Cancellable | null): globalThis.Promise<NamedParameters>;
+
+        /**
+         * Asynchronously looks up for credentials for `source`.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_credentials_provider_lookup_finish()` to get the result
+         * of the operation.
+         * @param source an {@link EDataServer.Source}, to lookup credentials for
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        lookup(source: Source, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously looks up for credentials for `source`.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_credentials_provider_lookup_finish()` to get the result
+         * of the operation.
+         * @param source an {@link EDataServer.Source}, to lookup credentials for
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        lookup(source: Source, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<NamedParameters> | void;
+
+        /**
+         * Finishes the operation started with `e_source_credentials_provider_lookup()`.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        lookup_finish(result: Gio.AsyncResult): [boolean, NamedParameters];
+
+        /**
+         * Looks up the credentials for `source`.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param source an {@link EDataServer.Source}, to lookup credentials for
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        lookup_sync(source: Source, cancellable: Gio.Cancellable | null): [boolean, NamedParameters];
+
+        /**
+         * Returns a referenced parent {@link EDataServer.Source}, which holds the credentials for
+         * the given `source`. This is useful for collections, where the credentials
+         * are usually stored on the collection source, thus shared between child
+         * sources. When ther eis no such parent source, a `null` is returned, which
+         * means the `source` holds credentials for itself.
+         * @param source an {@link EDataServer.Source}
+         * @returns referenced parent {@link EDataServer.Source}, which holds    credentials, or `null`. Unref the returned non-NULL {@link EDataServer.Source} with    `g_object_unref()`, when no longer needed.
+         * @since 3.16
+         */
+        ref_credentials_source(source: Source): Source | null;
+
+        /**
+         * Returns refenrenced registry associated with this `provider`.
+         * @returns Reference registry associated with this `provider`. Unref it    with `g_object_unref()` when no longer needed.
+         * @since 3.16
+         */
+        ref_registry<T = GObject.Object>(): T;
+
+        /**
+         * Returns referenced {@link EDataServer.Source} with the given `uid`, or `null`, when it could not be found.
+         * @param uid an {@link EDataServer.Source} UID
+         * @returns Referenced {@link EDataServer.Source} with the given `uid`, or `null`, when it    could not be found. Unref the returned {@link EDataServer.Source} with `g_object_unref()`, when no longer needed.
+         * @since 3.16
+         */
+        ref_source(uid: string): Source | null;
+
+        /**
+         * Registers a credentials provider implementation and adds its own reference on
+         * the `provider_impl`.
+         * @param provider_impl an {@link EDataServer.SourceCredentialsProviderImpl}
+         * @returns `true` on success, `false` on failure, like when there is    the `provider_impl` already registered.
+         * @since 3.16
+         */
+        register_impl(provider_impl: SourceCredentialsProviderImpl): boolean;
+
+        /**
+         * Asynchronously stores the `credentials` for `source`. Note the actual stored
+         * values can differ for each storage. In other words, not all named parameters
+         * are stored for each `source`.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_credentials_provider_store_finish()` to get the result
+         * of the operation.
+         * @param source an {@link EDataServer.Source}, to lookup credentials for
+         * @param credentials an {@link EDataServer.NamedParameters} with credentials to store
+         * @param permanently store permanently or just for the session
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.16
+         */
+        store(source: Source, credentials: NamedParameters, permanently: boolean, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously stores the `credentials` for `source`. Note the actual stored
+         * values can differ for each storage. In other words, not all named parameters
+         * are stored for each `source`.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_credentials_provider_store_finish()` to get the result
+         * of the operation.
+         * @param source an {@link EDataServer.Source}, to lookup credentials for
+         * @param credentials an {@link EDataServer.NamedParameters} with credentials to store
+         * @param permanently store permanently or just for the session
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        store(source: Source, credentials: NamedParameters, permanently: boolean, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously stores the `credentials` for `source`. Note the actual stored
+         * values can differ for each storage. In other words, not all named parameters
+         * are stored for each `source`.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_credentials_provider_store_finish()` to get the result
+         * of the operation.
+         * @param source an {@link EDataServer.Source}, to lookup credentials for
+         * @param credentials an {@link EDataServer.NamedParameters} with credentials to store
+         * @param permanently store permanently or just for the session
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.16
+         */
+        store(source: Source, credentials: NamedParameters, permanently: boolean, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_credentials_provider_store()`.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        store_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Stores the `credentials` for `source`. Note the actual stored values
+         * can differ for each storage. In other words, not all named parameters
+         * are stored for each `source`.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param source an {@link EDataServer.Source}, to store credentials for
+         * @param credentials an {@link EDataServer.NamedParameters} with credentials to store
+         * @param permanently store permanently or just for the session
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        store_sync(source: Source, credentials: NamedParameters, permanently: boolean, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Unregisters previously registered `provider_impl` with
+         * `e_source_credentials_provider_register_impl()`. Function does nothing,
+         * when the `provider_impl` is not registered.
+         * @param provider_impl an {@link EDataServer.SourceCredentialsProviderImpl}
+         * @since 3.16
+         */
+        unregister_impl(provider_impl: SourceCredentialsProviderImpl): void;
+
+        /**
+         * Returns a list of {@link EDataServer.Extension} objects bound to `extensible` whose
+         * types are ancestors of `extension_type`.  For a complete list of
+         * extension objects bound to `extensible`, pass `E_TYPE_EXTENSION`.
+         * 
+         * The list itself should be freed with `g_list_free()`.  The extension
+         * objects are owned by `extensible` and should not be unreferenced.
+         * @param extension_type the type of extensions to list
+         * @returns a list of extension objects derived from `extension_type`
+         * @since 3.4
+         */
+        list_extensions(extension_type: GObject.GType): Extension[];
+
+        /**
+         * Creates an instance of all instantiable subtypes of {@link EDataServer.Extension} which
+         * target the class of `extensible`.  The lifetimes of these newly created
+         * {@link EDataServer.Extension} objects are bound to `extensible` such that they are finalized
+         * when `extensible` is finalized.
+         * @since 3.4
+         */
+        load_extensions(): void;
+
+        /**
+         * Similar to `e_extensible_load_extensions()`, only loads newly discovered
+         * extensions again. This can help in case a new module had been loaded
+         * to the process, which provides the extensions for the `extensible`.
+         * @since 3.46
+         */
+        reload_extensions(): void;
+    }
+
+
+    namespace SourceCredentialsProviderImpl {
+        // Signal signatures
+        interface SignalSignatures extends Extension.SignalSignatures {
+            "notify::extensible": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Extension.ConstructorProps {}
+    }
+
+    /**
+     * Credentials provider implementation base structure. The descendants
+     * implement the virtual methods. The descendants are automatically
+     * registered into an {@link EDataServer.SourceCredentialsProvider}.
+     * @gir-type Class
+     * @since 3.16
+     */
+    abstract class SourceCredentialsProviderImpl extends Extension {
+        static $gtype: GObject.GType<SourceCredentialsProviderImpl>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceCredentialsProviderImpl.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceCredentialsProviderImpl.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceCredentialsProviderImpl.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCredentialsProviderImpl.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceCredentialsProviderImpl.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCredentialsProviderImpl.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceCredentialsProviderImpl.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceCredentialsProviderImpl.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * Returns whether the `provider_impl` can process credentials for the `source`.
+         * @param source an {@link EDataServer.Source}
+         * @since 3.16
+         * @virtual
+         */
+        vfunc_can_process(source: Source): boolean;
+
+        /**
+         * Returns whether credential prompt can be done for the `provider_impl`.
+         * @since 3.16
+         * @virtual
+         */
+        vfunc_can_prompt(): boolean;
+
+        /**
+         * Returns whether the `provider_impl` can store credentials.
+         * @since 3.16
+         * @virtual
+         */
+        vfunc_can_store(): boolean;
+
+        /**
+         * Asks `provider_impl` to delete any stored credentials for `source`.
+         * 
+         * Default implementation returns `false` and sets #G_IO_ERROR_NOT_SUPPORTED error.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param source an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.16
+         * @virtual
+         */
+        vfunc_delete_sync(source: Source, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asks `provider_impl` to lookup for stored credentials for `source`.
+         * The `out_credentials` is populated with them. If the result is not
+         * `null`, then it should be freed with `e_named_parameters_free()` when
+         * no longer needed.
+         * 
+         * Default implementation returns `false` and sets #G_IO_ERROR_NOT_SUPPORTED error.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param source an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.16
+         * @virtual
+         */
+        vfunc_lookup_sync(source: Source, cancellable: Gio.Cancellable | null): [boolean, NamedParameters];
+
+        /**
+         * Asks `provider_impl` to store `credentials` for `source`.
+         * 
+         * Default implementation returns `false` and sets #G_IO_ERROR_NOT_SUPPORTED error.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param source an {@link EDataServer.Source}
+         * @param credentials an {@link EDataServer.NamedParameters} containing credentials to store
+         * @param permanently whether to store credentials permanently, or for the current session only
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.16
+         * @virtual
+         */
+        vfunc_store_sync(source: Source, credentials: NamedParameters, permanently: boolean, cancellable: Gio.Cancellable | null): boolean;
+
+        // Methods
+        /**
+         * Returns whether the `provider_impl` can process credentials for the `source`.
+         * @param source an {@link EDataServer.Source}
+         * @returns Whether the `provider_impl` can process credentials for the `source`.
+         * @since 3.16
+         */
+        can_process(source: Source): boolean;
+
+        /**
+         * Returns whether credential prompt can be done for the `provider_impl`.
+         * @returns Whether credential prompt can be done for the `provider_impl`.
+         * @since 3.16
+         */
+        can_prompt(): boolean;
+
+        /**
+         * Returns whether the `provider_impl` can store credentials.
+         * @returns Whether the `provider_impl` can store credentials.
+         * @since 3.16
+         */
+        can_store(): boolean;
+
+        /**
+         * Asks `provider_impl` to delete any stored credentials for `source`.
+         * 
+         * Default implementation returns `false` and sets #G_IO_ERROR_NOT_SUPPORTED error.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param source an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        delete_sync(source: Source, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Returns an {@link EDataServer.SourceCredentialsProvider} with which the `provider_impl` is associated.
+         * @returns an {@link EDataServer.SourceCredentialsProvider}
+         * @since 3.16
+         */
+        get_provider(): null;
+
+        /**
+         * Asks `provider_impl` to lookup for stored credentials for `source`.
+         * The `out_credentials` is populated with them. If the result is not
+         * `null`, then it should be freed with `e_named_parameters_free()` when
+         * no longer needed.
+         * 
+         * Default implementation returns `false` and sets #G_IO_ERROR_NOT_SUPPORTED error.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param source an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        lookup_sync(source: Source, cancellable: Gio.Cancellable | null): [boolean, NamedParameters];
+
+        /**
+         * Asks `provider_impl` to store `credentials` for `source`.
+         * 
+         * Default implementation returns `false` and sets #G_IO_ERROR_NOT_SUPPORTED error.
+         * 
+         * If an error occurs, the function sets `error` and returns `false`.
+         * @param source an {@link EDataServer.Source}
+         * @param credentials an {@link EDataServer.NamedParameters} containing credentials to store
+         * @param permanently whether to store credentials permanently, or for the current session only
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on error
+         * @since 3.16
+         * @throws GLib.Error
+         */
+        store_sync(source: Source, credentials: NamedParameters, permanently: boolean, cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    namespace SourceCredentialsProviderImplOAuth2 {
+        // Signal signatures
+        interface SignalSignatures extends SourceCredentialsProviderImpl.SignalSignatures {
+            "notify::extensible": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceCredentialsProviderImpl.ConstructorProps {}
+    }
+
+    /**
+     * OAuth2 based credentials provider implementation.
+     * @gir-type Class
+     * @since 3.28
+     */
+    class SourceCredentialsProviderImplOAuth2 extends SourceCredentialsProviderImpl {
+        static $gtype: GObject.GType<SourceCredentialsProviderImplOAuth2>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceCredentialsProviderImplOAuth2.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceCredentialsProviderImplOAuth2.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceCredentialsProviderImplOAuth2.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCredentialsProviderImplOAuth2.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceCredentialsProviderImplOAuth2.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCredentialsProviderImplOAuth2.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceCredentialsProviderImplOAuth2.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceCredentialsProviderImplOAuth2.SignalSignatures[K]>): void;
+    }
+
+
+    namespace SourceCredentialsProviderImplPassword {
+        // Signal signatures
+        interface SignalSignatures extends SourceCredentialsProviderImpl.SignalSignatures {
+            "notify::extensible": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceCredentialsProviderImpl.ConstructorProps {}
+    }
+
+    /**
+     * Password based credentials provider implementation.
+     * @gir-type Class
+     * @since 3.16
+     */
+    class SourceCredentialsProviderImplPassword extends SourceCredentialsProviderImpl {
+        static $gtype: GObject.GType<SourceCredentialsProviderImplPassword>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceCredentialsProviderImplPassword.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceCredentialsProviderImplPassword.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceCredentialsProviderImplPassword.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCredentialsProviderImplPassword.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceCredentialsProviderImplPassword.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceCredentialsProviderImplPassword.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceCredentialsProviderImplPassword.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceCredentialsProviderImplPassword.SignalSignatures[K]>): void;
+    }
+
+
+    namespace SourceExtension {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            source: Source;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    abstract class SourceExtension extends GObject.Object {
+        static $gtype: GObject.GType<SourceExtension>;
+
+        // Properties
+        /**
+         * The {@link EDataServer.Source} being extended
+         * @construct-only
+         */
+        get source(): Source;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceExtension.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceExtension.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceExtension.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceExtension.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceExtension.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceExtension.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceExtension.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceExtension.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Returns the {@link EDataServer.Source} instance to which `extension` belongs.
+         * 
+         * Note this function is not thread-safe.  The returned {@link EDataServer.Source} could
+         * be finalized by another thread while the caller is still using it.
+         * @returns the {@link EDataServer.Source} instance
+         * @since 3.6
+         * @deprecated since 3.8: Use `e_source_extension_ref_source()` instead.
+         */
+        get_source(): Source;
+
+        /**
+         * Acquires a property lock, thus no other thread can change properties
+         * of the `extension` until the lock is released.
+         * @since 3.18
+         */
+        property_lock(): void;
+
+        /**
+         * Releases a property lock, previously acquired with `e_source_extension_property_lock()`,
+         * thus other threads can change properties of the `extension`.
+         * @since 3.18
+         */
+        property_unlock(): void;
+
+        /**
+         * Returns the {@link EDataServer.Source} instance to which the `extension` belongs.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety.  Unreference
+         * the {@link EDataServer.Source} with `g_object_unref()` when finished with it.
+         * @returns the {@link EDataServer.Source} instance
+         * @since 3.8
+         */
+        ref_source(): Source;
+    }
+
+
+    namespace SourceGoa {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::account-id": (pspec: GObject.ParamSpec) => void;
+            "notify::address": (pspec: GObject.ParamSpec) => void;
+            "notify::calendar-url": (pspec: GObject.ParamSpec) => void;
+            "notify::contacts-url": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            account_id: string | null;
+            accountId: string | null;
+            address: string | null;
+            calendar_url: string | null;
+            calendarUrl: string | null;
+            contacts_url: string | null;
+            contactsUrl: string | null;
+            name: string | null;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceGoa extends SourceExtension {
+        static $gtype: GObject.GType<SourceGoa>;
+
+        // Properties
+        /**
+         * GNOME Online Account ID
+         * @default null
+         */
+        get account_id(): string | null;
+        set account_id(val: string | null);
+
+        /**
+         * GNOME Online Account ID
+         * @default null
+         */
+        get accountId(): string | null;
+        set accountId(val: string | null);
+
+        /**
+         * GNOME Online Account's original Address
+         * @default null
+         */
+        get address(): string | null;
+        set address(val: string | null);
+
+        /**
+         * GNOME Online Calendar URL
+         * @default null
+         */
+        get calendar_url(): string | null;
+        set calendar_url(val: string | null);
+
+        /**
+         * GNOME Online Calendar URL
+         * @default null
+         */
+        get calendarUrl(): string | null;
+        set calendarUrl(val: string | null);
+
+        /**
+         * GNOME Online Contacts URL
+         * @default null
+         */
+        get contacts_url(): string | null;
+        set contacts_url(val: string | null);
+
+        /**
+         * GNOME Online Contacts URL
+         * @default null
+         */
+        get contactsUrl(): string | null;
+        set contactsUrl(val: string | null);
+
+        /**
+         * GNOME Online Account's original Name
+         * @default null
+         */
+        get name(): string | null;
+        set name(val: string | null);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceGoa.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceGoa.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceGoa.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceGoa.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceGoa.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceGoa.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceGoa.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceGoa.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_goa_get_account_id()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceGoa.account_id}
+         * @since 3.6
+         */
+        dup_account_id(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_goa_get_address()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceGoa.address}
+         * @since 3.24
+         */
+        dup_address(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_goa_get_calendar_url()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceGoa.calendar_url}
+         * @since 3.8
+         */
+        dup_calendar_url(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_goa_get_contacts_url()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceGoa.contacts_url}
+         * @since 3.8
+         */
+        dup_contacts_url(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_goa_get_name()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceGoa.name}
+         * @since 3.24
+         */
+        dup_name(): string | null;
+
+        /**
+         * Returns the identifier string of the GNOME Online Account associated
+         * with the {@link EDataServer.Source} to which `extension` belongs.
+         * @returns the associated GNOME Online Account ID
+         * @since 3.6
+         */
+        get_account_id(): string | null;
+
+        /**
+         * Returns the original Address of the GNOME Online Account associated
+         * with the {@link EDataServer.Source} to which `extension` belongs. Can be `null` or an empty
+         * string when not filled.
+         * @returns the associated GNOME Online Account's Address
+         * @since 3.24
+         */
+        get_address(): string | null;
+
+        /**
+         * Returns the calendar URL string of the GNOME Online Account associated
+         * with the {@link EDataServer.Source} to which `extension` belongs. Can be `null` or an empty
+         * string for accounts not supporting this property.
+         * @returns the associated GNOME Online Account calendar URL
+         * @since 3.8
+         */
+        get_calendar_url(): string | null;
+
+        /**
+         * Returns the contacts URL string of the GNOME Online Account associated
+         * with the {@link EDataServer.Source} to which `extension` belongs. Can be `null` or an empty
+         * string for accounts not supporting this property.
+         * @returns the associated GNOME Online Account contacts URL
+         * @since 3.8
+         */
+        get_contacts_url(): string | null;
+
+        /**
+         * Returns the original Name of the GNOME Online Account associated
+         * with the {@link EDataServer.Source} to which `extension` belongs. Can be `null` or an empty
+         * string when not filled.
+         * @returns the associated GNOME Online Account's Name
+         * @since 3.24
+         */
+        get_name(): string | null;
+
+        /**
+         * Sets the identifier string of the GNOME Online Account associated
+         * with the {@link EDataServer.Source} to which `extension` belongs.
+         * 
+         * The internal copy of `account_id` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param account_id the associated GNOME Online Account ID, or `null`
+         * @since 3.6
+         */
+        set_account_id(account_id: string | null): void;
+
+        /**
+         * Sets the Address of the GNOME Online Account associated
+         * with the {@link EDataServer.Source} to which `extension` belongs.
+         * 
+         * The internal copy of `address` is automatically stripped of leading
+         * and trailing whitespace. If the resulting string is empty, `null` is set
+         * instead.
+         * @param address the associated GNOME Online Account's Address, or `null`
+         * @since 3.24
+         */
+        set_address(address: string | null): void;
+
+        /**
+         * Sets the calendar URL of the GNOME Online Account associated
+         * with the {@link EDataServer.Source} to which `extension` belongs.
+         * 
+         * The internal copy of `calendar_url` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param calendar_url the associated GNOME Online Account                calendar URL, or `null`
+         * @since 3.8
+         */
+        set_calendar_url(calendar_url: string | null): void;
+
+        /**
+         * Sets the contacts URL of the GNOME Online Account associated
+         * with the {@link EDataServer.Source} to which `extension` belongs.
+         * 
+         * The internal copy of `contacts_url` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param contacts_url the associated GNOME Online Account                contacts URL, or `null`
+         * @since 3.8
+         */
+        set_contacts_url(contacts_url: string | null): void;
+
+        /**
+         * Sets the Name of the GNOME Online Account associated
+         * with the {@link EDataServer.Source} to which `extension` belongs.
+         * 
+         * The internal copy of `name` is automatically stripped of leading
+         * and trailing whitespace. If the resulting string is empty, `null` is set
+         * instead.
+         * @param name the associated GNOME Online Account's Name, or `null`
+         * @since 3.24
+         */
+        set_name(name: string | null): void;
+    }
+
+
+    namespace SourceLDAP {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::authentication": (pspec: GObject.ParamSpec) => void;
+            "notify::can-browse": (pspec: GObject.ParamSpec) => void;
+            "notify::filter": (pspec: GObject.ParamSpec) => void;
+            "notify::limit": (pspec: GObject.ParamSpec) => void;
+            "notify::root-dn": (pspec: GObject.ParamSpec) => void;
+            "notify::scope": (pspec: GObject.ParamSpec) => void;
+            "notify::security": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            authentication: SourceLDAPAuthentication;
+            can_browse: boolean;
+            canBrowse: boolean;
+            filter: string;
+            limit: number;
+            root_dn: string;
+            rootDn: string;
+            scope: SourceLDAPScope;
+            security: SourceLDAPSecurity;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class SourceLDAP extends SourceExtension {
+        static $gtype: GObject.GType<SourceLDAP>;
+
+        // Properties
+        /**
+         * LDAP authentication method
+         * @default EDataServer.SourceLDAPAuthentication.NONE
+         */
+        get authentication(): SourceLDAPAuthentication;
+        set authentication(val: SourceLDAPAuthentication);
+
+        /**
+         * Allow browsing contacts
+         * @default false
+         */
+        get can_browse(): boolean;
+        set can_browse(val: boolean);
+
+        /**
+         * Allow browsing contacts
+         * @default false
+         */
+        get canBrowse(): boolean;
+        set canBrowse(val: boolean);
+
+        /**
+         * LDAP search filter
+         */
+        get filter(): string;
+        set filter(val: string);
+
+        /**
+         * Download limit
+         * @default 100
+         */
+        get limit(): number;
+        set limit(val: number);
+
+        /**
+         * LDAP search base
+         */
+        get root_dn(): string;
+        set root_dn(val: string);
+
+        /**
+         * LDAP search base
+         */
+        get rootDn(): string;
+        set rootDn(val: string);
+
+        /**
+         * LDAP search scope
+         * @default EDataServer.SourceLDAPScope.ONELEVEL
+         */
+        get scope(): SourceLDAPScope;
+        set scope(val: SourceLDAPScope);
+
+        /**
+         * LDAP security method
+         * @default EDataServer.SourceLDAPSecurity.NONE
+         */
+        get security(): SourceLDAPSecurity;
+        set security(val: SourceLDAPSecurity);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceLDAP.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceLDAP.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceLDAP.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceLDAP.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceLDAP.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceLDAP.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceLDAP.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceLDAP.SignalSignatures[K]>): void;
+
+        // Methods
+        dup_filter(): string;
+
+        dup_root_dn(): string;
+
+        get_authentication(): SourceLDAPAuthentication;
+
+        get_can_browse(): boolean;
+
+        get_filter(): string;
+
+        get_limit(): number;
+
+        get_root_dn(): string;
+
+        get_scope(): SourceLDAPScope;
+
+        get_security(): SourceLDAPSecurity;
+
+        /**
+         * @param authentication 
+         */
+        set_authentication(authentication: SourceLDAPAuthentication): void;
+
+        /**
+         * @param can_browse 
+         */
+        set_can_browse(can_browse: boolean): void;
+
+        /**
+         * @param filter 
+         */
+        set_filter(filter: string): void;
+
+        /**
+         * @param limit 
+         */
+        set_limit(limit: number): void;
+
+        /**
+         * @param root_dn 
+         */
+        set_root_dn(root_dn: string): void;
+
+        /**
+         * @param scope 
+         */
+        set_scope(scope: SourceLDAPScope): void;
+
+        /**
+         * @param security 
+         */
+        set_security(security: SourceLDAPSecurity): void;
+    }
+
+
+    namespace SourceLocal {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::custom-file": (pspec: GObject.ParamSpec) => void;
+            "notify::email-address": (pspec: GObject.ParamSpec) => void;
+            "notify::writable": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            custom_file: Gio.File | null;
+            customFile: Gio.File | null;
+            email_address: string | null;
+            emailAddress: string | null;
+            writable: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class SourceLocal extends SourceExtension {
+        static $gtype: GObject.GType<SourceLocal>;
+
+        // Properties
+        /**
+         * Custom iCalendar file
+         */
+        get custom_file(): Gio.File | null;
+        set custom_file(val: Gio.File | null);
+
+        /**
+         * Custom iCalendar file
+         */
+        get customFile(): Gio.File | null;
+        set customFile(val: Gio.File | null);
+
+        /**
+         * Email address associated with the calendar
+         * @default null
+         */
+        get email_address(): string | null;
+        set email_address(val: string | null);
+
+        /**
+         * Email address associated with the calendar
+         * @default null
+         */
+        get emailAddress(): string | null;
+        set emailAddress(val: string | null);
+
+        /**
+         * Whether the file can be opened in writable mode
+         * @default true
+         */
+        get writable(): boolean;
+        set writable(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceLocal.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceLocal.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceLocal.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceLocal.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceLocal.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceLocal.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceLocal.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceLocal.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * A thread safe variant to get a custom file being set on the `extension`.
+         * Free the returned {@link Gio.File}, if not `null`, with `g_object_unref()`,
+         * when no longer needed.
+         * @returns the {@link Gio.File} instance, or `null`
+         */
+        dup_custom_file(): Gio.File | null;
+
+        /**
+         * Thread-safe variation of `e_source_lcoal_get_email_address()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceLocal.email_address}
+         * @since 3.40
+         */
+        dup_email_address(): string;
+
+        /**
+         * Get the custom file being set on the `extension`.
+         * The returned {@link Gio.File} is owned by the `extension`.
+         * 
+         * For thread safety use `e_source_local_dup_custom_file()`.
+         * @returns the {@link Gio.File} instance, or `null`
+         */
+        get_custom_file(): Gio.File | null;
+
+        /**
+         * @returns the email address for `extension`
+         * @since 3.40
+         */
+        get_email_address(): string | null;
+
+        /**
+         * Returns whether the backend should prefer to open the file
+         * in writable mode. The default is `true`. The file can be still
+         * opened for read-only, for example when the access to the file
+         * is read-only.
+         * @returns whether prefer to pen the file in writable mode
+         * @since 3.34
+         */
+        get_writable(): boolean;
+
+        /**
+         * Set, or unset, when using `null`, the custom file for the `extension`.
+         * @param custom_file a {@link Gio.File}, or `null`
+         */
+        set_custom_file(custom_file: Gio.File | null): void;
+
+        /**
+         * Sets the email address for `extension`.
+         * 
+         * The internal copy of `email_address` is automatically stripped of leading
+         * and trailing whitespace. If the resulting string is empty, `null` is set
+         * instead.
+         * @param email_address an email address, or `null`
+         * @since 3.40
+         */
+        set_email_address(email_address: string | null): void;
+
+        /**
+         * Set whether the custom file should be opened in writable mode.
+         * The default is `true`. The file can be still opened for read-only,
+         * for example when the access to the file is read-only.
+         * @param writable value to set
+         * @since 3.34
+         */
+        set_writable(writable: boolean): void;
+    }
+
+
+    namespace SourceMDN {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::response-policy": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            response_policy: MdnResponsePolicy;
+            responsePolicy: MdnResponsePolicy;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceMDN extends SourceExtension {
+        static $gtype: GObject.GType<SourceMDN>;
+
+        // Properties
+        /**
+         * Policy for responding to MDN requests
+         * @default EDataServer.MdnResponsePolicy.ASK
+         */
+        get response_policy(): MdnResponsePolicy;
+        set response_policy(val: MdnResponsePolicy);
+
+        /**
+         * Policy for responding to MDN requests
+         * @default EDataServer.MdnResponsePolicy.ASK
+         */
+        get responsePolicy(): MdnResponsePolicy;
+        set responsePolicy(val: MdnResponsePolicy);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceMDN.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceMDN.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceMDN.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMDN.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceMDN.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMDN.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceMDN.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceMDN.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Returns the policy for this mail account on responding to Message
+         * Disposition Notification requests when receiving mail messages.
+         * @returns the {@link EDataServer.MdnResponsePolicy} for this account
+         * @since 3.6
+         */
+        get_response_policy(): MdnResponsePolicy;
+
+        /**
+         * Sets the policy for this mail account on responding to Message
+         * Disposition Notification requests when receiving mail messages.
+         * @param response_policy the {@link EDataServer.MdnResponsePolicy}
+         * @since 3.6
+         */
+        set_response_policy(response_policy: MdnResponsePolicy): void;
+    }
+
+
+    namespace SourceMailAccount {
+        // Signal signatures
+        interface SignalSignatures extends SourceBackend.SignalSignatures {
+            "notify::archive-folder": (pspec: GObject.ParamSpec) => void;
+            "notify::builtin": (pspec: GObject.ParamSpec) => void;
+            "notify::identity-uid": (pspec: GObject.ParamSpec) => void;
+            "notify::mark-seen": (pspec: GObject.ParamSpec) => void;
+            "notify::mark-seen-timeout": (pspec: GObject.ParamSpec) => void;
+            "notify::needs-initial-setup": (pspec: GObject.ParamSpec) => void;
+            "notify::backend-name": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceBackend.ConstructorProps {
+            archive_folder: string | null;
+            archiveFolder: string | null;
+            builtin: boolean;
+            identity_uid: string | null;
+            identityUid: string | null;
+            mark_seen: ThreeState;
+            markSeen: ThreeState;
+            mark_seen_timeout: number;
+            markSeenTimeout: number;
+            needs_initial_setup: boolean;
+            needsInitialSetup: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceMailAccount extends SourceBackend {
+        static $gtype: GObject.GType<SourceMailAccount>;
+
+        // Properties
+        /**
+         * Folder to Archive messages in
+         */
+        get archive_folder(): string | null;
+        set archive_folder(val: string | null);
+
+        /**
+         * Folder to Archive messages in
+         */
+        get archiveFolder(): string | null;
+        set archiveFolder(val: string | null);
+
+        /**
+         * Whether the account is builtin
+         * @default false
+         */
+        get builtin(): boolean;
+        set builtin(val: boolean);
+
+        /**
+         * ESource UID of a Mail Identity
+         * @default self
+         */
+        get identity_uid(): string | null;
+        set identity_uid(val: string | null);
+
+        /**
+         * ESource UID of a Mail Identity
+         * @default self
+         */
+        get identityUid(): string | null;
+        set identityUid(val: string | null);
+
+        /**
+         * Three-state option for Mark messages as read after N seconds
+         * @default EDataServer.ThreeState.INCONSISTENT
+         */
+        get mark_seen(): ThreeState;
+        set mark_seen(val: ThreeState);
+
+        /**
+         * Three-state option for Mark messages as read after N seconds
+         * @default EDataServer.ThreeState.INCONSISTENT
+         */
+        get markSeen(): ThreeState;
+        set markSeen(val: ThreeState);
+
+        /**
+         * Timeout in milliseconds for Mark messages as read after N seconds
+         * @default 1500
+         */
+        get mark_seen_timeout(): number;
+        set mark_seen_timeout(val: number);
+
+        /**
+         * Timeout in milliseconds for Mark messages as read after N seconds
+         * @default 1500
+         */
+        get markSeenTimeout(): number;
+        set markSeenTimeout(val: number);
+
+        /**
+         * Whether the account needs to do an initial setup
+         * @default true
+         */
+        get needs_initial_setup(): boolean;
+        set needs_initial_setup(val: boolean);
+
+        /**
+         * Whether the account needs to do an initial setup
+         * @default true
+         */
+        get needsInitialSetup(): boolean;
+        set needsInitialSetup(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceMailAccount.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceMailAccount.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceMailAccount.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMailAccount.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceMailAccount.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMailAccount.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceMailAccount.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceMailAccount.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_mail_account_get_archive_folder()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailAccount.archive_folder}
+         * @since 3.16
+         */
+        dup_archive_folder(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_mail_account_get_identity_uid()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailAccount.identity_uid}
+         * @since 3.6
+         */
+        dup_identity_uid(): string | null;
+
+        /**
+         * Returns a string identifying the archive folder.
+         * The format of the identifier string is defined by the client application.
+         * @returns an identifier of the archive folder
+         * @since 3.16
+         */
+        get_archive_folder(): string | null;
+
+        /**
+         * Returns whether the mail account is a builtin account. The builtin
+         * account cannot be created by a user. The default value is `false`.
+         * @returns `true`, when the account is a builtin account
+         * @since 3.46
+         */
+        get_builtin(): boolean;
+
+        /**
+         * Returns the {@link EDataServer.Source.uid} of the {@link EDataServer.Source} that describes the mail
+         * identity to be used for this account.
+         * @returns the mail identity {@link EDataServer.Source.uid}
+         * @since 3.6
+         */
+        get_identity_uid(): string | null;
+
+        /**
+         * @returns an {@link EDataServer.ThreeState}, whether messages in this account    should be marked as seen automatically.
+         * @since 3.32
+         */
+        get_mark_seen(): ThreeState;
+
+        /**
+         * @returns timeout in milliseconds for marking messages    as seen in this account
+         * @since 3.32
+         */
+        get_mark_seen_timeout(): number;
+
+        /**
+         * Check whether the mail account needs to do its initial setup.
+         * @returns `true`, when the account needs to run its initial setup
+         * @since 3.20
+         */
+        get_needs_initial_setup(): boolean;
+
+        /**
+         * Sets the folder for sent messages by an identifier string.
+         * The format of the identifier string is defined by the client application.
+         * 
+         * The internal copy of `archive_folder` is automatically stripped of leading
+         * and trailing whitespace. If the resulting string is empty, `null` is set
+         * instead.
+         * @param archive_folder an identifier for the archive folder, or `null`
+         * @since 3.16
+         */
+        set_archive_folder(archive_folder: string | null): void;
+
+        /**
+         * Sets whether the account is a builtin account. See `e_source_mail_account_get_builtin()`
+         * for more information about what it means.
+         * @param builtin value to set
+         * @since 3.46
+         */
+        set_builtin(builtin: number): void;
+
+        /**
+         * Sets the {@link EDataServer.Source.uid} of the {@link EDataServer.Source} that describes the mail
+         * identity to be used for this account.
+         * @param identity_uid the mail identity {@link EDataServer.Source.uid}, or `null`
+         * @since 3.6
+         */
+        set_identity_uid(identity_uid: string | null): void;
+
+        /**
+         * Sets whether the messages in this account should be marked
+         * as seen automatically. An inconsistent state means to use
+         * global option.
+         * @param mark_seen an {@link EDataServer.ThreeState} as the value to set
+         * @since 3.32
+         */
+        set_mark_seen(mark_seen: ThreeState): void;
+
+        /**
+         * Sets the `timeout` in milliseconds for marking messages
+         * as seen in this account. Whether the timeout is used
+         * depends on `e_source_mail_account_get_mark_seen()`.
+         * @param timeout a timeout in milliseconds
+         * @since 3.32
+         */
+        set_mark_seen_timeout(timeout: number): void;
+
+        /**
+         * Sets whether the account needs to run its initial setup.
+         * @param needs_initial_setup value to set
+         * @since 3.20
+         */
+        set_needs_initial_setup(needs_initial_setup: boolean): void;
+    }
+
+
+    namespace SourceMailComposition {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::bcc": (pspec: GObject.ParamSpec) => void;
+            "notify::cc": (pspec: GObject.ParamSpec) => void;
+            "notify::composer-mode": (pspec: GObject.ParamSpec) => void;
+            "notify::drafts-folder": (pspec: GObject.ParamSpec) => void;
+            "notify::language": (pspec: GObject.ParamSpec) => void;
+            "notify::reply-style": (pspec: GObject.ParamSpec) => void;
+            "notify::sign-imip": (pspec: GObject.ParamSpec) => void;
+            "notify::start-bottom": (pspec: GObject.ParamSpec) => void;
+            "notify::templates-folder": (pspec: GObject.ParamSpec) => void;
+            "notify::top-signature": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            bcc: string[];
+            cc: string[];
+            composer_mode: string | null;
+            composerMode: string | null;
+            drafts_folder: string | null;
+            draftsFolder: string | null;
+            language: string | null;
+            reply_style: SourceMailCompositionReplyStyle;
+            replyStyle: SourceMailCompositionReplyStyle;
+            sign_imip: boolean;
+            signImip: boolean;
+            start_bottom: ThreeState;
+            startBottom: ThreeState;
+            templates_folder: string | null;
+            templatesFolder: string | null;
+            top_signature: ThreeState;
+            topSignature: ThreeState;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceMailComposition extends SourceExtension {
+        static $gtype: GObject.GType<SourceMailComposition>;
+
+        // Properties
+        /**
+         * Recipients to blind carbon-copy
+         */
+        get bcc(): string[];
+        set bcc(val: string[]);
+
+        /**
+         * Recipients to carbon-copy
+         */
+        get cc(): string[];
+        set cc(val: string[]);
+
+        /**
+         * Preferred composer mode for this account, as a string nick.
+         * `null` for unset.
+         * @since 3.62
+         * @default null
+         */
+        get composer_mode(): string | null;
+        set composer_mode(val: string | null);
+
+        /**
+         * Preferred composer mode for this account, as a string nick.
+         * `null` for unset.
+         * @since 3.62
+         * @default null
+         */
+        get composerMode(): string | null;
+        set composerMode(val: string | null);
+
+        /**
+         * Preferred folder for draft messages
+         * @default null
+         */
+        get drafts_folder(): string | null;
+        set drafts_folder(val: string | null);
+
+        /**
+         * Preferred folder for draft messages
+         * @default null
+         */
+        get draftsFolder(): string | null;
+        set draftsFolder(val: string | null);
+
+        /**
+         * Preferred language
+         * @default null
+         */
+        get language(): string | null;
+        set language(val: string | null);
+
+        /**
+         * What reply style to prefer
+         * @default EDataServer.SourceMailCompositionReplyStyle.DEFAULT
+         */
+        get reply_style(): SourceMailCompositionReplyStyle;
+        set reply_style(val: SourceMailCompositionReplyStyle);
+
+        /**
+         * What reply style to prefer
+         * @default EDataServer.SourceMailCompositionReplyStyle.DEFAULT
+         */
+        get replyStyle(): SourceMailCompositionReplyStyle;
+        set replyStyle(val: SourceMailCompositionReplyStyle);
+
+        /**
+         * Include iMIP messages when signing
+         * @default true
+         */
+        get sign_imip(): boolean;
+        set sign_imip(val: boolean);
+
+        /**
+         * Include iMIP messages when signing
+         * @default true
+         */
+        get signImip(): boolean;
+        set signImip(val: boolean);
+
+        /**
+         * Whether start at bottom on reply or forward
+         * @default EDataServer.ThreeState.INCONSISTENT
+         */
+        get start_bottom(): ThreeState;
+        set start_bottom(val: ThreeState);
+
+        /**
+         * Whether start at bottom on reply or forward
+         * @default EDataServer.ThreeState.INCONSISTENT
+         */
+        get startBottom(): ThreeState;
+        set startBottom(val: ThreeState);
+
+        /**
+         * Preferred folder for message templates
+         * @default null
+         */
+        get templates_folder(): string | null;
+        set templates_folder(val: string | null);
+
+        /**
+         * Preferred folder for message templates
+         * @default null
+         */
+        get templatesFolder(): string | null;
+        set templatesFolder(val: string | null);
+
+        /**
+         * Whether place signature at the top on reply or forward
+         * @default EDataServer.ThreeState.INCONSISTENT
+         */
+        get top_signature(): ThreeState;
+        set top_signature(val: ThreeState);
+
+        /**
+         * Whether place signature at the top on reply or forward
+         * @default EDataServer.ThreeState.INCONSISTENT
+         */
+        get topSignature(): ThreeState;
+        set topSignature(val: ThreeState);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceMailComposition.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceMailComposition.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceMailComposition.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMailComposition.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceMailComposition.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMailComposition.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceMailComposition.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceMailComposition.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_mail_composition_get_bcc()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string array should be freed with `g_strfreev()` when no
+         * longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailComposition.bcc}
+         * @since 3.6
+         */
+        dup_bcc(): string[];
+
+        /**
+         * Thread-safe variation of `e_source_mail_composition_get_cc()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string array should be freed with `g_strfreev()` when no
+         * longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailComposition.cc}
+         * @since 3.6
+         */
+        dup_cc(): string[];
+
+        /**
+         * Thread-safe variation of `e_source_mail_composition_get_composer_mode()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailComposition.composer_mode}
+         * @since 3.62
+         */
+        dup_composer_mode(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_mail_composition_get_drafts_folder()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailComposition.drafts_folder}
+         * @since 3.6
+         */
+        dup_drafts_folder(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_mail_composition_get_language()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailComposition.language}
+         * @since 3.32
+         */
+        dup_language(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_mail_composition_get_templates_folder()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailComposition.templates_folder}
+         * @since 3.6
+         */
+        dup_templates_folder(): string | null;
+
+        /**
+         * Returns a `null`-terminated string array of recipients which should
+         * automatically be added to the blind carbon-copy (Bcc) list when
+         * composing a new mail message.  The recipient strings should be of
+         * the form "Full Name &lt;email-address&gt;".  The returned array is
+         * owned by `extension` and should not be modified or freed.
+         * @returns a `null`-terminated string array of Bcc recipients
+         * @since 3.6
+         */
+        get_bcc(): string[];
+
+        /**
+         * Returns a `null`-terminated string array of recipients which should
+         * automatically be added to the carbon-copy (Cc) list when composing a
+         * new mail message.  The recipient strings should be of the form "Full
+         * Name <email-address>".  The returned array is owned by `extension` and
+         * should not be modified or freed.
+         * @returns a `null`-terminated string array of Cc recipients
+         * @since 3.6
+         */
+        get_cc(): string[];
+
+        /**
+         * Returns a string identifying the preferred composer mode for this account,
+         * or `null` for unset.
+         * @returns the composer mode nick string, or `null`
+         * @since 3.62
+         */
+        get_composer_mode(): string | null;
+
+        /**
+         * Returns a string identifying the preferred folder for draft messages.
+         * The format of the identifier string is defined by the client application.
+         * @returns an identifier for the preferred drafts folder
+         * @since 3.6
+         */
+        get_drafts_folder(): string | null;
+
+        /**
+         * Returns a string identifying the preferred language, like "en_US".
+         * @returns an identifier for the preferred language, or `null` for none
+         * @since 3.32
+         */
+        get_language(): string | null;
+
+        /**
+         * Returns preferred reply style to be used when replying
+         * using the associated account. If no preference is set,
+         * the {@link EDataServer.SourceMailCompositionReplyStyle.DEFAULT} is returned.
+         * @returns reply style preference
+         * @since 3.20
+         */
+        get_reply_style(): SourceMailCompositionReplyStyle;
+
+        /**
+         * Returns whether outgoing iMIP messages such as meeting requests should
+         * also be signed.  This is primarily intended as a workaround for certain
+         * versions of Microsoft Outlook which can't handle signed iMIP messages.
+         * @returns whether outgoing iMIP messages should be signed
+         * @since 3.6
+         */
+        get_sign_imip(): boolean;
+
+        /**
+         * Returns whether start at bottom when replying or forwarding
+         * using the associated account. If no preference is set,
+         * the {@link EDataServer.ThreeState.INCONSISTENT} is returned.
+         * @returns start bottom on reply or forward preference
+         * @since 3.26
+         */
+        get_start_bottom(): ThreeState;
+
+        /**
+         * Returns a string identifying the preferred folder for message templates.
+         * The format of the identifier string is defined by the client application.
+         * @returns an identifier for the preferred templates folder
+         * @since 3.6
+         */
+        get_templates_folder(): string | null;
+
+        /**
+         * Returns whether place signature at top when replying or forwarding
+         * using the associated account. If no preference is set,
+         * the {@link EDataServer.ThreeState.INCONSISTENT} is returned.
+         * @returns top signature on reply or forward preference
+         * @since 3.26
+         */
+        get_top_signature(): ThreeState;
+
+        /**
+         * Sets the recipients which should automatically be added to the blind
+         * carbon-copy (Bcc) list when composing a new mail message.  The recipient
+         * strings should be of the form "Full Name &lt;email-address&gt;".
+         * @param bcc a `null`-terminated string array of Bcc    recipients
+         * @since 3.6
+         */
+        set_bcc(bcc: string[]): void;
+
+        /**
+         * Sets the recipients which should automatically be added to the carbon
+         * copy (Cc) list when composing a new mail message.  The recipient strings
+         * should be of the form "Full Name &lt;email-address&gt;".
+         * @param cc a `null`-terminated string array of Cc    recipients
+         * @since 3.6
+         */
+        set_cc(cc: string[]): void;
+
+        /**
+         * Sets the preferred composer mode for this account.
+         * Use `null` to unset any previous value.
+         * @param composer_mode a composer mode nick string, or `null`
+         * @since 3.62
+         */
+        set_composer_mode(composer_mode: string | null): void;
+
+        /**
+         * Sets the preferred folder for draft messages by an identifier string.
+         * The format of the identifier string is defined by the client application.
+         * 
+         * The internal copy of `drafts_folder` is automatically stripped of
+         * leading and trailing whitespace.  If the resulting string is empty,
+         * `null` is set instead.
+         * @param drafts_folder an identifier for the preferred drafts                 folder, or `null`
+         * @since 3.6
+         */
+        set_drafts_folder(drafts_folder: string | null): void;
+
+        /**
+         * Sets the preferred language by an identifier string, like "en_US".
+         * Use `null` to unset any previous value.
+         * 
+         * The internal copy of `language` is automatically stripped of
+         * leading and trailing whitespace.  If the resulting string is empty,
+         * `null` is set instead.
+         * @param language an identifier for the preferred language, or `null`
+         * @since 3.32
+         */
+        set_language(language: string | null): void;
+
+        /**
+         * Sets preferred reply style to be used when replying
+         * using the associated account. To unset the preference,
+         * use the {@link EDataServer.SourceMailCompositionReplyStyle.DEFAULT}.
+         * @param reply_style an {@link EDataServer.SourceMailCompositionReplyStyle}
+         * @since 3.20
+         */
+        set_reply_style(reply_style: SourceMailCompositionReplyStyle): void;
+
+        /**
+         * Sets whether outgoing iMIP messages such as meeting requests should
+         * also be signed.  This is primarily intended as a workaround for certain
+         * versions of Microsoft Outlook which can't handle signed iMIP messages.
+         * @param sign_imip whether outgoing iMIP messages should be signed
+         * @since 3.6
+         */
+        set_sign_imip(sign_imip: boolean): void;
+
+        /**
+         * Sets whether start bottom when replying or forwarding using the associated account.
+         * To unset the preference, use the {@link EDataServer.ThreeState.INCONSISTENT}.
+         * @param start_bottom an {@link EDataServer.ThreeState}
+         * @since 3.26
+         */
+        set_start_bottom(start_bottom: ThreeState): void;
+
+        /**
+         * Sets the preferred folder for message templates by an identifier string.
+         * The format of the identifier string is defined by the client application.
+         * 
+         * The internal copy of `templates_folder` is automatically stripped of
+         * leading and trailing whitespace.  If the resulting string is empty,
+         * `null` is set instead.
+         * @param templates_folder an identifier for the preferred templates                    folder, or `null`
+         * @since 3.6
+         */
+        set_templates_folder(templates_folder: string | null): void;
+
+        /**
+         * Sets whether place signature at top when replying or forwarding using the associated account.
+         * To unset the preference, use the {@link EDataServer.ThreeState.INCONSISTENT}.
+         * @param top_signature an {@link EDataServer.ThreeState}
+         * @since 3.26
+         */
+        set_top_signature(top_signature: ThreeState): void;
+    }
+
+
+    namespace SourceMailIdentity {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::address": (pspec: GObject.ParamSpec) => void;
+            "notify::aliases": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::organization": (pspec: GObject.ParamSpec) => void;
+            "notify::reply-to": (pspec: GObject.ParamSpec) => void;
+            "notify::signature-uid": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            address: string | null;
+            aliases: string | null;
+            name: string | null;
+            organization: string | null;
+            reply_to: string | null;
+            replyTo: string | null;
+            signature_uid: string | null;
+            signatureUid: string | null;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceMailIdentity extends SourceExtension {
+        static $gtype: GObject.GType<SourceMailIdentity>;
+
+        // Properties
+        /**
+         * Sender's email address
+         * @default null
+         */
+        get address(): string | null;
+        set address(val: string | null);
+
+        /**
+         * Sender's email address aliases
+         * @default null
+         */
+        get aliases(): string | null;
+        set aliases(val: string | null);
+
+        /**
+         * Sender's name
+         * @default null
+         */
+        get name(): string | null;
+        set name(val: string | null);
+
+        /**
+         * Sender's organization
+         * @default null
+         */
+        get organization(): string | null;
+        set organization(val: string | null);
+
+        /**
+         * Sender's reply-to address
+         * @default null
+         */
+        get reply_to(): string | null;
+        set reply_to(val: string | null);
+
+        /**
+         * Sender's reply-to address
+         * @default null
+         */
+        get replyTo(): string | null;
+        set replyTo(val: string | null);
+
+        /**
+         * ESource UID of the sender's signature
+         * @default none
+         */
+        get signature_uid(): string | null;
+        set signature_uid(val: string | null);
+
+        /**
+         * ESource UID of the sender's signature
+         * @default none
+         */
+        get signatureUid(): string | null;
+        set signatureUid(val: string | null);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceMailIdentity.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceMailIdentity.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceMailIdentity.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMailIdentity.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceMailIdentity.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMailIdentity.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceMailIdentity.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceMailIdentity.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_mail_identity_get_address()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailIdentity.address}
+         * @since 3.6
+         */
+        dup_address(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_mail_identity_get_aliases()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailIdentity.aliases}
+         * @since 3.24
+         */
+        dup_aliases(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_mail_identity_get_name()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailIdentity.name}
+         * @since 3.6
+         */
+        dup_name(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_mail_identity_dup_organization()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailIdentity.organization}
+         * @since 3.6
+         */
+        dup_organization(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_mail_identity_get_reply_to()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailIdentity.reply_to}
+         * @since 3.6
+         */
+        dup_reply_to(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_mail_identity_get_signature_uid()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailIdentity.signature_uid}
+         * @since 3.6
+         */
+        dup_signature_uid(): string | null;
+
+        /**
+         * Returns the email address for this identity from which to send messages.
+         * This may be an empty string but will never be `null`.
+         * @returns the sender's email address
+         * @since 3.6
+         */
+        get_address(): string | null;
+
+        /**
+         * Returns the email address aliases for this identity. These are comma-separated
+         * email addresses which may or may not contain also different name.
+         * This may be an empty string, but will never be `null`.
+         * There can be used `camel_address_decode()` on a {@link Camel.InternetAddress}
+         * to decode the list of aliases.
+         * @returns the sender's email address aliases
+         * @since 3.24
+         */
+        get_aliases(): string | null;
+
+        /**
+         * Returns a set aliases as a hash table with address as key and
+         * name as value of the hash table. The name can be sometimes
+         * empty or NULL, thus rather use `g_hash_table_contains()` when
+         * checking for particular address. The addresses are
+         * compared case insensitively. The same addresses with a different
+         * name are included only once, the last variant of it. Use
+         * `e_source_mail_identity_get_aliases()` if you need more fine-grained
+         * control on the list of aliases.
+         * @returns A newly created   {@link GLib.HashTable} will all the aliases. Returns `null` if there are none set.   Use `g_hash_table_destroy()` to free the returned hash table.
+         * @since 3.24
+         */
+        get_aliases_as_hash_table(): { [key: string]: string } | null;
+
+        /**
+         * Returns the sender's name for this identity.
+         * @returns the sender's name
+         * @since 3.6
+         */
+        get_name(): string | null;
+
+        /**
+         * Returns the sender's organization for this identity.
+         * @returns the sender's organization
+         * @since 3.6
+         */
+        get_organization(): string | null;
+
+        /**
+         * Returns the email address for this identity to which recipients should
+         * send replies.
+         * @returns the sender's reply-to address
+         * @since 3.6
+         */
+        get_reply_to(): string | null;
+
+        /**
+         * Returns the {@link EDataServer.Source.uid} of an {@link EDataServer.Source} describing a mail signature.
+         * 
+         * If the user does not want to use a signature for this identity, the
+         * convention is to set the {@link EDataServer.SourceMailIdentity.signature_uid} property
+         * to "none".
+         * @returns the sender's signature ID, or "none"
+         * @since 3.6
+         */
+        get_signature_uid(): string | null;
+
+        /**
+         * Sets the email address for this identity from which to send messages.
+         * 
+         * The internal copy of `address` is automatically stripped of leading and
+         * trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param address the sender's email address, or `null`
+         * @since 3.6
+         */
+        set_address(address: string | null): void;
+
+        /**
+         * Sets the email address aliases for this identity. These are comma-separated
+         * email addresses which may or may not contain also different name.
+         * 
+         * The internal copy of `aliases` is automatically stripped of leading and
+         * trailing whitespace. If the resulting string is empty, `null` is set
+         * instead.
+         * @param aliases the sender's email address aliases, or `null`
+         * @since 3.24
+         */
+        set_aliases(aliases: string | null): void;
+
+        /**
+         * Sets the sender's name for this identity.
+         * 
+         * The internal copy of `name` is automatically stripped of leading and
+         * trailing whitespace.
+         * @param name the sender's name, or `null`
+         * @since 3.6
+         */
+        set_name(name: string | null): void;
+
+        /**
+         * Sets the sender's organization for this identity.
+         * 
+         * The internal copy of `organization` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param organization the sender's organization, or `null`
+         * @since 3.6
+         */
+        set_organization(organization: string | null): void;
+
+        /**
+         * Sets the email address for this identity to which recipients should
+         * send replies.
+         * 
+         * The internal copy of `reply_to` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is
+         * set instead.
+         * @param reply_to the sender's reply-to address, or `null`
+         * @since 3.6
+         */
+        set_reply_to(reply_to: string | null): void;
+
+        /**
+         * Sets the {@link EDataServer.Source.uid} of an {@link EDataServer.Source} describing a mail signature.
+         * 
+         * If the user does not want to use a signature for this identity, the
+         * convention is to set the {@link EDataServer.SourceMailIdentity.signature_uid} property
+         * to "none".  In keeping with that convention, the property will be set
+         * to "none" if `signature_uid` is `null` or an empty string.
+         * @param signature_uid the sender's signature ID, or `null`
+         * @since 3.6
+         */
+        set_signature_uid(signature_uid: string | null): void;
+    }
+
+
+    namespace SourceMailSignature {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::file": (pspec: GObject.ParamSpec) => void;
+            "notify::mime-type": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            file: Gio.File;
+            mime_type: string | null;
+            mimeType: string | null;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceMailSignature extends SourceExtension {
+        static $gtype: GObject.GType<SourceMailSignature>;
+
+        // Properties
+        /**
+         * File containing signature content
+         * @read-only
+         */
+        get file(): Gio.File;
+
+        /**
+         * MIME type of the signature content
+         * @default null
+         */
+        get mime_type(): string | null;
+        set mime_type(val: string | null);
+
+        /**
+         * MIME type of the signature content
+         * @default null
+         */
+        get mimeType(): string | null;
+        set mimeType(val: string | null);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceMailSignature.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceMailSignature.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceMailSignature.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMailSignature.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceMailSignature.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMailSignature.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceMailSignature.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceMailSignature.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_mail_signature_get_mime_type()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailSignature.mime_type},    or `null`
+         * @since 3.6
+         */
+        dup_mime_type(): string | null;
+
+        /**
+         * Returns a {@link Gio.File} instance pointing to the signature file for `extension`.
+         * The signature file may be a regular file containing the static signature
+         * content, or it may be a symbolic link to an executable file that produces
+         * the signature content.
+         * 
+         * `e_source_mail_signature_load()` uses this to load the signature content.
+         * @returns a {@link Gio.File}
+         * @since 3.6
+         */
+        get_file(): Gio.File;
+
+        /**
+         * Returns the MIME type of the signature content for `extension`, or `null`
+         * if it has not yet been determined.
+         * 
+         * `e_source_mail_signature_load()` sets this automatically if the MIME type
+         * has not yet been determined.
+         * @returns the MIME type of the signature content, or `null`
+         * @since 3.6
+         */
+        get_mime_type(): string | null;
+
+        /**
+         * Sets the MIME type of the signature content for `extension`.
+         * 
+         * `e_source_mail_signature_load()` sets this automatically if the MIME type
+         * has not yet been determined.
+         * 
+         * The internal copy of `mime_type` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is
+         * set instead.
+         * @param mime_type a MIME type, or `null`
+         * @since 3.6
+         */
+        set_mime_type(mime_type: string | null): void;
+    }
+
+
+    namespace SourceMailSubmission {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::replies-to-origin-folder": (pspec: GObject.ParamSpec) => void;
+            "notify::sent-folder": (pspec: GObject.ParamSpec) => void;
+            "notify::transport-uid": (pspec: GObject.ParamSpec) => void;
+            "notify::use-sent-folder": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            replies_to_origin_folder: boolean;
+            repliesToOriginFolder: boolean;
+            sent_folder: string | null;
+            sentFolder: string | null;
+            transport_uid: string | null;
+            transportUid: string | null;
+            use_sent_folder: boolean;
+            useSentFolder: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceMailSubmission extends SourceExtension {
+        static $gtype: GObject.GType<SourceMailSubmission>;
+
+        // Properties
+        /**
+         * Whether to save replies to folder of the message being replied to, instead of
+         * the Sent folder
+         * @default false
+         */
+        get replies_to_origin_folder(): boolean;
+        set replies_to_origin_folder(val: boolean);
+
+        /**
+         * Whether to save replies to folder of the message being replied to, instead of
+         * the Sent folder
+         * @default false
+         */
+        get repliesToOriginFolder(): boolean;
+        set repliesToOriginFolder(val: boolean);
+
+        /**
+         * Preferred folder for sent messages
+         * @default null
+         */
+        get sent_folder(): string | null;
+        set sent_folder(val: string | null);
+
+        /**
+         * Preferred folder for sent messages
+         * @default null
+         */
+        get sentFolder(): string | null;
+        set sentFolder(val: string | null);
+
+        /**
+         * ESource UID of a Mail Transport
+         * @default null
+         */
+        get transport_uid(): string | null;
+        set transport_uid(val: string | null);
+
+        /**
+         * ESource UID of a Mail Transport
+         * @default null
+         */
+        get transportUid(): string | null;
+        set transportUid(val: string | null);
+
+        /**
+         * Whether to save sent messages to sent-folder
+         * @default true
+         */
+        get use_sent_folder(): boolean;
+        set use_sent_folder(val: boolean);
+
+        /**
+         * Whether to save sent messages to sent-folder
+         * @default true
+         */
+        get useSentFolder(): boolean;
+        set useSentFolder(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceMailSubmission.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceMailSubmission.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceMailSubmission.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMailSubmission.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceMailSubmission.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMailSubmission.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceMailSubmission.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceMailSubmission.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_mail_submission_get_sent_folder()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailSubmission.sent_folder}
+         * @since 3.6
+         */
+        dup_sent_folder(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_mail_submission_get_transport_uid()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceMailSubmission.transport_uid}
+         * @since 3.6
+         */
+        dup_transport_uid(): string | null;
+
+        /**
+         * Returns whether save replies in the folder of the message
+         * being replied to, instead of the Sent folder.
+         * @returns whether save replies in the folder of the message being replied to
+         * @since 3.8
+         */
+        get_replies_to_origin_folder(): boolean;
+
+        /**
+         * Returns a string identifying the preferred folder for sent messages.
+         * The format of the identifier string is defined by the client application.
+         * @returns an identifier for the preferred sent folder
+         * @since 3.6
+         */
+        get_sent_folder(): string | null;
+
+        /**
+         * Returns the {@link EDataServer.Source.uid} of the {@link EDataServer.Source} that describes the mail
+         * transport to be used for outgoing messages.
+         * @returns the mail transport {@link EDataServer.Source.uid}
+         * @since 3.6
+         */
+        get_transport_uid(): string | null;
+
+        /**
+         * @returns whether save messages to the sent folder at all
+         * @since 3.26
+         */
+        get_use_sent_folder(): boolean;
+
+        /**
+         * Sets whether save replies in the folder of the message
+         * being replied to, instead of the Sent folder.
+         * @param replies_to_origin_folder new value
+         * @since 3.8
+         */
+        set_replies_to_origin_folder(replies_to_origin_folder: boolean): void;
+
+        /**
+         * Sets the preferred folder for sent messages by an identifier string.
+         * The format of the identifier string is defined by the client application.
+         * 
+         * The internal copy of `sent_folder` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param sent_folder an identifier for the preferred sent folder,               or `null`
+         * @since 3.6
+         */
+        set_sent_folder(sent_folder: string | null): void;
+
+        /**
+         * Sets the {@link EDataServer.Source.uid} of the {@link EDataServer.Source} that describes the mail
+         * transport to be used for outgoing messages.
+         * @param transport_uid the mail transport {@link EDataServer.Source.uid}, or `null`
+         * @since 3.6
+         */
+        set_transport_uid(transport_uid: string | null): void;
+
+        /**
+         * Sets whether save messages to the sent folder at all.
+         * @param use_sent_folder the value to set
+         * @since 3.26
+         */
+        set_use_sent_folder(use_sent_folder: boolean): void;
+    }
+
+
+    namespace SourceMailTransport {
+        // Signal signatures
+        interface SignalSignatures extends SourceBackend.SignalSignatures {
+            "notify::backend-name": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceBackend.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceMailTransport extends SourceBackend {
+        static $gtype: GObject.GType<SourceMailTransport>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceMailTransport.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceMailTransport.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceMailTransport.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMailTransport.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceMailTransport.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMailTransport.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceMailTransport.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceMailTransport.SignalSignatures[K]>): void;
+    }
+
+
+    namespace SourceMemoList {
+        // Signal signatures
+        interface SignalSignatures extends SourceSelectable.SignalSignatures {
+            "notify::color": (pspec: GObject.ParamSpec) => void;
+            "notify::groups": (pspec: GObject.ParamSpec) => void;
+            "notify::order": (pspec: GObject.ParamSpec) => void;
+            "notify::selected": (pspec: GObject.ParamSpec) => void;
+            "notify::backend-name": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceSelectable.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceMemoList extends SourceSelectable {
+        static $gtype: GObject.GType<SourceMemoList>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceMemoList.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceMemoList.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceMemoList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMemoList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceMemoList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceMemoList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceMemoList.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceMemoList.SignalSignatures[K]>): void;
+    }
+
+
+    namespace SourceOffline {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::stay-synchronized": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            stay_synchronized: boolean;
+            staySynchronized: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceOffline extends SourceExtension {
+        static $gtype: GObject.GType<SourceOffline>;
+
+        // Properties
+        /**
+         * Keep remote content synchronized locally
+         * @default false
+         */
+        get stay_synchronized(): boolean;
+        set stay_synchronized(val: boolean);
+
+        /**
+         * Keep remote content synchronized locally
+         * @default false
+         */
+        get staySynchronized(): boolean;
+        set staySynchronized(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceOffline.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceOffline.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceOffline.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceOffline.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceOffline.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceOffline.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceOffline.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceOffline.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Returns whether data from a remote server should be cached locally
+         * for viewing while offline.  Backends are responsible for implementing
+         * such caching.
+         * @returns whether data should be cached for offline
+         * @since 3.6
+         */
+        get_stay_synchronized(): boolean;
+
+        /**
+         * Sets whether data from a remote server should be cached locally for
+         * viewing while offline.  Backends are responsible for implementing
+         * such caching.
+         * @param stay_synchronized whether data should be cached for offline
+         * @since 3.6
+         */
+        set_stay_synchronized(stay_synchronized: boolean): void;
+    }
+
+
+    namespace SourceOpenPGP {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::always-trust": (pspec: GObject.ParamSpec) => void;
+            "notify::ask-send-public-key": (pspec: GObject.ParamSpec) => void;
+            "notify::encrypt-by-default": (pspec: GObject.ParamSpec) => void;
+            "notify::encrypt-to-self": (pspec: GObject.ParamSpec) => void;
+            "notify::key-id": (pspec: GObject.ParamSpec) => void;
+            "notify::locate-keys": (pspec: GObject.ParamSpec) => void;
+            "notify::prefer-inline": (pspec: GObject.ParamSpec) => void;
+            "notify::send-prefer-encrypt": (pspec: GObject.ParamSpec) => void;
+            "notify::send-public-key": (pspec: GObject.ParamSpec) => void;
+            "notify::sign-by-default": (pspec: GObject.ParamSpec) => void;
+            "notify::signing-algorithm": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            always_trust: boolean;
+            alwaysTrust: boolean;
+            ask_send_public_key: boolean;
+            askSendPublicKey: boolean;
+            encrypt_by_default: boolean;
+            encryptByDefault: boolean;
+            encrypt_to_self: boolean;
+            encryptToSelf: boolean;
+            key_id: string;
+            keyId: string;
+            locate_keys: boolean;
+            locateKeys: boolean;
+            prefer_inline: boolean;
+            preferInline: boolean;
+            send_prefer_encrypt: boolean;
+            sendPreferEncrypt: boolean;
+            send_public_key: boolean;
+            sendPublicKey: boolean;
+            sign_by_default: boolean;
+            signByDefault: boolean;
+            signing_algorithm: string;
+            signingAlgorithm: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceOpenPGP extends SourceExtension {
+        static $gtype: GObject.GType<SourceOpenPGP>;
+
+        // Properties
+        /**
+         * Always trust keys in my keyring
+         * @default false
+         */
+        get always_trust(): boolean;
+        set always_trust(val: boolean);
+
+        /**
+         * Always trust keys in my keyring
+         * @default false
+         */
+        get alwaysTrust(): boolean;
+        set alwaysTrust(val: boolean);
+
+        /**
+         * Ask before sending public key in messages
+         * @default true
+         */
+        get ask_send_public_key(): boolean;
+        set ask_send_public_key(val: boolean);
+
+        /**
+         * Ask before sending public key in messages
+         * @default true
+         */
+        get askSendPublicKey(): boolean;
+        set askSendPublicKey(val: boolean);
+
+        /**
+         * Encrypt outgoing messages by default
+         * @default false
+         */
+        get encrypt_by_default(): boolean;
+        set encrypt_by_default(val: boolean);
+
+        /**
+         * Encrypt outgoing messages by default
+         * @default false
+         */
+        get encryptByDefault(): boolean;
+        set encryptByDefault(val: boolean);
+
+        /**
+         * Always encrypt to myself
+         * @default true
+         */
+        get encrypt_to_self(): boolean;
+        set encrypt_to_self(val: boolean);
+
+        /**
+         * Always encrypt to myself
+         * @default true
+         */
+        get encryptToSelf(): boolean;
+        set encryptToSelf(val: boolean);
+
+        /**
+         * PGP/GPG Key ID
+         * @default null
+         */
+        get key_id(): string;
+        set key_id(val: string);
+
+        /**
+         * PGP/GPG Key ID
+         * @default null
+         */
+        get keyId(): string;
+        set keyId(val: string);
+
+        /**
+         * Locate keys in WKD for encryption
+         * @default true
+         */
+        get locate_keys(): boolean;
+        set locate_keys(val: boolean);
+
+        /**
+         * Locate keys in WKD for encryption
+         * @default true
+         */
+        get locateKeys(): boolean;
+        set locateKeys(val: boolean);
+
+        /**
+         * Prefer inline sign/encrypt
+         * @default false
+         */
+        get prefer_inline(): boolean;
+        set prefer_inline(val: boolean);
+
+        /**
+         * Prefer inline sign/encrypt
+         * @default false
+         */
+        get preferInline(): boolean;
+        set preferInline(val: boolean);
+
+        /**
+         * Send whether prefers encryption together with the public key in messages
+         * @default true
+         */
+        get send_prefer_encrypt(): boolean;
+        set send_prefer_encrypt(val: boolean);
+
+        /**
+         * Send whether prefers encryption together with the public key in messages
+         * @default true
+         */
+        get sendPreferEncrypt(): boolean;
+        set sendPreferEncrypt(val: boolean);
+
+        /**
+         * Send public key in messages
+         * @default true
+         */
+        get send_public_key(): boolean;
+        set send_public_key(val: boolean);
+
+        /**
+         * Send public key in messages
+         * @default true
+         */
+        get sendPublicKey(): boolean;
+        set sendPublicKey(val: boolean);
+
+        /**
+         * Sign outgoing messages by default
+         * @default false
+         */
+        get sign_by_default(): boolean;
+        set sign_by_default(val: boolean);
+
+        /**
+         * Sign outgoing messages by default
+         * @default false
+         */
+        get signByDefault(): boolean;
+        set signByDefault(val: boolean);
+
+        /**
+         * Hash algorithm used to sign messages
+         * @default null
+         */
+        get signing_algorithm(): string;
+        set signing_algorithm(val: string);
+
+        /**
+         * Hash algorithm used to sign messages
+         * @default null
+         */
+        get signingAlgorithm(): string;
+        set signingAlgorithm(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceOpenPGP.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceOpenPGP.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceOpenPGP.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceOpenPGP.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceOpenPGP.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceOpenPGP.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceOpenPGP.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceOpenPGP.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_openpgp_get_key_id()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceOpenPGP.key_id}
+         * @since 3.6
+         */
+        dup_key_id(): string;
+
+        /**
+         * Thread-safe variation of `e_source_openpgp_get_signing_algorithm()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceOpenPGP.signing_algorithm}
+         * @since 3.6
+         */
+        dup_signing_algorithm(): string;
+
+        /**
+         * Returns whether to skip key validation and assume that used keys are
+         * always fully trusted.
+         * @returns whether used keys are always fully trusted
+         * @since 3.6
+         */
+        get_always_trust(): boolean;
+
+        /**
+         * Returns, whether should ask before sending PGP public key in messages. The default is `true`.
+         * @returns whether should ask before sending PGP public key in messages
+         * @since 3.52
+         */
+        get_ask_send_public_key(): boolean;
+
+        /**
+         * Returns whether to digitally encrypt outgoing messages by default using
+         * OpenPGP-compliant software such as GNU Privacy Guard (GnuPG).
+         * @returns whether to encrypt outgoing messages by default
+         * @since 3.18
+         */
+        get_encrypt_by_default(): boolean;
+
+        /**
+         * Returns whether to "encrypt-to-self" when sending encrypted messages.
+         * @returns whether to "encrypt-to-self"
+         * @since 3.6
+         */
+        get_encrypt_to_self(): boolean;
+
+        /**
+         * Returns the OpenPGP key ID used to sign and encrypt messages.
+         * @returns the key ID used to sign and encrypt messages
+         * @since 3.6
+         */
+        get_key_id(): string;
+
+        /**
+         * Returns, whether gpg can locate keys using Web Key Directory (WKD) lookup
+         * when encrypting messages. The default is `true`.
+         * @returns whether gpg can locate keys using Web Key Directory (WKD) lookup    when encrypting messages.
+         * @since 3.46
+         */
+        get_locate_keys(): boolean;
+
+        /**
+         * Returns whether to prefer inline sign/encrypt of the text/plain messages.
+         * @returns whether to prefer inline sign/encrypt of the text/plain messages
+         * @since 3.20
+         */
+        get_prefer_inline(): boolean;
+
+        /**
+         * Returns, whether should claim the encryption is preferred when sending
+         * public key in messages. The default is `true`.
+         * @returns whether should claim the encryption is preferred when sending    public key in messages
+         * @since 3.50
+         */
+        get_send_prefer_encrypt(): boolean;
+
+        /**
+         * Returns, whether should send PGP public key in messages. The default is `true`.
+         * @returns whether should send PGP public key in messages
+         * @since 3.50
+         */
+        get_send_public_key(): boolean;
+
+        /**
+         * Returns whether to digitally sign outgoing messages by default using
+         * OpenPGP-compliant software such as GNU Privacy Guard (GnuPG).
+         * @returns whether to sign outgoing messages by default
+         * @since 3.6
+         */
+        get_sign_by_default(): boolean;
+
+        /**
+         * Returns the name of the hash algorithm used to digitally sign outgoing
+         * messages.
+         * @returns the signing algorithm for outgoing messages
+         * @since 3.6
+         */
+        get_signing_algorithm(): string;
+
+        /**
+         * Sets whether to skip key validation and assume that used keys are
+         * always fully trusted.
+         * @param always_trust whether used keys are always fully trusted
+         * @since 3.6
+         */
+        set_always_trust(always_trust: boolean): void;
+
+        /**
+         * Sets the `ask_send_public_key` on the `extension`, which tells the client to
+         * ask before user sends public key in the messages in an Autocrypt header.
+         * @param ask_send_public_key value to set
+         * @since 3.52
+         */
+        set_ask_send_public_key(ask_send_public_key: boolean): void;
+
+        /**
+         * Sets whether to digitally encrypt outgoing messages by default using
+         * OpenPGP-compliant software such as GNU Privacy Guard (GnuPG).
+         * @param encrypt_by_default whether to encrypt outgoing messages by default
+         * @since 3.18
+         */
+        set_encrypt_by_default(encrypt_by_default: boolean): void;
+
+        /**
+         * Sets whether to "encrypt-to-self" when sending encrypted messages.
+         * @param encrypt_to_self whether to "encrypt-to-self"
+         * @since 3.6
+         */
+        set_encrypt_to_self(encrypt_to_self: boolean): void;
+
+        /**
+         * Sets the OpenPGP key ID used to sign and encrypt messages.
+         * 
+         * The internal copy of `key_id` is automatically stripped of leading and
+         * trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param key_id the key ID used to sign and encrypt messages
+         * @since 3.6
+         */
+        set_key_id(key_id: string): void;
+
+        /**
+         * Sets the `locate_keys` on the `extension`, which is used to instruct
+         * gpg to locate keys using Web Key Directory (WKD) lookup when encrypting
+         * messages.
+         * @param locate_keys value to set
+         * @since 3.46
+         */
+        set_locate_keys(locate_keys: boolean): void;
+
+        /**
+         * Sets whether to prefer inline sign/encrypt of the text/plain messages.
+         * @param prefer_inline whether to prefer inline sign/encrypt of the text/plain messages
+         * @since 3.20
+         */
+        set_prefer_inline(prefer_inline: boolean): void;
+
+        /**
+         * Sets the `send_prefer_encrypt` on the `extension`, which tells the client to
+         * claim the user prefer encryption when also sending its public key in
+         * the messages (e_source_openpgp_set_send_public_key()).
+         * @param send_prefer_encrypt value to set
+         * @since 3.50
+         */
+        set_send_prefer_encrypt(send_prefer_encrypt: boolean): void;
+
+        /**
+         * Sets the `send_public_key` on the `extension`, which tells the client to
+         * include user's public key in the messages in an Autocrypt header.
+         * @param send_public_key value to set
+         * @since 3.50
+         */
+        set_send_public_key(send_public_key: boolean): void;
+
+        /**
+         * Sets whether to digitally sign outgoing messages by default using
+         * OpenPGP-compliant software such as GNU Privacy Guard (GnuPG).
+         * @param sign_by_default whether to sign outgoing messages by default
+         * @since 3.6
+         */
+        set_sign_by_default(sign_by_default: boolean): void;
+
+        /**
+         * Sets the name of the hash algorithm used to digitally sign outgoing
+         * messages.
+         * 
+         * The internal copy of `signing_algorithm` is automatically stripped of
+         * leading and trailing whitespace.  If the resulting string is empty,
+         * `null` is set instead.
+         * @param signing_algorithm the signing algorithm for outgoing messages
+         * @since 3.6
+         */
+        set_signing_algorithm(signing_algorithm: string): void;
+    }
+
+
+    namespace SourceProxy {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::autoconfig-url": (pspec: GObject.ParamSpec) => void;
+            "notify::ftp-host": (pspec: GObject.ParamSpec) => void;
+            "notify::ftp-port": (pspec: GObject.ParamSpec) => void;
+            "notify::http-auth-password": (pspec: GObject.ParamSpec) => void;
+            "notify::http-auth-user": (pspec: GObject.ParamSpec) => void;
+            "notify::http-host": (pspec: GObject.ParamSpec) => void;
+            "notify::http-port": (pspec: GObject.ParamSpec) => void;
+            "notify::http-use-auth": (pspec: GObject.ParamSpec) => void;
+            "notify::https-host": (pspec: GObject.ParamSpec) => void;
+            "notify::https-port": (pspec: GObject.ParamSpec) => void;
+            "notify::ignore-hosts": (pspec: GObject.ParamSpec) => void;
+            "notify::method": (pspec: GObject.ParamSpec) => void;
+            "notify::socks-host": (pspec: GObject.ParamSpec) => void;
+            "notify::socks-port": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            autoconfig_url: string;
+            autoconfigUrl: string;
+            ftp_host: string;
+            ftpHost: string;
+            ftp_port: number;
+            ftpPort: number;
+            http_auth_password: string;
+            httpAuthPassword: string;
+            http_auth_user: string;
+            httpAuthUser: string;
+            http_host: string;
+            httpHost: string;
+            http_port: number;
+            httpPort: number;
+            http_use_auth: boolean;
+            httpUseAuth: boolean;
+            https_host: string;
+            httpsHost: string;
+            https_port: number;
+            httpsPort: number;
+            ignore_hosts: string[];
+            ignoreHosts: string[];
+            method: ProxyMethod;
+            socks_host: string;
+            socksHost: string;
+            socks_port: number;
+            socksPort: number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.12
+     */
+    class SourceProxy extends SourceExtension {
+        static $gtype: GObject.GType<SourceProxy>;
+
+        // Properties
+        /**
+         * Proxy autoconfiguration URL
+         * @default null
+         */
+        get autoconfig_url(): string;
+        set autoconfig_url(val: string);
+
+        /**
+         * Proxy autoconfiguration URL
+         * @default null
+         */
+        get autoconfigUrl(): string;
+        set autoconfigUrl(val: string);
+
+        /**
+         * FTP proxy host name
+         * @default null
+         */
+        get ftp_host(): string;
+        set ftp_host(val: string);
+
+        /**
+         * FTP proxy host name
+         * @default null
+         */
+        get ftpHost(): string;
+        set ftpHost(val: string);
+
+        /**
+         * FTP proxy port
+         * @default 0
+         */
+        get ftp_port(): number;
+        set ftp_port(val: number);
+
+        /**
+         * FTP proxy port
+         * @default 0
+         */
+        get ftpPort(): number;
+        set ftpPort(val: number);
+
+        /**
+         * HTTP proxy password
+         * @default null
+         */
+        get http_auth_password(): string;
+        set http_auth_password(val: string);
+
+        /**
+         * HTTP proxy password
+         * @default null
+         */
+        get httpAuthPassword(): string;
+        set httpAuthPassword(val: string);
+
+        /**
+         * HTTP proxy username
+         * @default null
+         */
+        get http_auth_user(): string;
+        set http_auth_user(val: string);
+
+        /**
+         * HTTP proxy username
+         * @default null
+         */
+        get httpAuthUser(): string;
+        set httpAuthUser(val: string);
+
+        /**
+         * HTTP proxy host name
+         * @default null
+         */
+        get http_host(): string;
+        set http_host(val: string);
+
+        /**
+         * HTTP proxy host name
+         * @default null
+         */
+        get httpHost(): string;
+        set httpHost(val: string);
+
+        /**
+         * HTTP proxy port
+         * @default 8080
+         */
+        get http_port(): number;
+        set http_port(val: number);
+
+        /**
+         * HTTP proxy port
+         * @default 8080
+         */
+        get httpPort(): number;
+        set httpPort(val: number);
+
+        /**
+         * Whether HTTP proxy server connections require authentication
+         * @default false
+         */
+        get http_use_auth(): boolean;
+        set http_use_auth(val: boolean);
+
+        /**
+         * Whether HTTP proxy server connections require authentication
+         * @default false
+         */
+        get httpUseAuth(): boolean;
+        set httpUseAuth(val: boolean);
+
+        /**
+         * Secure HTTP proxy host name
+         * @default null
+         */
+        get https_host(): string;
+        set https_host(val: string);
+
+        /**
+         * Secure HTTP proxy host name
+         * @default null
+         */
+        get httpsHost(): string;
+        set httpsHost(val: string);
+
+        /**
+         * Secure HTTP proxy port
+         * @default 0
+         */
+        get https_port(): number;
+        set https_port(val: number);
+
+        /**
+         * Secure HTTP proxy port
+         * @default 0
+         */
+        get httpsPort(): number;
+        set httpsPort(val: number);
+
+        /**
+         * Hosts to connect directly
+         */
+        get ignore_hosts(): string[];
+        set ignore_hosts(val: string[]);
+
+        /**
+         * Hosts to connect directly
+         */
+        get ignoreHosts(): string[];
+        set ignoreHosts(val: string[]);
+
+        /**
+         * Proxy configuration method
+         * @default EDataServer.ProxyMethod.DEFAULT
+         */
+        get method(): ProxyMethod;
+        set method(val: ProxyMethod);
+
+        /**
+         * SOCKS proxy host name
+         * @default null
+         */
+        get socks_host(): string;
+        set socks_host(val: string);
+
+        /**
+         * SOCKS proxy host name
+         * @default null
+         */
+        get socksHost(): string;
+        set socksHost(val: string);
+
+        /**
+         * SOCKS proxy port
+         * @default 0
+         */
+        get socks_port(): number;
+        set socks_port(val: number);
+
+        /**
+         * SOCKS proxy port
+         * @default 0
+         */
+        get socksPort(): number;
+        set socksPort(val: number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceProxy.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceProxy.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceProxy.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceProxy.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceProxy.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceProxy.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceProxy.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceProxy.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_proxy_get_autoconfig_url()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceProxy.autoconfig_url}
+         * @since 3.12
+         */
+        dup_autoconfig_url(): string;
+
+        /**
+         * Thread-safe variation of `e_source_proxy_get_ftp_host()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceProxy.ftp_host}
+         * @since 3.12
+         */
+        dup_ftp_host(): string;
+
+        /**
+         * Thread-safe variation of `e_source_proxy_get_http_auth_password()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceProxy.http_auth_password}
+         * @since 3.12
+         */
+        dup_http_auth_password(): string;
+
+        /**
+         * Thread-safe variation of `e_source_proxy_get_http_auth_user()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceProxy.http_auth_user}
+         * @since 3.12
+         */
+        dup_http_auth_user(): string;
+
+        /**
+         * Thread-safe variation of `e_source_proxy_get_http_host()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceProxy.http_host}
+         * @since 3.12
+         */
+        dup_http_host(): string;
+
+        /**
+         * Threads-safe variation of `e_source_proxy_get_https_host()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceProxy.https_host}
+         * @since 3.12
+         */
+        dup_https_host(): string;
+
+        /**
+         * Thread-safe variation of `e_source_proxy_get_ignore_hosts()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string array should be freed with `g_strfreev()` when no
+         * longer needed.
+         * @returns a newly-allocated copy of          {@link EDataServer.SourceProxy.ignore_hosts}
+         * @since 3.12
+         */
+        dup_ignore_hosts(): string[];
+
+        /**
+         * Thread-safe variation of `e_source_proxy_get_socks_host()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceProxy.socks_host}
+         * @since 3.12
+         */
+        dup_socks_host(): string;
+
+        /**
+         * Returns the URL that provides proxy configuration values.  When the
+         * `extension`'s {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_AUTO`, this URL
+         * is used to look up proxy information for all protocols.
+         * @returns the autoconfiguration URL
+         * @since 3.12
+         */
+        get_autoconfig_url(): string;
+
+        /**
+         * Returns the machine name to proxy FTP through when `extension`'s
+         * {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @returns FTP proxy host name
+         * @since 3.12
+         */
+        get_ftp_host(): string;
+
+        /**
+         * Returns the port on the machine defined by {@link EDataServer.SourceProxy.ftp_host} to proxy
+         * through when `extension`'s {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @returns FTP proxy port
+         * @since 3.12
+         */
+        get_ftp_port(): number;
+
+        /**
+         * Returns the password to pass as authentication when doing HTTP proxying
+         * and {@link EDataServer.SourceProxy.http_use_auth} is `true`.
+         * @returns HTTP proxy password
+         * @since 3.12
+         */
+        get_http_auth_password(): string;
+
+        /**
+         * Returns the user name to pass as authentication when doing HTTP proxying
+         * and {@link EDataServer.SourceProxy.http_use_auth} is `true`.
+         * @returns HTTP proxy username
+         * @since 3.12
+         */
+        get_http_auth_user(): string;
+
+        /**
+         * Returns the machine name to proxy HTTP through when `extension`'s
+         * {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @returns HTTP proxy host name
+         * @since 3.12
+         */
+        get_http_host(): string;
+
+        /**
+         * Returns the port on the machine defined by {@link EDataServer.SourceProxy.http_host} to proxy
+         * through when `extension`'s {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @returns HTTP proxy port
+         * @since 3.12
+         */
+        get_http_port(): number;
+
+        /**
+         * Returns whether the HTTP proxy server at {@link EDataServer.SourceProxy.http_host} and
+         * {@link EDataServer.SourceProxy.http_port} requires authentication.
+         * 
+         * The username/password combo is defined by {@link EDataServer.SourceProxy.http_auth_user}
+         * and {@link EDataServer.SourceProxy.http_auth_password}, but only applies when `extension`'s
+         * {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @returns whether to authenticate HTTP proxy connections
+         * @since 3.12
+         */
+        get_http_use_auth(): boolean;
+
+        /**
+         * Returns the machine name to proxy secure HTTP through when `extension`'s
+         * {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @returns secure HTTP proxy host name
+         * @since 3.12
+         */
+        get_https_host(): string;
+
+        /**
+         * Returns the port on the machine defined by {@link EDataServer.SourceProxy.https_host} to proxy
+         * through when `extension`'s {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @returns secure HTTP proxy port
+         * @since 3.12
+         */
+        get_https_port(): number;
+
+        /**
+         * Returns a `null`-terminated string array of hosts which are connected to
+         * directly, rather than via the proxy (if it is active).  The array elements
+         * can be hostnames, domains (using an initial wildcard like *.foo.com), IP
+         * host addresses (both IPv4 and IPv6) and network addresses with a netmask
+         * (something like 192.168.0.0/24).
+         * 
+         * The returned array is owned by `extension` and should not be modified or
+         * freed.
+         * @returns a `null`-terminated string array of hosts
+         * @since 3.12
+         */
+        get_ignore_hosts(): string[];
+
+        /**
+         * Returns the proxy configuration method for `extension`.
+         * 
+         * The proxy configuration method determines the behavior of
+         * `e_source_proxy_lookup()`.
+         * @returns the proxy configuration method
+         * @since 3.12
+         */
+        get_method(): ProxyMethod;
+
+        /**
+         * Returns the machine name to use as a SOCKS proxy when `extension`'s
+         * {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @returns SOCKS proxy host name
+         * @since 3.12
+         */
+        get_socks_host(): string;
+
+        /**
+         * Returns the port on the machine defined by {@link EDataServer.SourceProxy.socks_host} to proxy
+         * through when `extension`'s {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @returns SOCKS proxy port
+         * @since 3.12
+         */
+        get_socks_port(): number;
+
+        /**
+         * Sets the URL that provides proxy configuration values.  When the
+         * `extension`'s {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_AUTO`, this URL
+         * is used to look up proxy information for all protocols.
+         * @param autoconfig_url an autoconfiguration URL
+         * @since 3.12
+         */
+        set_autoconfig_url(autoconfig_url: string): void;
+
+        /**
+         * Sets the machine name to proxy FTP through when `extension`'s
+         * {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @param ftp_host FTP proxy host name
+         * @since 3.12
+         */
+        set_ftp_host(ftp_host: string): void;
+
+        /**
+         * Sets the port on the machine defined by {@link EDataServer.SourceProxy.ftp_host} to proxy
+         * through when `extension`'s {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @param ftp_port FTP proxy port
+         * @since 3.12
+         */
+        set_ftp_port(ftp_port: number): void;
+
+        /**
+         * Sets the password to pass as authentication when doing HTTP proxying
+         * and {@link EDataServer.SourceProxy.http_use_auth} is `true`.
+         * @param http_auth_password HTTP proxy password
+         * @since 3.12
+         */
+        set_http_auth_password(http_auth_password: string): void;
+
+        /**
+         * Sets the user name to pass as authentication when doing HTTP proxying
+         * and {@link EDataServer.SourceProxy.http_use_auth} is `true`.
+         * @param http_auth_user HTTP proxy username
+         * @since 3.12
+         */
+        set_http_auth_user(http_auth_user: string): void;
+
+        /**
+         * Sets the machine name to proxy HTTP through when `extension`'s
+         * {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @param http_host HTTP proxy host name
+         * @since 3.12
+         */
+        set_http_host(http_host: string): void;
+
+        /**
+         * Sets the port on the machine defined by {@link EDataServer.SourceProxy.http_host} to proxy
+         * through when `extension`'s {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @param http_port HTTP proxy port
+         * @since 3.12
+         */
+        set_http_port(http_port: number): void;
+
+        /**
+         * Sets whether the HTTP proxy server at {@link EDataServer.SourceProxy.http_host} and
+         * {@link EDataServer.SourceProxy.http_port} requires authentication.
+         * 
+         * The username/password combo is defined by {@link EDataServer.SourceProxy.http_auth_user}
+         * and {@link EDataServer.SourceProxy.http_auth_password}, but only applies when `extension`'s
+         * {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @param http_use_auth whether to authenticate HTTP proxy connections
+         * @since 3.12
+         */
+        set_http_use_auth(http_use_auth: boolean): void;
+
+        /**
+         * Sets the machine name to proxy secure HTTP through when `extension`'s
+         * {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @param https_host secure HTTP proxy host name
+         * @since 3.12
+         */
+        set_https_host(https_host: string): void;
+
+        /**
+         * Sets the port on the machine defined by {@link EDataServer.SourceProxy.https_host} to proxy
+         * through when `extension`'s {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @param https_port secure HTTP proxy port
+         * @since 3.12
+         */
+        set_https_port(https_port: number): void;
+
+        /**
+         * Sets the hosts which are connected to directly, rather than via the proxy
+         * (if it is active).  The array elements can be hostnames, domains (using an
+         * initial wildcard like *.foo.com), IP host addresses (both IPv4 and IPv6)
+         * and network addresses with a netmask (something like 192.168.0.0/24).
+         * @param ignore_hosts a `null`-terminated string array of hosts
+         * @since 3.12
+         */
+        set_ignore_hosts(ignore_hosts: string): void;
+
+        /**
+         * Sets the proxy configuration method for `extension`.
+         * 
+         * The proxy configuration method determines the behavior of
+         * `e_source_proxy_lookup()`.
+         * @param method the proxy configuration method
+         * @since 3.12
+         */
+        set_method(method: ProxyMethod): void;
+
+        /**
+         * Sets the machine name to use as a SOCKS proxy when `extension`'s
+         * {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @param socks_host SOCKS proxy host name
+         * @since 3.12
+         */
+        set_socks_host(socks_host: string): void;
+
+        /**
+         * Sets the port on the machine defined by {@link EDataServer.SourceProxy.socks_host} to proxy
+         * through when `extension`'s {@link EDataServer.SourceProxy.method} is `E_PROXY_METHOD_MANUAL`.
+         * @param socks_port SOCKS proxy port
+         * @since 3.12
+         */
+        set_socks_port(socks_port: number): void;
+    }
+
+
+    namespace SourceRefresh {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::enabled": (pspec: GObject.ParamSpec) => void;
+            "notify::enabled-on-metered-network": (pspec: GObject.ParamSpec) => void;
+            "notify::interval-minutes": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            enabled: boolean;
+            enabled_on_metered_network: boolean;
+            enabledOnMeteredNetwork: boolean;
+            interval_minutes: number;
+            intervalMinutes: number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceRefresh extends SourceExtension {
+        static $gtype: GObject.GType<SourceRefresh>;
+
+        // Properties
+        /**
+         * Whether to periodically refresh
+         * @default true
+         */
+        get enabled(): boolean;
+        set enabled(val: boolean);
+
+        /**
+         * Whether to enable refresh on metered network
+         * @default true
+         */
+        get enabled_on_metered_network(): boolean;
+        set enabled_on_metered_network(val: boolean);
+
+        /**
+         * Whether to enable refresh on metered network
+         * @default true
+         */
+        get enabledOnMeteredNetwork(): boolean;
+        set enabledOnMeteredNetwork(val: boolean);
+
+        /**
+         * Refresh interval in minutes
+         * @default 60
+         */
+        get interval_minutes(): number;
+        set interval_minutes(val: number);
+
+        /**
+         * Refresh interval in minutes
+         * @default 60
+         */
+        get intervalMinutes(): number;
+        set intervalMinutes(val: number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceRefresh.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceRefresh.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceRefresh.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceRefresh.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceRefresh.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceRefresh.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceRefresh.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceRefresh.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Returns whether to periodically fetch updates from a remote server.
+         * 
+         * The refresh interval is determined by the {@link EDataServer.SourceRefresh.interval_minutes}
+         * property.
+         * @returns whether periodic refresh is enabled
+         * @since 3.6
+         */
+        get_enabled(): boolean;
+
+        /**
+         * Returns whether can refresh content on metered network.
+         * 
+         * The `extension` itself doesn't use this option, it's up to
+         * the `extension` user to determine what kind of connection is used
+         * and then decide whether refresh, or other expensive network
+         * operations, can be done.
+         * @returns whether can refresh content on metered network
+         * @since 3.50
+         */
+        get_enabled_on_metered_network(): boolean;
+
+        /**
+         * Returns the interval for fetching updates from a remote server.
+         * 
+         * Note this value is only effective when the {@link EDataServer.SourceRefresh.enabled}
+         * property is `true`.
+         * @returns the interval in minutes
+         * @since 3.6
+         */
+        get_interval_minutes(): number;
+
+        /**
+         * Sets whether to periodically fetch updates from a remote server.
+         * 
+         * The refresh interval is determined by the {@link EDataServer.SourceRefresh.interval_minutes}
+         * property.
+         * @param enabled whether to enable periodic refresh
+         * @since 3.6
+         */
+        set_enabled(enabled: boolean): void;
+
+        /**
+         * Sets whether can refresh content on metered network.
+         * 
+         * See `e_source_refresh_get_enabled_on_metered_network()` for more information
+         * about what it means.
+         * @param enabled whether can refresh content on metered network
+         * @since 3.50
+         */
+        set_enabled_on_metered_network(enabled: boolean): void;
+
+        /**
+         * Sets the interval for fetching updates from a remote server.
+         * 
+         * Note this value is only effective when the {@link EDataServer.SourceRefresh.enabled}
+         * property is `true`.
+         * @param interval_minutes the interval in minutes
+         * @since 3.6
+         */
+        set_interval_minutes(interval_minutes: number): void;
+    }
+
+
+    namespace SourceRegistry {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            /**
+             * The ::credentials-required signal is emitted when the `source`
+             * requires credentials to connect to (possibly remote)
+             * data store. The credentials can be passed to the source using
+             * `e_source_invoke_authenticate()` function. The signal is emitted in
+             * the thread-default main context from the time the `registry` was created.
+             * 
+             * Note: This is just a proxy signal for the ESource::credentials-required signal.
+             * @signal
+             * @run-last
+             */
+            "credentials-required": (source: Source, reason: SourceCredentialsReason, certificate_pem: string, certificate_errors: Gio.TlsCertificateFlags, op_error: GLib.Error) => void;
+            /**
+             * Emitted when an {@link EDataServer.Source} is added to `registry`.
+             * @signal
+             * @run-last
+             */
+            "source-added": (source: Source) => void;
+            /**
+             * Emitted when an {@link EDataServer.Source} registered with `registry` emits
+             * its {@link EDataServer.Source.SignalSignatures.changed | EDataServer.Source::changed} signal.
+             * @signal
+             * @run-last
+             */
+            "source-changed": (source: Source) => void;
+            /**
+             * Emitted when an {@link EDataServer.Source} {@link EDataServer.Source.enabled} property becomes `false`.
+             * @signal
+             * @run-last
+             */
+            "source-disabled": (source: Source) => void;
+            /**
+             * Emitted when an {@link EDataServer.Source} {@link EDataServer.Source.enabled} property becomes `true`.
+             * @signal
+             * @run-last
+             */
+            "source-enabled": (source: Source) => void;
+            /**
+             * Emitted when an {@link EDataServer.Source} is removed from `registry`.
+             * @signal
+             * @run-last
+             */
+            "source-removed": (source: Source) => void;
+            "notify::default-address-book": (pspec: GObject.ParamSpec) => void;
+            "notify::default-calendar": (pspec: GObject.ParamSpec) => void;
+            "notify::default-mail-account": (pspec: GObject.ParamSpec) => void;
+            "notify::default-mail-identity": (pspec: GObject.ParamSpec) => void;
+            "notify::default-memo-list": (pspec: GObject.ParamSpec) => void;
+            "notify::default-task-list": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.AsyncInitable.ConstructorProps, Gio.Initable.ConstructorProps {
+            default_address_book: Source;
+            defaultAddressBook: Source;
+            default_calendar: Source;
+            defaultCalendar: Source;
+            default_mail_account: Source;
+            defaultMailAccount: Source;
+            default_mail_identity: Source;
+            defaultMailIdentity: Source;
+            default_memo_list: Source;
+            defaultMemoList: Source;
+            default_task_list: Source;
+            defaultTaskList: Source;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceRegistry extends GObject.Object implements Gio.AsyncInitable<SourceRegistry>, Gio.Initable {
+        static $gtype: GObject.GType<SourceRegistry>;
+
+        // Properties
+        /**
+         * The default address book {@link EDataServer.Source}.
+         */
+        get default_address_book(): Source;
+        set default_address_book(val: Source);
+
+        /**
+         * The default address book {@link EDataServer.Source}.
+         */
+        get defaultAddressBook(): Source;
+        set defaultAddressBook(val: Source);
+
+        /**
+         * The default calendar {@link EDataServer.Source}.
+         */
+        get default_calendar(): Source;
+        set default_calendar(val: Source);
+
+        /**
+         * The default calendar {@link EDataServer.Source}.
+         */
+        get defaultCalendar(): Source;
+        set defaultCalendar(val: Source);
+
+        /**
+         * The default mail account {@link EDataServer.Source}.
+         */
+        get default_mail_account(): Source;
+        set default_mail_account(val: Source);
+
+        /**
+         * The default mail account {@link EDataServer.Source}.
+         */
+        get defaultMailAccount(): Source;
+        set defaultMailAccount(val: Source);
+
+        /**
+         * The default mail identity {@link EDataServer.Source}.
+         */
+        get default_mail_identity(): Source;
+        set default_mail_identity(val: Source);
+
+        /**
+         * The default mail identity {@link EDataServer.Source}.
+         */
+        get defaultMailIdentity(): Source;
+        set defaultMailIdentity(val: Source);
+
+        /**
+         * The default memo list {@link EDataServer.Source}.
+         */
+        get default_memo_list(): Source;
+        set default_memo_list(val: Source);
+
+        /**
+         * The default memo list {@link EDataServer.Source}.
+         */
+        get defaultMemoList(): Source;
+        set defaultMemoList(val: Source);
+
+        /**
+         * The default task list {@link EDataServer.Source}.
+         */
+        get default_task_list(): Source;
+        set default_task_list(val: Source);
+
+        /**
+         * The default task list {@link EDataServer.Source}.
+         */
+        get defaultTaskList(): Source;
+        set defaultTaskList(val: Source);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceRegistry.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceRegistry.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static new_finish(result: Gio.AsyncResult): SourceRegistry;
+
+        // Conflicted with Gio.AsyncInitable.new_finish
+        static new_finish(...args: never[]): any;
+
+        static new_sync(cancellable: Gio.Cancellable | null): SourceRegistry;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceRegistry.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceRegistry.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceRegistry.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceRegistry.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceRegistry.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceRegistry.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @since 3.16
+         */
+        static debug_enabled(): boolean;
+
+        /**
+         * Convenience function to free a {@link GLib.Node} tree of registered
+         * sources created by `e_source_registry_build_display_tree()`.
+         * @param display_tree a tree of sources, arranged for display
+         * @since 3.6
+         */
+        static free_display_tree(display_tree: GLib.Node): void;
+
+        /**
+         * Asynchronously creates a new {@link EDataServer.SourceRegistry} front-end for the registry
+         * D-Bus service.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_registry_new_finish()` to get the result of the operation.
+         * 
+         * Since 3.12 a singleton will be returned.  No strong reference is kept
+         * internally, so it is the caller's responsibility to keep one.
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        static ["new"](cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<SourceRegistry> | null): void;
+
+        // Virtual methods
+        /**
+         * @param source 
+         * @param reason 
+         * @param certificate_pem 
+         * @param certificate_errors 
+         * @param op_error 
+         * @virtual
+         */
+        vfunc_credentials_required(source: Source, reason: SourceCredentialsReason, certificate_pem: string, certificate_errors: Gio.TlsCertificateFlags, op_error: GLib.Error): void;
+
+        /**
+         * @param source 
+         * @virtual
+         */
+        vfunc_source_added(source: Source): void;
+
+        /**
+         * @param source 
+         * @virtual
+         */
+        vfunc_source_changed(source: Source): void;
+
+        /**
+         * @param source 
+         * @virtual
+         */
+        vfunc_source_disabled(source: Source): void;
+
+        /**
+         * @param source 
+         * @virtual
+         */
+        vfunc_source_enabled(source: Source): void;
+
+        /**
+         * @param source 
+         * @virtual
+         */
+        vfunc_source_removed(source: Source): void;
+
+        // Methods
+        /**
+         * Determines whether `source` is "effectively" enabled by examining its
+         * own {@link EDataServer.Source.enabled} property as well as those of its ancestors in the
+         * {@link EDataServer.Source} hierarchy.  If all examined {@link EDataServer.Source.enabled} properties are
+         * `true`, then the function returns `true`.  If any are `false`, then the
+         * function returns `false`.
+         * 
+         * Use this function instead of `e_source_get_enabled()` to determine
+         * things like whether to display an {@link EDataServer.Source} in a user interface or
+         * whether to act on the data set described by the {@link EDataServer.Source}.
+         * @param source an {@link EDataServer.Source}
+         * @returns whether `source` is "effectively" enabled
+         * @since 3.8
+         */
+        check_enabled(source: Source): boolean;
+
+        /**
+         * See `e_source_registry_commit_source_sync()` for details.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_registry_commit_source_finish()` to get the result of the
+         * operation.
+         * @param source an {@link EDataServer.Source} with changes to commit
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         */
+        commit_source(source: Source, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * See `e_source_registry_commit_source_sync()` for details.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_registry_commit_source_finish()` to get the result of the
+         * operation.
+         * @param source an {@link EDataServer.Source} with changes to commit
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        commit_source(source: Source, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * See `e_source_registry_commit_source_sync()` for details.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_registry_commit_source_finish()` to get the result of the
+         * operation.
+         * @param source an {@link EDataServer.Source} with changes to commit
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        commit_source(source: Source, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_registry_commit_source()`.
+         * 
+         * If an error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on failure
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        commit_source_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * This is a convenience function intended for use with graphical
+         * {@link EDataServer.Source} editors.  Call this function when the user is finished
+         * making changes to `source`.
+         * 
+         * If `source` has a {@link Gio.DBusObject}, its contents are submitted to the D-Bus
+         * service through `e_source_write_sync()`.
+         * 
+         * If `source` does NOT have a {@link Gio.DBusObject} (implying it's a scratch
+         * {@link EDataServer.Source}), its contents are submitted to the D-Bus service through
+         * either `e_source_remote_create_sync()` if `source` is to be a collection
+         * member, or `e_source_registry_create_sources_sync()` if `source` to be an
+         * independent data source.
+         * 
+         * If an error occurs, the function will set `error` and return `false`.
+         * @param source an {@link EDataServer.Source} with changes to commit
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on failure
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        commit_source_sync(source: Source, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Asynchronously requests the D-Bus service create new key files for each
+         * {@link EDataServer.Source} in `list_of_sources`.  Each list element must be a scratch
+         * {@link EDataServer.Source} with no {@link Gio.DBusObject}.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_registry_create_sources_finish()` to get the result of the
+         * operation.
+         * @param list_of_sources a list of {@link EDataServer.Source} instances with no {@link Gio.DBusObject}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.6
+         */
+        create_sources(list_of_sources: Source[], cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously requests the D-Bus service create new key files for each
+         * {@link EDataServer.Source} in `list_of_sources`.  Each list element must be a scratch
+         * {@link EDataServer.Source} with no {@link Gio.DBusObject}.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_registry_create_sources_finish()` to get the result of the
+         * operation.
+         * @param list_of_sources a list of {@link EDataServer.Source} instances with no {@link Gio.DBusObject}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        create_sources(list_of_sources: Source[], cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously requests the D-Bus service create new key files for each
+         * {@link EDataServer.Source} in `list_of_sources`.  Each list element must be a scratch
+         * {@link EDataServer.Source} with no {@link Gio.DBusObject}.
+         * 
+         * When the operation is finished, `callback` will be called.  You can then
+         * call `e_source_registry_create_sources_finish()` to get the result of the
+         * operation.
+         * @param list_of_sources a list of {@link EDataServer.Source} instances with no {@link Gio.DBusObject}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.6
+         */
+        create_sources(list_of_sources: Source[], cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_registry_create_sources()`.
+         * 
+         * If an error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, `false` on failure
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        create_sources_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Requests the D-Bus service create new key files for each {@link EDataServer.Source} in
+         * `list_of_sources`.  Each list element must be a scratch {@link EDataServer.Source} with
+         * no {@link Gio.DBusObject}.
+         * 
+         * If an error occurs, the function will set `error` and return `false`.
+         * @param list_of_sources a list of {@link EDataServer.Source} instances with no {@link Gio.DBusObject}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` on failure
+         * @since 3.6
+         * @throws GLib.Error
+         */
+        create_sources_sync(list_of_sources: Source[], cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Handy debugging function that uses `e_source_registry_build_display_tree()`
+         * to print a tree of registered sources to standard output.
+         * @param extension_name an extension name, or `null`
+         * @since 3.6
+         */
+        debug_dump(extension_name: string | null): void;
+
+        /**
+         * Compares `source`'s {@link EDataServer.Source.display_name} against other sources having
+         * an {@link EDataServer.SourceExtension} named `extension_name`, if given, or else against
+         * all other sources in the `registry`.
+         * 
+         * If `sources`'s {@link EDataServer.Source.display_name} is unique among these other sources,
+         * the function will return the {@link EDataServer.Source.display_name} verbatim.  Otherwise
+         * the function will construct a string that includes the `sources`'s own
+         * {@link EDataServer.Source.display_name} as well as those of its ancestors.
+         * 
+         * The function's return value is intended to be used in messages shown to
+         * the user to help clarify which source is being referred to.  It assumes
+         * `source`'s {@link EDataServer.Source.display_name} is at least unique among its siblings.
+         * 
+         * Free the returned string with `g_free()` when finished with it.
+         * @param source an {@link EDataServer.Source}
+         * @param extension_name an extension name, or `null`
+         * @returns a unique display name for `source`
+         * @since 3.8
+         */
+        dup_unique_display_name(source: Source, extension_name: string | null): string;
+
+        /**
+         * Examines `source` and its ancestors and returns the "deepest" {@link EDataServer.Source}
+         * having an {@link EDataServer.SourceExtension} with the given `extension_name`.  If neither
+         * `source` nor any of its ancestors have such an extension, the function
+         * returns `null`.
+         * 
+         * This function is useful in cases when an {@link EDataServer.SourceExtension} is meant to
+         * apply to both the {@link EDataServer.Source} it belongs to and the {@link EDataServer.Source}'s descendants.
+         * 
+         * A common example is the {@link EDataServer.SourceCollection} extension, where descendants
+         * of an {@link EDataServer.Source} having an {@link EDataServer.SourceCollection} extension are implied to be
+         * members of that collection.  In that example, this function can be used
+         * to test whether `source` is a member of a collection.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * 
+         * Note the function returns the {@link EDataServer.Source} containing the {@link EDataServer.SourceExtension}
+         * instead of the {@link EDataServer.SourceExtension} itself because extension instances are
+         * not to be referenced directly (see `e_source_get_extension()`).
+         * @param source an {@link EDataServer.Source}
+         * @param extension_name the extension name to find
+         * @returns an {@link EDataServer.Source}, or `null` if no match was found
+         * @since 3.6
+         */
+        find_extension(source: Source, extension_name: string): Source | null;
+
+        /**
+         * @returns an instance of {@link EDataServer.OAuth2Services}, owned by `registry`
+         * @since 3.28
+         */
+        get_oauth2_services(): OAuth2Services;
+
+        /**
+         * Similar to `e_source_registry_list_sources()`, but returns only enabled
+         * sources according to `e_source_registry_check_enabled()`.
+         * 
+         * The sources returned in the list are referenced for thread-safety.
+         * They must each be unreferenced with `g_object_unref()` when finished
+         * with them.  Free the returned list itself with `g_list_free()`.
+         * 
+         * An easy way to free the list properly in one step is as follows:
+         * 
+         * 
+         * ```
+         *   g_list_free_full (list, g_object_unref);
+         * ```
+         * 
+         * @param extension_name an extension name, or `null`
+         * @returns a sorted list of sources
+         * @since 3.10
+         */
+        list_enabled(extension_name: string | null): Source[];
+
+        /**
+         * Returns a list of registered sources, sorted by display name.  If
+         * `extension_name` is given, restrict the list to sources having that
+         * extension name.
+         * 
+         * The sources returned in the list are referenced for thread-safety.
+         * They must each be unreferenced with `g_object_unref()` when finished
+         * with them.  Free the returned list itself with `g_list_free()`.
+         * 
+         * An easy way to free the list properly in one step is as follows:
+         * 
+         * 
+         * ```
+         *   g_list_free_full (list, g_object_unref);
+         * ```
+         * 
+         * @param extension_name an extension name, or `null`
+         * @returns a sorted list of sources
+         * @since 3.6
+         */
+        list_sources(extension_name: string | null): Source[];
+
+        /**
+         * Returns the built-in address book {@link EDataServer.Source}.
+         * 
+         * This {@link EDataServer.Source} is always present and makes for a safe fallback.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the built-in address book {@link EDataServer.Source}
+         * @since 3.6
+         */
+        ref_builtin_address_book(): Source;
+
+        /**
+         * Returns the built-in calendar {@link EDataServer.Source}.
+         * 
+         * This {@link EDataServer.Source} is always present and makes for a safe fallback.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the built-in calendar {@link EDataServer.Source}
+         * @since 3.6
+         */
+        ref_builtin_calendar(): Source;
+
+        /**
+         * Returns the built-in mail account {@link EDataServer.Source}.
+         * 
+         * This {@link EDataServer.Source} is always present and makes for a safe fallback.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the built-in mail account {@link EDataServer.Source}
+         * @since 3.6
+         */
+        ref_builtin_mail_account(): Source;
+
+        /**
+         * Returns the built-in memo list {@link EDataServer.Source}.
+         * 
+         * This {@link EDataServer.Source} is always present and makes for a safe fallback.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the built-in memo list {@link EDataServer.Source}
+         * @since 3.6
+         */
+        ref_builtin_memo_list(): Source;
+
+        /**
+         * Returns the built-in proxy profile {@link EDataServer.Source}.
+         * 
+         * This {@link EDataServer.Source} is always present and makes for a safe fallback.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the built-in proxy profile {@link EDataServer.Source}
+         * @since 3.12
+         */
+        ref_builtin_proxy(): Source;
+
+        /**
+         * Returns the built-in task list {@link EDataServer.Source}.
+         * 
+         * This {@link EDataServer.Source} is always present and makes for a safe fallback.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the built-in task list {@link EDataServer.Source}
+         * @since 3.6
+         */
+        ref_builtin_task_list(): Source;
+
+        /**
+         * Returns the {@link EDataServer.Source} most recently passed to
+         * `e_source_registry_set_default_address_book()` either in this session
+         * or a previous session, or else falls back to the built-in address book.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the default address book {@link EDataServer.Source}
+         * @since 3.6
+         */
+        ref_default_address_book(): Source;
+
+        /**
+         * Returns the {@link EDataServer.Source} most recently passed to
+         * `e_source_registry_set_default_calendar()` either in this session
+         * or a previous session, or else falls back to the built-in calendar.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the default calendar {@link EDataServer.Source}
+         * @since 3.6
+         */
+        ref_default_calendar(): Source;
+
+        /**
+         * This is a convenience function to return a default {@link EDataServer.Source} based on
+         * `extension_name`.  This only works with a subset of extension names.
+         * 
+         * If `extension_name` is #E_SOURCE_EXTENSION_ADDRESS_BOOK, the function
+         * returns the current default address book, or else falls back to the
+         * built-in address book.
+         * 
+         * If `extension_name` is #E_SOURCE_EXTENSION_CALENDAR, the function returns
+         * the current default calendar, or else falls back to the built-in calendar.
+         * 
+         * If `extension_name` is #E_SOURCE_EXTENSION_MAIL_ACCOUNT, the function
+         * returns the current default mail account, or else falls back to the
+         * built-in mail account.
+         * 
+         * If `extension_name` is #E_SOURCE_EXTENSION_MAIL_IDENTITY, the function
+         * returns the current default mail identity, or else falls back to the
+         * mail identity named by the current default mail account.
+         * 
+         * If `extension_name` is #E_SOURCE_EXTENSION_MEMO_LIST, the function returns
+         * the current default memo list, or else falls back to the built-in memo list.
+         * 
+         * If `extension_name` is #E_SOURCE_EXTENSION_TASK_LIST, the function returns
+         * the current default task list, or else falls back to the built-in task list.
+         * 
+         * For all other values of `extension_name`, the function returns `null`.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @param extension_name an extension_name
+         * @returns the default {@link EDataServer.Source} based on `extension_name`
+         * @since 3.6
+         */
+        ref_default_for_extension_name(extension_name: string): Source | null;
+
+        /**
+         * Returns the {@link EDataServer.Source} most recently passed to
+         * `e_source_registry_set_default_mail_account()` either in this session
+         * or a previous session, or else falls back to the built-in mail account.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the default mail account {@link EDataServer.Source}
+         * @since 3.6
+         */
+        ref_default_mail_account(): Source;
+
+        /**
+         * Returns the {@link EDataServer.Source} most recently passed to
+         * `e_source_registry_set_default_mail_identity()` either in this session
+         * or a previous session, or else falls back to the mail identity named
+         * by the default mail account.  If even that fails it returns any mail
+         * identity from `registry`, or `null` if there are none.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the default mail identity {@link EDataServer.Source},    or `null`
+         * @since 3.6
+         */
+        ref_default_mail_identity(): Source | null;
+
+        /**
+         * Returns the {@link EDataServer.Source} most recently passed to
+         * `e_source_registry_set_default_memo_list()` either in this session
+         * or a previous session, or else falls back to the built-in memo list.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the default memo list {@link EDataServer.Source}
+         * @since 3.6
+         */
+        ref_default_memo_list(): Source;
+
+        /**
+         * Returns the {@link EDataServer.Source} most recently passed to
+         * `e_source_registry_set_default_task_list()` either in this session
+         * or a previous session, or else falls back to the built-in task list.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @returns the default task list {@link EDataServer.Source}
+         * @since 3.6
+         */
+        ref_default_task_list(): Source;
+
+        /**
+         * Looks up an {@link EDataServer.Source} in `registry` by its unique identifier string.
+         * 
+         * The returned {@link EDataServer.Source} is referenced for thread-safety and must be
+         * unreferenced with `g_object_unref()` when finished with it.
+         * @param uid a unique identifier string
+         * @returns an {@link EDataServer.Source}, or `null` if no match was found
+         * @since 3.6
+         */
+        ref_source(uid: string): Source | null;
+
+        /**
+         * Asynchronously requests the D-Bus service to refresh collection backend
+         * for an {@link EDataServer.Source} with UID `source_uid`. The result means that the refresh
+         * had been scheduled not whether the refresh itself succeeded. The refresh
+         * is not initiated when the collection backend is offline.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_registry_refresh_backend_finish()` to get the result of
+         * the operation.
+         * @param source_uid UID of a collection {@link EDataServer.Source} whose backend to refresh
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @since 3.30
+         */
+        refresh_backend(source_uid: string, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Asynchronously requests the D-Bus service to refresh collection backend
+         * for an {@link EDataServer.Source} with UID `source_uid`. The result means that the refresh
+         * had been scheduled not whether the refresh itself succeeded. The refresh
+         * is not initiated when the collection backend is offline.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_registry_refresh_backend_finish()` to get the result of
+         * the operation.
+         * @param source_uid UID of a collection {@link EDataServer.Source} whose backend to refresh
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.30
+         */
+        refresh_backend(source_uid: string, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Asynchronously requests the D-Bus service to refresh collection backend
+         * for an {@link EDataServer.Source} with UID `source_uid`. The result means that the refresh
+         * had been scheduled not whether the refresh itself succeeded. The refresh
+         * is not initiated when the collection backend is offline.
+         * 
+         * When the operation is finished, `callback` will be called. You can then
+         * call `e_source_registry_refresh_backend_finish()` to get the result of
+         * the operation.
+         * @param source_uid UID of a collection {@link EDataServer.Source} whose backend to refresh
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 3.30
+         */
+        refresh_backend(source_uid: string, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes the operation started with `e_source_registry_refresh_backend()`.
+         * 
+         * If an error occurred, the function will set `error` and return `false`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns Whether succeeded
+         * @since 3.30
+         * @throws GLib.Error
+         */
+        refresh_backend_finish(result: Gio.AsyncResult): boolean;
+
+        /**
+         * Requests the D-Bus service to refresh collection backend for an {@link EDataServer.Source}
+         * with UID `source_uid`. The result means that the refresh had been scheduled
+         * not whether the refresh itself succeeded. The refresh is not initiated
+         * when the collection backend is offline.
+         * 
+         * If an error occurs, the function will set `error` and return `false`.
+         * @param source_uid UID of a collection {@link EDataServer.Source} whose backend to refresh
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded
+         * @since 3.30
+         * @throws GLib.Error
+         */
+        refresh_backend_sync(source_uid: string, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Sets `default_source` as the default address book.  If `default_source`
+         * is `null`, the default address book is reset to the built-in address book.
+         * This setting will persist across sessions until changed.
+         * @param default_source an address book {@link EDataServer.Source}, or `null`
+         * @since 3.6
+         */
+        set_default_address_book(default_source: Source | null): void;
+
+        /**
+         * Sets `default_source` as the default calendar.  If `default_source`
+         * is `null`, the default calendar is reset to the built-in calendar.
+         * This setting will persist across sessions until changed.
+         * @param default_source a calendar {@link EDataServer.Source}, or `null`
+         * @since 3.6
+         */
+        set_default_calendar(default_source: Source | null): void;
+
+        /**
+         * This is a convenience function to set a default {@link EDataServer.Source} based on
+         * `extension_name`.  This only works with a subset of extension names.
+         * 
+         * If `extension_name` is #E_SOURCE_EXTENSION_ADDRESS_BOOK, the function
+         * sets `default_source` as the default address book.  If `default_source`
+         * is `null`, the default address book is reset to the built-in address book.
+         * 
+         * If `extension_name` is #E_SOURCE_EXTENSION_CALENDAR, the function sets
+         * `default_source` as the default calendar.  If `default_source` is `null`,
+         * the default calendar is reset to the built-in calendar.
+         * 
+         * If `extension_name` is #E_SOURCE_EXTENSION_MAIL_ACCOUNT, the function
+         * sets `default_source` as the default mail account.  If `default_source`
+         * is `null`, the default mail account is reset to the built-in mail account.
+         * 
+         * If `extension_name` is #E_SOURCE_EXTENSION_MAIL_IDENTITY, the function
+         * sets `default_source` as the default mail identity.  If `default_source`
+         * is `null`, the next request for the default mail identity will return
+         * the mail identity named by the default mail account.
+         * 
+         * If `extension_name` is #E_SOURCE_EXTENSION_MEMO_LIST, the function sets
+         * `default_source` as the default memo list.  If `default_source` is `null`,
+         * the default memo list is reset to the built-in memo list.
+         * 
+         * If `extension_name` is #E_SOURCE_EXTENSION_TASK_LIST, the function sets
+         * `default_source` as the default task list.  If `default_source` is `null`,
+         * the default task list is reset to the built-in task list.
+         * 
+         * For all other values of `extension_name`, the function does nothing.
+         * @param extension_name an extension name
+         * @param default_source an {@link EDataServer.Source}, or `null`
+         * @since 3.6
+         */
+        set_default_for_extension_name(extension_name: string, default_source: Source | null): void;
+
+        /**
+         * Sets `default_source` as the default mail account.  If `default_source`
+         * is `null`, the default mail account is reset to the built-in mail account.
+         * This setting will persist across sessions until changed.
+         * @param default_source a mail account {@link EDataServer.Source}, or `null`
+         * @since 3.6
+         */
+        set_default_mail_account(default_source: Source | null): void;
+
+        /**
+         * Sets `default_source` as the default mail identity.  If `default_source`
+         * is `null`, the next request for the default mail identity will use the
+         * fallbacks described in `e_source_registry_ref_default_mail_identity()`.
+         * @param default_source a mail identity {@link EDataServer.Source}, or `null`
+         * @since 3.6
+         */
+        set_default_mail_identity(default_source: Source | null): void;
+
+        /**
+         * Sets `default_source` as the default memo list.  If `default_source`
+         * is `null`, the default memo list is reset to the built-in memo list.
+         * This setting will persist across sessions until changed.
+         * @param default_source a memo list {@link EDataServer.Source}, or `null`
+         * @since 3.6
+         */
+        set_default_memo_list(default_source: Source | null): void;
+
+        /**
+         * Sets `default_source` as the default task list.  If `default_source`
+         * is `null`, the default task list is reset to the built-in task list.
+         * This setting will persist across sessions until changed.
+         * @param default_source a task list {@link EDataServer.Source}, or `null`
+         * @since 3.6
+         */
+        set_default_task_list(default_source: Source | null): void;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null): globalThis.Promise<boolean>;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         */
+        init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<boolean> | void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @returns `true` if successful. If an error has occurred, this function will return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Finishes the async construction for the various g_async_initable_new
+         * calls, returning the created object or `null` on error.
+         * @param res the {@link Gio.AsyncResult} from the callback
+         * @returns a newly created {@link GObject.Object},      or `null` on error. Free with `g_object_unref()`.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        new_finish(res: Gio.AsyncResult): SourceRegistry;
+
+        /**
+         * Starts asynchronous initialization of the object implementing the
+         * interface. This must be done before any real use of the object after
+         * initial construction. If the object also implements {@link Gio.Initable} you can
+         * optionally call `g_initable_init()` instead.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_async_initable_new_async()` should typically be used instead.
+         * 
+         * When the initialization is finished, `callback` will be called. You can
+         * then call `g_async_initable_init_finish()` to get the result of the
+         * initialization.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not
+         * `null`, then initialization can be cancelled by triggering the cancellable
+         * object from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null`, and
+         * the object doesn't support cancellable initialization, the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * As with {@link Gio.Initable}, if the object is not initialized, or initialization
+         * returns with an error, then all operations on the object except
+         * `g_object_ref()` and `g_object_unref()` are considered to be invalid, and
+         * have undefined behaviour. They will often fail with `g_critical()` or
+         * `g_warning()`, but this must not be relied on.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.AsyncInitable} can
+         * be initialized multiple times; for more information, see `g_initable_init()`.
+         * If a class explicitly supports being initialized multiple times,
+         * implementation requires yielding all subsequent calls to `init_async()` on the
+         * results of the first call.
+         * 
+         * For classes that also support the {@link Gio.Initable} interface, the default
+         * implementation of this method will run the `g_initable_init()` function
+         * in a thread, so if you want to support asynchronous initialization via
+         * threads, just implement the {@link Gio.AsyncInitable} interface without overriding
+         * any interface methods.
+         * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the operation
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @param callback a {@link Gio.AsyncReadyCallback} to call when the request is satisfied
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_async(io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Finishes asynchronous initialization and returns the result.
+         * See `g_async_initable_init_async()`.
+         * @param res a {@link Gio.AsyncResult}.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init_finish(res: Gio.AsyncResult): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @returns `true` if successful. If an error has occurred, this function will     return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init(cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    namespace SourceRegistryWatcher {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            /**
+             * A signal emitted when the `source` is enabled or added and it had been
+             * considered for inclusion with the `ESourceRegistryWatcher`::filter signal.
+             * @signal
+             * @since 3.26
+             * @run-last
+             */
+            appeared: (source: Source) => void;
+            /**
+             * A signal emitted when the `source` is disabled or removed and it had been
+             * considered for inclusion with the `ESourceRegistryWatcher`::filter signal
+             * earlier.
+             * @signal
+             * @since 3.26
+             * @run-last
+             */
+            disappeared: (source: Source) => void;
+            /**
+             * A filter signal which verifies whether the `source` can be considered
+             * for inclusion in the watcher or not. If none is set then all the sources
+             * are included.
+             * @signal
+             * @since 3.26
+             * @action
+             * @run-last
+             */
+            filter: (source: Source) => boolean | void;
+            "notify::extension-name": (pspec: GObject.ParamSpec) => void;
+            "notify::registry": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            extension_name: string | null;
+            extensionName: string | null;
+            registry: SourceRegistry;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class SourceRegistryWatcher extends GObject.Object {
+        static $gtype: GObject.GType<SourceRegistryWatcher>;
+
+        // Properties
+        /**
+         * Optional extension name, to consider sources with only.
+         * It can be `null`, to check for all sources. This is
+         * a complementary filter to {@link EDataServer.SourceRegistryWatcher.SignalSignatures.filter | EDataServer.SourceRegistryWatcher::filter}
+         * signal.
+         * @since 3.26
+         * @construct-only
+         * @default null
+         */
+        get extension_name(): string | null;
+
+        /**
+         * Optional extension name, to consider sources with only.
+         * It can be `null`, to check for all sources. This is
+         * a complementary filter to {@link EDataServer.SourceRegistryWatcher.SignalSignatures.filter | EDataServer.SourceRegistryWatcher::filter}
+         * signal.
+         * @since 3.26
+         * @construct-only
+         * @default null
+         */
+        get extensionName(): string | null;
+
+        /**
+         * The {@link EDataServer.SourceRegistry} manages {@link EDataServer.Source} instances.
+         * @since 3.26
+         * @construct-only
+         */
+        get registry(): SourceRegistry;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceRegistryWatcher.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceRegistryWatcher.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](registry: SourceRegistry, extension_name: string | null): SourceRegistryWatcher;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceRegistryWatcher.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceRegistryWatcher.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceRegistryWatcher.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceRegistryWatcher.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceRegistryWatcher.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceRegistryWatcher.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @param source 
+         * @virtual
+         */
+        vfunc_appeared(source: Source): void;
+
+        /**
+         * @param source 
+         * @virtual
+         */
+        vfunc_disappeared(source: Source): void;
+
+        /**
+         * @param source 
+         * @virtual
+         */
+        vfunc_filter(source: Source): boolean;
+
+        // Methods
+        /**
+         * @returns The extension name passed to `e_source_registry_watcher_new()`.
+         * @since 3.26
+         */
+        get_extension_name(): string | null;
+
+        /**
+         * Returns the {@link EDataServer.SourceRegistry} passed to `e_source_registry_watcher_new()`.
+         * @returns an {@link EDataServer.SourceRegistry}
+         * @since 3.26
+         */
+        get_registry(): SourceRegistry;
+
+        /**
+         * Reclaims all available sources satisfying the {@link EDataServer.SourceRegistryWatcher.SignalSignatures.filter | EDataServer.SourceRegistryWatcher::filter}
+         * signal. It doesn't notify about disappeared sources, it notifies only
+         * on those appeared.
+         * @since 3.26
+         */
+        reclaim(): void;
+    }
+
+
+    namespace SourceResource {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::identity": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            identity: string | null;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceResource extends SourceExtension {
+        static $gtype: GObject.GType<SourceResource>;
+
+        // Properties
+        /**
+         * Resource identity
+         * @default null
+         */
+        get identity(): string | null;
+        set identity(val: string | null);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceResource.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceResource.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceResource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceResource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceResource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceResource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceResource.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceResource.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_resource_get_identity()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceResource.identity}
+         * @since 3.6
+         */
+        dup_identity(): string | null;
+
+        /**
+         * Returns the server-assigned identity of the remote resource associated
+         * with the {@link EDataServer.Source} to which `extension` belongs.
+         * @returns the identity of a remote resource
+         * @since 3.6
+         */
+        get_identity(): string | null;
+
+        /**
+         * Sets the server-assigned identity of the remote resource associated with
+         * the {@link EDataServer.Source} to which `extension` belongs.
+         * 
+         * The internal copy of `identity` is automatically stripped of leading and
+         * trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param identity the identity of a remote resource
+         * @since 3.6
+         */
+        set_identity(identity: string | null): void;
+    }
+
+
+    namespace SourceRevisionGuards {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::enabled": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            enabled: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.8
+     */
+    class SourceRevisionGuards extends SourceExtension {
+        static $gtype: GObject.GType<SourceRevisionGuards>;
+
+        // Properties
+        /**
+         * Whether to enable or disable the revision guards
+         * @default false
+         */
+        get enabled(): boolean;
+        set enabled(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceRevisionGuards.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceRevisionGuards.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceRevisionGuards.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceRevisionGuards.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceRevisionGuards.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceRevisionGuards.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceRevisionGuards.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceRevisionGuards.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Checks whether revision guards for the given {@link EDataServer.Source} are enabled.
+         * @returns `true` if the revision guards are enabled.
+         * @since 3.8
+         */
+        get_enabled(): boolean;
+
+        /**
+         * Enables or disables the revision guards for a given {@link EDataServer.Source}.
+         * 
+         * Revision guards are disabled by default.
+         * @param enabled Whether to enable or disable the revision guards.
+         * @since 3.8
+         */
+        set_enabled(enabled: boolean): void;
+    }
+
+
+    namespace SourceSMIME {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::encrypt-by-default": (pspec: GObject.ParamSpec) => void;
+            "notify::encrypt-to-self": (pspec: GObject.ParamSpec) => void;
+            "notify::encryption-certificate": (pspec: GObject.ParamSpec) => void;
+            "notify::sign-by-default": (pspec: GObject.ParamSpec) => void;
+            "notify::signing-algorithm": (pspec: GObject.ParamSpec) => void;
+            "notify::signing-certificate": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            encrypt_by_default: boolean;
+            encryptByDefault: boolean;
+            encrypt_to_self: boolean;
+            encryptToSelf: boolean;
+            encryption_certificate: string | null;
+            encryptionCertificate: string | null;
+            sign_by_default: boolean;
+            signByDefault: boolean;
+            signing_algorithm: string | null;
+            signingAlgorithm: string | null;
+            signing_certificate: string | null;
+            signingCertificate: string | null;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceSMIME extends SourceExtension {
+        static $gtype: GObject.GType<SourceSMIME>;
+
+        // Properties
+        /**
+         * Encrypt outgoing messages by default
+         * @default false
+         */
+        get encrypt_by_default(): boolean;
+        set encrypt_by_default(val: boolean);
+
+        /**
+         * Encrypt outgoing messages by default
+         * @default false
+         */
+        get encryptByDefault(): boolean;
+        set encryptByDefault(val: boolean);
+
+        /**
+         * Always encrypt to myself
+         * @default true
+         */
+        get encrypt_to_self(): boolean;
+        set encrypt_to_self(val: boolean);
+
+        /**
+         * Always encrypt to myself
+         * @default true
+         */
+        get encryptToSelf(): boolean;
+        set encryptToSelf(val: boolean);
+
+        /**
+         * S/MIME certificate for encrypting messages
+         * @default null
+         */
+        get encryption_certificate(): string | null;
+        set encryption_certificate(val: string | null);
+
+        /**
+         * S/MIME certificate for encrypting messages
+         * @default null
+         */
+        get encryptionCertificate(): string | null;
+        set encryptionCertificate(val: string | null);
+
+        /**
+         * Sign outgoing messages by default
+         * @default false
+         */
+        get sign_by_default(): boolean;
+        set sign_by_default(val: boolean);
+
+        /**
+         * Sign outgoing messages by default
+         * @default false
+         */
+        get signByDefault(): boolean;
+        set signByDefault(val: boolean);
+
+        /**
+         * Hash algorithm used to sign messages
+         * @default null
+         */
+        get signing_algorithm(): string | null;
+        set signing_algorithm(val: string | null);
+
+        /**
+         * Hash algorithm used to sign messages
+         * @default null
+         */
+        get signingAlgorithm(): string | null;
+        set signingAlgorithm(val: string | null);
+
+        /**
+         * S/MIME certificate for signing messages
+         * @default null
+         */
+        get signing_certificate(): string | null;
+        set signing_certificate(val: string | null);
+
+        /**
+         * S/MIME certificate for signing messages
+         * @default null
+         */
+        get signingCertificate(): string | null;
+        set signingCertificate(val: string | null);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceSMIME.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceSMIME.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceSMIME.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceSMIME.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceSMIME.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceSMIME.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceSMIME.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceSMIME.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_smime_get_encryption_certificate()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceSMIME.encryption_certificate}
+         * @since 3.6
+         */
+        dup_encryption_certificate(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_smime_get_signing_algorithm()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceSMIME.signing_algorithm}
+         * @since 3.6
+         */
+        dup_signing_algorithm(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_smime_get_signing_certificate()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceSMIME.signing_certificate}
+         * @since 3.6
+         */
+        dup_signing_certificate(): string | null;
+
+        /**
+         * Returns whether to encrypt outgoing messages by default using S/MIME
+         * software such as Mozilla Network Security Services (NSS).
+         * @returns whether to encrypt outgoing messages by default
+         * @since 3.6
+         */
+        get_encrypt_by_default(): boolean;
+
+        /**
+         * Returns whether to "encrypt-to-self" when sending encrypted messages.
+         * @returns whether to "encrypt-to-self"
+         * @since 3.6
+         */
+        get_encrypt_to_self(): boolean;
+
+        /**
+         * Returns the S/MIME certificate name used to encrypt messages.
+         * @returns the certificate name used to encrypt messages
+         * @since 3.6
+         */
+        get_encryption_certificate(): string | null;
+
+        /**
+         * Returns whether to digitally sign outgoing messages by default using
+         * S/MIME software such as Mozilla Network Security Services (NSS).
+         * @returns whether to sign outgoing messages by default
+         * @since 3.6
+         */
+        get_sign_by_default(): boolean;
+
+        /**
+         * Returns the name of the hash algorithm used to digitally sign outgoing
+         * messages.
+         * @returns the signing algorithm for outgoing messages
+         * @since 3.6
+         */
+        get_signing_algorithm(): string | null;
+
+        /**
+         * Returns the S/MIME certificate name used to sign messages.
+         * @returns the certificate name used to sign messages
+         * @since 3.6
+         */
+        get_signing_certificate(): string | null;
+
+        /**
+         * Sets whether to encrypt outgoing messages by default using S/MIME
+         * software such as Mozilla Network Security Services (NSS).
+         * @param encrypt_by_default whether to encrypt outgoing messages by default
+         * @since 3.6
+         */
+        set_encrypt_by_default(encrypt_by_default: boolean): void;
+
+        /**
+         * Sets whether to "encrypt-to-self" when sending encrypted messages.
+         * @param encrypt_to_self whether to "encrypt-to-self"
+         * @since 3.6
+         */
+        set_encrypt_to_self(encrypt_to_self: boolean): void;
+
+        /**
+         * Sets the certificate name used to encrypt messages.
+         * 
+         * If the `encryption_certificate` string is empty, `null` is set instead.
+         * @param encryption_certificate the certificate name used to encrypt                          messages, or `null`
+         * @since 3.6
+         */
+        set_encryption_certificate(encryption_certificate: string | null): void;
+
+        /**
+         * Sets whether to digitally sign outgoing messages by default using
+         * S/MIME software such as Mozilla Network Security Services (NSS).
+         * @param sign_by_default whether to sign outgoing messages by default
+         * @since 3.6
+         */
+        set_sign_by_default(sign_by_default: boolean): void;
+
+        /**
+         * Sets the name of the hash algorithm used to digitally sign outgoing
+         * messages.
+         * 
+         * The internal copy of `signing_algorithm` is automatically stripped of
+         * leading and trailing whitespace.  If the resulting string is empty,
+         * `null` is set instead.
+         * @param signing_algorithm the signing algorithm for outgoing                     messages, or `null`
+         * @since 3.6
+         */
+        set_signing_algorithm(signing_algorithm: string | null): void;
+
+        /**
+         * Sets the S/MIME certificate name used to sign messages.
+         * 
+         * If the `signing_certificate` string is empty, `null` is set instead.
+         * @param signing_certificate the certificate name used to sign                       messages, or `null`
+         * @since 3.6
+         */
+        set_signing_certificate(signing_certificate: string | null): void;
+    }
+
+
+    namespace SourceSecurity {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::method": (pspec: GObject.ParamSpec) => void;
+            "notify::secure": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            method: string;
+            secure: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceSecurity extends SourceExtension {
+        static $gtype: GObject.GType<SourceSecurity>;
+
+        // Properties
+        /**
+         * Security method
+         * @default none
+         */
+        get method(): string;
+        set method(val: string);
+
+        /**
+         * Secure the network connection
+         * @default false
+         */
+        get secure(): boolean;
+        set secure(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceSecurity.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceSecurity.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceSecurity.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceSecurity.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceSecurity.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceSecurity.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceSecurity.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceSecurity.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_security_get_method()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceSecurity.method}
+         * @since 3.6
+         */
+        dup_method(): string;
+
+        /**
+         * Returns the method used to establish a secure network connection to a
+         * remote account.  There are no pre-defined method names; backends are
+         * free to set this however they wish.  If a secure connection is not
+         * desired, the convention is to set {@link EDataServer.SourceSecurity.method} to "none".
+         * @returns the method used to establish a secure network connection
+         * @since 3.6
+         */
+        get_method(): string;
+
+        /**
+         * This is a convenience function which returns whether a secure network
+         * connection is desired, regardless of the method used.  This relies on
+         * the convention of setting {@link EDataServer.SourceSecurity.method} to "none" when a
+         * secure network connection is <emphasis>not</emphasis> desired.
+         * @returns whether a secure network connection is desired
+         * @since 3.6
+         */
+        get_secure(): boolean;
+
+        /**
+         * Sets the method used to establish a secure network connection to a
+         * remote account.  There are no pre-defined method names; backends are
+         * free to set this however they wish.  If a secure connection is not
+         * desired, the convention is to set {@link EDataServer.SourceSecurity.method} to "none".
+         * In keeping with that convention, {@link EDataServer.SourceSecurity.method} will be set
+         * to "none" if `method` is `null` or an empty string.
+         * @param method security method, or `null`
+         * @since 3.6
+         */
+        set_method(method: string | null): void;
+
+        /**
+         * This function provides a simpler way to set {@link EDataServer.SourceSecurity.method}
+         * when using a secure network connection is a yes or no option and the
+         * exact method name is unimportant.  If `secure` is `false`, the
+         * {@link EDataServer.SourceSecurity.method} property is set to "none".  If `secure` is
+         * `true`, the function assumes the backend will use Transport Layer
+         * Security and sets the {@link EDataServer.SourceSecurity.method} property to "tls".
+         * @param secure whether a secure network connection is desired
+         * @since 3.6
+         */
+        set_secure(secure: boolean): void;
+    }
+
+
+    namespace SourceSelectable {
+        // Signal signatures
+        interface SignalSignatures extends SourceBackend.SignalSignatures {
+            "notify::color": (pspec: GObject.ParamSpec) => void;
+            "notify::groups": (pspec: GObject.ParamSpec) => void;
+            "notify::order": (pspec: GObject.ParamSpec) => void;
+            "notify::selected": (pspec: GObject.ParamSpec) => void;
+            "notify::backend-name": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceBackend.ConstructorProps {
+            color: string | null;
+            groups: string | null;
+            order: number;
+            selected: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    abstract class SourceSelectable extends SourceBackend {
+        static $gtype: GObject.GType<SourceSelectable>;
+
+        // Properties
+        /**
+         * Textual specification of a color
+         * @default #62a0ea
+         */
+        get color(): string | null;
+        set color(val: string | null);
+
+        /**
+         * Comma-separated list of group names to which the source belongs
+         * @since 3.62
+         * @default null
+         */
+        get groups(): string | null;
+        set groups(val: string | null);
+
+        /**
+         * Preferred sorting order
+         * @default 0
+         */
+        get order(): number;
+        set order(val: number);
+
+        /**
+         * Whether the data source is selected
+         * @default true
+         */
+        get selected(): boolean;
+        set selected(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceSelectable.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceSelectable.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceSelectable.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceSelectable.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceSelectable.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceSelectable.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceSelectable.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceSelectable.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_selectable_get_color()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceSelectable.color},    or `null`, when none is set
+         * @since 3.6
+         */
+        dup_color(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_selectable_get_groups()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceSelectable.groups},    or `null`, when none is set
+         * @since 3.62
+         */
+        dup_groups(): string | null;
+
+        /**
+         * Returns the color specification for the {@link EDataServer.Source} to which `extension`
+         * belongs.  A colored block is often displayed next to the data source's
+         * display name in user interfaces.
+         * @returns the color specification for the {@link EDataServer.Source},    or `null`, when none is set
+         * @since 3.6
+         */
+        get_color(): string | null;
+
+        /**
+         * Returns the group specification for the {@link EDataServer.Source} to which `extension`
+         * belongs. This is a comma-separated list of group names.
+         * @returns the group specification for the {@link EDataServer.Source},    or `null`, when none is set
+         * @since 3.62
+         */
+        get_groups(): string | null;
+
+        /**
+         * Returns the preferred sorting order for the {@link EDataServer.Source}
+         * to which `extension` belongs. Default is 0.
+         * @returns the preferred sorting order for the {@link EDataServer.Source}
+         * @since 3.40
+         */
+        get_order(): number;
+
+        /**
+         * Returns the selected state of the {@link EDataServer.Source} to which `extension` belongs.
+         * The selected state is often represented as a checkbox next to the data
+         * source's display name in user interfaces.
+         * @returns the selected state for the {@link EDataServer.Source}
+         * @since 3.6
+         */
+        get_selected(): boolean;
+
+        /**
+         * Sets the color specification for the {@link EDataServer.Source} to which `extension`
+         * belongs.  A colored block is often displayed next to the data source's
+         * display name in user interfaces.
+         * 
+         * The internal copy of `color` is automatically stripped of leading and
+         * trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param color a color specification, or `null`
+         * @since 3.6
+         */
+        set_color(color: string | null): void;
+
+        /**
+         * Sets the groups specification for the {@link EDataServer.Source} to which `extension` belongs.
+         * 
+         * The internal copy of `groups` is automatically stripped of leading and
+         * trailing whitespace. If the resulting string is empty, `null` is set instead.
+         * @param groups a comma-separated list of group names, or `null`
+         * @since 3.62
+         */
+        set_groups(groups: string | null): void;
+
+        /**
+         * Sets the sorting order for the {@link EDataServer.Source} to which `extension` belongs.
+         * @param order the sorting order
+         * @since 3.40
+         */
+        set_order(order: number): void;
+
+        /**
+         * Sets the selected state for the {@link EDataServer.Source} to which `extension` belongs.
+         * The selected state is often represented as a checkbox next to the data
+         * source's display name in user interfaces.
+         * @param selected selected state
+         * @since 3.6
+         */
+        set_selected(selected: boolean): void;
+    }
+
+
+    namespace SourceTaskList {
+        // Signal signatures
+        interface SignalSignatures extends SourceSelectable.SignalSignatures {
+            "notify::color": (pspec: GObject.ParamSpec) => void;
+            "notify::groups": (pspec: GObject.ParamSpec) => void;
+            "notify::order": (pspec: GObject.ParamSpec) => void;
+            "notify::selected": (pspec: GObject.ParamSpec) => void;
+            "notify::backend-name": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceSelectable.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceTaskList extends SourceSelectable {
+        static $gtype: GObject.GType<SourceTaskList>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceTaskList.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceTaskList.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceTaskList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceTaskList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceTaskList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceTaskList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceTaskList.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceTaskList.SignalSignatures[K]>): void;
+    }
+
+
+    namespace SourceUoa {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::account-id": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            account_id: number;
+            accountId: number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.8
+     */
+    class SourceUoa extends SourceExtension {
+        static $gtype: GObject.GType<SourceUoa>;
+
+        // Properties
+        /**
+         * Ubuntu Online Account ID
+         * @default 0
+         */
+        get account_id(): number;
+        set account_id(val: number);
+
+        /**
+         * Ubuntu Online Account ID
+         * @default 0
+         */
+        get accountId(): number;
+        set accountId(val: number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceUoa.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceUoa.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceUoa.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceUoa.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceUoa.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceUoa.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceUoa.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceUoa.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Returns the numeric identifier of the Ubuntu Online Account associated
+         * with the {@link EDataServer.Source} to which `extension` belongs.
+         * @returns the associated Ubuntu Online Account ID
+         * @since 3.8
+         */
+        get_account_id(): number;
+
+        /**
+         * Sets the numeric identifier of the Ubuntu Online Account associated
+         * with the {@link EDataServer.Source} to which `extension` belongs.
+         * @param account_id the associated Ubuntu Online Account ID
+         * @since 3.8
+         */
+        set_account_id(account_id: number): void;
+    }
+
+
+    namespace SourceWeather {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::location": (pspec: GObject.ParamSpec) => void;
+            "notify::units": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            location: string;
+            units: SourceWeatherUnits;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class SourceWeather extends SourceExtension {
+        static $gtype: GObject.GType<SourceWeather>;
+
+        // Properties
+        /**
+         * Weather location code
+         * @default null
+         */
+        get location(): string;
+        set location(val: string);
+
+        /**
+         * Fahrenheit, Centigrade or Kelvin units
+         * @default EDataServer.SourceWeatherUnits.CENTIGRADE
+         */
+        get units(): SourceWeatherUnits;
+        set units(val: SourceWeatherUnits);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceWeather.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceWeather.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceWeather.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceWeather.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceWeather.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceWeather.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceWeather.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceWeather.SignalSignatures[K]>): void;
+
+        // Methods
+        dup_location(): string;
+
+        get_location(): string;
+
+        get_units(): SourceWeatherUnits;
+
+        /**
+         * @param location 
+         */
+        set_location(location: string): void;
+
+        /**
+         * @param units 
+         */
+        set_units(units: SourceWeatherUnits): void;
+    }
+
+
+    namespace SourceWebDAVNotes {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::default-ext": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            default_ext: string | null;
+            defaultExt: string | null;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.44
+     */
+    class SourceWebDAVNotes extends SourceExtension {
+        static $gtype: GObject.GType<SourceWebDAVNotes>;
+
+        // Properties
+        /**
+         * Default file extension for new notes
+         * @default .md
+         */
+        get default_ext(): string | null;
+        set default_ext(val: string | null);
+
+        /**
+         * Default file extension for new notes
+         * @default .md
+         */
+        get defaultExt(): string | null;
+        set defaultExt(val: string | null);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceWebDAVNotes.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceWebDAVNotes.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceWebDAVNotes.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceWebDAVNotes.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceWebDAVNotes.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceWebDAVNotes.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceWebDAVNotes.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceWebDAVNotes.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_webdav_notes_get_default_ext()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceWebDAVNotes.default_ext},    or `null`, when none is set
+         * @since 3.44
+         */
+        dup_default_ext(): string | null;
+
+        /**
+         * Returns the default file extension for new notes.
+         * @returns the default file extension, or `null`, when none is set
+         * @since 3.44
+         */
+        get_default_ext(): string | null;
+
+        /**
+         * Sets the default file extension for new notes.
+         * 
+         * The internal copy of `default_ext` is automatically stripped of leading and
+         * trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param default_ext a default file extension, or `null`
+         * @since 3.44
+         */
+        set_default_ext(default_ext: string | null): void;
+    }
+
+
+    namespace SourceWebdav {
+        // Signal signatures
+        interface SignalSignatures extends SourceExtension.SignalSignatures {
+            "notify::avoid-ifmatch": (pspec: GObject.ParamSpec) => void;
+            "notify::calendar-auto-schedule": (pspec: GObject.ParamSpec) => void;
+            "notify::color": (pspec: GObject.ParamSpec) => void;
+            "notify::display-name": (pspec: GObject.ParamSpec) => void;
+            "notify::email-address": (pspec: GObject.ParamSpec) => void;
+            "notify::limit-download-days": (pspec: GObject.ParamSpec) => void;
+            "notify::order": (pspec: GObject.ParamSpec) => void;
+            "notify::resource-path": (pspec: GObject.ParamSpec) => void;
+            "notify::resource-query": (pspec: GObject.ParamSpec) => void;
+            "notify::ssl-trust": (pspec: GObject.ParamSpec) => void;
+            "notify::timeout": (pspec: GObject.ParamSpec) => void;
+            "notify::uri": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SourceExtension.ConstructorProps {
+            avoid_ifmatch: boolean;
+            avoidIfmatch: boolean;
+            calendar_auto_schedule: boolean;
+            calendarAutoSchedule: boolean;
+            color: string | null;
+            display_name: string | null;
+            displayName: string | null;
+            email_address: string | null;
+            emailAddress: string | null;
+            limit_download_days: number;
+            limitDownloadDays: number;
+            order: number;
+            resource_path: string | null;
+            resourcePath: string | null;
+            resource_query: string | null;
+            resourceQuery: string | null;
+            ssl_trust: string | null;
+            sslTrust: string | null;
+            timeout: number;
+            uri: GLib.Uri;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.6
+     */
+    class SourceWebdav extends SourceExtension {
+        static $gtype: GObject.GType<SourceWebdav>;
+
+        // Properties
+        /**
+         * Work around a bug in old Apache servers
+         * @default false
+         */
+        get avoid_ifmatch(): boolean;
+        set avoid_ifmatch(val: boolean);
+
+        /**
+         * Work around a bug in old Apache servers
+         * @default false
+         */
+        get avoidIfmatch(): boolean;
+        set avoidIfmatch(val: boolean);
+
+        /**
+         * Whether the server handles meeting invitations (CalDAV-only)
+         * @default false
+         */
+        get calendar_auto_schedule(): boolean;
+        set calendar_auto_schedule(val: boolean);
+
+        /**
+         * Whether the server handles meeting invitations (CalDAV-only)
+         * @default false
+         */
+        get calendarAutoSchedule(): boolean;
+        set calendarAutoSchedule(val: boolean);
+
+        /**
+         * Color of the WebDAV resource
+         */
+        get color(): string | null;
+        set color(val: string | null);
+
+        /**
+         * Display name of the WebDAV resource
+         */
+        get display_name(): string | null;
+        set display_name(val: string | null);
+
+        /**
+         * Display name of the WebDAV resource
+         */
+        get displayName(): string | null;
+        set displayName(val: string | null);
+
+        /**
+         * The user's email address
+         */
+        get email_address(): string | null;
+        set email_address(val: string | null);
+
+        /**
+         * The user's email address
+         */
+        get emailAddress(): string | null;
+        set emailAddress(val: string | null);
+
+        /**
+         * Limit how many past days can be downloaded. Zero means unlimited.
+         * @since 3.60
+         * @default 0
+         */
+        get limit_download_days(): number;
+        set limit_download_days(val: number);
+
+        /**
+         * Limit how many past days can be downloaded. Zero means unlimited.
+         * @since 3.60
+         * @default 0
+         */
+        get limitDownloadDays(): number;
+        set limitDownloadDays(val: number);
+
+        /**
+         * A sorting order of the resource
+         * @default 4294967295
+         */
+        get order(): number;
+        set order(val: number);
+
+        /**
+         * Absolute path to a WebDAV resource
+         * @default null
+         */
+        get resource_path(): string | null;
+        set resource_path(val: string | null);
+
+        /**
+         * Absolute path to a WebDAV resource
+         * @default null
+         */
+        get resourcePath(): string | null;
+        set resourcePath(val: string | null);
+
+        /**
+         * Query to access a WebDAV resource
+         * @default null
+         */
+        get resource_query(): string | null;
+        set resource_query(val: string | null);
+
+        /**
+         * Query to access a WebDAV resource
+         * @default null
+         */
+        get resourceQuery(): string | null;
+        set resourceQuery(val: string | null);
+
+        /**
+         * SSL/TLS certificate trust setting, for invalid server certificates
+         * @default null
+         */
+        get ssl_trust(): string | null;
+        set ssl_trust(val: string | null);
+
+        /**
+         * SSL/TLS certificate trust setting, for invalid server certificates
+         * @default null
+         */
+        get sslTrust(): string | null;
+        set sslTrust(val: string | null);
+
+        /**
+         * Connection timeout, in seconds
+         * @default 30
+         */
+        get timeout(): number;
+        set timeout(val: number);
+
+        /**
+         * WebDAV service as a GUri
+         */
+        get uri(): GLib.Uri;
+        set uri(val: GLib.Uri);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SourceWebdav.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<SourceWebdav.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SourceWebdav.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceWebdav.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SourceWebdav.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SourceWebdav.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SourceWebdav.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SourceWebdav.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Thread-safe variation of `e_source_webdav_get_color()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceWebdav.color}
+         * @since 3.30
+         */
+        dup_color(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_webdav_get_display_name()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns a newly-allocated copy of {@link EDataServer.SourceWebdav.display_name}
+         * @since 3.6
+         */
+        dup_display_name(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_webdav_get_email_address()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns the newly-allocated copy of {@link EDataServer.SourceWebdav.email_address}
+         * @since 3.6
+         */
+        dup_email_address(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_webdav_get_resource_path()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns the newly-allocated copy of {@link EDataServer.SourceWebdav.resource_path}
+         * @since 3.6
+         */
+        dup_resource_path(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_webdav_get_resource_query()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns the newly-allocated copy of {@link EDataServer.SourceWebdav.resource_query}
+         * @since 3.6
+         */
+        dup_resource_query(): string | null;
+
+        /**
+         * Thread-safe variation of `e_source_webdav_get_ssl_trust()`.
+         * Use this function when accessing `extension` from multiple threads.
+         * 
+         * The returned string should be freed with `g_free()` when no longer needed.
+         * @returns the newly-allocated copy of {@link EDataServer.SourceWebdav.ssl_trust}
+         * @since 3.8
+         */
+        dup_ssl_trust(): string | null;
+
+        /**
+         * This is a convenience function which returns a newly-allocated
+         * {@link GLib.Uri}, its contents assembled from the {@link EDataServer.SourceAuthentication}
+         * extension, the {@link EDataServer.SourceSecurity} extension, and `extension` itself.
+         * Free the returned {@link GLib.Uri} with `g_uri_unref()`.
+         * @returns a newly-allocated {@link GLib.Uri}
+         * @since 3.46
+         */
+        dup_uri(): GLib.Uri;
+
+        /**
+         * This setting works around a
+         * <ulink url="https://issues.apache.org/bugzilla/show_bug.cgi?id=38034">
+         * bug</ulink> in older Apache mod_dav versions.
+         * 
+         * <note>
+         *   <para>
+         *     We may deprecate this once Apache 2.2.8 or newer becomes
+         *     sufficiently ubiquitous, or we figure out a way to detect
+         *     and work around the bug automatically.
+         *   </para>
+         * </note>
+         * @returns whether the WebDAV server is known to exhibit the bug
+         * @since 3.6
+         */
+        get_avoid_ifmatch(): boolean;
+
+        /**
+         * FIXME Document me!
+         * @since 3.6
+         */
+        get_calendar_auto_schedule(): boolean;
+
+        /**
+         * Returns the last known color of a WebDAV resource as provided by the server.
+         * @returns the color of the WebDAV resource, if any set on the server
+         * @since 3.30
+         */
+        get_color(): string | null;
+
+        /**
+         * Returns the last known display name of a WebDAV resource, which may
+         * differ from the {@link EDataServer.Source.display_name} property of the {@link EDataServer.Source} to which
+         * `extension` belongs.
+         * @returns the display name of the WebDAV resource
+         * @since 3.6
+         */
+        get_display_name(): string | null;
+
+        /**
+         * Returns the user's email address which can be passed to a CalDAV server
+         * if the user wishes to receive scheduling messages.
+         * @returns the user's email address
+         * @since 3.6
+         */
+        get_email_address(): string | null;
+
+        /**
+         * @returns limit how many past days can be downloaded. Zero means unlimited.    The default is 0 days.
+         * @since 3.60
+         */
+        get_limit_download_days(): number;
+
+        /**
+         * @returns the sorting order of the resource, if known. The default    is (guint) -1, which means unknown/unset.
+         * @since 3.40
+         */
+        get_order(): number;
+
+        /**
+         * Returns the absolute path to a resource on a WebDAV server.
+         * @returns the absolute path to a WebDAV resource
+         * @since 3.6
+         */
+        get_resource_path(): string | null;
+
+        /**
+         * Returns the URI query required to access a resource on a WebDAV server.
+         * 
+         * This is typically used when the {@link EDataServer.SourceWebdav.resource_path} points not
+         * to the resource itself but to a web program that generates the resource
+         * content on-the-fly.  The {@link EDataServer.SourceWebdav.resource_query} holds the input
+         * values for the program.
+         * @returns the query to access a WebDAV resource
+         * @since 3.6
+         */
+        get_resource_query(): string | null;
+
+        /**
+         * Returns an SSL/TLS certificate trust for the `extension`.
+         * The value encodes three parameters, divided by a pipe '|',
+         * the first is users preference, can be one of "reject", "accept",
+         * "temporary-reject" and "temporary-accept". The second is a host
+         * name for which the trust was set. Finally the last is a SHA256
+         * hash of the certificate. This is not meant to be changed by a caller,
+         * it is supposed to be manipulated with `e_source_webdav_update_ssl_trust()`
+         * and `e_source_webdav_verify_ssl_trust()`.
+         * @returns an SSL/TLS certificate trust for the `extension`
+         * @since 3.8
+         */
+        get_ssl_trust(): string | null;
+
+        /**
+         * @returns the last SSL trust response, as {@link EDataServer.TrustPromptResponse}, if none    is set, then returns {@link EDataServer.TrustPromptResponse.UNKNOWN}
+         * @since 3.32
+         */
+        get_ssl_trust_response(): TrustPromptResponse;
+
+        /**
+         * @returns the connection timeout, in seconds. The default    is 30 seconds.
+         * @since 3.54
+         */
+        get_timeout(): number;
+
+        /**
+         * This setting works around a
+         * <ulink url="https://issues.apache.org/bugzilla/show_bug.cgi?id=38034">
+         * bug</ulink> in older Apache mod_dav versions.
+         * 
+         * <note>
+         *   <para>
+         *     We may deprecate this once Apache 2.2.8 or newer becomes
+         *     sufficiently ubiquitous, or we figure out a way to detect
+         *     and work around the bug automatically.
+         *   </para>
+         * </note>
+         * @param avoid_ifmatch whether the WebDAV server is known to exhibit the bug
+         * @since 3.6
+         */
+        set_avoid_ifmatch(avoid_ifmatch: boolean): void;
+
+        /**
+         * FIXME Document me!
+         * @param calendar_auto_schedule whether the server supports the "calendar-auto-schedule" feature of CalDAV
+         * @since 3.6
+         */
+        set_calendar_auto_schedule(calendar_auto_schedule: boolean): void;
+
+        /**
+         * Updates the last known color of a WebDAV resource, as provided by the server.
+         * 
+         * The internal copy of `color` is automatically stripped of leading
+         * and trailing whitespace. If the resulting string is empty, `null` is set
+         * instead.
+         * @param color the color of the WebDAV resource, or `null`
+         * @since 3.30
+         */
+        set_color(color: string | null): void;
+
+        /**
+         * Updates the last known display name of a WebDAV resource, which may
+         * differ from the {@link EDataServer.Source.display_name} property of the {@link EDataServer.Source} to which
+         * `extension` belongs.
+         * 
+         * The internal copy of `display_name` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param display_name the display name of the WebDAV resource,                or `null`
+         * @since 3.6
+         */
+        set_display_name(display_name: string | null): void;
+
+        /**
+         * Sets the user's email address which can be passed to a CalDAV server if
+         * the user wishes to receive scheduling messages.
+         * 
+         * The internal copy of `email_address` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param email_address the user's email address, or `null`
+         * @since 3.6
+         */
+        set_email_address(email_address: string | null): void;
+
+        /**
+         * Limit how many past days can be downloaded. Zero means unlimited.
+         * @param value a value, in days
+         * @since 3.60
+         */
+        set_limit_download_days(value: number): void;
+
+        /**
+         * Set the sorting order of the resource.
+         * @param order a sorting order
+         * @since 3.40
+         */
+        set_order(order: number): void;
+
+        /**
+         * Sets the absolute path to a resource on a WebDAV server.
+         * 
+         * The internal copy of `resource_path` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param resource_path the absolute path to a WebDAV resource,                 or `null`
+         * @since 3.6
+         */
+        set_resource_path(resource_path: string | null): void;
+
+        /**
+         * Sets the URI query required to access a resource on a WebDAV server.
+         * 
+         * This is typically used when the {@link EDataServer.SourceWebdav.resource_path} points not
+         * to the resource itself but to a web program that generates the resource
+         * content on-the-fly.  The {@link EDataServer.SourceWebdav.resource_query} holds the input
+         * values for the program.
+         * 
+         * The internal copy of `resource_query` is automatically stripped of leading
+         * and trailing whitespace.  If the resulting string is empty, `null` is set
+         * instead.
+         * @param resource_query the query to access a WebDAV resource,                  or `null`
+         * @since 3.6
+         */
+        set_resource_query(resource_query: string | null): void;
+
+        /**
+         * Sets the SSL/TLS certificate trust. See `e_source_webdav_get_ssl_trust()`
+         * for more infomation about its content and how to use it.
+         * @param ssl_trust the ssl_trust to store, or `null` to unset
+         * @since 3.8
+         */
+        set_ssl_trust(ssl_trust: string | null): void;
+
+        /**
+         * Set the SSL trust response, as {@link EDataServer.TrustPromptResponse}, while keeping
+         * the certificate and host information as before. The function does
+         * nothing, when none SSL trust is set or when {@link EDataServer.TrustPromptResponse.UNKNOWN}
+         * is used as the `response`.
+         * @param response an {@link EDataServer.TrustPromptResponse} to set
+         * @since 3.32
+         */
+        set_ssl_trust_response(response: TrustPromptResponse): void;
+
+        /**
+         * Set the connection timeout, in seconds.
+         * @param timeout a timeout, in seconds
+         * @since 3.54
+         */
+        set_timeout(timeout: number): void;
+
+        /**
+         * This is a convenience function which propagates the components of
+         * `uri` to the {@link EDataServer.SourceAuthentication} extension, the {@link EDataServer.SourceSecurity}
+         * extension, and `extension` itself.  (The "fragment" component of
+         * `uri` is ignored.)
+         * @param uri a {@link GLib.Uri}
+         * @since 3.46
+         */
+        set_uri(uri: GLib.Uri): void;
+
+        /**
+         * Unsets temporary trust set on this `extension`, but keeps
+         * it as is for other values.
+         * @since 3.8
+         */
+        unset_temporary_ssl_trust(): void;
+
+        /**
+         * Updates user's response from a trust prompt, thus it is re-used the next
+         * time it'll be needed. An #E_TRUST_PROMPT_RESPONSE_UNKNOWN is treated as
+         * a temporary reject, which means the user will be asked again.
+         * @param host a host name to store the certificate for
+         * @param cert the invalid certificate of the connection over which `host` is about        to be sent
+         * @param response user's response from a trust prompt for `cert`
+         * @since 3.16
+         */
+        update_ssl_trust(host: string, cert: Gio.TlsCertificate, response: TrustPromptResponse): void;
+
+        /**
+         * Verifies SSL/TLS trust for the given `host` and `cert`, as previously stored in the `extension`
+         * with `e_source_webdav_update_ssl_trust()`.
+         * @param host a host name to store the certificate for
+         * @param cert the invalid certificate of the connection over which `host` is about        to be sent
+         * @param cert_errors a bit-or of {@link Gio.TlsCertificateFlags} describing the reason   for the `cert` to be considered invalid
+         */
+        verify_ssl_trust(host: string, cert: Gio.TlsCertificate, cert_errors: Gio.TlsCertificateFlags): TrustPromptResponse;
+    }
+
+
+    namespace WebDAVSession {
+        // Signal signatures
+        interface SignalSignatures extends SoupSession.SignalSignatures {
+            "notify::credentials": (pspec: GObject.ParamSpec) => void;
+            "notify::force-http1": (pspec: GObject.ParamSpec) => void;
+            "notify::handle-backoff-responses": (pspec: GObject.ParamSpec) => void;
+            "notify::source": (pspec: GObject.ParamSpec) => void;
+            "notify::accept-language": (pspec: GObject.ParamSpec) => void;
+            "notify::accept-language-auto": (pspec: GObject.ParamSpec) => void;
+            "notify::idle-timeout": (pspec: GObject.ParamSpec) => void;
+            "notify::local-address": (pspec: GObject.ParamSpec) => void;
+            "notify::max-conns": (pspec: GObject.ParamSpec) => void;
+            "notify::max-conns-per-host": (pspec: GObject.ParamSpec) => void;
+            "notify::proxy-resolver": (pspec: GObject.ParamSpec) => void;
+            "notify::remote-connectable": (pspec: GObject.ParamSpec) => void;
+            "notify::timeout": (pspec: GObject.ParamSpec) => void;
+            "notify::tls-database": (pspec: GObject.ParamSpec) => void;
+            "notify::tls-interaction": (pspec: GObject.ParamSpec) => void;
+            "notify::user-agent": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends SoupSession.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.26
+     */
+    class WebDAVSession extends SoupSession {
+        static $gtype: GObject.GType<WebDAVSession>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: WebDAVSession.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<WebDAVSession.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](source: Source): WebDAVSession;
+
+        // Conflicted with Soup.Session.new
+        static ["new"](...args: never[]): any;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof WebDAVSession.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, WebDAVSession.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof WebDAVSession.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, WebDAVSession.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof WebDAVSession.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<WebDAVSession.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Frees `privileges` returned by `e_webdav_session_get_supported_privilege_set_sync()`.
+         * The function does nothing, if `privileges` is `null`.
+         * @param privileges a tree of {@link EDataServer.WebDAVPrivilege} structures
+         * @since 3.26
+         */
+        static util_free_privileges(privileges: GLib.Node | null): void;
+
+        /**
+         * Compares two hrefs and return whether they reference
+         * the same item on the server. The comparison is done in
+         * a relaxed way, not considering scheme part and comparing
+         * the host name case insensitively, while the path
+         * case sensitively. It also ignores the username/password
+         * information in the hostname part, if it's included.
+         * The function doesn't decode any URI-encoded characters.
+         * @param href1 the first href
+         * @param href2 the second href
+         * @since 3.40
+         */
+        static util_item_href_equal(href1: string, href2: string): boolean;
+
+        /**
+         * Dequotes `text`, if it's enclosed in double-quotes. The function
+         * changes `text`, it doesn't allocate new string. The function does
+         * nothing when the `text` is not enclosed in double-quotes.
+         * @param text text to dequote
+         * @since 3.26
+         */
+        static util_maybe_dequote(text: string): [string, string];
+
+        // Methods
+        /**
+         * Issues ACL request on the provided `uri`, or, in case it's `null`, on the URI
+         * defined in associated {@link EDataServer.Source}.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param xml the request itself, as an {@link EDataServer.XmlDocument}, the root element should be DAV:acl
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        acl_sync(uri: string | null, xml: XmlDocument, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Copies a resource identified by `source_uri` to `destination_uri` on the server.
+         * The `source_uri` can reference also collections, in which case the `depth` influences
+         * whether only the collection itself is copied (`E_WEBDAV_DEPTH_THIS`) or whether
+         * the collection with all its children is copied (`E_WEBDAV_DEPTH_INFINITY`).
+         * @param source_uri URI of the resource or collection to copy
+         * @param destination_uri URI of the destination
+         * @param depth requested depth, can be one of `E_WEBDAV_DEPTH_THIS` or `E_WEBDAV_DEPTH_INFINITY`
+         * @param can_overwrite whether can overwrite `destination_uri`, when it exists
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        copy_sync(source_uri: string, destination_uri: string, depth: string, can_overwrite: boolean, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Deletes a resource identified by `uri` on the server. The URI can
+         * reference a collection, in which case `depth` should be `E_WEBDAV_DEPTH_INFINITY`.
+         * Use `depth` `E_WEBDAV_DEPTH_THIS` when deleting a regular resource, or `null`,
+         * to let the server use default Depth.
+         * 
+         * The `etag` argument is used to avoid clashes when overwriting existing resources.
+         * Use `null` `etag` when deleting collection resources or to force the deletion,
+         * otherwise provide a valid ETag of a non-collection resource to verify that
+         * the version requested to delete is the same as on the server.
+         * 
+         * Note that the actual usage of `etag` is also influenced by {@link EDataServer.SourceWebdav.avoid_ifmatch}
+         * property of the associated {@link EDataServer.Source}.
+         * @param uri URI of the resource to delete
+         * @param depth optional requested depth, can be one of `E_WEBDAV_DEPTH_THIS` or `E_WEBDAV_DEPTH_INFINITY`, or `null`
+         * @param etag an optional ETag of the resource, or `null`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        delete_sync(uri: string, depth: string | null, etag: string | null, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Deletes a resource identified by `uri` on the server. The URI can
+         * reference a collection, in which case `depth` should be `E_WEBDAV_DEPTH_INFINITY`.
+         * Use `depth` `E_WEBDAV_DEPTH_THIS` when deleting a regular resource, or `null`,
+         * to let the server use default Depth.
+         * 
+         * The `etag` argument is used to avoid clashes when overwriting existing resources.
+         * Use `null` `etag` when deleting collection resources or to force the deletion,
+         * otherwise provide a valid ETag of a non-collection resource to verify that
+         * the version requested to delete is the same as on the server.
+         * 
+         * The optional `in_headers` can contain additional headers to be added to the request.
+         * These headers replace any existing in the request headers, without support for the list-values headers.
+         * 
+         * Note that the actual usage of `etag` is also influenced by {@link EDataServer.SourceWebdav.avoid_ifmatch}
+         * property of the associated {@link EDataServer.Source}.
+         * @param uri URI of the resource to delete
+         * @param depth optional requested depth, can be one of `E_WEBDAV_DEPTH_THIS` or `E_WEBDAV_DEPTH_INFINITY`, or `null`
+         * @param etag an optional ETag of the resource, or `null`
+         * @param in_headers additional {@link Soup.MessageHeaders} to be added to the request, or `null`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.50
+         * @throws GLib.Error
+         */
+        delete_with_headers_sync(uri: string, depth: string | null, etag: string | null, in_headers: Soup.MessageHeaders | null, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Converts possibly path-only `href` into a full URI under the `request_uri`.
+         * When the `request_uri` is `null`, the URI defined in associated {@link EDataServer.Source} is
+         * used instead, taken from the {@link EDataServer.SourceWebdav} extension, if defined.
+         * 
+         * Free the returned pointer with `g_free()`, when no longer needed.
+         * @param request_uri a {@link GLib.Uri} to which the `href` belongs, or `null`
+         * @param href a possibly path-only href
+         * @returns The `href` as a full URI
+         * @since 3.24
+         */
+        ensure_full_uri(request_uri: GLib.Uri | null, href: string): string;
+
+        /**
+         * Gets Access Control List (ACL) restrictions for the `uri`, or, in case it's `null`,
+         * for the URI defined in associated {@link EDataServer.Source}. The `out_principal_kind` is valid only
+         * if the `out_restrictions` contains #E_WEBDAV_ACL_RESTRICTION_REQUIRED_PRINCIPAL.
+         * The `out_principal_hrefs` is valid only if the `out_principal_kind` is valid and when
+         * it is #E_WEBDAV_ACE_PRINCIPAL_HREF.
+         * 
+         * Free the returned `out_principal_hrefs` with
+         * g_slist_free_full (entries, g_free);
+         * when no longer needed.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        get_acl_restrictions_sync(uri: string | null, cancellable: Gio.Cancellable | null): [boolean, number, WebDAVACEPrincipalKind, string[]];
+
+        /**
+         * Gets Access Control List (ACL) for the `uri`, or, in case it's `null`, for the URI
+         * defined in associated {@link EDataServer.Source}.
+         * 
+         * This function doesn't read general #E_WEBDAV_ACE_PRINCIPAL_PROPERTY.
+         * 
+         * Free the returned `out_entries` with
+         * g_slist_free_full (entries, e_webdav_access_control_entry_free);
+         * when no longer needed.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        get_acl_sync(uri: string | null, cancellable: Gio.Cancellable | null): [boolean, WebDAVAccessControlEntry[]];
+
+        /**
+         * Gets current user privileges for the `uri`, or, in case it's `null`, for the URI
+         * defined in associated {@link EDataServer.Source}, with optional read of the capabilities
+         * and what the user is allowed. See `e_webdav_session_options_sync()` for
+         * more information about the `out_capabilities` and `out_allows` values.
+         * 
+         * Free the returned `out_privileges` with
+         * g_slist_free_full (privileges, e_webdav_privilege_free);
+         * when no longer needed.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        get_current_user_privilege_set_full_sync(uri: string | null, cancellable: Gio.Cancellable | null): [boolean, WebDAVPrivilege[], never | null, never | null];
+
+        /**
+         * Gets current user privileges for the `uri`, or, in case it's `null`, for the URI
+         * defined in associated {@link EDataServer.Source}.
+         * 
+         * Free the returned `out_privileges` with
+         * g_slist_free_full (privileges, e_webdav_privilege_free);
+         * when no longer needed.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        get_current_user_privilege_set_sync(uri: string | null, cancellable: Gio.Cancellable | null): [boolean, WebDAVPrivilege[]];
+
+        /**
+         * Reads a resource identified by `uri` from the server. The URI cannot
+         * reference a collection.
+         * 
+         * The `out_bytes` is filled by actual data being read. If not `null`, `out_length`
+         * is populated with how many bytes had been read. The `out_bytes` is always
+         * NUL-terminated, while this termination byte is not part of `out_length`.
+         * Free the `out_bytes` with `g_free()`, when no longer needed.
+         * 
+         * Free returned pointer of `out_href` and `out_etag`, if not `null`, with `g_free()`,
+         * when no longer needed.
+         * 
+         * The optional `out_headers` contains response headers. Free it with `soup_message_headers_free()`,
+         * when no longer needed.
+         * 
+         * To read large data use `e_webdav_session_get_sync()` instead.
+         * @param uri URI of the resource to read
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        get_data_sync(uri: string, cancellable: Gio.Cancellable | null): [boolean, string, string, Soup.MessageHeaders | null, string, number];
+
+        /**
+         * Returns last DAV error code as returned by the server. Each recognized code
+         * is enclosed in "[]" in the returned string, to be able to distinguish between
+         * them, in case the server returned multiple codes.
+         * 
+         * The string is valid until the next request is executed.
+         * @returns a DAV error from the last request,    or `null`, when no error had been recognized.
+         * @since 3.36
+         */
+        get_last_dav_error_code(): string | null;
+
+        /**
+         * @returns whether the last recognized DAV error code contains an error    which means that user doesn't have permission for the operation. If there    is no DAV error stored, then returns `false`.
+         * @since 3.36
+         */
+        get_last_dav_error_is_permission(): boolean;
+
+        /**
+         * Gets list of principal collection href for the `uri`, or, in case it's `null`,
+         * for the URI defined in associated {@link EDataServer.Source}. The `out_principal_hrefs` are root
+         * collections that contain the principals that are available on the server that
+         * implements this resource.
+         * 
+         * Free the returned `out_principal_hrefs` with
+         * g_slist_free_full (entries, g_free);
+         * when no longer needed.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        get_principal_collection_set_sync(uri: string | null, cancellable: Gio.Cancellable | null): [boolean, string[]];
+
+        /**
+         * Gets supported privileges for the `uri`, or, in case it's `null`, for the URI
+         * defined in associated {@link EDataServer.Source}.
+         * 
+         * The root node of `out_privileges` has always `null` data.
+         * 
+         * Free the returned `out_privileges` with `e_webdav_session_util_free_privileges()`
+         * when no longer needed.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        get_supported_privilege_set_sync(uri: string | null, cancellable: Gio.Cancellable | null): [boolean, GLib.Node];
+
+        /**
+         * Reads a resource identified by `uri` from the server and writes it
+         * to the `stream`. The URI cannot reference a collection.
+         * 
+         * Free returned pointer of `out_href` and `out_etag`, if not `null`, with `g_free()`,
+         * when no longer needed.
+         * 
+         * The optional `out_headers` contains response headers. Free it with `soup_message_headers_free()`,
+         * when no longer needed.
+         * 
+         * The `e_webdav_session_get_data_sync()` can be used to read the resource data
+         * directly to memory.
+         * @param uri URI of the resource to read
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        get_sync(uri: string, cancellable: Gio.Cancellable | null): [boolean, string, string, Soup.MessageHeaders | null, Gio.OutputStream];
+
+        /**
+         * Issues a getctag property request for a collection identified by `uri`, or,
+         * in case it's `null`, on the URI defined in associated {@link EDataServer.Source}. The ctag is
+         * a collection tag, which changes whenever the collection changes (similar
+         * to etag). The getctag is an extension, thus the function can fail when
+         * the server doesn't support it.
+         * 
+         * Free the returned `out_ctag` with `g_free()`, when no longer needed.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        getctag_sync(uri: string | null, cancellable: Gio.Cancellable | null): [boolean, string];
+
+        /**
+         * Lists content of the `uri`, or, in case it's `null`, of the URI defined
+         * in associated {@link EDataServer.Source}, which should point to a collection. The `flags`
+         * influences which properties are read for the resources.
+         * 
+         * The `out_resources` is in no particular order.
+         * 
+         * Free the returned `out_resources` with
+         * g_slist_free_full (resources, e_webdav_resource_free);
+         * when no longer needed.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param depth requested depth, can be one of `E_WEBDAV_DEPTH_THIS`, `E_WEBDAV_DEPTH_THIS_AND_CHILDREN` or `E_WEBDAV_DEPTH_INFINITY`
+         * @param flags a bit-or of {@link EDataServer.WebDAVListFlags}, claiming what properties to read
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        list_sync(uri: string | null, depth: string, flags: number, cancellable: Gio.Cancellable | null): [boolean, WebDAVResource[]];
+
+        /**
+         * Locks a resource identified by `uri`, or, in case it's `null`, by the URI defined
+         * in associated {@link EDataServer.Source}. It obtains a write lock with the given `lock_scope`.
+         * 
+         * The `owner` is used to identify the lock owner. When it's an http:// or https://,
+         * then it's referenced as DAV:href, otherwise the value is treated as plain text.
+         * If it's `null`, then the user name from the associated {@link EDataServer.Source} is used.
+         * 
+         * The `out_lock_token` can be refreshed with `e_webdav_session_refresh_lock_sync()`.
+         * Release the lock with `e_webdav_session_unlock_sync()`.
+         * Free the returned `out_lock_token` with `g_free()`, when no longer needed.
+         * @param uri URI to lock, or `null` to read from {@link EDataServer.Source}
+         * @param lock_scope an {@link EDataServer.WebDAVLockScope} to define the scope of the lock
+         * @param lock_timeout timeout for the lock, in seconds, on 0 to infinity
+         * @param owner optional identificator of the owner of the lock, or `null`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        lock_resource_sync(uri: string | null, lock_scope: WebDAVLockScope, lock_timeout: number, owner: string | null, cancellable: Gio.Cancellable | null): [boolean, string];
+
+        /**
+         * Locks a resource identified by `uri`, or, in case it's `null`, on the URI
+         * defined in associated {@link EDataServer.Source}.
+         * 
+         * The `out_lock_token` can be refreshed with `e_webdav_session_refresh_lock_sync()`.
+         * Release the lock with `e_webdav_session_unlock_sync()`.
+         * Free the returned `out_lock_token` with `g_free()`, when no longer needed.
+         * 
+         * If provided, free the returned `out_xml_response` with xmlFreeDoc(),
+         * when no longer needed.
+         * @param uri URI to lock, or `null` to read from {@link EDataServer.Source}
+         * @param depth requested depth, can be one of `E_WEBDAV_DEPTH_THIS` or `E_WEBDAV_DEPTH_INFINITY`
+         * @param lock_timeout timeout for the lock, in seconds, on 0 to infinity
+         * @param xml an XML describing the lock request, with DAV:lockinfo root element
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        lock_sync(uri: string | null, depth: string, lock_timeout: number, xml: XmlDocument, cancellable: Gio.Cancellable | null): [boolean, string, libxml2.Doc | null];
+
+        /**
+         * Creates a new calendar collection identified by `uri` on the server.
+         * The `supports` defines what component types can be stored into
+         * the created calendar collection. Only {@link EDataServer.WebDAVResourceSupports.NONE}
+         * and values related to iCalendar content can be used here.
+         * Using {@link EDataServer.WebDAVResourceSupports.NONE} means that everything is supported.
+         * 
+         * Note that CalDAV RFC 4791 Section 4.2 forbids to create calendar
+         * resources under other calendar resources (no nested calendars
+         * are allowed).
+         * @param uri URI of the collection to create
+         * @param display_name a human-readable display name to set, or `null`
+         * @param description a human-readable description of the calendar, or `null`
+         * @param color a color to set, in format "&num;RRGGBB", or `null`
+         * @param supports a bit-or of EWebDAVResourceSupports values
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        mkcalendar_sync(uri: string, display_name: string | null, description: string | null, color: string | null, supports: number, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Creates a new address book collection identified by `uri` on the server.
+         * 
+         * Note that CardDAV RFC 6352 Section 5.2 forbids to create address book
+         * resources under other address book resources (no nested address books
+         * are allowed).
+         * @param uri URI of the collection to create
+         * @param display_name a human-readable display name to set, or `null`
+         * @param description a human-readable description of the address book, or `null`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        mkcol_addressbook_sync(uri: string, display_name: string | null, description: string | null, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Creates a new generic collection identified by `uri` on the server.
+         * To create specific collections use `e_webdav_session_mkcalendar_sync()`
+         * or `e_webdav_session_mkcol_addressbook_sync()`.
+         * @param uri URI of the collection to create
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        mkcol_sync(uri: string, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Moves a resource identified by `source_uri` to `destination_uri` on the server.
+         * The `source_uri` can reference also collections.
+         * @param source_uri URI of the resource or collection to copy
+         * @param destination_uri URI of the destination
+         * @param can_overwrite whether can overwrite `destination_uri`, when it exists
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        move_sync(source_uri: string, destination_uri: string, can_overwrite: boolean, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * @param method an HTTP method
+         * @param uri URI to create the request for, or `null` to read from {@link EDataServer.Source}
+         * @returns A new {@link Soup.Message} for the given `uri`, or, when `null`,    for the URI stored in the associated {@link EDataServer.Source}. Free the returned structure    with `g_object_unref()`, when no longer needed.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        new_message(method: string, uri: string | null): Soup.Message;
+
+        /**
+         * @param args 
+         */
+    // Conflicted with EDataServer.SoupSession.new_message
+        new_message(...args: never[]): any;
+
+        /**
+         * Issues OPTIONS request on the provided `uri`, or, in case it's `null`, on the URI
+         * defined in associated {@link EDataServer.Source}.
+         * 
+         * The `out_capabilities` contains a set of returned capabilities. Some known are
+         * defined as E_WEBDAV_CAPABILITY_CLASS_1, and so on. The 'value' of the {@link GLib.HashTable}
+         * doesn't have any particular meaning and the strings are compared case insensitively.
+         * Free the hash table with `g_hash_table_destroy()`, when no longer needed. The returned
+         * value can be `null` on success, it's when the server doesn't provide the information.
+         * 
+         * The `out_allows` contains a set of allowed methods returned by the server. Some known
+         * are defined as `SOUP_METHOD_OPTIONS`, and so on. The 'value' of the {@link GLib.HashTable}
+         * doesn't have any particular meaning and the strings are compared case insensitively.
+         * Free the hash table with `g_hash_table_destroy()`, when no longer needed. The returned
+         * value can be `null` on success, it's when the server doesn't provide the information.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        options_sync(uri: string | null, cancellable: Gio.Cancellable | null): [boolean, never, never];
+
+        /**
+         * Issues POST request on the provided `uri`, or, in case it's `null`, on the URI
+         * defined in associated {@link EDataServer.Source}.
+         * 
+         * The optional `in_headers` can contain additional headers to be added to the request.
+         * These headers replace any existing in the request headers, without support for the list-values headers.
+         * 
+         * The optional `out_content_type` can be used to get content type of the response.
+         * Free it with `g_free()`, when no longer needed.
+         * 
+         * The optional `out_headers` contains response headers. Free it with `soup_message_headers_free()`,
+         * when no longer needed.
+         * 
+         * The optional `out_content` can be used to get actual result content. Free it
+         * with `g_byte_array_free()`, when no longer needed.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param data data to post to the server
+         * @param data_length length of `data`, or -1, when `data` is NUL-terminated
+         * @param in_content_type a Content-Type of the `data`, or `null`, to use application/xml
+         * @param in_headers additional {@link Soup.MessageHeaders} to be added to the request, or `null`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.32
+         * @throws GLib.Error
+         */
+        post_sync(uri: string | null, data: string, data_length: bigint | number, in_content_type: string | null, in_headers: Soup.MessageHeaders | null, cancellable: Gio.Cancellable | null): [boolean, string, Soup.MessageHeaders | null, Uint8Array | null];
+
+        /**
+         * Issues a DAV:principal-property-search for the `uri`, or, in case it's `null`,
+         * for the URI defined in associated {@link EDataServer.Source}. The DAV:principal-property-search
+         * performs a search for all principals whose properties contain character data
+         * that matches the search criteria `match_value` in `match_property` property
+         * of namespace `match_ns_uri`.
+         * 
+         * By default, the function searches all members (at any depth) of the collection
+         * identified by the `uri`. If `apply_to_principal_collection_set` is set to `true`,
+         * the search is applied instead to each collection returned by
+         * `e_webdav_session_get_principal_collection_set_sync()` for the `uri`.
+         * 
+         * The `out_principals` is a {@link GLib.SList} of {@link EDataServer.WebDAVResource}, where the kind
+         * is set to {@link EDataServer.WebDAVResourceKind.PRINCIPAL} and only href with displayname
+         * are filled. All other members of {@link EDataServer.WebDAVResource} are not set.
+         * 
+         * Free the returned `out_principals` with
+         * g_slist_free_full (principals, e_webdav_resource_free);
+         * when no longer needed.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param apply_to_principal_collection_set whether to apply to principal-collection-set
+         * @param match_ns_uri namespace URI of the property to search in, or `null` for `E_WEBDAV_NS_DAV`
+         * @param match_property name of the property to search in
+         * @param match_value a string value to search for
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded. Note it can report success also when no matching    principal had been found.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        principal_property_search_sync(uri: string | null, apply_to_principal_collection_set: boolean, match_ns_uri: string | null, match_property: string, match_value: string, cancellable: Gio.Cancellable | null): [boolean, WebDAVResource[]];
+
+        /**
+         * Issues PROPFIND request on the provided `uri`, or, in case it's `null`, on the URI
+         * defined in associated {@link EDataServer.Source}. On success, calls `func` for each returned
+         * DAV:propstat.
+         * 
+         * The `xml` can be `null`, in which case the server should behave like DAV:allprop request.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param depth requested depth, can be one of `E_WEBDAV_DEPTH_THIS`, `E_WEBDAV_DEPTH_THIS_AND_CHILDREN` or `E_WEBDAV_DEPTH_INFINITY`
+         * @param xml the request itself, as an {@link EDataServer.XmlDocument}, the root element should be DAV:propfind, or `null`
+         * @param func an {@link EDataServer.WebDAVPropstatTraverseFunc} function to call for each DAV:propstat in the multistatus response
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        propfind_sync(uri: string | null, depth: string, xml: XmlDocument | null, func: WebDAVPropstatTraverseFunc, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Issues PROPPATCH request on the provided `uri`, or, in case it's `null`, on the URI
+         * defined in associated {@link EDataServer.Source}, with the `changes`. The order of requested changes
+         * inside `xml` is significant, unlike on other places.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param xml an {@link EDataServer.XmlDocument} with request changes, its root element should be DAV:propertyupdate
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        proppatch_sync(uri: string | null, xml: XmlDocument, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Writes data to a resource identified by `uri` to the server. The URI cannot
+         * reference a collection.
+         * 
+         * The `etag` argument is used to avoid clashes when overwriting existing
+         * resources. It can contain three values:
+         *  - `null` - to write completely new resource
+         *  - empty string - write new resource or overwrite any existing, regardless changes on the server
+         *  - valid ETag - overwrite existing resource only if it wasn't changed on the server.
+         * 
+         * Note that the actual usage of `etag` is also influenced by {@link EDataServer.SourceWebdav.avoid_ifmatch}
+         * property of the associated {@link EDataServer.Source}.
+         * 
+         * The optional `in_headers` can contain additional headers to be added to the request.
+         * These headers replace any existing in the request headers, without support for the list-values headers.
+         * 
+         * The `out_href`, if provided, is filled with the resulting URI
+         * of the written resource. It can be different from the `uri` when the server
+         * redirected to a different location.
+         * 
+         * The `out_etag` contains ETag of the resource after it had been saved.
+         * 
+         * The optional `out_headers` contains response headers. Free it with `soup_message_headers_free()`,
+         * when no longer needed.
+         * 
+         * To write large data use `e_webdav_session_put_sync()` instead.
+         * @param uri URI of the resource to write
+         * @param etag an ETag of the resource, if it's an existing resource, or `null`
+         * @param content_type Content-Type of the `bytes` to be written
+         * @param in_headers additional {@link Soup.MessageHeaders} to be added to the request, or `null`
+         * @param bytes actual bytes to be written
+         * @param length how many bytes to write, or -1, when the `bytes` is NUL-terminated
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        put_data_sync(uri: string, etag: string | null, content_type: string, in_headers: Soup.MessageHeaders | null, bytes: string, length: bigint | number, cancellable: Gio.Cancellable | null): [boolean, string, string, Soup.MessageHeaders | null];
+
+        /**
+         * Writes data from `stream` to a resource identified by `uri` to the server.
+         * The URI cannot reference a collection.
+         * 
+         * The `etag` argument is used to avoid clashes when overwriting existing
+         * resources. It can contain three values:
+         *  - `null` - to write completely new resource
+         *  - empty string - write new resource or overwrite any existing, regardless changes on the server
+         *  - valid ETag - overwrite existing resource only if it wasn't changed on the server.
+         * 
+         * Note that the actual behaviour is also influenced by {@link EDataServer.SourceWebdav.avoid_ifmatch}
+         * property of the associated {@link EDataServer.Source}.
+         * 
+         * The optional `in_headers` can contain additional headers to be added to the request.
+         * These headers replace any existing in the request headers, without support for the list-values headers.
+         * 
+         * The `out_href`, if provided, is filled with the resulting URI
+         * of the written resource. It can be different from the `uri` when the server
+         * redirected to a different location.
+         * 
+         * The `out_etag` contains ETag of the resource after it had been saved.
+         * 
+         * The optional `out_headers` contains response headers. Free it with `soup_message_headers_free()`,
+         * when no longer needed.
+         * 
+         * The `stream` should support also {@link Gio.Seekable} interface, because the data
+         * send can require restart of the send due to redirect or other reasons.
+         * 
+         * This method uses Transfer-Encoding:chunked, in contrast to the
+         * `e_webdav_session_put_data_sync()`, which writes data stored in memory
+         * like any other request.
+         * @param uri URI of the resource to write
+         * @param etag an ETag of the resource, if it's an existing resource, or `null`
+         * @param content_type Content-Type of the `bytes` to be written
+         * @param in_headers additional {@link Soup.MessageHeaders} to be added to the request, or `null`
+         * @param stream a {@link Gio.InputStream} with data to be written
+         * @param stream_length length of the `stream`, or -1 if unknown
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        put_sync(uri: string, etag: string | null, content_type: string, in_headers: Soup.MessageHeaders | null, stream: Gio.InputStream, stream_length: bigint | number, cancellable: Gio.Cancellable | null): [boolean, string, string, Soup.MessageHeaders | null];
+
+        /**
+         * Refreshes existing lock `lock_token` for a resource identified by `uri`,
+         * or, in case it's `null`, on the URI defined in associated {@link EDataServer.Source}.
+         * The `lock_token` is returned from `e_webdav_session_lock_sync()` and
+         * the `uri` should be the same as that used with `e_webdav_session_lock_sync()`.
+         * @param uri URI to lock, or `null` to read from {@link EDataServer.Source}
+         * @param lock_token token of an existing lock
+         * @param lock_timeout timeout for the lock, in seconds, on 0 to infinity
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        refresh_lock_sync(uri: string | null, lock_token: string, lock_timeout: number, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Tries to read detailed error information from `response_data`,
+         * if not provided, then from `message`'s response_body. If the detailed
+         * error cannot be found, then does nothing, otherwise frees the content
+         * of `inout_error`, if any, and then populates it with an error message
+         * prefixed with `prefix`.
+         * 
+         * The `prefix` might be of form "Failed to something", because the resulting
+         * error message will be:
+         * "Failed to something: HTTP error code XXX (reason_phrase): detailed_error".
+         * When `prefix` is `null`, the error message will be:
+         * "Failed with HTTP error code XXX (reason phrase): detailed_error".
+         * 
+         * As the caller might not be interested in errors, also the `inout_error`
+         * can be `null`, in which case the function does nothing.
+         * @param message a {@link Soup.Message}
+         * @param response_data received response data, or `null`
+         * @param ignore_multistatus whether to ignore multistatus responses
+         * @param prefix error message prefix, used when replacing, or `null`
+         * @returns Whether any detailed error had been recognized.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        replace_with_detailed_error(message: Soup.Message, response_data: Uint8Array | string | null, ignore_multistatus: boolean, prefix: string | null): boolean;
+
+        /**
+         * Issues REPORT request on the provided `uri`, or, in case it's `null`, on the URI
+         * defined in associated {@link EDataServer.Source}. On success, calls `func` for each returned
+         * DAV:propstat.
+         * 
+         * The report can result in a multistatus response, but also to raw data. In case
+         * the `func` is provided and the result is a multistatus response, then it is traversed
+         * using this `func`.
+         * 
+         * The optional `out_content_type` can be used to get content type of the response.
+         * Free it with `g_free()`, when no longer needed.
+         * 
+         * The optional `out_content` can be used to get actual result content. Free it
+         * with `g_byte_array_free()`, when no longer needed.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param depth requested depth, can be `null`, then no Depth header is sent
+         * @param xml the request itself, as an {@link EDataServer.XmlDocument}
+         * @param func an {@link EDataServer.WebDAVPropstatTraverseFunc} function to call for each DAV:propstat in the multistatus response, or `null`
+         * @param out_content_type return location for response Content-Type, or `null`
+         * @param out_content return location for response content, or `null`
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        report_sync(uri: string | null, depth: string | null, xml: XmlDocument, func: WebDAVPropstatTraverseFunc | null, out_content_type: string | null, out_content: Uint8Array | string | null, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Changes Access Control List (ACL) for the `uri`, or, in case it's `null`,
+         * for the URI defined in associated {@link EDataServer.Source}.
+         * 
+         * Make sure that the `entries` satisfy ACL restrictions, as returned
+         * by `e_webdav_session_get_acl_restrictions_sync()`. The order in the `entries`
+         * is preserved. It cannot contain any {@link EDataServer.WebDAVACEFlag.PROTECTED},
+         * nor `E_WEBDAV_ACE_FLAG_INHERITED`, items.
+         * 
+         * Use `e_webdav_session_get_acl_sync()` to read currently known ACL entries,
+         * remove from the list those protected and inherited, and then modify
+         * the rest with the required changed.
+         * 
+         * Note this function doesn't support general {@link EDataServer.WebDAVACEPrincipalKind.PROPERTY} and
+         * returns {@link Gio.IOErrorEnum.NOT_SUPPORTED} error when any such is tried to be written.
+         * 
+         * In case the returned entries contain any {@link EDataServer.WebDAVACEPrincipalKind.PROPERTY},
+         * or there's a need to write such Access Control Entry, then do not use
+         * `e_webdav_session_get_acl_sync()`, neither `e_webdav_session_set_acl_sync()`,
+         * and write more generic implementation.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param entries entries to write
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        set_acl_sync(uri: string | null, entries: WebDAVAccessControlEntry[], cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Traverses a CALDAV:mkcalendar-response response and calls `func` for each returned DAV:propstat.
+         * 
+         * The `message`, if provided, is used to verify that the response is an XML Content-Type.
+         * It's used to get the request URI as well.
+         * @param message an optional {@link Soup.Message} corresponding to the response, or `null`
+         * @param xml_data a {@link GLib.ByteArray} containing CALDAV:mkcalendar-response response
+         * @param func an {@link EDataServer.WebDAVPropstatTraverseFunc} function to call for each DAV:propstat in the response
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        traverse_mkcalendar_response(message: Soup.Message | null, xml_data: Uint8Array | string, func: WebDAVPropstatTraverseFunc): boolean;
+
+        /**
+         * Traverses a DAV:mkcol-response response and calls `func` for each returned DAV:propstat.
+         * 
+         * The `message`, if provided, is used to verify that the response is an XML Content-Type.
+         * It's used to get the request URI as well.
+         * @param message an optional {@link Soup.Message} corresponding to the response, or `null`
+         * @param xml_data a {@link GLib.ByteArray} containing DAV:mkcol-response response
+         * @param func an {@link EDataServer.WebDAVPropstatTraverseFunc} function to call for each DAV:propstat in the response
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        traverse_mkcol_response(message: Soup.Message | null, xml_data: Uint8Array | string, func: WebDAVPropstatTraverseFunc): boolean;
+
+        /**
+         * Traverses a DAV:multistatus response and calls `func` for each returned DAV:propstat.
+         * 
+         * The `message`, if provided, is used to verify that the response is a multi-status
+         * and that the Content-Type is properly set. It's used to get a request URI as well.
+         * @param message an optional {@link Soup.Message} corresponding to the response, or `null`
+         * @param xml_data a {@link GLib.ByteArray} containing DAV:multistatus response
+         * @param func an {@link EDataServer.WebDAVPropstatTraverseFunc} function to call for each DAV:propstat in the multistatus response
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        traverse_multistatus_response(message: Soup.Message | null, xml_data: Uint8Array | string, func: WebDAVPropstatTraverseFunc): boolean;
+
+        /**
+         * Releases (unlocks) existing lock `lock_token` for a resource identified by `uri`,
+         * or, in case it's `null`, on the URI defined in associated {@link EDataServer.Source}.
+         * The `lock_token` is returned from `e_webdav_session_lock_sync()` and
+         * the `uri` should be the same as that used with `e_webdav_session_lock_sync()`.
+         * @param uri URI to lock, or `null` to read from {@link EDataServer.Source}
+         * @param lock_token token of an existing lock
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        unlock_sync(uri: string | null, lock_token: string, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Updates properties (set/remove) on the provided `uri`, or, in case it's `null`,
+         * on the URI defined in associated {@link EDataServer.Source}, with the `changes`. The order
+         * of `changes` is significant, unlike on other places.
+         * 
+         * This function supports only flat properties, those not under other element.
+         * To support more complex property tries use `e_webdav_session_proppatch_sync()`
+         * directly.
+         * @param uri URI to issue the request for, or `null` to read from {@link EDataServer.Source}
+         * @param changes a {@link GLib.SList} with request changes
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns Whether succeeded.
+         * @since 3.26
+         * @throws GLib.Error
+         */
+        update_properties_sync(uri: string | null, changes: WebDAVPropertyChange[], cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    namespace XmlDocument {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     * @since 3.26
+     */
+    class XmlDocument extends GObject.Object {
+        static $gtype: GObject.GType<XmlDocument>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: XmlDocument.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<XmlDocument.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](ns_href: string | null, root_element: string): XmlDocument;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof XmlDocument.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, XmlDocument.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof XmlDocument.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, XmlDocument.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof XmlDocument.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<XmlDocument.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Adds a new attribute to the current element.
+         * Use `null` `ns_href`, to use the default namespace, otherwise either previously
+         * added namespace with the same href from `e_xml_document_add_namespaces()` is picked,
+         * or a new namespace with generated prefix is added.
+         * @param ns_href optional namespace href for the new attribute, or `null`
+         * @param name name of the attribute
+         * @param value value of the attribute
+         * @since 3.26
+         */
+        add_attribute(ns_href: string | null, name: string, value: string): void;
+
+        /**
+         * Adds a new attribute with a double value to the current element.
+         * Use `null` `ns_href`, to use the default namespace, otherwise either previously
+         * added namespace with the same href from `e_xml_document_add_namespaces()` is picked,
+         * or a new namespace with generated prefix is added.
+         * @param ns_href optional namespace href for the new attribute, or `null`
+         * @param name name of the attribute
+         * @param value double value of the attribute
+         * @since 3.26
+         */
+        add_attribute_double(ns_href: string | null, name: string, value: number): void;
+
+        /**
+         * Adds a new attribute with an integer value to the current element.
+         * Use `null` `ns_href`, to use the default namespace, otherwise either previously
+         * added namespace with the same href from `e_xml_document_add_namespaces()` is picked,
+         * or a new namespace with generated prefix is added.
+         * @param ns_href optional namespace href for the new attribute, or `null`
+         * @param name name of the attribute
+         * @param value integer value of the attribute
+         * @since 3.26
+         */
+        add_attribute_int(ns_href: string | null, name: string, value: bigint | number): void;
+
+        /**
+         * Adds a new attribute with a time_t value in ISO 8601 format to the current element.
+         * The format is "YYYY-MM-DDTHH:MM:SSZ".
+         * Use `null` `ns_href`, to use the default namespace, otherwise either previously
+         * added namespace with the same href from `e_xml_document_add_namespaces()` is picked,
+         * or a new namespace with generated prefix is added.
+         * @param ns_href optional namespace href for the new attribute, or `null`
+         * @param name name of the attribute
+         * @param value time_t value of the attribute
+         * @since 3.26
+         */
+        add_attribute_time(ns_href: string | null, name: string, value: bigint | number): void;
+
+        /**
+         * Adds a new attribute with a time_t value in iCalendar format to the current element.
+         * The format is "YYYYMMDDTHHMMSSZ".
+         * Use `null` `ns_href`, to use the default namespace, otherwise either previously
+         * added namespace with the same href from `e_xml_document_add_namespaces()` is picked,
+         * or a new namespace with generated prefix is added.
+         * @param ns_href optional namespace href for the new attribute, or `null`
+         * @param name name of the attribute
+         * @param value time_t value of the attribute
+         * @since 3.32
+         */
+        add_attribute_time_ical(ns_href: string | null, name: string, value: bigint | number): void;
+
+        /**
+         * Adds an empty element, which is an element with no attribute and no value.
+         * 
+         * It's the same as calling `e_xml_document_start_element()` immediately
+         * followed by `e_xml_document_end_element()`.
+         * @param ns_href optional namespace href for the new element, or `null`
+         * @param name name of the new element
+         * @since 3.26
+         */
+        add_empty_element(ns_href: string | null, name: string): void;
+
+        /**
+         * This is a pair function for `e_xml_document_start_element()` and
+         * `e_xml_document_start_text_element()`, which changes current
+         * element to the parent of that element.
+         * @since 3.26
+         */
+        end_element(): void;
+
+        /**
+         * Gets content of the `xml` as string. The string is nul-terminated, but
+         * if `out_length` is also provided, then it doesn't contain this additional
+         * nul character.
+         * @returns Content of the `xml` as newly allocated string.    Free it with `g_free()`, when no longer needed.
+         * @since 3.26
+         */
+        get_content(): [string, number];
+
+        /**
+         * @returns Underlying #xmlDocPtr.
+         * @since 3.26
+         */
+        get_xmldoc(): libxml2.Doc;
+
+        /**
+         * Starts a new non-text element as a child of the current element.
+         * Each such call should be ended with corresponding `e_xml_document_end_element()`.
+         * Use `null` `ns_href`, to use the default namespace, otherwise either previously
+         * added namespace with the same href from `e_xml_document_add_namespaces()` is picked,
+         * or a new namespace with generated prefix is added.
+         * 
+         * To start a text node use `e_xml_document_start_text_element()`.
+         * @param ns_href optional namespace href for the new element, or `null`
+         * @param name name of the new element
+         * @since 3.26
+         */
+        start_element(ns_href: string | null, name: string): void;
+
+        /**
+         * Starts a new text element as a child of the current element.
+         * Each such call should be ended with corresponding `e_xml_document_end_element()`.
+         * Use `null` `ns_href`, to use the default namespace, otherwise either previously
+         * added namespace with the same href from `e_xml_document_add_namespaces()` is picked,
+         * or a new namespace with generated prefix is added.
+         * 
+         * To start a non-text node use `e_xml_document_start_element()`.
+         * @param ns_href optional namespace href for the new element, or `null`
+         * @param name name of the new element
+         * @since 3.26
+         */
+        start_text_element(ns_href: string | null, name: string): void;
+
+        /**
+         * Writes `value` of length `len`, encoded to base64, as content of the current element.
+         * @param value value to write as the content
+         * @param len length of `value`
+         * @since 3.26
+         */
+        write_base64(value: string, len: number): void;
+
+        /**
+         * Writes `value` of length `len` as content of the current element.
+         * @param value value to write as the content
+         * @param len length of `value`
+         * @since 3.26
+         */
+        write_buffer(value: string, len: number): void;
+
+        /**
+         * Writes `value` as content of the current element.
+         * @param value value to write as the content
+         * @since 3.26
+         */
+        write_double(value: number): void;
+
+        /**
+         * Writes `value` as content of the current element.
+         * @param value value to write as the content
+         * @since 3.26
+         */
+        write_int(value: bigint | number): void;
+
+        /**
+         * Writes `value` as content of the current element.
+         * @param value value to write as the content
+         * @since 3.26
+         */
+        write_string(value: string): void;
+
+        /**
+         * Writes `value` in ISO 8601 format as content of the current element.
+         * The format is "YYYY-MM-DDTHH:MM:SSZ".
+         * @param value value to write as the content
+         * @since 3.26
+         */
+        write_time(value: bigint | number): void;
+    }
+
+
+    /**
+     * {@link EDataServer.AsyncClosure} provides a simple way to run an asynchronous function
+     * synchronously without blocking a running {@link GLib.MainLoop} or using threads.
+     * 
+     * 1) Create an {@link EDataServer.AsyncClosure} with `e_async_closure_new()`.
+     * 
+     * 2) Call the asynchronous function passing `e_async_closure_callback()` as
+     *    the {@link Gio.AsyncReadyCallback} argument and the {@link EDataServer.AsyncClosure} as the data
+     *    argument.
+     * 
+     * 3) Call `e_async_closure_wait()` and collect the {@link Gio.AsyncResult}.
+     * 
+     * 4) Call the corresponding asynchronous "finish" function, passing the
+     *    {@link Gio.AsyncResult} returned by `e_async_closure_wait()`.
+     * 
+     * 5) If needed, repeat steps 2-4 for additional asynchronous functions
+     *    using the same {@link EDataServer.AsyncClosure}.
+     * 
+     * 6) Finally, free the {@link EDataServer.AsyncClosure} with `e_async_closure_free()`.
+     * @gir-type Struct
+     * @since 3.6
+     */
+    abstract class AsyncClosure {
+        static $gtype: GObject.GType<AsyncClosure>;
+
+        // Methods
+        /**
+         * Frees the `closure` and the resources it holds.
+         * @since 3.6
+         */
+        free(): void;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ClientClass = typeof Client;
+
+    /**
+     * @gir-type Struct
+     * @since 3.2
+     * @deprecated since 3.8: This structure is no longer used.
+     */
+    class ClientErrorsList {
+        static $gtype: GObject.GType<ClientErrorsList>;
+
+        // Constructors
+        constructor(properties?: Partial<{}>);
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ClientPrivate {
+        static $gtype: GObject.GType<ClientPrivate>;
+    }
+
+
+    /**
+     * An opaque object used for locale specific string comparisons
+     * and sort ordering.
+     * @gir-type Struct
+     * @since 3.12
+     */
+    class Collator {
+        static $gtype: GObject.GType<Collator>;
+
+        // Constructors
+        constructor(locale: string);
+
+        static ["new"](locale: string): Collator;
+
+        static new_interpret_country(locale: string): Collator;
+
+        // Static methods
+        static error_quark(): GLib.Quark;
+
+        // Methods
+        /**
+         * Compares `str_a` with `str_b`, the order of strings is determined by the parameters of `collator`.
+         * 
+         * The `result` will be set to integer less than, equal to, or greater than zero if `str_a` is found,
+         * respectively, to be less than, to match, or be greater than `str_b`.
+         * 
+         * Either `str_a` or `str_b` can be `null`, `null` strings are considered to sort below other strings.
+         * 
+         * This function will first ensure that both strings are valid UTF-8.
+         * @param str_a A string to compare
+         * @param str_b The string to compare with `str_a`
+         * @returns `true` on success, otherwise if `false` is returned then `error` will be set.
+         * @since 3.12
+         * @throws GLib.Error
+         */
+        collate(str_a: string | null, str_b: string | null): [boolean, number];
+
+        /**
+         * Generates a collation key for `str`, the result of comparing
+         * two collation keys with `strcmp()` will be the same result
+         * of calling `e_collator_collate()` on the same original strings.
+         * 
+         * This function will first ensure that `str` is valid UTF-8 encoded.
+         * @param str The string to generate a collation key for
+         * @returns A collation key for `str`, or    `null` on failure with `error` set.
+         * @since 3.12
+         * @throws GLib.Error
+         */
+        generate_key(str: string): string;
+
+        /**
+         * Generates a sort key for the given alphabetic `index`.
+         * 
+         * The generated sort key is guaranteed to sort below
+         * any sort keys for words beginning with any variant of
+         * the given letter.
+         * 
+         * For instance, a sort key generated for the index 5 of
+         * a latin alphabet, where the fifth index is 'E' will sort
+         * below any sort keys generated for words starting with
+         * the characters 'e', 'E', 'é', 'É', 'è' or 'È'. It will also
+         * sort above any sort keys generated for words starting with
+         * the characters 'd' or 'D'.
+         * @param index An index into the alphabetic labels
+         * @returns A sort key for the given index
+         * @since 3.12
+         */
+        generate_key_for_index(index: number): string;
+
+        /**
+         * Checks which index, as determined by `e_collator_get_index_labels()`,
+         * that `str` should sort under.
+         * @param str A string
+         * @returns The alphabetic index under which `str` would sort
+         * @since 3.12
+         */
+        get_index(str: string): number;
+
+        /**
+         * Fetches the displayable labels and index positions for the active alphabet.
+         * @returns The array of displayable labels for each index in the active alphabet(s).
+         * @since 3.12
+         */
+        get_index_labels(): [string[], number, number, number, number];
+
+        /**
+         * Increases the reference count of `collator`.
+         * @returns `collator`
+         * @since 3.12
+         */
+        ref(): Collator;
+
+        /**
+         * Decreases the reference count of `collator`.
+         * If the reference count reaches 0 then the collator is freed
+         * @since 3.12
+         */
+        unref(): void;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ExtensibleInterface = typeof Extensible;
+
+    /**
+     * @gir-type Alias
+     */
+    type ExtensionClass = typeof Extension;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ExtensionPrivate {
+        static $gtype: GObject.GType<ExtensionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     * @since 1.12
+     */
+    abstract class Flag {
+        static $gtype: GObject.GType<Flag>;
+
+        // Methods
+        /**
+         * Destroys `flag`.
+         * @since 1.12
+         */
+        free(): void;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class FreeFormExpSymbol {
+        static $gtype: GObject.GType<FreeFormExpSymbol>;
+
+        // Fields
+        names: string;
+
+        hint: string;
+
+        build_sexp: FreeFormExpBuildSexpFunc;
+    }
+
+
+    /**
+     * @gir-type Struct
+     * @since 3.46
+     */
+    class GDataQuery {
+        static $gtype: GObject.GType<GDataQuery>;
+
+        // Constructors
+        constructor(properties?: Partial<{}>);
+
+        static ["new"](): GDataQuery;
+
+        // Methods
+        /**
+         * Gets current value of the completed max property, as a Unix
+         * date/time. When not set, returns -1. The optional `out_exists`
+         * can be used to see whether the property is set.
+         * @returns the set value, or -1
+         * @since 3.46
+         */
+        get_completed_max(): [number, boolean];
+
+        /**
+         * Gets current value of the completed min property, as a Unix
+         * date/time. When not set, returns -1. The optional `out_exists`
+         * can be used to see whether the property is set.
+         * @returns the set value, or -1
+         * @since 3.46
+         */
+        get_completed_min(): [number, boolean];
+
+        /**
+         * Gets current value of the due max property, as a Unix
+         * date/time. When not set, returns -1. The optional `out_exists`
+         * can be used to see whether the property is set.
+         * @returns the set value, or -1
+         * @since 3.46
+         */
+        get_due_max(): [number, boolean];
+
+        /**
+         * Gets current value of the due min property, as a Unix
+         * date/time. When not set, returns -1. The optional `out_exists`
+         * can be used to see whether the property is set.
+         * @returns the set value, or -1
+         * @since 3.46
+         */
+        get_due_min(): [number, boolean];
+
+        /**
+         * Gets current value of the max results property.
+         * When not set, returns 0. The optional `out_exists`
+         * can be used to see whether the property is set.
+         * @returns the set value, or 0
+         * @since 3.46
+         */
+        get_max_results(): [number, boolean];
+
+        /**
+         * Gets current value of the show completed property. When not set,
+         * returns `false`. The optional `out_exists` can be used to see whether
+         * the property is set.
+         * @returns the set value, or `false`
+         * @since 3.46
+         */
+        get_show_completed(): [boolean, boolean];
+
+        /**
+         * Gets current value of the show deleted property. When not set,
+         * returns `false`. The optional `out_exists` can be used to see whether
+         * the property is set.
+         * @returns the set value, or `false`
+         * @since 3.46
+         */
+        get_show_deleted(): [boolean, boolean];
+
+        /**
+         * Gets current value of the show hidden property. When not set,
+         * returns `false`. The optional `out_exists` can be used to see whether
+         * the property is set.
+         * @returns the set value, or `false`
+         * @since 3.46
+         */
+        get_show_hidden(): [boolean, boolean];
+
+        /**
+         * Gets current value of the updated min property, as a Unix
+         * date/time. When not set, returns -1. The optional `out_exists`
+         * can be used to see whether the property is set.
+         * @returns the set value, or -1
+         * @since 3.46
+         */
+        get_updated_min(): [number, boolean];
+
+        /**
+         * Increases the reference count of the `self`.
+         * The added reference shuld be removed with `e_gdata_query_unref()`.
+         * @returns the `self`
+         * @since 3.46
+         */
+        ref(): GDataQuery;
+
+        /**
+         * Sets upper bound for a task's completion date, as a Unix date/time, to filter by.
+         * The default is not to filter by completion date.
+         * 
+         * This can be used for Task object query only.
+         * @param value a value to set, as a Unix date/time
+         * @since 3.46
+         */
+        set_completed_max(value: bigint | number): void;
+
+        /**
+         * Sets lower bound for a task's completion date, as a Unix date/time, to filter by.
+         * The default is not to filter by completion date.
+         * 
+         * This can be used for Task object query only.
+         * @param value a value to set, as a Unix date/time
+         * @since 3.46
+         */
+        set_completed_min(value: bigint | number): void;
+
+        /**
+         * Sets upper bound for a task's due date, as a Unix date/time, to filter by.
+         * The default is not to filter by due date.
+         * 
+         * This can be used for Task object query only.
+         * @param value a value to set, as a Unix date/time
+         * @since 3.46
+         */
+        set_due_max(value: bigint | number): void;
+
+        /**
+         * Sets lower bound for a task's due date, as a Unix date/time, to filter by.
+         * The default is not to filter by due date.
+         * 
+         * This can be used for Task object query only.
+         * @param value a value to set, as a Unix date/time
+         * @since 3.46
+         */
+        set_due_min(value: bigint | number): void;
+
+        /**
+         * Sets max results to be returned in one call.
+         * 
+         * This can be used for any object query.
+         * @param value a value to set
+         * @since 3.46
+         */
+        set_max_results(value: number): void;
+
+        /**
+         * Sets a flag indicating whether completed tasks are returned in the result.
+         * The default is True. Note that show hidden should also be True to show
+         * tasks completed in first party clients, such as the web UI and Google's
+         * mobile apps.
+         * 
+         * This can be used for Task object query only.
+         * @param value a value to set
+         * @since 3.46
+         */
+        set_show_completed(value: boolean): void;
+
+        /**
+         * Sets a flag indicating whether deleted tasks are returned in the result.
+         * The default is False.
+         * 
+         * This can be used for Task object query only.
+         * @param value a value to set
+         * @since 3.46
+         */
+        set_show_deleted(value: boolean): void;
+
+        /**
+         * Sets a flag indicating whether hidden tasks are returned in the result.
+         * The default is False.
+         * 
+         * This can be used for Task object query only.
+         * @param value a value to set
+         * @since 3.46
+         */
+        set_show_hidden(value: boolean): void;
+
+        /**
+         * Sets lower bound for a task's last modification time, as a Unix date/time,
+         * to filter by. The default is not to filter by the last modification time.
+         * 
+         * This can be used for Task object query only.
+         * @param value a value to set, as a Unix date/time
+         * @since 3.46
+         */
+        set_updated_min(value: bigint | number): void;
+
+        /**
+         * Converts the `self` into a string, which can be used as a URI query. The returned
+         * string should be freed with `g_free()`, when no longer needed.
+         * @returns the `self` converted into a string, or `null`,    when the `self` doesn't have set any parameter.
+         * @since 3.46
+         */
+        to_string(): string | null;
+
+        /**
+         * Decreases the reference count of the `self`. When the reference count
+         * reaches 0, the `self` is freed.
+         * @since 3.46
+         */
+        unref(): void;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type GDataSessionClass = typeof GDataSession;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class GDataSessionPrivate {
+        static $gtype: GObject.GType<GDataSessionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MemChunk {
+        static $gtype: GObject.GType<MemChunk>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ModuleClass = typeof Module;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ModulePrivate {
+        static $gtype: GObject.GType<ModulePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MsOapxbcClass = typeof MsOapxbc;
+
+    /**
+     * @gir-type Struct
+     * @since 3.8
+     */
+    class NamedParameters {
+        static $gtype: GObject.GType<NamedParameters>;
+
+        // Constructors
+        constructor(properties?: Partial<{}>);
+
+        static ["new"](): NamedParameters;
+
+        static new_string(str: string): NamedParameters;
+
+        static new_strv(strv: string): NamedParameters;
+
+        // Methods
+        /**
+         * Makes content of the `parameters` the same as `from`.
+         * Functions clears content of `parameters` if `from` is `null`.
+         * @param from an {@link EDataServer.NamedParameters} to get values from, or `null`
+         * @since 3.8
+         */
+        assign(from: NamedParameters | null): void;
+
+        /**
+         * Removes all stored parameters from `parameters`.
+         * @since 3.8
+         */
+        clear(): void;
+
+        /**
+         * @returns The number of stored named parameters in `parameters`
+         * @since 3.18
+         */
+        count(): number;
+
+        /**
+         * Compares the two parameters objects and returns whether they equal.
+         * Note a `null` and empty parameters are also considered equal.
+         * @param parameters2 the second {@link EDataServer.NamedParameters}
+         * @returns whether the two parameters are equal
+         * @since 3.46
+         */
+        equal(parameters2: NamedParameters): boolean;
+
+        /**
+         * @param name name of the parameter whose existence to check
+         * @returns Whether `parameters` holds a parameter named `name`
+         * @since 3.18
+         */
+        exists(name: string): boolean;
+
+        /**
+         * Frees an instance of {@link EDataServer.NamedParameters}, previously allocated
+         * with `e_named_parameters_new()`. Function does nothing, if
+         * `parameters` is `null`.
+         * @since 3.8
+         */
+        free(): void;
+
+        /**
+         * Returns current value of a parameter with name `name`. If not such
+         * exists, then returns `null`.
+         * @param name name of a parameter to get
+         * @returns value of a parameter named `name`, or `null`.
+         * @since 3.8
+         */
+        get(name: string): string | null;
+
+        /**
+         * @param index an index of the parameter whose name to retrieve
+         * @returns The name of the parameters at index `index`,    or `null`, of the `index` is out of bounds or other error. The returned    string should be freed with `g_free()` when done with it.
+         * @since 3.18
+         */
+        get_name(index: number): string | null;
+
+        /**
+         * Creates a new instance of an {@link EDataServer.NamedParameters}, with initial content
+         * being taken from `parameters`. This should be freed with `e_named_parameters_free()`,
+         * when no longer needed. Names are compared case insensitively.
+         * 
+         * The structure is not thread safe, if the caller requires thread safety,
+         * then it should provide it on its own.
+         * @returns newly allocated {@link EDataServer.NamedParameters}
+         * @since 3.16
+         */
+        new_clone(): NamedParameters;
+
+        /**
+         * Sets parameter named `name` to value `value`. If `value` is NULL,
+         * then the parameter is removed. `value` can be an empty string.
+         * 
+         * Note: There is a restriction on parameter names, it cannot be empty or
+         * contain a colon character (':'), otherwise it can be pretty much anything.
+         * @param name name of a parameter to set
+         * @param value value to set, or `null` to unset
+         * @since 3.8
+         */
+        set(name: string, value: string | null): void;
+
+        /**
+         * Compares current value of parameter named `name` with given `value`
+         * and returns whether they are equal, either case sensitively or
+         * insensitively, based on `case_sensitively` argument. Function
+         * returns `false`, if no such parameter exists.
+         * @param name name of a parameter to test
+         * @param value value to test
+         * @param case_sensitively whether to compare case sensitively
+         * @returns Whether parameter of given name has stored value of given value.
+         * @since 3.8
+         */
+        test(name: string, value: string, case_sensitively: boolean): boolean;
+
+        /**
+         * @returns Contents of `parameters` as a string
+         * @since 3.18
+         */
+        to_string(): string | null;
+
+        /**
+         * @returns Contents of `parameters` as a null-terminated strv
+         * @since 3.8
+         */
+        to_strv(): string[];
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type NetworkMonitorClass = typeof NetworkMonitor;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class NetworkMonitorPrivate {
+        static $gtype: GObject.GType<NetworkMonitorPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type OAuth2ServiceBaseClass = typeof OAuth2ServiceBase;
+
+    /**
+     * @gir-type Alias
+     */
+    type OAuth2ServiceGoogleClass = typeof OAuth2ServiceGoogle;
+
+    /**
+     * @gir-type Alias
+     */
+    type OAuth2ServiceInterface = typeof OAuth2Service;
+
+    /**
+     * @gir-type Alias
+     */
+    type OAuth2ServiceOutlookClass = typeof OAuth2ServiceOutlook;
+
+    /**
+     * @gir-type Alias
+     */
+    type OAuth2ServiceYahooClass = typeof OAuth2ServiceYahoo;
+
+    /**
+     * @gir-type Alias
+     */
+    type OAuth2ServicesClass = typeof OAuth2Services;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class OAuth2ServicesPrivate {
+        static $gtype: GObject.GType<OAuth2ServicesPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     * @since 3.2
+     */
+    abstract class OperationPool {
+        static $gtype: GObject.GType<OperationPool>;
+
+        // Methods
+        /**
+         * Frees previously created `pool`.
+         * @since 3.2
+         */
+        free(): void;
+
+        /**
+         * Pushes an operation to be processed.  `opdata` is passed to the function
+         * provided in `e_operation_pool_new()`.
+         * @param opdata user data for the operation
+         * @since 3.2
+         */
+        push(opdata: null): void;
+
+        /**
+         * Releases `opid` previously reserved by `e_operation_pool_reserve_opid()`.
+         * @param opid an operation ID
+         * @since 3.2
+         */
+        release_opid(opid: number): void;
+
+        /**
+         * Reserves new operation ID, which is returned. This operation ID may
+         * be released by `e_operation_pool_release_opid()` when the operation
+         * is finished.
+         * @returns a new operation ID
+         * @since 3.2
+         */
+        reserve_opid(): number;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SoupAuthBearerClass = typeof SoupAuthBearer;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SoupAuthBearerPrivate {
+        static $gtype: GObject.GType<SoupAuthBearerPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SoupSessionClass = typeof SoupSession;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SoupSessionPrivate {
+        static $gtype: GObject.GType<SoupSessionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceAddressBookClass = typeof SourceAddressBook;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceAddressBookPrivate {
+        static $gtype: GObject.GType<SourceAddressBookPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceAlarmsClass = typeof SourceAlarms;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceAlarmsPrivate {
+        static $gtype: GObject.GType<SourceAlarmsPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceAuthenticationClass = typeof SourceAuthentication;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceAuthenticationPrivate {
+        static $gtype: GObject.GType<SourceAuthenticationPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceAutocompleteClass = typeof SourceAutocomplete;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceAutocompletePrivate {
+        static $gtype: GObject.GType<SourceAutocompletePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceAutoconfigClass = typeof SourceAutoconfig;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceAutoconfigPrivate {
+        static $gtype: GObject.GType<SourceAutoconfigPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceBackendClass = typeof SourceBackend;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceBackendPrivate {
+        static $gtype: GObject.GType<SourceBackendPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceCalendarClass = typeof SourceCalendar;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceCalendarPrivate {
+        static $gtype: GObject.GType<SourceCalendarPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceCamelClass = typeof SourceCamel;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceCamelPrivate {
+        static $gtype: GObject.GType<SourceCamelPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceClass = typeof Source;
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceCollectionClass = typeof SourceCollection;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceCollectionPrivate {
+        static $gtype: GObject.GType<SourceCollectionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceConflictSearchClass = typeof SourceConflictSearch;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceConflictSearchPrivate {
+        static $gtype: GObject.GType<SourceConflictSearchPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceContactsClass = typeof SourceContacts;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceContactsPrivate {
+        static $gtype: GObject.GType<SourceContactsPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceCredentialsProviderClass = typeof SourceCredentialsProvider;
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceCredentialsProviderImplClass = typeof SourceCredentialsProviderImpl;
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceCredentialsProviderImplOAuth2Class = typeof SourceCredentialsProviderImplOAuth2;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceCredentialsProviderImplOAuth2Private {
+        static $gtype: GObject.GType<SourceCredentialsProviderImplOAuth2Private>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceCredentialsProviderImplPasswordClass = typeof SourceCredentialsProviderImplPassword;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceCredentialsProviderImplPasswordPrivate {
+        static $gtype: GObject.GType<SourceCredentialsProviderImplPasswordPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceCredentialsProviderImplPrivate {
+        static $gtype: GObject.GType<SourceCredentialsProviderImplPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceCredentialsProviderPrivate {
+        static $gtype: GObject.GType<SourceCredentialsProviderPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceExtensionClass = typeof SourceExtension;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceExtensionPrivate {
+        static $gtype: GObject.GType<SourceExtensionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceGoaClass = typeof SourceGoa;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceGoaPrivate {
+        static $gtype: GObject.GType<SourceGoaPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceLDAPClass = typeof SourceLDAP;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceLDAPPrivate {
+        static $gtype: GObject.GType<SourceLDAPPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceLocalClass = typeof SourceLocal;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceLocalPrivate {
+        static $gtype: GObject.GType<SourceLocalPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceMDNClass = typeof SourceMDN;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceMDNPrivate {
+        static $gtype: GObject.GType<SourceMDNPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceMailAccountClass = typeof SourceMailAccount;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceMailAccountPrivate {
+        static $gtype: GObject.GType<SourceMailAccountPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceMailCompositionClass = typeof SourceMailComposition;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceMailCompositionPrivate {
+        static $gtype: GObject.GType<SourceMailCompositionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceMailIdentityClass = typeof SourceMailIdentity;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceMailIdentityPrivate {
+        static $gtype: GObject.GType<SourceMailIdentityPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceMailSignatureClass = typeof SourceMailSignature;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceMailSignaturePrivate {
+        static $gtype: GObject.GType<SourceMailSignaturePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceMailSubmissionClass = typeof SourceMailSubmission;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceMailSubmissionPrivate {
+        static $gtype: GObject.GType<SourceMailSubmissionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceMailTransportClass = typeof SourceMailTransport;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceMailTransportPrivate {
+        static $gtype: GObject.GType<SourceMailTransportPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceMemoListClass = typeof SourceMemoList;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceMemoListPrivate {
+        static $gtype: GObject.GType<SourceMemoListPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceOfflineClass = typeof SourceOffline;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceOfflinePrivate {
+        static $gtype: GObject.GType<SourceOfflinePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceOpenPGPClass = typeof SourceOpenPGP;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceOpenPGPPrivate {
+        static $gtype: GObject.GType<SourceOpenPGPPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourcePrivate {
+        static $gtype: GObject.GType<SourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceProxyClass = typeof SourceProxy;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceProxyPrivate {
+        static $gtype: GObject.GType<SourceProxyPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceRefreshClass = typeof SourceRefresh;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceRefreshPrivate {
+        static $gtype: GObject.GType<SourceRefreshPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceRegistryClass = typeof SourceRegistry;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceRegistryPrivate {
+        static $gtype: GObject.GType<SourceRegistryPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceRegistryWatcherClass = typeof SourceRegistryWatcher;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceRegistryWatcherPrivate {
+        static $gtype: GObject.GType<SourceRegistryWatcherPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceResourceClass = typeof SourceResource;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceResourcePrivate {
+        static $gtype: GObject.GType<SourceResourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceRevisionGuardsClass = typeof SourceRevisionGuards;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceRevisionGuardsPrivate {
+        static $gtype: GObject.GType<SourceRevisionGuardsPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceSMIMEClass = typeof SourceSMIME;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceSMIMEPrivate {
+        static $gtype: GObject.GType<SourceSMIMEPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceSecurityClass = typeof SourceSecurity;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceSecurityPrivate {
+        static $gtype: GObject.GType<SourceSecurityPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceSelectableClass = typeof SourceSelectable;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceSelectablePrivate {
+        static $gtype: GObject.GType<SourceSelectablePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceTaskListClass = typeof SourceTaskList;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceTaskListPrivate {
+        static $gtype: GObject.GType<SourceTaskListPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceUoaClass = typeof SourceUoa;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceUoaPrivate {
+        static $gtype: GObject.GType<SourceUoaPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceWeatherClass = typeof SourceWeather;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceWeatherPrivate {
+        static $gtype: GObject.GType<SourceWeatherPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceWebDAVNotesClass = typeof SourceWebDAVNotes;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceWebDAVNotesPrivate {
+        static $gtype: GObject.GType<SourceWebDAVNotesPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SourceWebdavClass = typeof SourceWebdav;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SourceWebdavPrivate {
+        static $gtype: GObject.GType<SourceWebdavPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class WebDAVAccessControlEntry {
+        static $gtype: GObject.GType<WebDAVAccessControlEntry>;
+
+        // Fields
+        principal_kind: WebDAVACEPrincipalKind;
+
+        principal_href: string;
+
+        flags: number;
+
+        inherited_href: string;
+
+        privileges: null[];
+
+        // Constructors
+        constructor(principal_kind: WebDAVACEPrincipalKind, principal_href: string | null, flags: number, inherited_href: string | null);
+
+        static ["new"](principal_kind: WebDAVACEPrincipalKind, principal_href: string | null, flags: number, inherited_href: string | null): WebDAVAccessControlEntry;
+
+        // Static methods
+        /**
+         * Frees an {@link EDataServer.WebDAVAccessControlEntry} previously created with `e_webdav_access_control_entry_new()`
+         * or `e_webdav_access_control_entry_copy()`. The function does nothing, if `ptr` is `null`.
+         * @param ptr an {@link EDataServer.WebDAVAccessControlEntry}
+         * @since 3.26
+         */
+        static free(ptr: null): void;
+
+        // Methods
+        /**
+         * Appends a new `privilege` to the list of privileges for the `ace`.
+         * The function assumes ownership of the `privilege`, which is freed
+         * together with the `ace`.
+         * @param privilege an {@link EDataServer.WebDAVPrivilege}
+         * @since 3.26
+         */
+        append_privilege(privilege: WebDAVPrivilege): void;
+
+        /**
+         * @returns A new {@link EDataServer.WebDAVAccessControlEntry}    prefilled with the same values as `src`, or `null`, when `src` is `null`.    Free it with `e_webdav_access_control_entry_free()`, when no longer needed.
+         * @since 3.26
+         */
+        copy(): WebDAVAccessControlEntry | null;
+
+        /**
+         * @returns A {@link GLib.SList} of {@link EDataServer.WebDAVPrivilege}    with the list of privileges for the `ace`. The reurned {@link GLib.SList}, together with its data    is owned by the `ace`.
+         * @since 3.26
+         */
+        get_privileges(): WebDAVPrivilege[];
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class WebDAVDiscoveredSource {
+        static $gtype: GObject.GType<WebDAVDiscoveredSource>;
+
+        // Fields
+        href: string;
+
+        supports: number;
+
+        display_name: string;
+
+        description: string;
+
+        color: string;
+
+        order: number;
+
+        // Constructors
+
+        constructor(properties?: Partial<{
+            href: string;
+            supports: number;
+            display_name: string;
+            description: string;
+            color: string;
+            order: number;
+        }>);
+
+        // Methods
+        /**
+         * Copies the given EWebDAVDiscoveredSource.
+         * @returns a copy of `discovered_source`
+         * @since 3.40
+         */
+        copy(): WebDAVDiscoveredSource;
+
+        /**
+         * Frees the `discovered_source`. Function does nothing, when it's `null`.
+         * @since 3.40
+         */
+        free(): void;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class WebDAVPrivilege {
+        static $gtype: GObject.GType<WebDAVPrivilege>;
+
+        // Fields
+        ns_uri: string;
+
+        name: string;
+
+        description: string;
+
+        kind: WebDAVPrivilegeKind;
+
+        hint: WebDAVPrivilegeHint;
+
+        // Constructors
+        constructor(ns_uri: string | null, name: string | null, description: string | null, kind: WebDAVPrivilegeKind, hint: WebDAVPrivilegeHint);
+
+        static ["new"](ns_uri: string | null, name: string | null, description: string | null, kind: WebDAVPrivilegeKind, hint: WebDAVPrivilegeHint): WebDAVPrivilege;
+
+        // Static methods
+        /**
+         * Frees an {@link EDataServer.WebDAVPrivilege} previously created with `e_webdav_privilege_new()`
+         * or `e_webdav_privilege_copy()`. The function does nothing, if `ptr` is `null`.
+         * @param ptr an {@link EDataServer.WebDAVPrivilege}
+         * @since 3.26
+         */
+        static free(ptr: null): void;
+
+        // Methods
+        /**
+         * @returns A new {@link EDataServer.WebDAVPrivilege} prefilled with    the same values as `src`, or `null`, when `src` is `null`.    Free it with `e_webdav_privilege_free()`, when no longer needed.
+         * @since 3.26
+         */
+        copy(): WebDAVPrivilege | null;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class WebDAVPropertyChange {
+        static $gtype: GObject.GType<WebDAVPropertyChange>;
+
+        // Fields
+        kind: WebDAVPropertyChangeKind;
+
+        ns_uri: string;
+
+        name: string;
+
+        value: string;
+
+        // Constructors
+        constructor(ns_uri: string, name: string);
+
+        static new_remove(ns_uri: string, name: string): WebDAVPropertyChange;
+
+        static new_set(ns_uri: string, name: string, value: string | null): WebDAVPropertyChange;
+
+        // Static methods
+        /**
+         * Frees an {@link EDataServer.WebDAVPropertyChange} previously created with `e_webdav_property_change_new_set()`,
+         * `e_webdav_property_change_new_remove()` or or `e_webdav_property_change_copy()`.
+         * The function does nothing, if `ptr` is `null`.
+         * @param ptr an {@link EDataServer.WebDAVPropertyChange}
+         * @since 3.26
+         */
+        static free(ptr: null): void;
+
+        // Methods
+        /**
+         * @returns A new {@link EDataServer.WebDAVPropertyChange} prefilled    with the same values as `src`, or `null`, when `src` is `null`.    Free it with `e_webdav_property_change_free()`, when no longer needed.
+         * @since 3.26
+         */
+        copy(): WebDAVPropertyChange | null;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class WebDAVResource {
+        static $gtype: GObject.GType<WebDAVResource>;
+
+        // Fields
+        kind: WebDAVResourceKind;
+
+        supports: number;
+
+        href: string;
+
+        etag: string;
+
+        display_name: string;
+
+        content_type: string;
+
+        content_length: number;
+
+        creation_date: number;
+
+        last_modified: number;
+
+        description: string;
+
+        color: string;
+
+        order: number;
+
+        // Constructors
+        constructor(kind: WebDAVResourceKind, supports: number, href: string, etag: string | null, display_name: string | null, content_type: string | null, content_length: bigint | number, creation_date: bigint | number, last_modified: bigint | number, description: string | null, color: string | null, order: number);
+
+        static ["new"](kind: WebDAVResourceKind, supports: number, href: string, etag: string | null, display_name: string | null, content_type: string | null, content_length: bigint | number, creation_date: bigint | number, last_modified: bigint | number, description: string | null, color: string | null, order: number): WebDAVResource;
+
+        // Static methods
+        /**
+         * Frees an {@link EDataServer.WebDAVResource} previously created with `e_webdav_resource_new()`
+         * or `e_webdav_resource_copy()`. The function does nothing, if `ptr` is `null`.
+         * @param ptr an {@link EDataServer.WebDAVResource}
+         * @since 3.26
+         */
+        static free(ptr: null): void;
+
+        // Methods
+        /**
+         * @returns A new {@link EDataServer.WebDAVResource} prefilled with    the same values as `src`, or `null`, when `src` is `null`.    Free it with `e_webdav_resource_free()`, when no longer needed.
+         * @since 3.26
+         */
+        copy(): WebDAVResource | null;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type WebDAVSessionClass = typeof WebDAVSession;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class WebDAVSessionPrivate {
+        static $gtype: GObject.GType<WebDAVSessionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type XmlDocumentClass = typeof XmlDocument;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class XmlDocumentPrivate {
+        static $gtype: GObject.GType<XmlDocumentPrivate>;
+    }
+
+
+    /**
+     * A hash table representation of an XML file.
+     * @gir-type Struct
+     */
+    abstract class XmlHash {
+        static $gtype: GObject.GType<XmlHash>;
+    }
+
+
+    namespace Extensible {
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    export interface ExtensibleNamespace {
+        $gtype: GObject.GType<Extensible>;
+        prototype: Extensible;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface Extensible extends GObject.Object {
+
+        // Methods
+        /**
+         * Returns a list of {@link EDataServer.Extension} objects bound to `extensible` whose
+         * types are ancestors of `extension_type`.  For a complete list of
+         * extension objects bound to `extensible`, pass `E_TYPE_EXTENSION`.
+         * 
+         * The list itself should be freed with `g_list_free()`.  The extension
+         * objects are owned by `extensible` and should not be unreferenced.
+         * @param extension_type the type of extensions to list
+         * @returns a list of extension objects derived from `extension_type`
+         * @since 3.4
+         */
+        list_extensions(extension_type: GObject.GType): Extension[];
+
+        /**
+         * Creates an instance of all instantiable subtypes of {@link EDataServer.Extension} which
+         * target the class of `extensible`.  The lifetimes of these newly created
+         * {@link EDataServer.Extension} objects are bound to `extensible` such that they are finalized
+         * when `extensible` is finalized.
+         * @since 3.4
+         */
+        load_extensions(): void;
+
+        /**
+         * Similar to `e_extensible_load_extensions()`, only loads newly discovered
+         * extensions again. This can help in case a new module had been loaded
+         * to the process, which provides the extensions for the `extensible`.
+         * @since 3.46
+         */
+        reload_extensions(): void;
+    }
+
+
+    export const Extensible: ExtensibleNamespace & {
+        new (): Extensible; // This allows `obj instanceof Extensible`
+    };
+
+    namespace OAuth2Service {
+        /**
+         * Interface for implementing OAuth2Service.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * Checks whether the `service` can be used with the given `source`.
+             * 
+             * The default implementation checks whether the `source` has an {@link EDataServer.SourceAuthentication}
+             * extension and when its method matches `e_oauth2_service_get_name()`, then it automatically
+             * returns `true`. Contrary, when the `source` contains GNOME Online Accounts or Ubuntu
+             * Online Accounts extension, then it returns `false`.
+             * 
+             * The default implementation is tried always as the first and when it fails, then
+             * the descendant's implementation is called.
+             * @param source an {@link EDataServer.Source}
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_can_process(source: Source): boolean;
+
+            /**
+             * Additional cookies to be used in the prompt dialog when asking for the user
+             * credentials. The default implementation does not provide any cookies.
+             * @param source an associated {@link EDataServer.Source}
+             * @param cancellable a {@link Gio.Cancellable}
+             * @since 3.54
+             * @virtual
+             */
+            vfunc_dup_credentials_prompter_cookies_sync(source: Source, cancellable: Gio.Cancellable | null): Soup.Cookie[] | null;
+
+            /**
+             * Tries to extract an authorization code from a web page provided by the server.
+             * The function can be called multiple times, whenever the page load is finished.
+             * The default implementation uses `e_oauth2_service_util_extract_from_uri()` to get
+             * the code from the given `page_uri`.
+             * 
+             * There can happen three states: 1) either the `service` cannot determine
+             * the authentication code from the page information, then the `false` is
+             * returned and the `out_authorization_code` is left untouched; or 2) the server
+             * reported a failure, in which case the function returns `true` and lefts
+             * the `out_authorization_code` untouched; or 3) the `service` could extract
+             * the authentication code from the given arguments, then the function
+             * returns `true` and sets the received authorization code to `out_authorization_code`.
+             * 
+             * The `page_content` is `null`, unless flags returned by `e_oauth2_service_get_flags()`
+             * contain also {@link EDataServer.OAuth2ServiceFlags.EXTRACT_REQUIRES_PAGE_CONTENT}.
+             * 
+             * This method is always called after `e_oauth2_service_get_authentication_policy()`.
+             * @param source an associated {@link EDataServer.Source}
+             * @param page_title a web page title
+             * @param page_uri a web page URI
+             * @param page_content a web page content
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_extract_authorization_code(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+            /**
+             * Tries to extract error message from the server response, return `true`,
+             * when an error message could be found, in which case also sets
+             * the `out_error_message` with it. The default implementation uses
+             * `e_oauth2_service_util_extract_from_uri()`, returning either the error
+             * description or the error code, when the description is not found.
+             * 
+             * The `out_error_message` is expected to be plain text.
+             * @param source an associated {@link EDataServer.Source}
+             * @param page_title a web page title
+             * @param page_uri a web page URI
+             * @param page_content a web page content
+             * @since 3.48
+             * @virtual
+             */
+            vfunc_extract_error_message(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+            /**
+             * Used to decide what to do when the server redirects to the next page.
+             * The default implementation always returns {@link EDataServer.OAuth2ServiceNavigationPolicy.ALLOW}.
+             * 
+             * This method is called before `e_oauth2_service_extract_authorization_code()` and
+             * can be used to block certain resources or to abort the authentication when
+             * the server redirects to an unexpected page (like when user denies authorization
+             * in the page).
+             * @param source an associated {@link EDataServer.Source}
+             * @param uri a URI of the navigation resource
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_get_authentication_policy(source: Source, uri: string): OAuth2ServiceNavigationPolicy;
+
+            /**
+             * @param source an associated {@link EDataServer.Source}
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_get_authentication_uri(source: Source): string;
+
+            /**
+             * @param source an associated {@link EDataServer.Source}
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_get_client_id(source: Source): string;
+
+            /**
+             * @param source an associated {@link EDataServer.Source}
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_get_client_secret(source: Source): string | null;
+
+            /**
+             * Returns a human readable name of the service. This is similar to
+             * `e_oauth2_service_get_name()`, except this string should be localized,
+             * because it will be used in user-visible strings.
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_get_display_name(): string;
+
+            /**
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_get_flags(): number;
+
+            /**
+             * Returns a unique name of the service. It can be named for example
+             * by the server or the company from which it receives the OAuth2
+             * token and where it refreshes it, like "Company" for login.company.com.
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_get_name(): string;
+
+            /**
+             * Returns a value for the "redirect_uri" keys in the authenticate and get_token
+             * operations. The default implementation returns "urn:ietf:wg:oauth:2.0:oob".
+             * @param source an associated {@link EDataServer.Source}
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_get_redirect_uri(source: Source): string | null;
+
+            /**
+             * @param source an associated {@link EDataServer.Source}
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_get_refresh_uri(source: Source): string;
+
+            /**
+             * Checks whether the `service` can be used with the given `protocol` and/or `hostname`.
+             * Any of `protocol` and `hostname` can be `null`, but not both. It's up to each implementer
+             * to decide, which of the arguments are important and whether all or only any of them
+             * can be required.
+             * 
+             * The function is meant to check whether the `service` can be offered
+             * for example when configuring a new account. The real usage is
+             * determined by `e_oauth2_service_can_process()`.
+             * 
+             * The default implementation consults org.gnome.evolution-data-server.oauth2-services-hint
+             * GSettings key against given hostname. See its description for more information.
+             * 
+             * The default implementation is tried always as the first and when it fails, then
+             * the descendant's implementation is called.
+             * @param protocol a protocol to search the service for, like "imap", or `null`
+             * @param hostname a host name to search the service for, like "server.example.com", or `null`
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_guess_can_process(protocol: string | null, hostname: string | null): boolean;
+
+            /**
+             * The `service` can change what arguments are passed in the authentication URI
+             * in this method. The default implementation sets some values too, namely
+             * "response_type", "client_id", "redirect_uri" and "login_hint", if available
+             * in the `source`. These parameters are always provided, even when the interface
+             * implementer overrides this method.
+             * 
+             * The `uri_query` hash table expects both key and value to be newly allocated
+             * strings, which will be freed together with the hash table or when the key
+             * is replaced.
+             * @param source an associated {@link EDataServer.Source}
+             * @param uri_query query for the URI to use
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_prepare_authentication_uri_query(source: Source, uri_query: { [key: string]: string }): void;
+
+            /**
+             * Sets additional form parameters to be used in the POST request when requesting
+             * access token after successfully obtained authorization code.
+             * The default implementation sets some values too, namely
+             * "code", "client_id", "client_secret", "redirect_uri" and "grant_type".
+             * These parameters are always provided, even when the interface implementer overrides this method.
+             * 
+             * The `form` hash table expects both key and value to be newly allocated
+             * strings, which will be freed together with the hash table or when the key
+             * is replaced.
+             * @param source an associated {@link EDataServer.Source}
+             * @param authorization_code authorization code, as returned from `e_oauth2_service_extract_authorization_code()`
+             * @param form form parameters to be used in the POST request
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_prepare_get_token_form(source: Source, authorization_code: string, form: { [key: string]: string }): void;
+
+            /**
+             * The `service` can change the `message` before it's sent to
+             * the `e_oauth2_service_get_authentication_uri()`, with POST data
+             * being provided by `e_oauth2_service_prepare_get_token_form()`.
+             * The default implementation does nothing with the `message`.
+             * @param source an associated {@link EDataServer.Source}
+             * @param message a {@link Soup.Message}
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_prepare_get_token_message(source: Source, message: Soup.Message): void;
+
+            /**
+             * Sets additional form parameters to be used in the POST request when requesting
+             * to refresh an access token.
+             * The default implementation sets some values too, namely
+             * "refresh_token", "client_id", "client_secret" and "grant_type".
+             * These parameters are always provided, even when the interface implementer overrides this method.
+             * 
+             * The `form` hash table expects both key and value to be newly allocated
+             * strings, which will be freed together with the hash table or when the key
+             * is replaced.
+             * @param source an associated {@link EDataServer.Source}
+             * @param refresh_token a refresh token to be used
+             * @param form form parameters to be used in the POST request
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_prepare_refresh_token_form(source: Source, refresh_token: string, form: { [key: string]: string }): void;
+
+            /**
+             * The `service` can change the `message` before it's sent to
+             * the `e_oauth2_service_get_refresh_uri()`, with POST data
+             * being provided by `e_oauth2_service_prepare_refresh_token_form()`.
+             * The default implementation does nothing with the `message`.
+             * @param source an associated {@link EDataServer.Source}
+             * @param message a {@link Soup.Message}
+             * @since 3.28
+             * @virtual
+             */
+            vfunc_prepare_refresh_token_message(source: Source, message: Soup.Message): void;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    export interface OAuth2ServiceNamespace {
+        $gtype: GObject.GType<OAuth2Service>;
+        prototype: OAuth2Service;
+        error_quark(): GLib.Quark;
+        /**
+        * Processes the `compile_value` and returns the result, which is stored
+        * into the `out_glob_buff`. The `out_glob_buff` should be large enough to hold
+        * the processed value and it should be a global memory buffer (usually
+        * statically allocated) initialized to 0, which is used to short-circuit
+        * the call, because the processing is done only if the first element
+        * of the `out_glob_buff` is 0, in all other cases the function
+        * immediately returns the `out_glob_buff`.
+        * @param compile_value a value provided in the compile time
+        * @param out_glob_buff_size size of the `out_glob_buff`
+        */
+        util_compile_value(compile_value: string, out_glob_buff_size: bigint | number): [string, string];
+        /**
+        * Extracts either an authorization code from a 'code' argument of the `in_uri`,
+        * or an error code from an 'error' argument of the `in_uri` and an error description
+        * from the 'error_description' argument of the `in_uri`.
+        * @param in_uri a URI returned from the server
+        */
+        util_extract_from_uri(in_uri: string): [boolean, string, string, string];
+        /**
+        * Sets `value` for `name` to `form`. The `form` should be
+        * the one used in `e_oauth2_service_prepare_authentication_uri_query()`,
+        * `e_oauth2_service_prepare_get_token_form()` or
+        * `e_oauth2_service_prepare_refresh_token_form()`.
+        * 
+        * If the `value` is `null`, then the property named `name` is removed
+        * from the `form` instead.
+        * @param form a {@link GLib.HashTable}
+        * @param name a property name
+        * @param value a property value
+        */
+        util_set_to_form(form: { [key: string]: string }, name: string, value: string | null): void;
+        /**
+        * Takes ownership of `value` and sets it for `name` to `form`. The `value`
+        * will be freed with `g_free()`, when no longer needed. The `form` should be
+        * the one used in `e_oauth2_service_prepare_authentication_uri_query()`,
+        * `e_oauth2_service_prepare_get_token_form()` or
+        * `e_oauth2_service_prepare_refresh_token_form()`.
+        * 
+        * If the `value` is `null`, then the property named `name` is removed
+        * from the `form` instead.
+        * @param form a {@link GLib.HashTable}
+        * @param name a property name
+        * @param value a property value
+        */
+        util_take_to_form(form: { [key: string]: string }, name: string, value: string | null): void;
+    }
+    /**
+     * @gir-type Interface
+     * @since 3.28
+     */
+    interface OAuth2Service extends GObject.Object, OAuth2Service.Interface {
+
+        // Methods
+        /**
+         * Checks whether the `service` can be used with the given `source`.
+         * 
+         * The default implementation checks whether the `source` has an {@link EDataServer.SourceAuthentication}
+         * extension and when its method matches `e_oauth2_service_get_name()`, then it automatically
+         * returns `true`. Contrary, when the `source` contains GNOME Online Accounts or Ubuntu
+         * Online Accounts extension, then it returns `false`.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param source an {@link EDataServer.Source}
+         * @returns Whether the `service` can be used for the given `source`
+         * @since 3.28
+         */
+        can_process(source: Source): boolean;
+
+        /**
+         * Deletes token information for the `service` and `source` from the secret store.
+         * @param source an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        delete_token_sync(source: Source, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Additional cookies to be used in the prompt dialog when asking for the user
+         * credentials. The default implementation does not provide any cookies.
+         * @param source an associated {@link EDataServer.Source}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns a {@link GLib.SList} of {@link Soup.Cookie}-s to use, or `null`
+         * @since 3.54
+         */
+        dup_credentials_prompter_cookies_sync(source: Source, cancellable: Gio.Cancellable | null): Soup.Cookie[] | null;
+
+        /**
+         * Tries to extract an authorization code from a web page provided by the server.
+         * The function can be called multiple times, whenever the page load is finished.
+         * The default implementation uses `e_oauth2_service_util_extract_from_uri()` to get
+         * the code from the given `page_uri`.
+         * 
+         * There can happen three states: 1) either the `service` cannot determine
+         * the authentication code from the page information, then the `false` is
+         * returned and the `out_authorization_code` is left untouched; or 2) the server
+         * reported a failure, in which case the function returns `true` and lefts
+         * the `out_authorization_code` untouched; or 3) the `service` could extract
+         * the authentication code from the given arguments, then the function
+         * returns `true` and sets the received authorization code to `out_authorization_code`.
+         * 
+         * The `page_content` is `null`, unless flags returned by `e_oauth2_service_get_flags()`
+         * contain also {@link EDataServer.OAuth2ServiceFlags.EXTRACT_REQUIRES_PAGE_CONTENT}.
+         * 
+         * This method is always called after `e_oauth2_service_get_authentication_policy()`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @returns whether could recognized successful or failed server response.    The `out_authorization_code` is populated on success too.
+         * @since 3.28
+         */
+        extract_authorization_code(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Tries to extract error message from the server response, return `true`,
+         * when an error message could be found, in which case also sets
+         * the `out_error_message` with it. The default implementation uses
+         * `e_oauth2_service_util_extract_from_uri()`, returning either the error
+         * description or the error code, when the description is not found.
+         * 
+         * The `out_error_message` is expected to be plain text.
+         * @param source an associated {@link EDataServer.Source}
+         * @param page_title a web page title
+         * @param page_uri a web page URI
+         * @param page_content a web page content
+         * @returns whether could recognized failed server response.    The `out_error_message` is populated on success.
+         * @since 3.48
+         */
+        extract_error_message(source: Source, page_title: string, page_uri: string, page_content: string | null): [boolean, string];
+
+        /**
+         * Reads access token information from the secret store for the `source` and
+         * in case it's expired it refreshes the token, if possible.
+         * 
+         * Free the returned `out_access_token` with `g_free()`, when no longer needed.
+         * @param source an {@link EDataServer.Source}
+         * @param ref_source an {@link EDataServer.OAuth2ServiceRefSourceFunc} function to obtain an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns `true`, when the returned access token has been set and it's not expired,    `false` otherwise.
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        get_access_token_sync(source: Source, ref_source: OAuth2ServiceRefSourceFunc, cancellable: Gio.Cancellable | null): [boolean, string, number];
+
+        /**
+         * Used to decide what to do when the server redirects to the next page.
+         * The default implementation always returns {@link EDataServer.OAuth2ServiceNavigationPolicy.ALLOW}.
+         * 
+         * This method is called before `e_oauth2_service_extract_authorization_code()` and
+         * can be used to block certain resources or to abort the authentication when
+         * the server redirects to an unexpected page (like when user denies authorization
+         * in the page).
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri a URI of the navigation resource
+         * @returns one of {@link EDataServer.OAuth2ServiceNavigationPolicy}
+         * @since 3.28
+         */
+        get_authentication_policy(source: Source, uri: string): OAuth2ServiceNavigationPolicy;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns an authentication URI, to be used to obtain    the authentication code
+         * @since 3.28
+         */
+        get_authentication_uri(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns application client ID, as provided by the server
+         * @since 3.28
+         */
+        get_client_id(source: Source): string;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns application client secret, as provided by the server, or `null`
+         * @since 3.28
+         */
+        get_client_secret(source: Source): string | null;
+
+        /**
+         * Returns a human readable name of the service. This is similar to
+         * `e_oauth2_service_get_name()`, except this string should be localized,
+         * because it will be used in user-visible strings.
+         * @returns the display name of the `service`
+         * @since 3.28
+         */
+        get_display_name(): string;
+
+        /**
+         * @returns bit-or of {@link EDataServer.OAuth2ServiceFlags} for the `service`. The default    implementation returns {@link EDataServer.OAuth2ServiceFlags.NONE}.
+         * @since 3.28
+         */
+        get_flags(): number;
+
+        /**
+         * Returns a unique name of the service. It can be named for example
+         * by the server or the company from which it receives the OAuth2
+         * token and where it refreshes it, like "Company" for login.company.com.
+         * @returns the name of the `service`
+         * @since 3.28
+         */
+        get_name(): string;
+
+        /**
+         * Returns a value for the "redirect_uri" keys in the authenticate and get_token
+         * operations. The default implementation returns "urn:ietf:wg:oauth:2.0:oob".
+         * @param source an associated {@link EDataServer.Source}
+         * @returns The redirect_uri to use, or `null` for none
+         * @since 3.28
+         */
+        get_redirect_uri(source: Source): string | null;
+
+        /**
+         * @param source an associated {@link EDataServer.Source}
+         * @returns a URI to be used to refresh the authentication token
+         * @since 3.28
+         */
+        get_refresh_uri(source: Source): string;
+
+        /**
+         * Checks whether the `service` can be used with the given `protocol` and/or `hostname`.
+         * Any of `protocol` and `hostname` can be `null`, but not both. It's up to each implementer
+         * to decide, which of the arguments are important and whether all or only any of them
+         * can be required.
+         * 
+         * The function is meant to check whether the `service` can be offered
+         * for example when configuring a new account. The real usage is
+         * determined by `e_oauth2_service_can_process()`.
+         * 
+         * The default implementation consults org.gnome.evolution-data-server.oauth2-services-hint
+         * GSettings key against given hostname. See its description for more information.
+         * 
+         * The default implementation is tried always as the first and when it fails, then
+         * the descendant's implementation is called.
+         * @param protocol a protocol to search the service for, like "imap", or `null`
+         * @param hostname a host name to search the service for, like "server.example.com", or `null`
+         * @returns Whether the `service` can be used for the given arguments
+         * @since 3.28
+         */
+        guess_can_process(protocol: string | null, hostname: string | null): boolean;
+
+        /**
+         * The `service` can change what arguments are passed in the authentication URI
+         * in this method. The default implementation sets some values too, namely
+         * "response_type", "client_id", "redirect_uri" and "login_hint", if available
+         * in the `source`. These parameters are always provided, even when the interface
+         * implementer overrides this method.
+         * 
+         * The `uri_query` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param uri_query query for the URI to use
+         * @since 3.28
+         */
+        prepare_authentication_uri_query(source: Source, uri_query: { [key: string]: string }): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * access token after successfully obtained authorization code.
+         * The default implementation sets some values too, namely
+         * "code", "client_id", "client_secret", "redirect_uri" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param authorization_code authorization code, as returned from `e_oauth2_service_extract_authorization_code()`
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         */
+        prepare_get_token_form(source: Source, authorization_code: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_authentication_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_get_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         */
+        prepare_get_token_message(source: Source, message: Soup.Message): void;
+
+        /**
+         * Sets additional form parameters to be used in the POST request when requesting
+         * to refresh an access token.
+         * The default implementation sets some values too, namely
+         * "refresh_token", "client_id", "client_secret" and "grant_type".
+         * These parameters are always provided, even when the interface implementer overrides this method.
+         * 
+         * The `form` hash table expects both key and value to be newly allocated
+         * strings, which will be freed together with the hash table or when the key
+         * is replaced.
+         * @param source an associated {@link EDataServer.Source}
+         * @param refresh_token a refresh token to be used
+         * @param form form parameters to be used in the POST request
+         * @since 3.28
+         */
+        prepare_refresh_token_form(source: Source, refresh_token: string, form: { [key: string]: string }): void;
+
+        /**
+         * The `service` can change the `message` before it's sent to
+         * the `e_oauth2_service_get_refresh_uri()`, with POST data
+         * being provided by `e_oauth2_service_prepare_refresh_token_form()`.
+         * The default implementation does nothing with the `message`.
+         * @param source an associated {@link EDataServer.Source}
+         * @param message a {@link Soup.Message}
+         * @since 3.28
+         */
+        prepare_refresh_token_message(source: Source, message: Soup.Message): void;
+
+        /**
+         * Queries `service` at `e_oauth2_service_get_refresh_uri()` with a request to obtain
+         * a new access token, associated with the given `authorization_code` and stores
+         * it into the secret store on success.
+         * @param source an {@link EDataServer.Source}
+         * @param authorization_code authorization code provided by the server
+         * @param ref_source an {@link EDataServer.OAuth2ServiceRefSourceFunc} function to obtain an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        receive_and_store_token_sync(source: Source, authorization_code: string, ref_source: OAuth2ServiceRefSourceFunc, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Queries `service` at `e_oauth2_service_get_refresh_uri()` with a request to refresh
+         * existing access token with provided `refresh_token` and stores it into the secret
+         * store on success.
+         * @param source an {@link EDataServer.Source}
+         * @param refresh_token refresh token as provided by the server
+         * @param ref_source an {@link EDataServer.OAuth2ServiceRefSourceFunc} function to obtain an {@link EDataServer.Source}
+         * @param cancellable optional {@link Gio.Cancellable} object, or `null`
+         * @returns whether succeeded
+         * @since 3.28
+         * @throws GLib.Error
+         */
+        refresh_and_store_token_sync(source: Source, refresh_token: string, ref_source: OAuth2ServiceRefSourceFunc, cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    export const OAuth2Service: OAuth2ServiceNamespace & {
+        new (): OAuth2Service; // This allows `obj instanceof OAuth2Service`
+    };
+
+    /**
+     * Name of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L188
+     */
+    const __name__: string;
+
+    /**
+     * Version of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L189
+     */
+    const __version__: string;
+}
+
+export default EDataServer;
+
+}
+
+declare module 'gi://EDataServer' {
+    import EDataServer12 from 'gi://EDataServer?version=1.2';
+    export default EDataServer12;
+}
+// END

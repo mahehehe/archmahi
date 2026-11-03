@@ -1,0 +1,6666 @@
+/// <reference path="./rygelcore-2.8.d.ts" />
+/// <reference path="./glib-2.0.d.ts" />
+/// <reference path="./gee-0.8.d.ts" />
+/// <reference path="./gio-2.0.d.ts" />
+/// <reference path="./gobject-2.0.d.ts" />
+/// <reference path="./gmodule-2.0.d.ts" />
+/// <reference path="./gupnp-1.6.d.ts" />
+/// <reference path="./libxml2-2.0.d.ts" />
+/// <reference path="./soup-3.0.d.ts" />
+/// <reference path="./gssdp-1.6.d.ts" />
+/// <reference path="./gupnpav-1.0.d.ts" />
+
+/**
+ * Type Definitions for Gjs (https://gjs.guide/)
+ *
+ * These type definitions are automatically generated, do not edit them by hand.
+ * If you found a bug fix it in `ts-for-gir` or create a bug report on https://github.com/gjsify/ts-for-gir
+ *
+ * The based EJS template file is used for the generated .d.ts file of each GIR module like Gtk-4.0, GObject-2.0, ...
+ */
+
+declare module 'gi://RygelServer?version=2.8' {
+
+// Module dependencies
+import type RygelCore from 'gi://RygelCore?version=2.8';
+import type GLib from 'gi://GLib?version=2.0';
+import type Gee from 'gi://Gee?version=0.8';
+import type Gio from 'gi://Gio?version=2.0';
+import type GObject from 'gi://GObject?version=2.0';
+import type GModule from 'gi://GModule?version=2.0';
+import type GUPnP from 'gi://GUPnP?version=1.6';
+import type libxml2 from 'gi://libxml2?version=2.0';
+import type Soup from 'gi://Soup?version=3.0';
+import type GSSDP from 'gi://GSSDP?version=1.6';
+import type GUPnPAV from 'gi://GUPnPAV?version=1.0';
+
+export namespace RygelServer {
+
+    /**
+     * RygelServer-2.8
+     */
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace LogicalOperator {
+        export const $gtype: GObject.GType<LogicalOperator>;
+    }
+
+    /**
+     * @gir-type Enum
+     */
+    enum LogicalOperator {
+        AND = 0,
+        OR = 1,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace ObjectEventType {
+        export const $gtype: GObject.GType<ObjectEventType>;
+    }
+
+    /**
+     * @gir-type Enum
+     */
+    enum ObjectEventType {
+        ADDED = 0,
+        MODIFIED = 1,
+        DELETED = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace SerializerType {
+        export const $gtype: GObject.GType<SerializerType>;
+    }
+
+    /**
+     * @gir-type Enum
+     */
+    enum SerializerType {
+        GENERIC_DIDL = 0,
+        DIDL_S = 1,
+        M3UEXT = 2,
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class WritableContainerError extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        static NOT_IMPLEMENTED: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class MediaEngineError extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        static NOT_FOUND: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class HTTPSeekRequestError extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        static INVALID_RANGE: number;
+
+        static BAD_REQUEST: number;
+
+        static OUT_OF_RANGE: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class DataSourceError extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        static GENERAL: number;
+
+        static SEEK_FAILED: number;
+
+        static PLAYSPEED_FAILED: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class HTTPRequestError extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        static UNACCEPTABLE: number;
+
+        static BAD_REQUEST: number;
+
+        static NOT_FOUND: number;
+
+        static INTERNAL_SERVER_ERROR: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class PlaySpeedError extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        static INVALID_SPEED_FORMAT: number;
+
+        static SPEED_NOT_PRESENT: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+    }
+
+
+    namespace AudioItem {
+        // Signal signatures
+        interface SignalSignatures extends MediaFileItem.SignalSignatures {
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::bitrate": (pspec: GObject.ParamSpec) => void;
+            "notify::sample-freq": (pspec: GObject.ParamSpec) => void;
+            "notify::bits-per-sample": (pspec: GObject.ParamSpec) => void;
+            "notify::channels": (pspec: GObject.ParamSpec) => void;
+            "notify::album": (pspec: GObject.ParamSpec) => void;
+            "notify::mime-type": (pspec: GObject.ParamSpec) => void;
+            "notify::dlna-profile": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::place-holder": (pspec: GObject.ParamSpec) => void;
+            "notify::description": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::ref-id": (pspec: GObject.ParamSpec) => void;
+            "notify::upnp-class": (pspec: GObject.ParamSpec) => void;
+            "notify::date": (pspec: GObject.ParamSpec) => void;
+            "notify::creator": (pspec: GObject.ParamSpec) => void;
+            "notify::modified": (pspec: GObject.ParamSpec) => void;
+            "notify::object-update-id": (pspec: GObject.ParamSpec) => void;
+            "notify::artist": (pspec: GObject.ParamSpec) => void;
+            "notify::genre": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-ref": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::ocm-flags": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaFileItem.ConstructorProps {
+            duration: bigint | number;
+            bitrate: number;
+            sample_freq: number;
+            sampleFreq: number;
+            bits_per_sample: number;
+            bitsPerSample: number;
+            channels: number;
+            album: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class AudioItem extends MediaFileItem {
+        static $gtype: GObject.GType<AudioItem>;
+
+        // Properties
+        get duration(): number;
+        set duration(val: bigint | number);
+
+        get bitrate(): number;
+        set bitrate(val: number);
+
+        get sample_freq(): number;
+        set sample_freq(val: number);
+
+        get sampleFreq(): number;
+        set sampleFreq(val: number);
+
+        get bits_per_sample(): number;
+        set bits_per_sample(val: number);
+
+        get bitsPerSample(): number;
+        set bitsPerSample(val: number);
+
+        get channels(): number;
+        set channels(val: number);
+
+        get album(): string;
+        set album(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: AudioItem.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<AudioItem.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](id: string, parent: MediaContainer, title: string, upnp_class: string): AudioItem;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof AudioItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, AudioItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof AudioItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, AudioItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof AudioItem.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<AudioItem.SignalSignatures[K]>): void;
+
+        // Methods
+        get_duration(): number;
+
+        /**
+         * @param value 
+         */
+        set_duration(value: bigint | number): void;
+
+        get_bitrate(): number;
+
+        /**
+         * @param value 
+         */
+        set_bitrate(value: number): void;
+
+        get_sample_freq(): number;
+
+        /**
+         * @param value 
+         */
+        set_sample_freq(value: number): void;
+
+        get_bits_per_sample(): number;
+
+        /**
+         * @param value 
+         */
+        set_bits_per_sample(value: number): void;
+
+        get_channels(): number;
+
+        /**
+         * @param value 
+         */
+        set_channels(value: number): void;
+
+        get_album(): string;
+
+        /**
+         * @param value 
+         */
+        set_album(value: string): void;
+    }
+
+
+    namespace ImageItem {
+        // Signal signatures
+        interface SignalSignatures extends MediaFileItem.SignalSignatures {
+            "notify::mime-type": (pspec: GObject.ParamSpec) => void;
+            "notify::dlna-profile": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::place-holder": (pspec: GObject.ParamSpec) => void;
+            "notify::description": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::ref-id": (pspec: GObject.ParamSpec) => void;
+            "notify::upnp-class": (pspec: GObject.ParamSpec) => void;
+            "notify::date": (pspec: GObject.ParamSpec) => void;
+            "notify::creator": (pspec: GObject.ParamSpec) => void;
+            "notify::modified": (pspec: GObject.ParamSpec) => void;
+            "notify::object-update-id": (pspec: GObject.ParamSpec) => void;
+            "notify::artist": (pspec: GObject.ParamSpec) => void;
+            "notify::genre": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-ref": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::ocm-flags": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::color-depth": (pspec: GObject.ParamSpec) => void;
+            "notify::thumbnails": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaFileItem.ConstructorProps, VisualItem.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class ImageItem extends MediaFileItem implements VisualItem {
+        static $gtype: GObject.GType<ImageItem>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: ImageItem.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<ImageItem.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](id: string, parent: MediaContainer, title: string, upnp_class: string): ImageItem;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof ImageItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ImageItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof ImageItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ImageItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof ImageItem.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<ImageItem.SignalSignatures[K]>): void;
+
+        /** @category Inherited from RygelServer.VisualItem */
+        get width(): number;
+        set width(val: number);
+
+        /** @category Inherited from RygelServer.VisualItem */
+        get height(): number;
+        set height(val: number);
+
+        /** @category Inherited from RygelServer.VisualItem */
+        get color_depth(): number;
+        set color_depth(val: number);
+
+        /** @category Inherited from RygelServer.VisualItem */
+        get colorDepth(): number;
+        set colorDepth(val: number);
+
+        /** @category Inherited from RygelServer.VisualItem */
+        get thumbnails(): Gee.ArrayList;
+        set thumbnails(val: Gee.ArrayList);
+
+        get_width(): number;
+
+        /**
+         * @param value 
+         */
+        set_width(value: number): void;
+
+        get_height(): number;
+
+        /**
+         * @param value 
+         */
+        set_height(value: number): void;
+
+        get_color_depth(): number;
+
+        /**
+         * @param value 
+         */
+        set_color_depth(value: number): void;
+
+        get_thumbnails(): Gee.ArrayList;
+
+        /**
+         * @param value 
+         */
+        set_thumbnails(value: Gee.ArrayList): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_width(): number;
+
+        /**
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_width(value: number): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_height(): number;
+
+        /**
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_height(value: number): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_color_depth(): number;
+
+        /**
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_color_depth(value: number): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_thumbnails(): Gee.ArrayList;
+
+        /**
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_thumbnails(value: Gee.ArrayList): void;
+    }
+
+
+    namespace LogicalExpression {
+        // Signal signatures
+        interface SignalSignatures extends SearchExpression.SignalSignatures {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class LogicalExpression extends SearchExpression {
+        static $gtype: GObject.GType<LogicalExpression>;
+
+        // Constructors
+        _init(...args: any[]): void;
+
+        static ["new"](): LogicalExpression;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof LogicalExpression.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, LogicalExpression.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof LogicalExpression.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, LogicalExpression.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof LogicalExpression.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<LogicalExpression.SignalSignatures[K]>): void;
+    }
+
+
+    namespace MediaArtStore {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class MediaArtStore extends GObject.Object {
+        static $gtype: GObject.GType<MediaArtStore>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MediaArtStore.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MediaArtStore.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MediaArtStore.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaArtStore.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MediaArtStore.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaArtStore.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MediaArtStore.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MediaArtStore.SignalSignatures[K]>): void;
+
+        // Static methods
+        static get_default(): MediaArtStore | null;
+
+        // Methods
+        /**
+         * @param item 
+         * @throws GLib.Error
+         */
+        lookup_media_art(item: MusicItem): Thumbnail | null;
+
+        /**
+         * @param item 
+         * @param file 
+         * @param data 
+         * @param mime 
+         */
+        add(item: MusicItem, file: Gio.File, data: Uint8Array | string, mime: string): void;
+
+        /**
+         * @param item 
+         * @param file 
+         */
+        search_media_art_for_file(item: MusicItem, file: Gio.File): void;
+    }
+
+
+    namespace MediaObjects {
+        // Signal signatures
+        interface SignalSignatures extends Gee.ArrayList.SignalSignatures {
+            "notify::g-type": (pspec: GObject.ParamSpec) => void;
+            "notify::g-dup-func": (pspec: GObject.ParamSpec) => void;
+            "notify::g-destroy-func": (pspec: GObject.ParamSpec) => void;
+            "notify::read-only-view": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::read-only": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Gee.ArrayList.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class MediaObjects extends Gee.ArrayList {
+        static $gtype: GObject.GType<MediaObjects>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MediaObjects.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MediaObjects.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): MediaObjects;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MediaObjects.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaObjects.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MediaObjects.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaObjects.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MediaObjects.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MediaObjects.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param sort_criteria 
+         */
+        sort_by_criteria(sort_criteria: string): void;
+    }
+
+
+    namespace MusicItem {
+        // Signal signatures
+        interface SignalSignatures extends AudioItem.SignalSignatures {
+            "notify::track-number": (pspec: GObject.ParamSpec) => void;
+            "notify::disc-number": (pspec: GObject.ParamSpec) => void;
+            "notify::album-art": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::bitrate": (pspec: GObject.ParamSpec) => void;
+            "notify::sample-freq": (pspec: GObject.ParamSpec) => void;
+            "notify::bits-per-sample": (pspec: GObject.ParamSpec) => void;
+            "notify::channels": (pspec: GObject.ParamSpec) => void;
+            "notify::album": (pspec: GObject.ParamSpec) => void;
+            "notify::mime-type": (pspec: GObject.ParamSpec) => void;
+            "notify::dlna-profile": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::place-holder": (pspec: GObject.ParamSpec) => void;
+            "notify::description": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::ref-id": (pspec: GObject.ParamSpec) => void;
+            "notify::upnp-class": (pspec: GObject.ParamSpec) => void;
+            "notify::date": (pspec: GObject.ParamSpec) => void;
+            "notify::creator": (pspec: GObject.ParamSpec) => void;
+            "notify::modified": (pspec: GObject.ParamSpec) => void;
+            "notify::object-update-id": (pspec: GObject.ParamSpec) => void;
+            "notify::artist": (pspec: GObject.ParamSpec) => void;
+            "notify::genre": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-ref": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::ocm-flags": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends AudioItem.ConstructorProps {
+            track_number: number;
+            trackNumber: number;
+            disc_number: number;
+            discNumber: number;
+            album_art: Thumbnail;
+            albumArt: Thumbnail;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class MusicItem extends AudioItem {
+        static $gtype: GObject.GType<MusicItem>;
+
+        // Properties
+        get track_number(): number;
+        set track_number(val: number);
+
+        get trackNumber(): number;
+        set trackNumber(val: number);
+
+        get disc_number(): number;
+        set disc_number(val: number);
+
+        get discNumber(): number;
+        set discNumber(val: number);
+
+        get album_art(): Thumbnail;
+        set album_art(val: Thumbnail);
+
+        get albumArt(): Thumbnail;
+        set albumArt(val: Thumbnail);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MusicItem.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MusicItem.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](id: string, parent: MediaContainer, title: string, upnp_class: string): MusicItem;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MusicItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MusicItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MusicItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MusicItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MusicItem.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MusicItem.SignalSignatures[K]>): void;
+
+        // Methods
+        lookup_album_art(): void;
+
+        get_track_number(): number;
+
+        /**
+         * @param value 
+         */
+        set_track_number(value: number): void;
+
+        get_disc_number(): number;
+
+        /**
+         * @param value 
+         */
+        set_disc_number(value: number): void;
+
+        get_album_art(): Thumbnail;
+
+        /**
+         * @param value 
+         */
+        set_album_art(value: Thumbnail): void;
+    }
+
+
+    namespace PhotoItem {
+        // Signal signatures
+        interface SignalSignatures extends ImageItem.SignalSignatures {
+            "notify::mime-type": (pspec: GObject.ParamSpec) => void;
+            "notify::dlna-profile": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::place-holder": (pspec: GObject.ParamSpec) => void;
+            "notify::description": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::ref-id": (pspec: GObject.ParamSpec) => void;
+            "notify::upnp-class": (pspec: GObject.ParamSpec) => void;
+            "notify::date": (pspec: GObject.ParamSpec) => void;
+            "notify::creator": (pspec: GObject.ParamSpec) => void;
+            "notify::modified": (pspec: GObject.ParamSpec) => void;
+            "notify::object-update-id": (pspec: GObject.ParamSpec) => void;
+            "notify::artist": (pspec: GObject.ParamSpec) => void;
+            "notify::genre": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-ref": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::ocm-flags": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends ImageItem.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class PhotoItem extends ImageItem {
+        static $gtype: GObject.GType<PhotoItem>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: PhotoItem.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<PhotoItem.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](id: string, parent: MediaContainer, title: string, upnp_class: string): PhotoItem;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof PhotoItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, PhotoItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof PhotoItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, PhotoItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof PhotoItem.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<PhotoItem.SignalSignatures[K]>): void;
+    }
+
+
+    namespace RelationalExpression {
+        // Signal signatures
+        interface SignalSignatures extends SearchExpression.SignalSignatures {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class RelationalExpression extends SearchExpression {
+        static $gtype: GObject.GType<RelationalExpression>;
+
+        // Constructors
+        _init(...args: any[]): void;
+
+        static ["new"](): RelationalExpression;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof RelationalExpression.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, RelationalExpression.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof RelationalExpression.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, RelationalExpression.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof RelationalExpression.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<RelationalExpression.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param str 
+         */
+        compare_string(str: string | null): boolean;
+
+        /**
+         * @param integer 
+         */
+        compare_int(integer: number): boolean;
+
+        /**
+         * @param integer 
+         */
+        compare_uint(integer: number): boolean;
+    }
+
+
+    namespace SimpleContainer {
+        // Signal signatures
+        interface SignalSignatures extends MediaContainer.SignalSignatures {
+            "notify::child-count": (pspec: GObject.ParamSpec) => void;
+            "notify::empty-child-count": (pspec: GObject.ParamSpec) => void;
+            "notify::all-child-count": (pspec: GObject.ParamSpec) => void;
+            "notify::create-mode-enabled": (pspec: GObject.ParamSpec) => void;
+            "notify::sort-criteria": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::ref-id": (pspec: GObject.ParamSpec) => void;
+            "notify::upnp-class": (pspec: GObject.ParamSpec) => void;
+            "notify::date": (pspec: GObject.ParamSpec) => void;
+            "notify::creator": (pspec: GObject.ParamSpec) => void;
+            "notify::modified": (pspec: GObject.ParamSpec) => void;
+            "notify::object-update-id": (pspec: GObject.ParamSpec) => void;
+            "notify::artist": (pspec: GObject.ParamSpec) => void;
+            "notify::genre": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-ref": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::ocm-flags": (pspec: GObject.ParamSpec) => void;
+            "notify::search-classes": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaContainer.ConstructorProps, SearchableContainer.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class SimpleContainer extends MediaContainer implements SearchableContainer {
+        static $gtype: GObject.GType<SimpleContainer>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: SimpleContainer.SignalSignatures;
+
+        // Fields
+        children: MediaObjects;
+
+        // Constructors
+        constructor(properties?: Partial<SimpleContainer.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](id: string, parent: MediaContainer | null, title: string): SimpleContainer;
+
+        static root(title: string): SimpleContainer;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SimpleContainer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SimpleContainer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SimpleContainer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SimpleContainer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SimpleContainer.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SimpleContainer.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param child 
+         */
+        add_child_item(child: MediaItem): void;
+
+        get_all_children(): MediaObjects;
+
+        /**
+         * @param child 
+         */
+        add_child_container(child: MediaContainer): void;
+
+        /**
+         * @param child 
+         */
+        remove_child(child: MediaObject): void;
+
+        clear(): void;
+
+        /**
+         * @param child_id 
+         */
+        is_child_id_unique(child_id: string): boolean;
+
+        /** @category Inherited from RygelServer.SearchableContainer */
+        get search_classes(): Gee.ArrayList;
+        set search_classes(val: Gee.ArrayList);
+
+        /** @category Inherited from RygelServer.SearchableContainer */
+        get searchClasses(): Gee.ArrayList;
+        set searchClasses(val: Gee.ArrayList);
+
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         */
+        search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null): globalThis.Promise<[MediaObjects | null, number]>;
+
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<[MediaObjects | null, number]> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        search_finish(_res_: Gio.AsyncResult): [MediaObjects | null, number];
+
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         */
+        simple_search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null): globalThis.Promise<[MediaObjects | null, number]>;
+
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        simple_search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        simple_search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<[MediaObjects | null, number]> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        simple_search_finish(_res_: Gio.AsyncResult): [MediaObjects | null, number];
+
+        /**
+         * @param id 
+         * @param cancellable 
+         */
+        find_object(id: string, cancellable: Gio.Cancellable | null): globalThis.Promise<MediaObject | null>;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        find_object(id: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        find_object(id: string, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<MediaObject | null> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        find_object_finish(_res_: Gio.AsyncResult): MediaObject | null;
+
+        get_search_classes(): Gee.ArrayList;
+
+        /**
+         * @param value 
+         */
+        set_search_classes(value: Gee.ArrayList): void;
+
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         * @param _callback_ 
+         * @virtual
+         */
+        vfunc_search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _res_ 
+         * @virtual
+         */
+        vfunc_search_finish(_res_: Gio.AsyncResult): [MediaObjects | null, number];
+
+        /**
+         * @virtual
+         */
+        vfunc_get_search_classes(): Gee.ArrayList;
+
+        /**
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_search_classes(value: Gee.ArrayList): void;
+    }
+
+
+    namespace Subtitle {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class Subtitle {
+        static $gtype: GObject.GType<Subtitle>;
+
+        // Fields
+        ref_count: number;
+
+        uri: string;
+
+        mime_type: string;
+
+        caption_type: string;
+
+        file_extension: string;
+
+        size: number;
+
+        // Constructors
+        _init(...args: any[]): void;
+
+        static ["new"](mime_type: string, caption_type: string, file_extension: string): Subtitle;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Subtitle.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Subtitle.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Subtitle.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Subtitle.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Subtitle.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Subtitle.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @param protocol 
+         * @param index 
+         * @virtual
+         */
+        vfunc_get_resource(protocol: string, index: number): MediaResource;
+
+        // Methods
+        /**
+         * @param protocol 
+         * @param index 
+         */
+        get_resource(protocol: string, index: number): MediaResource;
+    }
+
+
+    namespace Thumbnail {
+        // Signal signatures
+        interface SignalSignatures extends RygelCore.IconInfo.SignalSignatures {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class Thumbnail extends RygelCore.IconInfo {
+        static $gtype: GObject.GType<Thumbnail>;
+
+        // Fields
+        dlna_profile: string;
+
+        // Constructors
+        _init(...args: any[]): void;
+
+        static ["new"](mime_type: string, dlna_profile: string, file_extension: string): Thumbnail;
+
+        // Conflicted with RygelCore.IconInfo.new
+        static ["new"](...args: never[]): any;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Thumbnail.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Thumbnail.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Thumbnail.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Thumbnail.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Thumbnail.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Thumbnail.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @param protocol 
+         * @param index 
+         * @virtual
+         */
+        vfunc_get_resource(protocol: string, index: number): MediaResource;
+
+        // Methods
+        /**
+         * @param protocol 
+         * @param index 
+         */
+        get_resource(protocol: string, index: number): MediaResource;
+    }
+
+
+    namespace VideoItem {
+        // Signal signatures
+        interface SignalSignatures extends AudioItem.SignalSignatures {
+            "notify::author": (pspec: GObject.ParamSpec) => void;
+            "notify::subtitles": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::bitrate": (pspec: GObject.ParamSpec) => void;
+            "notify::sample-freq": (pspec: GObject.ParamSpec) => void;
+            "notify::bits-per-sample": (pspec: GObject.ParamSpec) => void;
+            "notify::channels": (pspec: GObject.ParamSpec) => void;
+            "notify::album": (pspec: GObject.ParamSpec) => void;
+            "notify::mime-type": (pspec: GObject.ParamSpec) => void;
+            "notify::dlna-profile": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::place-holder": (pspec: GObject.ParamSpec) => void;
+            "notify::description": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::ref-id": (pspec: GObject.ParamSpec) => void;
+            "notify::upnp-class": (pspec: GObject.ParamSpec) => void;
+            "notify::date": (pspec: GObject.ParamSpec) => void;
+            "notify::creator": (pspec: GObject.ParamSpec) => void;
+            "notify::modified": (pspec: GObject.ParamSpec) => void;
+            "notify::object-update-id": (pspec: GObject.ParamSpec) => void;
+            "notify::artist": (pspec: GObject.ParamSpec) => void;
+            "notify::genre": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-ref": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::ocm-flags": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::color-depth": (pspec: GObject.ParamSpec) => void;
+            "notify::thumbnails": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends AudioItem.ConstructorProps, VisualItem.ConstructorProps {
+            author: string;
+            subtitles: Gee.ArrayList;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class VideoItem extends AudioItem implements VisualItem {
+        static $gtype: GObject.GType<VideoItem>;
+
+        // Properties
+        get author(): string;
+        set author(val: string);
+
+        get subtitles(): Gee.ArrayList;
+        set subtitles(val: Gee.ArrayList);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: VideoItem.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<VideoItem.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](id: string, parent: MediaContainer, title: string, upnp_class: string): VideoItem;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof VideoItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VideoItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof VideoItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, VideoItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof VideoItem.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<VideoItem.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @param http_server 
+         * @virtual
+         */
+        vfunc_add_subtitle_resources(http_server: HTTPServer): void;
+
+        // Methods
+        /**
+         * @param http_server 
+         */
+        add_subtitle_resources(http_server: HTTPServer): void;
+
+        get_author(): string;
+
+        /**
+         * @param value 
+         */
+        set_author(value: string): void;
+
+        get_subtitles(): Gee.ArrayList;
+
+        /**
+         * @param value 
+         */
+        set_subtitles(value: Gee.ArrayList): void;
+
+        /** @category Inherited from RygelServer.VisualItem */
+        get width(): number;
+        set width(val: number);
+
+        /** @category Inherited from RygelServer.VisualItem */
+        get height(): number;
+        set height(val: number);
+
+        /** @category Inherited from RygelServer.VisualItem */
+        get color_depth(): number;
+        set color_depth(val: number);
+
+        /** @category Inherited from RygelServer.VisualItem */
+        get colorDepth(): number;
+        set colorDepth(val: number);
+
+        /** @category Inherited from RygelServer.VisualItem */
+        get thumbnails(): Gee.ArrayList;
+        set thumbnails(val: Gee.ArrayList);
+
+        get_width(): number;
+
+        /**
+         * @param value 
+         */
+        set_width(value: number): void;
+
+        get_height(): number;
+
+        /**
+         * @param value 
+         */
+        set_height(value: number): void;
+
+        get_color_depth(): number;
+
+        /**
+         * @param value 
+         */
+        set_color_depth(value: number): void;
+
+        get_thumbnails(): Gee.ArrayList;
+
+        /**
+         * @param value 
+         */
+        set_thumbnails(value: Gee.ArrayList): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_width(): number;
+
+        /**
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_width(value: number): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_height(): number;
+
+        /**
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_height(value: number): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_color_depth(): number;
+
+        /**
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_color_depth(value: number): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_thumbnails(): Gee.ArrayList;
+
+        /**
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_thumbnails(value: Gee.ArrayList): void;
+    }
+
+
+    namespace MediaContainer {
+        // Signal signatures
+        interface SignalSignatures extends MediaObject.SignalSignatures {
+            /**
+             * @signal
+             */
+            "container-updated": (container: MediaContainer, object: MediaObject, event_type: ObjectEventType, sub_tree_update: boolean) => void;
+            /**
+             * @signal
+             */
+            "sub-tree-updates-finished": (sub_tree_root: MediaObject) => void;
+            "notify::child-count": (pspec: GObject.ParamSpec) => void;
+            "notify::empty-child-count": (pspec: GObject.ParamSpec) => void;
+            "notify::all-child-count": (pspec: GObject.ParamSpec) => void;
+            "notify::create-mode-enabled": (pspec: GObject.ParamSpec) => void;
+            "notify::sort-criteria": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::ref-id": (pspec: GObject.ParamSpec) => void;
+            "notify::upnp-class": (pspec: GObject.ParamSpec) => void;
+            "notify::date": (pspec: GObject.ParamSpec) => void;
+            "notify::creator": (pspec: GObject.ParamSpec) => void;
+            "notify::modified": (pspec: GObject.ParamSpec) => void;
+            "notify::object-update-id": (pspec: GObject.ParamSpec) => void;
+            "notify::artist": (pspec: GObject.ParamSpec) => void;
+            "notify::genre": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-ref": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::ocm-flags": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaObject.ConstructorProps {
+            child_count: number;
+            childCount: number;
+            empty_child_count: number;
+            emptyChildCount: number;
+            all_child_count: number;
+            allChildCount: number;
+            create_mode_enabled: boolean;
+            createModeEnabled: boolean;
+            sort_criteria: string;
+            sortCriteria: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class MediaContainer extends MediaObject {
+        static $gtype: GObject.GType<MediaContainer>;
+
+        // Properties
+        get child_count(): number;
+        set child_count(val: number);
+
+        get childCount(): number;
+        set childCount(val: number);
+
+        get empty_child_count(): number;
+        set empty_child_count(val: number);
+
+        get emptyChildCount(): number;
+        set emptyChildCount(val: number);
+
+        /**
+         * @read-only
+         */
+        get all_child_count(): number;
+
+        /**
+         * @read-only
+         */
+        get allChildCount(): number;
+
+        get create_mode_enabled(): boolean;
+        set create_mode_enabled(val: boolean);
+
+        get createModeEnabled(): boolean;
+        set createModeEnabled(val: boolean);
+
+        get sort_criteria(): string;
+        set sort_criteria(val: string);
+
+        get sortCriteria(): string;
+        set sortCriteria(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MediaContainer.SignalSignatures;
+
+        // Fields
+        update_id: number;
+
+        storage_used: number;
+
+        total_deleted_child_count: number;
+
+        // Constructors
+        constructor(properties?: Partial<MediaContainer.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MediaContainer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaContainer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MediaContainer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaContainer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MediaContainer.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MediaContainer.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @param a 
+         * @param b 
+         */
+        static equal_func(a: MediaContainer, b: MediaContainer): boolean;
+
+        // Virtual methods
+        /**
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         * @param _callback_ 
+         * @virtual
+         */
+        vfunc_get_children(offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _res_ 
+         * @virtual
+         */
+        vfunc_get_children_finish(_res_: Gio.AsyncResult): MediaObjects | null;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         * @param _callback_ 
+         * @virtual
+         */
+        vfunc_find_object(id: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _res_ 
+         * @virtual
+         */
+        vfunc_find_object_finish(_res_: Gio.AsyncResult): MediaObject | null;
+
+        // Methods
+        /**
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         */
+        get_children(offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null): globalThis.Promise<MediaObjects | null>;
+
+        /**
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        get_children(offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        get_children(offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<MediaObjects | null> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        get_children_finish(_res_: Gio.AsyncResult): MediaObjects | null;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         */
+        find_object(id: string, cancellable: Gio.Cancellable | null): globalThis.Promise<MediaObject | null>;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        find_object(id: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        find_object(id: string, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<MediaObject | null> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        find_object_finish(_res_: Gio.AsyncResult): MediaObject | null;
+
+        /**
+         * @param object 
+         * @param event_type 
+         * @param sub_tree_update 
+         */
+        updated(object: MediaObject | null, event_type: ObjectEventType, sub_tree_update: boolean): void;
+
+        get_child_count(): number;
+
+        /**
+         * @param value 
+         */
+        set_child_count(value: number): void;
+
+        get_empty_child_count(): number;
+
+        /**
+         * @param value 
+         */
+        set_empty_child_count(value: number): void;
+
+        get_all_child_count(): number;
+
+        get_create_mode_enabled(): boolean;
+
+        /**
+         * @param value 
+         */
+        set_create_mode_enabled(value: boolean): void;
+
+        get_sort_criteria(): string;
+
+        /**
+         * @param value 
+         */
+        set_sort_criteria(value: string): void;
+    }
+
+
+    namespace MediaItem {
+        // Signal signatures
+        interface SignalSignatures extends MediaObject.SignalSignatures {
+            "notify::description": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::ref-id": (pspec: GObject.ParamSpec) => void;
+            "notify::upnp-class": (pspec: GObject.ParamSpec) => void;
+            "notify::date": (pspec: GObject.ParamSpec) => void;
+            "notify::creator": (pspec: GObject.ParamSpec) => void;
+            "notify::modified": (pspec: GObject.ParamSpec) => void;
+            "notify::object-update-id": (pspec: GObject.ParamSpec) => void;
+            "notify::artist": (pspec: GObject.ParamSpec) => void;
+            "notify::genre": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-ref": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::ocm-flags": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaObject.ConstructorProps {
+            description: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class MediaItem extends MediaObject {
+        static $gtype: GObject.GType<MediaItem>;
+
+        // Properties
+        get description(): string;
+        set description(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MediaItem.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MediaItem.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MediaItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MediaItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MediaItem.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MediaItem.SignalSignatures[K]>): void;
+
+        // Methods
+        get_description(): string;
+
+        /**
+         * @param value 
+         */
+        set_description(value: string): void;
+    }
+
+
+    namespace MediaFileItem {
+        // Signal signatures
+        interface SignalSignatures extends MediaItem.SignalSignatures {
+            "notify::mime-type": (pspec: GObject.ParamSpec) => void;
+            "notify::dlna-profile": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::place-holder": (pspec: GObject.ParamSpec) => void;
+            "notify::description": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::ref-id": (pspec: GObject.ParamSpec) => void;
+            "notify::upnp-class": (pspec: GObject.ParamSpec) => void;
+            "notify::date": (pspec: GObject.ParamSpec) => void;
+            "notify::creator": (pspec: GObject.ParamSpec) => void;
+            "notify::modified": (pspec: GObject.ParamSpec) => void;
+            "notify::object-update-id": (pspec: GObject.ParamSpec) => void;
+            "notify::artist": (pspec: GObject.ParamSpec) => void;
+            "notify::genre": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-ref": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::ocm-flags": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaItem.ConstructorProps {
+            mime_type: string;
+            mimeType: string;
+            dlna_profile: string;
+            dlnaProfile: string;
+            size: bigint | number;
+            place_holder: boolean;
+            placeHolder: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class MediaFileItem extends MediaItem {
+        static $gtype: GObject.GType<MediaFileItem>;
+
+        // Properties
+        get mime_type(): string;
+        set mime_type(val: string);
+
+        get mimeType(): string;
+        set mimeType(val: string);
+
+        get dlna_profile(): string;
+        set dlna_profile(val: string);
+
+        get dlnaProfile(): string;
+        set dlnaProfile(val: string);
+
+        get size(): number;
+        set size(val: bigint | number);
+
+        get place_holder(): boolean;
+        set place_holder(val: boolean);
+
+        get placeHolder(): boolean;
+        set placeHolder(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MediaFileItem.SignalSignatures;
+
+        // Fields
+        rygel_media_file_item_mime_to_ext: Gee.HashMap;
+
+        // Constructors
+        constructor(properties?: Partial<MediaFileItem.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MediaFileItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaFileItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MediaFileItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaFileItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MediaFileItem.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MediaFileItem.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @virtual
+         */
+        vfunc_get_primary_resource(): MediaResource;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_extension(): string;
+
+        /**
+         * @param _callback_ 
+         * @virtual
+         */
+        vfunc_add_engine_resources(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _res_ 
+         * @virtual
+         */
+        vfunc_add_engine_resources_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @param server 
+         * @virtual
+         */
+        vfunc_add_additional_resources(server: HTTPServer): void;
+
+        // Methods
+        get_primary_resource(): MediaResource;
+
+        get_extension(): string;
+
+        /**
+         * @param mime_type 
+         */
+        ext_from_mime_type(mime_type: string): string;
+
+        add_engine_resources(): globalThis.Promise<void>;
+
+        /**
+         * @param _callback_ 
+         */
+        add_engine_resources(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _callback_ 
+         */
+        add_engine_resources(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         */
+        add_engine_resources_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @param server 
+         */
+        add_additional_resources(server: HTTPServer): void;
+
+        get_mime_type(): string;
+
+        /**
+         * @param value 
+         */
+        set_mime_type(value: string): void;
+
+        get_dlna_profile(): string;
+
+        /**
+         * @param value 
+         */
+        set_dlna_profile(value: string): void;
+
+        get_size(): number;
+
+        /**
+         * @param value 
+         */
+        set_size(value: bigint | number): void;
+
+        get_place_holder(): boolean;
+
+        /**
+         * @param value 
+         */
+        set_place_holder(value: boolean): void;
+    }
+
+
+    namespace MediaObject {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::ref-id": (pspec: GObject.ParamSpec) => void;
+            "notify::upnp-class": (pspec: GObject.ParamSpec) => void;
+            "notify::date": (pspec: GObject.ParamSpec) => void;
+            "notify::creator": (pspec: GObject.ParamSpec) => void;
+            "notify::modified": (pspec: GObject.ParamSpec) => void;
+            "notify::object-update-id": (pspec: GObject.ParamSpec) => void;
+            "notify::artist": (pspec: GObject.ParamSpec) => void;
+            "notify::genre": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-ref": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::ocm-flags": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            id: string;
+            ref_id: string;
+            refId: string;
+            upnp_class: string;
+            upnpClass: string;
+            date: string;
+            creator: string;
+            modified: bigint | number;
+            object_update_id: number;
+            objectUpdateId: number;
+            artist: string;
+            genre: string;
+            parent: MediaContainer;
+            parent_ref: MediaContainer;
+            parentRef: MediaContainer;
+            title: string;
+            ocm_flags: GUPnPAV.OCMFlags;
+            ocmFlags: GUPnPAV.OCMFlags;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class MediaObject extends GObject.Object {
+        static $gtype: GObject.GType<MediaObject>;
+
+        // Properties
+        get id(): string;
+        set id(val: string);
+
+        get ref_id(): string;
+        set ref_id(val: string);
+
+        get refId(): string;
+        set refId(val: string);
+
+        get upnp_class(): string;
+        set upnp_class(val: string);
+
+        get upnpClass(): string;
+        set upnpClass(val: string);
+
+        get date(): string;
+        set date(val: string);
+
+        get creator(): string;
+        set creator(val: string);
+
+        get modified(): number;
+        set modified(val: bigint | number);
+
+        get object_update_id(): number;
+        set object_update_id(val: number);
+
+        get objectUpdateId(): number;
+        set objectUpdateId(val: number);
+
+        get artist(): string;
+        set artist(val: string);
+
+        get genre(): string;
+        set genre(val: string);
+
+        get parent(): MediaContainer;
+        set parent(val: MediaContainer);
+
+        get parent_ref(): MediaContainer;
+        set parent_ref(val: MediaContainer);
+
+        get parentRef(): MediaContainer;
+        set parentRef(val: MediaContainer);
+
+        get title(): string;
+        set title(val: string);
+
+        /**
+         * @read-only
+         */
+        get ocm_flags(): GUPnPAV.OCMFlags;
+
+        /**
+         * @read-only
+         */
+        get ocmFlags(): GUPnPAV.OCMFlags;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MediaObject.SignalSignatures;
+
+        // Fields
+        parent_ptr: MediaContainer;
+
+        // Constructors
+        constructor(properties?: Partial<MediaObject.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MediaObject.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaObject.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MediaObject.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaObject.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MediaObject.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MediaObject.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @param replacement_pairs 
+         * @param source_string 
+         */
+        static apply_replacements(replacement_pairs: { [key: string]: string }, source_string: string | null): string | null;
+
+        // Virtual methods
+        /**
+         * @param uri 
+         * @virtual
+         */
+        vfunc_add_uri(uri: string): void;
+
+        /**
+         * @param serializer 
+         * @param http_server 
+         * @virtual
+         */
+        vfunc_serialize(serializer: Serializer, http_server: HTTPServer): GUPnPAV.DIDLLiteObject | null;
+
+        /**
+         * @param request 
+         * @param resource 
+         * @virtual
+         */
+        vfunc_create_stream_source_for_resource(request: HTTPRequest, resource: MediaResource): DataSource | null;
+
+        /**
+         * @param didl_object 
+         * @virtual
+         */
+        vfunc_apply_didl_lite(didl_object: GUPnPAV.DIDLLiteObject): void;
+
+        /**
+         * @param media_object 
+         * @param property 
+         * @virtual
+         */
+        vfunc_compare_by_property(media_object: MediaObject, property: string): number;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_ocm_flags(): GUPnPAV.OCMFlags;
+
+        // Methods
+        get_uris(): Gee.List;
+
+        get_primary_uri(): string | null;
+
+        /**
+         * @param uri 
+         */
+        add_uri(uri: string): void;
+
+        /**
+         * @param cancellable 
+         */
+        get_writable(cancellable: Gio.Cancellable | null): globalThis.Promise<Gio.File | null>;
+
+        /**
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        get_writable(cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        get_writable(cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<Gio.File | null> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        get_writable_finish(_res_: Gio.AsyncResult): Gio.File | null;
+
+        /**
+         * @param cancellable 
+         */
+        get_writables(cancellable: Gio.Cancellable | null): globalThis.Promise<Gee.ArrayList>;
+
+        /**
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        get_writables(cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        get_writables(cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<Gee.ArrayList> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        get_writables_finish(_res_: Gio.AsyncResult): Gee.ArrayList;
+
+        get_resource_list(): Gee.List;
+
+        /**
+         * @param resource_name 
+         */
+        get_resource_by_name(resource_name: string): MediaResource | null;
+
+        /**
+         * @param serializer 
+         * @param http_server 
+         * @throws GLib.Error
+         */
+        serialize(serializer: Serializer, http_server: HTTPServer): GUPnPAV.DIDLLiteObject | null;
+
+        /**
+         * @param didl_object 
+         * @param http_server 
+         * @throws GLib.Error
+         */
+        serialize_resource_list(didl_object: GUPnPAV.DIDLLiteObject, http_server: HTTPServer): void;
+
+        /**
+         * @param request 
+         * @param resource 
+         * @throws GLib.Error
+         */
+        create_stream_source_for_resource(request: HTTPRequest, resource: MediaResource): DataSource | null;
+
+        /**
+         * @param didl_object 
+         */
+        apply_didl_lite(didl_object: GUPnPAV.DIDLLiteObject): void;
+
+        /**
+         * @param media_object 
+         * @param property 
+         */
+        compare_by_property(media_object: MediaObject, property: string): number;
+
+        /**
+         * @param prop1 
+         * @param prop2 
+         */
+        compare_string_props(prop1: string, prop2: string): number;
+
+        /**
+         * @param prop1 
+         * @param prop2 
+         */
+        compare_int_props(prop1: number, prop2: number): number;
+
+        get_id(): string;
+
+        /**
+         * @param value 
+         */
+        set_id(value: string): void;
+
+        get_ref_id(): string;
+
+        /**
+         * @param value 
+         */
+        set_ref_id(value: string): void;
+
+        get_upnp_class(): string;
+
+        /**
+         * @param value 
+         */
+        set_upnp_class(value: string): void;
+
+        get_date(): string;
+
+        /**
+         * @param value 
+         */
+        set_date(value: string): void;
+
+        get_creator(): string;
+
+        /**
+         * @param value 
+         */
+        set_creator(value: string): void;
+
+        get_modified(): number;
+
+        /**
+         * @param value 
+         */
+        set_modified(value: bigint | number): void;
+
+        get_object_update_id(): number;
+
+        /**
+         * @param value 
+         */
+        set_object_update_id(value: number): void;
+
+        get_artist(): string;
+
+        /**
+         * @param value 
+         */
+        set_artist(value: string): void;
+
+        get_genre(): string;
+
+        /**
+         * @param value 
+         */
+        set_genre(value: string): void;
+
+        get_parent(): MediaContainer;
+
+        /**
+         * @param value 
+         */
+        set_parent(value: MediaContainer): void;
+
+        get_parent_ref(): MediaContainer;
+
+        /**
+         * @param value 
+         */
+        set_parent_ref(value: MediaContainer): void;
+
+        get_title(): string;
+
+        /**
+         * @param value 
+         */
+        set_title(value: string): void;
+
+        get_ocm_flags(): GUPnPAV.OCMFlags;
+    }
+
+
+    namespace MediaResource {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::uri": (pspec: GObject.ParamSpec) => void;
+            "notify::import-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::extension": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::cleartext-size": (pspec: GObject.ParamSpec) => void;
+            "notify::duration": (pspec: GObject.ParamSpec) => void;
+            "notify::bitrate": (pspec: GObject.ParamSpec) => void;
+            "notify::bits-per-sample": (pspec: GObject.ParamSpec) => void;
+            "notify::color-depth": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::audio-channels": (pspec: GObject.ParamSpec) => void;
+            "notify::sample-freq": (pspec: GObject.ParamSpec) => void;
+            "notify::protocol": (pspec: GObject.ParamSpec) => void;
+            "notify::mime-type": (pspec: GObject.ParamSpec) => void;
+            "notify::dlna-profile": (pspec: GObject.ParamSpec) => void;
+            "notify::network": (pspec: GObject.ParamSpec) => void;
+            "notify::dlna-conversion": (pspec: GObject.ParamSpec) => void;
+            "notify::dlna-flags": (pspec: GObject.ParamSpec) => void;
+            "notify::dlna-operation": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            uri: string;
+            import_uri: string;
+            importUri: string;
+            extension: string;
+            size: bigint | number;
+            cleartext_size: bigint | number;
+            cleartextSize: bigint | number;
+            duration: bigint | number;
+            bitrate: number;
+            bits_per_sample: number;
+            bitsPerSample: number;
+            color_depth: number;
+            colorDepth: number;
+            width: number;
+            height: number;
+            audio_channels: number;
+            audioChannels: number;
+            sample_freq: number;
+            sampleFreq: number;
+            protocol: string;
+            mime_type: string;
+            mimeType: string;
+            dlna_profile: string;
+            dlnaProfile: string;
+            network: string;
+            dlna_conversion: GUPnPAV.DLNAConversion;
+            dlnaConversion: GUPnPAV.DLNAConversion;
+            dlna_flags: GUPnPAV.DLNAFlags;
+            dlnaFlags: GUPnPAV.DLNAFlags;
+            dlna_operation: GUPnPAV.DLNAOperation;
+            dlnaOperation: GUPnPAV.DLNAOperation;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class MediaResource extends GObject.Object {
+        static $gtype: GObject.GType<MediaResource>;
+
+        // Properties
+        get uri(): string;
+        set uri(val: string);
+
+        get import_uri(): string;
+        set import_uri(val: string);
+
+        get importUri(): string;
+        set importUri(val: string);
+
+        get extension(): string;
+        set extension(val: string);
+
+        get size(): number;
+        set size(val: bigint | number);
+
+        get cleartext_size(): number;
+        set cleartext_size(val: bigint | number);
+
+        get cleartextSize(): number;
+        set cleartextSize(val: bigint | number);
+
+        get duration(): number;
+        set duration(val: bigint | number);
+
+        get bitrate(): number;
+        set bitrate(val: number);
+
+        get bits_per_sample(): number;
+        set bits_per_sample(val: number);
+
+        get bitsPerSample(): number;
+        set bitsPerSample(val: number);
+
+        get color_depth(): number;
+        set color_depth(val: number);
+
+        get colorDepth(): number;
+        set colorDepth(val: number);
+
+        get width(): number;
+        set width(val: number);
+
+        get height(): number;
+        set height(val: number);
+
+        get audio_channels(): number;
+        set audio_channels(val: number);
+
+        get audioChannels(): number;
+        set audioChannels(val: number);
+
+        get sample_freq(): number;
+        set sample_freq(val: number);
+
+        get sampleFreq(): number;
+        set sampleFreq(val: number);
+
+        get protocol(): string;
+        set protocol(val: string);
+
+        get mime_type(): string;
+        set mime_type(val: string);
+
+        get mimeType(): string;
+        set mimeType(val: string);
+
+        get dlna_profile(): string;
+        set dlna_profile(val: string);
+
+        get dlnaProfile(): string;
+        set dlnaProfile(val: string);
+
+        get network(): string;
+        set network(val: string);
+
+        get dlna_conversion(): GUPnPAV.DLNAConversion;
+        set dlna_conversion(val: GUPnPAV.DLNAConversion);
+
+        get dlnaConversion(): GUPnPAV.DLNAConversion;
+        set dlnaConversion(val: GUPnPAV.DLNAConversion);
+
+        get dlna_flags(): GUPnPAV.DLNAFlags;
+        set dlna_flags(val: GUPnPAV.DLNAFlags);
+
+        get dlnaFlags(): GUPnPAV.DLNAFlags;
+        set dlnaFlags(val: GUPnPAV.DLNAFlags);
+
+        get dlna_operation(): GUPnPAV.DLNAOperation;
+        set dlna_operation(val: GUPnPAV.DLNAOperation);
+
+        get dlnaOperation(): GUPnPAV.DLNAOperation;
+        set dlnaOperation(val: GUPnPAV.DLNAOperation);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MediaResource.SignalSignatures;
+
+        // Fields
+        play_speeds: string[];
+
+        play_speeds_length1: number;
+
+        // Constructors
+        constructor(properties?: Partial<MediaResource.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](name: string): MediaResource;
+
+        static from_resource(name: string, that: MediaResource): MediaResource;
+
+        static from_didl_lite_resource(name: string, didl_resource: GUPnPAV.DIDLLiteResource): MediaResource;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MediaResource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaResource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MediaResource.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaResource.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MediaResource.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MediaResource.SignalSignatures[K]>): void;
+
+        // Methods
+        dup(): MediaResource;
+
+        get_name(): string;
+
+        /**
+         * @param didl_resource 
+         * @param replacements 
+         */
+        serialize(didl_resource: GUPnPAV.DIDLLiteResource, replacements: { [key: string]: string } | null): GUPnPAV.DIDLLiteResource;
+
+        /**
+         * @param pi 
+         */
+        set_protocol_info(pi: GUPnPAV.ProtocolInfo): void;
+
+        /**
+         * @param replacements 
+         */
+        get_protocol_info(replacements: { [key: string]: string } | null): GUPnPAV.ProtocolInfo;
+
+        supports_arbitrary_byte_seek(): boolean;
+
+        supports_arbitrary_time_seek(): boolean;
+
+        supports_limited_byte_seek(): boolean;
+
+        supports_limited_time_seek(): boolean;
+
+        supports_limited_cleartext_byte_seek(): boolean;
+
+        supports_full_cleartext_byte_seek(): boolean;
+
+        is_link_protection_enabled(): boolean;
+
+        is_dlna_content(): boolean;
+
+        get_default_transfer_mode(): string;
+
+        /**
+         * @param transfer_mode 
+         */
+        supports_transfer_mode(transfer_mode: string): boolean;
+
+        is_streamable(): boolean;
+
+        is_cleartext_range_support_enabled(): boolean;
+
+        supports_playspeed(): boolean;
+
+        /**
+         * @param flags 
+         */
+        is_dlna_protocol_flag_set(flags: bigint | number): boolean;
+
+        /**
+         * @param flags 
+         */
+        is_dlna_operation_mode_set(flags: bigint | number): boolean;
+
+        to_string(): string;
+
+        get_uri(): string;
+
+        /**
+         * @param value 
+         */
+        set_uri(value: string): void;
+
+        get_import_uri(): string;
+
+        /**
+         * @param value 
+         */
+        set_import_uri(value: string): void;
+
+        get_extension(): string;
+
+        /**
+         * @param value 
+         */
+        set_extension(value: string): void;
+
+        get_size(): number;
+
+        /**
+         * @param value 
+         */
+        set_size(value: bigint | number): void;
+
+        get_cleartext_size(): number;
+
+        /**
+         * @param value 
+         */
+        set_cleartext_size(value: bigint | number): void;
+
+        get_duration(): number;
+
+        /**
+         * @param value 
+         */
+        set_duration(value: bigint | number): void;
+
+        get_bitrate(): number;
+
+        /**
+         * @param value 
+         */
+        set_bitrate(value: number): void;
+
+        get_bits_per_sample(): number;
+
+        /**
+         * @param value 
+         */
+        set_bits_per_sample(value: number): void;
+
+        get_color_depth(): number;
+
+        /**
+         * @param value 
+         */
+        set_color_depth(value: number): void;
+
+        get_width(): number;
+
+        /**
+         * @param value 
+         */
+        set_width(value: number): void;
+
+        get_height(): number;
+
+        /**
+         * @param value 
+         */
+        set_height(value: number): void;
+
+        get_audio_channels(): number;
+
+        /**
+         * @param value 
+         */
+        set_audio_channels(value: number): void;
+
+        get_sample_freq(): number;
+
+        /**
+         * @param value 
+         */
+        set_sample_freq(value: number): void;
+
+        get_protocol(): string;
+
+        /**
+         * @param value 
+         */
+        set_protocol(value: string): void;
+
+        get_mime_type(): string;
+
+        /**
+         * @param value 
+         */
+        set_mime_type(value: string): void;
+
+        get_dlna_profile(): string;
+
+        /**
+         * @param value 
+         */
+        set_dlna_profile(value: string): void;
+
+        get_network(): string;
+
+        /**
+         * @param value 
+         */
+        set_network(value: string): void;
+
+        get_dlna_conversion(): GUPnPAV.DLNAConversion;
+
+        /**
+         * @param value 
+         */
+        set_dlna_conversion(value: GUPnPAV.DLNAConversion): void;
+
+        get_dlna_flags(): GUPnPAV.DLNAFlags;
+
+        /**
+         * @param value 
+         */
+        set_dlna_flags(value: GUPnPAV.DLNAFlags): void;
+
+        get_dlna_operation(): GUPnPAV.DLNAOperation;
+
+        /**
+         * @param value 
+         */
+        set_dlna_operation(value: GUPnPAV.DLNAOperation): void;
+    }
+
+
+    namespace MediaServerPlugin {
+        // Signal signatures
+        interface SignalSignatures extends RygelCore.Plugin.SignalSignatures {
+            "notify::root-container": (pspec: GObject.ParamSpec) => void;
+            "notify::search-caps": (pspec: GObject.ParamSpec) => void;
+            "notify::upload-profiles": (pspec: GObject.ParamSpec) => void;
+            "notify::supported-profiles": (pspec: GObject.ParamSpec) => void;
+            "notify::capabilities": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::description": (pspec: GObject.ParamSpec) => void;
+            "notify::desc-path": (pspec: GObject.ParamSpec) => void;
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::resource-infos": (pspec: GObject.ParamSpec) => void;
+            "notify::icon-infos": (pspec: GObject.ParamSpec) => void;
+            "notify::default-icons": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends RygelCore.Plugin.ConstructorProps {
+            root_container: MediaContainer;
+            rootContainer: MediaContainer;
+            search_caps: string;
+            searchCaps: string;
+            upload_profiles: RygelCore.DLNAProfile[];
+            uploadProfiles: RygelCore.DLNAProfile[];
+            supported_profiles: RygelCore.DLNAProfile[];
+            supportedProfiles: RygelCore.DLNAProfile[];
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class MediaServerPlugin extends RygelCore.Plugin {
+        static $gtype: GObject.GType<MediaServerPlugin>;
+
+        // Properties
+        /**
+         * @construct-only
+         */
+        get root_container(): MediaContainer;
+
+        /**
+         * @construct-only
+         */
+        get rootContainer(): MediaContainer;
+
+        /**
+         * @read-only
+         */
+        get search_caps(): string;
+
+        /**
+         * @read-only
+         */
+        get searchCaps(): string;
+
+        get upload_profiles(): RygelCore.DLNAProfile[];
+        set upload_profiles(val: RygelCore.DLNAProfile[]);
+
+        get uploadProfiles(): RygelCore.DLNAProfile[];
+        set uploadProfiles(val: RygelCore.DLNAProfile[]);
+
+        get supported_profiles(): RygelCore.DLNAProfile[];
+        set supported_profiles(val: RygelCore.DLNAProfile[]);
+
+        get supportedProfiles(): RygelCore.DLNAProfile[];
+        set supportedProfiles(val: RygelCore.DLNAProfile[]);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MediaServerPlugin.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MediaServerPlugin.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MediaServerPlugin.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaServerPlugin.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MediaServerPlugin.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaServerPlugin.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MediaServerPlugin.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MediaServerPlugin.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @virtual
+         */
+        vfunc_get_search_caps(): string;
+
+        // Methods
+        get_root_container(): MediaContainer;
+
+        get_search_caps(): string;
+
+        get_upload_profiles(): RygelCore.DLNAProfile[];
+
+        /**
+         * @param value 
+         */
+        set_upload_profiles(value: RygelCore.DLNAProfile[]): void;
+
+        get_supported_profiles(): RygelCore.DLNAProfile[];
+
+        /**
+         * @param value 
+         */
+        set_supported_profiles(value: RygelCore.DLNAProfile[]): void;
+    }
+
+
+    namespace SearchExpression {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class SearchExpression {
+        static $gtype: GObject.GType<SearchExpression>;
+
+        // Fields
+        ref_count: number;
+
+        op: null;
+
+        operand1: null;
+
+        operand2: null;
+
+        // Constructors
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof SearchExpression.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SearchExpression.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof SearchExpression.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, SearchExpression.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof SearchExpression.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<SearchExpression.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @param media_object 
+         * @virtual
+         */
+        vfunc_satisfied_by(media_object: MediaObject): boolean;
+
+        /**
+         * @virtual
+         */
+        vfunc_to_string(): string;
+
+        // Methods
+        /**
+         * @param media_object 
+         */
+        satisfied_by(media_object: MediaObject): boolean;
+
+        to_string(): string;
+    }
+
+
+    namespace MediaServer {
+        // Signal signatures
+        interface SignalSignatures extends RygelCore.MediaDevice.SignalSignatures {
+            "notify::root-container": (pspec: GObject.ParamSpec) => void;
+            "notify::plugin": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::capabilities": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends RygelCore.MediaDevice.ConstructorProps {
+            root_container: MediaContainer;
+            rootContainer: MediaContainer;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class MediaServer extends RygelCore.MediaDevice {
+        static $gtype: GObject.GType<MediaServer>;
+
+        // Properties
+        /**
+         * @construct-only
+         */
+        get root_container(): MediaContainer;
+
+        /**
+         * @construct-only
+         */
+        get rootContainer(): MediaContainer;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MediaServer.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MediaServer.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](title: string, root_container: MediaContainer, capabilities: RygelCore.PluginCapabilities): MediaServer;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MediaServer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaServer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MediaServer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaServer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MediaServer.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MediaServer.SignalSignatures[K]>): void;
+    }
+
+
+    namespace MediaEngine {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            /**
+             * @signal
+             */
+            "resource-changed": (media_object_uri: string) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class MediaEngine extends GObject.Object {
+        static $gtype: GObject.GType<MediaEngine>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MediaEngine.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MediaEngine.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MediaEngine.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaEngine.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MediaEngine.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaEngine.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MediaEngine.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MediaEngine.SignalSignatures[K]>): void;
+
+        // Static methods
+        static init(): void;
+
+        static get_default(): MediaEngine;
+
+        // Virtual methods
+        /**
+         * @virtual
+         */
+        vfunc_get_dlna_profiles(): RygelCore.DLNAProfile[];
+
+        /**
+         * @param item 
+         * @param _callback_ 
+         * @virtual
+         */
+        vfunc_get_resources_for_item(item: MediaObject, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _res_ 
+         * @virtual
+         */
+        vfunc_get_resources_for_item_finish(_res_: Gio.AsyncResult): Gee.List | null;
+
+        /**
+         * @param item 
+         * @param resource 
+         * @param replacements 
+         * @virtual
+         */
+        vfunc_create_data_source_for_resource(item: MediaObject, resource: MediaResource, replacements: { [key: string]: string }): DataSource | null;
+
+        /**
+         * @param uri 
+         * @virtual
+         */
+        vfunc_create_data_source_for_uri(uri: string): DataSource | null;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_internal_protocol_schemes(): string[];
+
+        // Methods
+        get_dlna_profiles(): RygelCore.DLNAProfile[];
+
+        /**
+         * @param item 
+         */
+        get_resources_for_item(item: MediaObject): globalThis.Promise<Gee.List | null>;
+
+        /**
+         * @param item 
+         * @param _callback_ 
+         */
+        get_resources_for_item(item: MediaObject, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param item 
+         * @param _callback_ 
+         */
+        get_resources_for_item(item: MediaObject, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<Gee.List | null> | void;
+
+        /**
+         * @param _res_ 
+         */
+        get_resources_for_item_finish(_res_: Gio.AsyncResult): Gee.List | null;
+
+        /**
+         * @param item 
+         * @param resource 
+         * @param replacements 
+         * @throws GLib.Error
+         */
+        create_data_source_for_resource(item: MediaObject, resource: MediaResource, replacements: { [key: string]: string }): DataSource | null;
+
+        /**
+         * @param uri 
+         * @throws GLib.Error
+         */
+        create_data_source_for_uri(uri: string): DataSource | null;
+
+        get_internal_protocol_schemes(): string[];
+    }
+
+
+    namespace HTTPSeekRequest {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class HTTPSeekRequest extends GObject.Object {
+        static $gtype: GObject.GType<HTTPSeekRequest>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HTTPSeekRequest.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<HTTPSeekRequest.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HTTPSeekRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPSeekRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HTTPSeekRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPSeekRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HTTPSeekRequest.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HTTPSeekRequest.SignalSignatures[K]>): void;
+    }
+
+
+    namespace PlaylistItem {
+        // Signal signatures
+        interface SignalSignatures extends MediaFileItem.SignalSignatures {
+            "notify::mime-type": (pspec: GObject.ParamSpec) => void;
+            "notify::dlna-profile": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::place-holder": (pspec: GObject.ParamSpec) => void;
+            "notify::description": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::ref-id": (pspec: GObject.ParamSpec) => void;
+            "notify::upnp-class": (pspec: GObject.ParamSpec) => void;
+            "notify::date": (pspec: GObject.ParamSpec) => void;
+            "notify::creator": (pspec: GObject.ParamSpec) => void;
+            "notify::modified": (pspec: GObject.ParamSpec) => void;
+            "notify::object-update-id": (pspec: GObject.ParamSpec) => void;
+            "notify::artist": (pspec: GObject.ParamSpec) => void;
+            "notify::genre": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-ref": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::ocm-flags": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaFileItem.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class PlaylistItem extends MediaFileItem {
+        static $gtype: GObject.GType<PlaylistItem>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: PlaylistItem.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<PlaylistItem.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](id: string, parent: MediaContainer, title: string, upnp_class: string): PlaylistItem;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof PlaylistItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, PlaylistItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof PlaylistItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, PlaylistItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof PlaylistItem.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<PlaylistItem.SignalSignatures[K]>): void;
+    }
+
+
+    namespace ContentDirectory {
+        // Signal signatures
+        interface SignalSignatures extends GUPnP.Service.SignalSignatures {
+            "notify::root-device": (pspec: GObject.ParamSpec) => void;
+            "notify::context": (pspec: GObject.ParamSpec) => void;
+            "notify::document": (pspec: GObject.ParamSpec) => void;
+            "notify::element": (pspec: GObject.ParamSpec) => void;
+            "notify::location": (pspec: GObject.ParamSpec) => void;
+            "notify::service-type": (pspec: GObject.ParamSpec) => void;
+            "notify::udn": (pspec: GObject.ParamSpec) => void;
+            "notify::url-base": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GUPnP.Service.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class ContentDirectory extends GUPnP.Service {
+        static $gtype: GObject.GType<ContentDirectory>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: ContentDirectory.SignalSignatures;
+
+        // Fields
+        feature_list: string;
+
+        http_server: HTTPServer;
+
+        root_container: MediaContainer;
+
+        cancellable: Gio.Cancellable;
+
+        system_update_id: number;
+
+        // Constructors
+        constructor(properties?: Partial<ContentDirectory.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): ContentDirectory;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof ContentDirectory.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ContentDirectory.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof ContentDirectory.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ContentDirectory.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof ContentDirectory.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<ContentDirectory.SignalSignatures[K]>): void;
+    }
+
+
+    namespace HTTPByteSeekRequest {
+        // Signal signatures
+        interface SignalSignatures extends HTTPSeekRequest.SignalSignatures {
+            "notify::start-byte": (pspec: GObject.ParamSpec) => void;
+            "notify::end-byte": (pspec: GObject.ParamSpec) => void;
+            "notify::range-length": (pspec: GObject.ParamSpec) => void;
+            "notify::total-size": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends HTTPSeekRequest.ConstructorProps {
+            start_byte: bigint | number;
+            startByte: bigint | number;
+            end_byte: bigint | number;
+            endByte: bigint | number;
+            range_length: bigint | number;
+            rangeLength: bigint | number;
+            total_size: bigint | number;
+            totalSize: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class HTTPByteSeekRequest extends HTTPSeekRequest {
+        static $gtype: GObject.GType<HTTPByteSeekRequest>;
+
+        // Properties
+        get start_byte(): number;
+        set start_byte(val: bigint | number);
+
+        get startByte(): number;
+        set startByte(val: bigint | number);
+
+        get end_byte(): number;
+        set end_byte(val: bigint | number);
+
+        get endByte(): number;
+        set endByte(val: bigint | number);
+
+        get range_length(): number;
+        set range_length(val: bigint | number);
+
+        get rangeLength(): number;
+        set rangeLength(val: bigint | number);
+
+        get total_size(): number;
+        set total_size(val: bigint | number);
+
+        get totalSize(): number;
+        set totalSize(val: bigint | number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HTTPByteSeekRequest.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<HTTPByteSeekRequest.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](msg: Soup.ServerMessage, handler: HTTPGetHandler): HTTPByteSeekRequest;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HTTPByteSeekRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPByteSeekRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HTTPByteSeekRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPByteSeekRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HTTPByteSeekRequest.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HTTPByteSeekRequest.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @param message 
+         * @param handler 
+         */
+        static supported(message: Soup.ServerMessage, handler: HTTPGetHandler): boolean;
+
+        /**
+         * @param msg 
+         */
+        static requested(msg: Soup.ServerMessage): boolean;
+
+        // Methods
+        get_start_byte(): number;
+
+        /**
+         * @param value 
+         */
+        set_start_byte(value: bigint | number): void;
+
+        get_end_byte(): number;
+
+        /**
+         * @param value 
+         */
+        set_end_byte(value: bigint | number): void;
+
+        get_range_length(): number;
+
+        get_total_size(): number;
+
+        /**
+         * @param value 
+         */
+        set_total_size(value: bigint | number): void;
+    }
+
+
+    namespace HTTPByteSeekResponse {
+        // Signal signatures
+        interface SignalSignatures extends HTTPResponseElement.SignalSignatures {
+            "notify::start-byte": (pspec: GObject.ParamSpec) => void;
+            "notify::end-byte": (pspec: GObject.ParamSpec) => void;
+            "notify::range-length": (pspec: GObject.ParamSpec) => void;
+            "notify::total-size": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends HTTPResponseElement.ConstructorProps {
+            start_byte: bigint | number;
+            startByte: bigint | number;
+            end_byte: bigint | number;
+            endByte: bigint | number;
+            range_length: bigint | number;
+            rangeLength: bigint | number;
+            total_size: bigint | number;
+            totalSize: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class HTTPByteSeekResponse extends HTTPResponseElement {
+        static $gtype: GObject.GType<HTTPByteSeekResponse>;
+
+        // Properties
+        get start_byte(): number;
+        set start_byte(val: bigint | number);
+
+        get startByte(): number;
+        set startByte(val: bigint | number);
+
+        get end_byte(): number;
+        set end_byte(val: bigint | number);
+
+        get endByte(): number;
+        set endByte(val: bigint | number);
+
+        get range_length(): number;
+        set range_length(val: bigint | number);
+
+        get rangeLength(): number;
+        set rangeLength(val: bigint | number);
+
+        get total_size(): number;
+        set total_size(val: bigint | number);
+
+        get totalSize(): number;
+        set totalSize(val: bigint | number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HTTPByteSeekResponse.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<HTTPByteSeekResponse.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](start_byte: bigint | number, end_byte: bigint | number, total_size: bigint | number): HTTPByteSeekResponse;
+
+        static from_request(request: HTTPByteSeekRequest): HTTPByteSeekResponse;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HTTPByteSeekResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPByteSeekResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HTTPByteSeekResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPByteSeekResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HTTPByteSeekResponse.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HTTPByteSeekResponse.SignalSignatures[K]>): void;
+
+        // Methods
+        get_start_byte(): number;
+
+        /**
+         * @param value 
+         */
+        set_start_byte(value: bigint | number): void;
+
+        get_end_byte(): number;
+
+        /**
+         * @param value 
+         */
+        set_end_byte(value: bigint | number): void;
+
+        get_range_length(): number;
+
+        get_total_size(): number;
+
+        /**
+         * @param value 
+         */
+        set_total_size(value: bigint | number): void;
+    }
+
+
+    namespace HTTPGetHandler {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::cancellable": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            cancellable: Gio.Cancellable;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class HTTPGetHandler extends GObject.Object {
+        static $gtype: GObject.GType<HTTPGetHandler>;
+
+        // Properties
+        get cancellable(): Gio.Cancellable;
+        set cancellable(val: Gio.Cancellable);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HTTPGetHandler.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<HTTPGetHandler.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HTTPGetHandler.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPGetHandler.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HTTPGetHandler.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPGetHandler.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HTTPGetHandler.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HTTPGetHandler.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @param request 
+         * @virtual
+         */
+        vfunc_add_response_headers(request: HTTPGet): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_default_transfer_mode(): string;
+
+        /**
+         * @param mode 
+         * @virtual
+         */
+        vfunc_supports_transfer_mode(mode: string): boolean;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_resource_size(): bigint | number;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_resource_duration(): bigint | number;
+
+        /**
+         * @virtual
+         */
+        vfunc_supports_byte_seek(): boolean;
+
+        /**
+         * @virtual
+         */
+        vfunc_supports_time_seek(): boolean;
+
+        /**
+         * @virtual
+         */
+        vfunc_supports_playspeed(): boolean;
+
+        /**
+         * @param request 
+         * @virtual
+         */
+        vfunc_render_body(request: HTTPGet): HTTPResponse;
+
+        // Methods
+        /**
+         * @param request 
+         * @throws GLib.Error
+         */
+        add_response_headers(request: HTTPGet): void;
+
+        get_default_transfer_mode(): string;
+
+        /**
+         * @param mode 
+         */
+        supports_transfer_mode(mode: string): boolean;
+
+        get_resource_size(): number;
+
+        get_resource_duration(): number;
+
+        supports_byte_seek(): boolean;
+
+        supports_time_seek(): boolean;
+
+        supports_playspeed(): boolean;
+
+        /**
+         * @param request 
+         * @throws GLib.Error
+         */
+        render_body(request: HTTPGet): HTTPResponse;
+
+        get_cancellable(): Gio.Cancellable;
+
+        /**
+         * @param value 
+         */
+        set_cancellable(value: Gio.Cancellable): void;
+    }
+
+
+    namespace HTTPGet {
+        // Signal signatures
+        interface SignalSignatures extends HTTPRequest.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends HTTPRequest.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class HTTPGet extends HTTPRequest {
+        static $gtype: GObject.GType<HTTPGet>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HTTPGet.SignalSignatures;
+
+        // Fields
+        seek: HTTPSeekRequest;
+
+        speed_request: PlaySpeedRequest;
+
+        handler: HTTPGetHandler;
+
+        // Constructors
+        constructor(properties?: Partial<HTTPGet.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](http_server: HTTPServer, server: Soup.Server, msg: Soup.ServerMessage): HTTPGet;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HTTPGet.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPGet.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HTTPGet.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPGet.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HTTPGet.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HTTPGet.SignalSignatures[K]>): void;
+    }
+
+
+    namespace HTTPItemURI {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::item-id": (pspec: GObject.ParamSpec) => void;
+            "notify::thumbnail-index": (pspec: GObject.ParamSpec) => void;
+            "notify::subtitle-index": (pspec: GObject.ParamSpec) => void;
+            "notify::resource-name": (pspec: GObject.ParamSpec) => void;
+            "notify::http-server": (pspec: GObject.ParamSpec) => void;
+            "notify::extension": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            item_id: string;
+            itemId: string;
+            thumbnail_index: number;
+            thumbnailIndex: number;
+            subtitle_index: number;
+            subtitleIndex: number;
+            resource_name: string | null;
+            resourceName: string;
+            http_server: HTTPServer;
+            httpServer: HTTPServer;
+            extension: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class HTTPItemURI extends GObject.Object {
+        static $gtype: GObject.GType<HTTPItemURI>;
+
+        // Properties
+        get item_id(): string;
+        set item_id(val: string);
+
+        get itemId(): string;
+        set itemId(val: string);
+
+        get thumbnail_index(): number;
+        set thumbnail_index(val: number);
+
+        get thumbnailIndex(): number;
+        set thumbnailIndex(val: number);
+
+        get subtitle_index(): number;
+        set subtitle_index(val: number);
+
+        get subtitleIndex(): number;
+        set subtitleIndex(val: number);
+
+        get resource_name(): string | null;
+        set resource_name(val: string | null);
+
+        get resourceName(): string;
+        set resourceName(val: string);
+
+        get http_server(): HTTPServer;
+        set http_server(val: HTTPServer);
+
+        get httpServer(): HTTPServer;
+        set httpServer(val: HTTPServer);
+
+        get extension(): string;
+        set extension(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HTTPItemURI.SignalSignatures;
+
+        // Fields
+        rygel_http_item_uri_mime_to_ext: Gee.HashMap;
+
+        // Constructors
+        constructor(properties?: Partial<HTTPItemURI.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](object: MediaObject, http_server: HTTPServer, thumbnail_index: number, subtitle_index: number, resource_name: string | null): HTTPItemURI;
+
+        static from_string(uri: string, http_server: HTTPServer): HTTPItemURI;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HTTPItemURI.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPItemURI.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HTTPItemURI.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPItemURI.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HTTPItemURI.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HTTPItemURI.SignalSignatures[K]>): void;
+
+        // Methods
+        to_string(): string;
+
+        get_item_id(): string;
+
+        /**
+         * @param value 
+         */
+        set_item_id(value: string): void;
+
+        get_thumbnail_index(): number;
+
+        /**
+         * @param value 
+         */
+        set_thumbnail_index(value: number): void;
+
+        get_subtitle_index(): number;
+
+        /**
+         * @param value 
+         */
+        set_subtitle_index(value: number): void;
+
+        get_resource_name(): string | null;
+
+        /**
+         * @param value 
+         */
+        set_resource_name(value: string | null): void;
+
+        get_http_server(): HTTPServer;
+
+        /**
+         * @param value 
+         */
+        set_http_server(value: HTTPServer): void;
+
+        get_extension(): string;
+
+        /**
+         * @param value 
+         */
+        set_extension(value: string): void;
+    }
+
+
+    namespace HTTPRequest {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures, RygelCore.StateMachine.SignalSignatures {
+            "notify::cancellable": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, RygelCore.StateMachine.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class HTTPRequest extends GObject.Object implements RygelCore.StateMachine {
+        static $gtype: GObject.GType<HTTPRequest>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HTTPRequest.SignalSignatures;
+
+        // Fields
+        http_server: HTTPServer;
+
+        server: Soup.Server;
+
+        msg: Soup.ServerMessage;
+
+        uri: HTTPItemURI;
+
+        object: MediaObject;
+
+        hack: never;
+
+        // Constructors
+        constructor(properties?: Partial<HTTPRequest.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HTTPRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HTTPRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HTTPRequest.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HTTPRequest.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @param _callback_ 
+         * @virtual
+         */
+        vfunc_handle(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _res_ 
+         * @virtual
+         */
+        vfunc_handle_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @param _callback_ 
+         * @virtual
+         */
+        vfunc_find_item(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _res_ 
+         * @virtual
+         */
+        vfunc_find_item_finish(_res_: Gio.AsyncResult): void;
+
+        // Methods
+        handle(): globalThis.Promise<void>;
+
+        /**
+         * @param _callback_ 
+         */
+        handle(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _callback_ 
+         */
+        handle(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        handle_finish(_res_: Gio.AsyncResult): void;
+
+        find_item(): globalThis.Promise<void>;
+
+        /**
+         * @param _callback_ 
+         */
+        find_item(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _callback_ 
+         */
+        find_item(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        find_item_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @param _error_ 
+         */
+        handle_error(_error_: GLib.Error): void;
+
+        /**
+         * @param status 
+         * @param reason 
+         */
+        end(status: number, reason: string | null): void;
+
+        /** @category Inherited from RygelCore.StateMachine */
+        get cancellable(): Gio.Cancellable;
+        set cancellable(val: Gio.Cancellable);
+
+        run(): globalThis.Promise<void>;
+
+        /**
+         * @param _callback_ 
+         */
+        run(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _callback_ 
+         */
+        run(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         */
+        run_finish(_res_: Gio.AsyncResult): void;
+
+        get_cancellable(): Gio.Cancellable;
+
+        /**
+         * @param value 
+         */
+        set_cancellable(value: Gio.Cancellable): void;
+
+        /**
+         * @param _callback_ 
+         * @virtual
+         */
+        vfunc_run(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _res_ 
+         * @virtual
+         */
+        vfunc_run_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_cancellable(): Gio.Cancellable;
+
+        /**
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_cancellable(value: Gio.Cancellable): void;
+    }
+
+
+    namespace HTTPResponse {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures, RygelCore.StateMachine.SignalSignatures {
+            "notify::server": (pspec: GObject.ParamSpec) => void;
+            "notify::priority": (pspec: GObject.ParamSpec) => void;
+            "notify::cancellable": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, RygelCore.StateMachine.ConstructorProps {
+            server: Soup.Server;
+            priority: number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class HTTPResponse extends GObject.Object implements RygelCore.StateMachine {
+        static $gtype: GObject.GType<HTTPResponse>;
+
+        // Properties
+        get server(): Soup.Server;
+        set server(val: Soup.Server);
+
+        /**
+         * @read-only
+         */
+        get priority(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HTTPResponse.SignalSignatures;
+
+        // Fields
+        msg: Soup.ServerMessage;
+
+        seek: HTTPSeekRequest;
+
+        speed: PlaySpeedRequest;
+
+        // Constructors
+        constructor(properties?: Partial<HTTPResponse.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](request: HTTPGet, request_handler: HTTPGetHandler, src: DataSource): HTTPResponse;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HTTPResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HTTPResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HTTPResponse.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HTTPResponse.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @param aborted 
+         * @param status 
+         * @virtual
+         */
+        vfunc_end(aborted: boolean, status: number): void;
+
+        // Methods
+        /**
+         * @throws GLib.Error
+         */
+        preroll(): Gee.List | null;
+
+        /**
+         * @param aborted 
+         * @param status 
+         */
+        end(aborted: boolean, status: number): void;
+
+        get_server(): Soup.Server;
+
+        get_priority(): number;
+
+        /** @category Inherited from RygelCore.StateMachine */
+        get cancellable(): Gio.Cancellable;
+        set cancellable(val: Gio.Cancellable);
+
+        run(): globalThis.Promise<void>;
+
+        /**
+         * @param _callback_ 
+         */
+        run(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _callback_ 
+         */
+        run(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         */
+        run_finish(_res_: Gio.AsyncResult): void;
+
+        get_cancellable(): Gio.Cancellable;
+
+        /**
+         * @param value 
+         */
+        set_cancellable(value: Gio.Cancellable): void;
+
+        /**
+         * @param _callback_ 
+         * @virtual
+         */
+        vfunc_run(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _res_ 
+         * @virtual
+         */
+        vfunc_run_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_cancellable(): Gio.Cancellable;
+
+        /**
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_cancellable(value: Gio.Cancellable): void;
+    }
+
+
+    namespace HTTPResponseElement {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    abstract class HTTPResponseElement extends GObject.Object {
+        static $gtype: GObject.GType<HTTPResponseElement>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HTTPResponseElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<HTTPResponseElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HTTPResponseElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPResponseElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HTTPResponseElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPResponseElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HTTPResponseElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HTTPResponseElement.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @param request 
+         * @virtual
+         */
+        vfunc_add_response_headers(request: HTTPRequest): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_to_string(): string;
+
+        // Methods
+        /**
+         * @param request 
+         */
+        add_response_headers(request: HTTPRequest): void;
+
+        to_string(): string;
+    }
+
+
+    namespace HTTPServer {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures, RygelCore.StateMachine.SignalSignatures {
+            "notify::path-root": (pspec: GObject.ParamSpec) => void;
+            "notify::server-name": (pspec: GObject.ParamSpec) => void;
+            "notify::cancellable": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, RygelCore.StateMachine.ConstructorProps {
+            path_root: string;
+            pathRoot: string;
+            server_name: string;
+            serverName: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class HTTPServer extends GObject.Object implements RygelCore.StateMachine {
+        static $gtype: GObject.GType<HTTPServer>;
+
+        // Properties
+        get path_root(): string;
+        set path_root(val: string);
+
+        get pathRoot(): string;
+        set pathRoot(val: string);
+
+        get server_name(): string;
+        set server_name(val: string);
+
+        get serverName(): string;
+        set serverName(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HTTPServer.SignalSignatures;
+
+        // Fields
+        root_container: MediaContainer;
+
+        context: GUPnP.Context;
+
+        // Constructors
+        constructor(properties?: Partial<HTTPServer.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](content_dir: ContentDirectory, name: string): HTTPServer;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HTTPServer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPServer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HTTPServer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPServer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HTTPServer.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HTTPServer.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @virtual
+         */
+        vfunc_get_protocol(): string;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_protocol_info(): Gee.ArrayList;
+
+        // Methods
+        /**
+         * @param res 
+         */
+        set_resource_delivery_options(res: MediaResource): void;
+
+        /**
+         * @param uri 
+         */
+        need_proxy(uri: string): boolean;
+
+        get_protocol(): string;
+
+        get_protocol_info(): Gee.ArrayList;
+
+        get_replacements(): { [key: string]: string };
+
+        is_local(): boolean;
+
+        get_path_root(): string;
+
+        get_server_name(): string;
+
+        /**
+         * @param value 
+         */
+        set_server_name(value: string): void;
+
+        /** @category Inherited from RygelCore.StateMachine */
+        get cancellable(): Gio.Cancellable;
+        set cancellable(val: Gio.Cancellable);
+
+        run(): globalThis.Promise<void>;
+
+        /**
+         * @param _callback_ 
+         */
+        run(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _callback_ 
+         */
+        run(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         */
+        run_finish(_res_: Gio.AsyncResult): void;
+
+        get_cancellable(): Gio.Cancellable;
+
+        /**
+         * @param value 
+         */
+        set_cancellable(value: Gio.Cancellable): void;
+
+        /**
+         * @param _callback_ 
+         * @virtual
+         */
+        vfunc_run(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _res_ 
+         * @virtual
+         */
+        vfunc_run_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_cancellable(): Gio.Cancellable;
+
+        /**
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_cancellable(value: Gio.Cancellable): void;
+    }
+
+
+    namespace HTTPTimeSeekRequest {
+        // Signal signatures
+        interface SignalSignatures extends HTTPSeekRequest.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends HTTPSeekRequest.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class HTTPTimeSeekRequest extends HTTPSeekRequest {
+        static $gtype: GObject.GType<HTTPTimeSeekRequest>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HTTPTimeSeekRequest.SignalSignatures;
+
+        // Fields
+        start_time: number;
+
+        end_time: number;
+
+        range_duration: number;
+
+        total_duration: number;
+
+        // Constructors
+        constructor(properties?: Partial<HTTPTimeSeekRequest.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HTTPTimeSeekRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPTimeSeekRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HTTPTimeSeekRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPTimeSeekRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HTTPTimeSeekRequest.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HTTPTimeSeekRequest.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @param message 
+         * @param handler 
+         */
+        static supported(message: Soup.ServerMessage, handler: HTTPGetHandler): boolean;
+
+        /**
+         * @param message 
+         */
+        static requested(message: Soup.ServerMessage): boolean;
+
+        // Methods
+        to_string(): string;
+    }
+
+
+    namespace HTTPTimeSeekResponse {
+        // Signal signatures
+        interface SignalSignatures extends HTTPResponseElement.SignalSignatures {
+            "notify::start-time": (pspec: GObject.ParamSpec) => void;
+            "notify::end-time": (pspec: GObject.ParamSpec) => void;
+            "notify::range-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::total-duration": (pspec: GObject.ParamSpec) => void;
+            "notify::start-byte": (pspec: GObject.ParamSpec) => void;
+            "notify::end-byte": (pspec: GObject.ParamSpec) => void;
+            "notify::response-length": (pspec: GObject.ParamSpec) => void;
+            "notify::total-size": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends HTTPResponseElement.ConstructorProps {
+            start_time: bigint | number;
+            startTime: bigint | number;
+            end_time: bigint | number;
+            endTime: bigint | number;
+            range_duration: bigint | number;
+            rangeDuration: bigint | number;
+            total_duration: bigint | number;
+            totalDuration: bigint | number;
+            start_byte: bigint | number;
+            startByte: bigint | number;
+            end_byte: bigint | number;
+            endByte: bigint | number;
+            response_length: bigint | number;
+            responseLength: bigint | number;
+            total_size: bigint | number;
+            totalSize: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class HTTPTimeSeekResponse extends HTTPResponseElement {
+        static $gtype: GObject.GType<HTTPTimeSeekResponse>;
+
+        // Properties
+        get start_time(): number;
+        set start_time(val: bigint | number);
+
+        get startTime(): number;
+        set startTime(val: bigint | number);
+
+        get end_time(): number;
+        set end_time(val: bigint | number);
+
+        get endTime(): number;
+        set endTime(val: bigint | number);
+
+        get range_duration(): number;
+        set range_duration(val: bigint | number);
+
+        get rangeDuration(): number;
+        set rangeDuration(val: bigint | number);
+
+        get total_duration(): number;
+        set total_duration(val: bigint | number);
+
+        get totalDuration(): number;
+        set totalDuration(val: bigint | number);
+
+        get start_byte(): number;
+        set start_byte(val: bigint | number);
+
+        get startByte(): number;
+        set startByte(val: bigint | number);
+
+        get end_byte(): number;
+        set end_byte(val: bigint | number);
+
+        get endByte(): number;
+        set endByte(val: bigint | number);
+
+        get response_length(): number;
+        set response_length(val: bigint | number);
+
+        get responseLength(): number;
+        set responseLength(val: bigint | number);
+
+        get total_size(): number;
+        set total_size(val: bigint | number);
+
+        get totalSize(): number;
+        set totalSize(val: bigint | number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HTTPTimeSeekResponse.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<HTTPTimeSeekResponse.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](start_time: bigint | number, end_time: bigint | number, total_duration: bigint | number, start_byte: bigint | number, end_byte: bigint | number, total_size: bigint | number): HTTPTimeSeekResponse;
+
+        static time_only(start_time: bigint | number, end_time: bigint | number, total_duration: bigint | number): HTTPTimeSeekResponse;
+
+        static with_length(start_time: bigint | number, end_time: bigint | number, total_duration: bigint | number, start_byte: bigint | number, end_byte: bigint | number, total_size: bigint | number, response_length: bigint | number): HTTPTimeSeekResponse;
+
+        static from_request(time_seek_request: HTTPTimeSeekRequest, total_duration: bigint | number): HTTPTimeSeekResponse;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HTTPTimeSeekResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPTimeSeekResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HTTPTimeSeekResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HTTPTimeSeekResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HTTPTimeSeekResponse.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HTTPTimeSeekResponse.SignalSignatures[K]>): void;
+
+        // Methods
+        get_start_time(): number;
+
+        get_end_time(): number;
+
+        get_range_duration(): number;
+
+        get_total_duration(): number;
+
+        get_start_byte(): number;
+
+        get_end_byte(): number;
+
+        get_response_length(): number;
+
+        get_total_size(): number;
+    }
+
+
+    namespace Serializer {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::serializer-type": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            serializer_type: SerializerType;
+            serializerType: SerializerType;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class Serializer extends GObject.Object {
+        static $gtype: GObject.GType<Serializer>;
+
+        // Properties
+        /**
+         * @construct-only
+         */
+        get serializer_type(): SerializerType;
+
+        /**
+         * @construct-only
+         */
+        get serializerType(): SerializerType;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Serializer.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Serializer.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](type: SerializerType): Serializer;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Serializer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Serializer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Serializer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Serializer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Serializer.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Serializer.SignalSignatures[K]>): void;
+
+        // Methods
+        add_item(): GUPnPAV.DIDLLiteItem | null;
+
+        add_container(): GUPnPAV.DIDLLiteContainer | null;
+
+        /**
+         * @param filter_string 
+         */
+        filter(filter_string: string): void;
+
+        get_string(): string;
+    }
+
+
+    namespace PlaySpeed {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class PlaySpeed {
+        static $gtype: GObject.GType<PlaySpeed>;
+
+        // Fields
+        ref_count: number;
+
+        numerator: number;
+
+        denominator: number;
+
+        // Constructors
+        _init(...args: any[]): void;
+
+        static ["new"](numerator: number, denominator: number): PlaySpeed;
+
+        static from_string(speed: string): PlaySpeed;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof PlaySpeed.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, PlaySpeed.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof PlaySpeed.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, PlaySpeed.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof PlaySpeed.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<PlaySpeed.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param that 
+         */
+        equals(that: PlaySpeed): boolean;
+
+        is_positive(): boolean;
+
+        is_normal_rate(): boolean;
+
+        to_string(): string;
+
+        to_float(): number;
+
+        to_double(): number;
+    }
+
+
+    namespace PlaySpeedRequest {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::speed": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            speed: PlaySpeed;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class PlaySpeedRequest extends GObject.Object {
+        static $gtype: GObject.GType<PlaySpeedRequest>;
+
+        // Properties
+        get speed(): PlaySpeed;
+        set speed(val: PlaySpeed);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: PlaySpeedRequest.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<PlaySpeedRequest.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](numerator: number, denominator: number): PlaySpeedRequest;
+
+        static from_string(speed: string): PlaySpeedRequest;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof PlaySpeedRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, PlaySpeedRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof PlaySpeedRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, PlaySpeedRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof PlaySpeedRequest.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<PlaySpeedRequest.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @param request 
+         */
+        static supported(request: HTTPGet): boolean;
+
+        // Methods
+        /**
+         * @param that 
+         */
+        equals(that: PlaySpeedRequest): boolean;
+
+        get_speed(): PlaySpeed;
+    }
+
+
+    namespace PlaySpeedResponse {
+        // Signal signatures
+        interface SignalSignatures extends HTTPResponseElement.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends HTTPResponseElement.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class PlaySpeedResponse extends HTTPResponseElement {
+        static $gtype: GObject.GType<PlaySpeedResponse>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: PlaySpeedResponse.SignalSignatures;
+
+        // Fields
+        framerate: number;
+
+        // Constructors
+        constructor(properties?: Partial<PlaySpeedResponse.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](numerator: number, denominator: number, framerate: number): PlaySpeedResponse;
+
+        static from_speed(speed: PlaySpeed, framerate: number): PlaySpeedResponse;
+
+        static from_string(speed: string, framerate: number): PlaySpeedResponse;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof PlaySpeedResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, PlaySpeedResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof PlaySpeedResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, PlaySpeedResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof PlaySpeedResponse.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<PlaySpeedResponse.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param that 
+         */
+        equals(that: PlaySpeedRequest): boolean;
+    }
+
+
+    namespace DTCPCleartextRequest {
+        // Signal signatures
+        interface SignalSignatures extends HTTPSeekRequest.SignalSignatures {
+            "notify::start-byte": (pspec: GObject.ParamSpec) => void;
+            "notify::end-byte": (pspec: GObject.ParamSpec) => void;
+            "notify::range-length": (pspec: GObject.ParamSpec) => void;
+            "notify::total-size": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends HTTPSeekRequest.ConstructorProps {
+            start_byte: bigint | number;
+            startByte: bigint | number;
+            end_byte: bigint | number;
+            endByte: bigint | number;
+            range_length: bigint | number;
+            rangeLength: bigint | number;
+            total_size: bigint | number;
+            totalSize: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DTCPCleartextRequest extends HTTPSeekRequest {
+        static $gtype: GObject.GType<DTCPCleartextRequest>;
+
+        // Properties
+        get start_byte(): number;
+        set start_byte(val: bigint | number);
+
+        get startByte(): number;
+        set startByte(val: bigint | number);
+
+        get end_byte(): number;
+        set end_byte(val: bigint | number);
+
+        get endByte(): number;
+        set endByte(val: bigint | number);
+
+        get range_length(): number;
+        set range_length(val: bigint | number);
+
+        get rangeLength(): number;
+        set rangeLength(val: bigint | number);
+
+        get total_size(): number;
+        set total_size(val: bigint | number);
+
+        get totalSize(): number;
+        set totalSize(val: bigint | number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DTCPCleartextRequest.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DTCPCleartextRequest.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](message: Soup.ServerMessage, handler: HTTPGetHandler): DTCPCleartextRequest;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DTCPCleartextRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DTCPCleartextRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DTCPCleartextRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DTCPCleartextRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DTCPCleartextRequest.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DTCPCleartextRequest.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @param message 
+         * @param handler 
+         */
+        static supported(message: Soup.ServerMessage, handler: HTTPGetHandler): boolean;
+
+        /**
+         * @param message 
+         */
+        static requested(message: Soup.ServerMessage): boolean;
+
+        // Methods
+        get_start_byte(): number;
+
+        get_end_byte(): number;
+
+        get_range_length(): number;
+
+        get_total_size(): number;
+    }
+
+
+    namespace DTCPCleartextResponse {
+        // Signal signatures
+        interface SignalSignatures extends HTTPResponseElement.SignalSignatures {
+            "notify::start-byte": (pspec: GObject.ParamSpec) => void;
+            "notify::end-byte": (pspec: GObject.ParamSpec) => void;
+            "notify::range-length": (pspec: GObject.ParamSpec) => void;
+            "notify::total-size": (pspec: GObject.ParamSpec) => void;
+            "notify::encrypted-length": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends HTTPResponseElement.ConstructorProps {
+            start_byte: bigint | number;
+            startByte: bigint | number;
+            end_byte: bigint | number;
+            endByte: bigint | number;
+            range_length: bigint | number;
+            rangeLength: bigint | number;
+            total_size: bigint | number;
+            totalSize: bigint | number;
+            encrypted_length: bigint | number;
+            encryptedLength: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DTCPCleartextResponse extends HTTPResponseElement {
+        static $gtype: GObject.GType<DTCPCleartextResponse>;
+
+        // Properties
+        get start_byte(): number;
+        set start_byte(val: bigint | number);
+
+        get startByte(): number;
+        set startByte(val: bigint | number);
+
+        get end_byte(): number;
+        set end_byte(val: bigint | number);
+
+        get endByte(): number;
+        set endByte(val: bigint | number);
+
+        get range_length(): number;
+        set range_length(val: bigint | number);
+
+        get rangeLength(): number;
+        set rangeLength(val: bigint | number);
+
+        get total_size(): number;
+        set total_size(val: bigint | number);
+
+        get totalSize(): number;
+        set totalSize(val: bigint | number);
+
+        get encrypted_length(): number;
+        set encrypted_length(val: bigint | number);
+
+        get encryptedLength(): number;
+        set encryptedLength(val: bigint | number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DTCPCleartextResponse.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DTCPCleartextResponse.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](start_byte: bigint | number, end_byte: bigint | number, total_size: bigint | number, encrypted_length: bigint | number): DTCPCleartextResponse;
+
+        static from_request(request: DTCPCleartextRequest, encrypted_length: bigint | number): DTCPCleartextResponse;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DTCPCleartextResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DTCPCleartextResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DTCPCleartextResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DTCPCleartextResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DTCPCleartextResponse.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DTCPCleartextResponse.SignalSignatures[K]>): void;
+
+        // Methods
+        get_start_byte(): number;
+
+        get_end_byte(): number;
+
+        get_range_length(): number;
+
+        get_total_size(): number;
+
+        get_encrypted_length(): number;
+
+        /**
+         * @param value 
+         */
+        set_encrypted_length(value: bigint | number): void;
+    }
+
+
+    namespace DLNAAvailableSeekRangeRequest {
+        // Signal signatures
+        interface SignalSignatures extends HTTPSeekRequest.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends HTTPSeekRequest.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DLNAAvailableSeekRangeRequest extends HTTPSeekRequest {
+        static $gtype: GObject.GType<DLNAAvailableSeekRangeRequest>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DLNAAvailableSeekRangeRequest.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DLNAAvailableSeekRangeRequest.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DLNAAvailableSeekRangeRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DLNAAvailableSeekRangeRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DLNAAvailableSeekRangeRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DLNAAvailableSeekRangeRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DLNAAvailableSeekRangeRequest.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DLNAAvailableSeekRangeRequest.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @param message 
+         * @param handler 
+         */
+        static supported(message: Soup.Message, handler: HTTPGetHandler): boolean;
+
+        /**
+         * @param message 
+         */
+        static requested(message: Soup.Message): boolean;
+    }
+
+
+    namespace DLNAAvailableSeekRangeResponse {
+        // Signal signatures
+        interface SignalSignatures extends HTTPResponseElement.SignalSignatures {
+            "notify::mode": (pspec: GObject.ParamSpec) => void;
+            "notify::start-time": (pspec: GObject.ParamSpec) => void;
+            "notify::end-time": (pspec: GObject.ParamSpec) => void;
+            "notify::start-byte": (pspec: GObject.ParamSpec) => void;
+            "notify::end-byte": (pspec: GObject.ParamSpec) => void;
+            "notify::range-length": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends HTTPResponseElement.ConstructorProps {
+            mode: number;
+            start_time: bigint | number;
+            startTime: bigint | number;
+            end_time: bigint | number;
+            endTime: bigint | number;
+            start_byte: bigint | number;
+            startByte: bigint | number;
+            end_byte: bigint | number;
+            endByte: bigint | number;
+            range_length: bigint | number;
+            rangeLength: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DLNAAvailableSeekRangeResponse extends HTTPResponseElement {
+        static $gtype: GObject.GType<DLNAAvailableSeekRangeResponse>;
+
+        // Properties
+        get mode(): number;
+        set mode(val: number);
+
+        get start_time(): number;
+        set start_time(val: bigint | number);
+
+        get startTime(): number;
+        set startTime(val: bigint | number);
+
+        get end_time(): number;
+        set end_time(val: bigint | number);
+
+        get endTime(): number;
+        set endTime(val: bigint | number);
+
+        get start_byte(): number;
+        set start_byte(val: bigint | number);
+
+        get startByte(): number;
+        set startByte(val: bigint | number);
+
+        get end_byte(): number;
+        set end_byte(val: bigint | number);
+
+        get endByte(): number;
+        set endByte(val: bigint | number);
+
+        get range_length(): number;
+        set range_length(val: bigint | number);
+
+        get rangeLength(): number;
+        set rangeLength(val: bigint | number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DLNAAvailableSeekRangeResponse.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DLNAAvailableSeekRangeResponse.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](mode: number, start_time: bigint | number, end_time: bigint | number, start_byte: bigint | number, end_byte: bigint | number): DLNAAvailableSeekRangeResponse;
+
+        static time_only(mode: number, start_time: bigint | number, end_time: bigint | number): DLNAAvailableSeekRangeResponse;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DLNAAvailableSeekRangeResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DLNAAvailableSeekRangeResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DLNAAvailableSeekRangeResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DLNAAvailableSeekRangeResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DLNAAvailableSeekRangeResponse.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DLNAAvailableSeekRangeResponse.SignalSignatures[K]>): void;
+
+        // Methods
+        get_mode(): number;
+
+        get_start_time(): number;
+
+        get_end_time(): number;
+
+        get_start_byte(): number;
+
+        get_end_byte(): number;
+
+        get_range_length(): number;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type AudioItemClass = typeof AudioItem;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class AudioItemPrivate {
+        static $gtype: GObject.GType<AudioItemPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ImageItemClass = typeof ImageItem;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ImageItemPrivate {
+        static $gtype: GObject.GType<ImageItemPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type LogicalExpressionClass = typeof LogicalExpression;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class LogicalExpressionPrivate {
+        static $gtype: GObject.GType<LogicalExpressionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaArtStoreClass = typeof MediaArtStore;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MediaArtStorePrivate {
+        static $gtype: GObject.GType<MediaArtStorePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaObjectsClass = typeof MediaObjects;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MediaObjectsPrivate {
+        static $gtype: GObject.GType<MediaObjectsPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MusicItemClass = typeof MusicItem;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MusicItemPrivate {
+        static $gtype: GObject.GType<MusicItemPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type PhotoItemClass = typeof PhotoItem;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class PhotoItemPrivate {
+        static $gtype: GObject.GType<PhotoItemPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type RelationalExpressionClass = typeof RelationalExpression;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class RelationalExpressionPrivate {
+        static $gtype: GObject.GType<RelationalExpressionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SimpleContainerClass = typeof SimpleContainer;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SimpleContainerPrivate {
+        static $gtype: GObject.GType<SimpleContainerPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SubtitleClass = typeof Subtitle;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SubtitlePrivate {
+        static $gtype: GObject.GType<SubtitlePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ThumbnailClass = typeof Thumbnail;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ThumbnailPrivate {
+        static $gtype: GObject.GType<ThumbnailPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type VideoItemClass = typeof VideoItem;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class VideoItemPrivate {
+        static $gtype: GObject.GType<VideoItemPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaContainerClass = typeof MediaContainer;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MediaContainerPrivate {
+        static $gtype: GObject.GType<MediaContainerPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaItemClass = typeof MediaItem;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MediaItemPrivate {
+        static $gtype: GObject.GType<MediaItemPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaFileItemClass = typeof MediaFileItem;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MediaFileItemPrivate {
+        static $gtype: GObject.GType<MediaFileItemPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaObjectClass = typeof MediaObject;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MediaObjectPrivate {
+        static $gtype: GObject.GType<MediaObjectPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaResourceClass = typeof MediaResource;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MediaResourcePrivate {
+        static $gtype: GObject.GType<MediaResourcePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaServerPluginClass = typeof MediaServerPlugin;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MediaServerPluginPrivate {
+        static $gtype: GObject.GType<MediaServerPluginPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SearchExpressionClass = typeof SearchExpression;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SearchExpressionPrivate {
+        static $gtype: GObject.GType<SearchExpressionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaServerClass = typeof MediaServer;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MediaServerPrivate {
+        static $gtype: GObject.GType<MediaServerPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaEngineClass = typeof MediaEngine;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MediaEnginePrivate {
+        static $gtype: GObject.GType<MediaEnginePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HTTPSeekRequestClass = typeof HTTPSeekRequest;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HTTPSeekRequestPrivate {
+        static $gtype: GObject.GType<HTTPSeekRequestPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type PlaylistItemClass = typeof PlaylistItem;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class PlaylistItemPrivate {
+        static $gtype: GObject.GType<PlaylistItemPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ContentDirectoryClass = typeof ContentDirectory;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ContentDirectoryPrivate {
+        static $gtype: GObject.GType<ContentDirectoryPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HTTPByteSeekRequestClass = typeof HTTPByteSeekRequest;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HTTPByteSeekRequestPrivate {
+        static $gtype: GObject.GType<HTTPByteSeekRequestPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HTTPByteSeekResponseClass = typeof HTTPByteSeekResponse;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HTTPByteSeekResponsePrivate {
+        static $gtype: GObject.GType<HTTPByteSeekResponsePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HTTPGetHandlerClass = typeof HTTPGetHandler;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HTTPGetHandlerPrivate {
+        static $gtype: GObject.GType<HTTPGetHandlerPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HTTPGetClass = typeof HTTPGet;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HTTPGetPrivate {
+        static $gtype: GObject.GType<HTTPGetPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HTTPItemURIClass = typeof HTTPItemURI;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HTTPItemURIPrivate {
+        static $gtype: GObject.GType<HTTPItemURIPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HTTPRequestClass = typeof HTTPRequest;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HTTPRequestPrivate {
+        static $gtype: GObject.GType<HTTPRequestPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HTTPResponseClass = typeof HTTPResponse;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HTTPResponsePrivate {
+        static $gtype: GObject.GType<HTTPResponsePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HTTPResponseElementClass = typeof HTTPResponseElement;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HTTPResponseElementPrivate {
+        static $gtype: GObject.GType<HTTPResponseElementPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HTTPServerClass = typeof HTTPServer;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HTTPServerPrivate {
+        static $gtype: GObject.GType<HTTPServerPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HTTPTimeSeekRequestClass = typeof HTTPTimeSeekRequest;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HTTPTimeSeekRequestPrivate {
+        static $gtype: GObject.GType<HTTPTimeSeekRequestPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HTTPTimeSeekResponseClass = typeof HTTPTimeSeekResponse;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HTTPTimeSeekResponsePrivate {
+        static $gtype: GObject.GType<HTTPTimeSeekResponsePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SerializerClass = typeof Serializer;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class SerializerPrivate {
+        static $gtype: GObject.GType<SerializerPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type PlaySpeedClass = typeof PlaySpeed;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class PlaySpeedPrivate {
+        static $gtype: GObject.GType<PlaySpeedPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type PlaySpeedRequestClass = typeof PlaySpeedRequest;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class PlaySpeedRequestPrivate {
+        static $gtype: GObject.GType<PlaySpeedRequestPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type PlaySpeedResponseClass = typeof PlaySpeedResponse;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class PlaySpeedResponsePrivate {
+        static $gtype: GObject.GType<PlaySpeedResponsePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type DTCPCleartextRequestClass = typeof DTCPCleartextRequest;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class DTCPCleartextRequestPrivate {
+        static $gtype: GObject.GType<DTCPCleartextRequestPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type DTCPCleartextResponseClass = typeof DTCPCleartextResponse;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class DTCPCleartextResponsePrivate {
+        static $gtype: GObject.GType<DTCPCleartextResponsePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type DLNAAvailableSeekRangeRequestClass = typeof DLNAAvailableSeekRangeRequest;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class DLNAAvailableSeekRangeRequestPrivate {
+        static $gtype: GObject.GType<DLNAAvailableSeekRangeRequestPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type DLNAAvailableSeekRangeResponseClass = typeof DLNAAvailableSeekRangeResponse;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class DLNAAvailableSeekRangeResponsePrivate {
+        static $gtype: GObject.GType<DLNAAvailableSeekRangeResponsePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type SearchableContainerIface = typeof SearchableContainer;
+
+    /**
+     * @gir-type Alias
+     */
+    type TrackableContainerIface = typeof TrackableContainer;
+
+    /**
+     * @gir-type Alias
+     */
+    type TrackableItemIface = typeof TrackableItem;
+
+    /**
+     * @gir-type Alias
+     */
+    type VisualItemIface = typeof VisualItem;
+
+    /**
+     * @gir-type Alias
+     */
+    type WritableContainerIface = typeof WritableContainer;
+
+    /**
+     * @gir-type Alias
+     */
+    type DataSourceIface = typeof DataSource;
+
+    /**
+     * @gir-type Alias
+     */
+    type UpdatableObjectIface = typeof UpdatableObject;
+
+    namespace SearchableContainer {
+        /**
+         * Interface for implementing SearchableContainer.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * @param expression 
+             * @param offset 
+             * @param max_count 
+             * @param sort_criteria 
+             * @param cancellable 
+             * @param _callback_ 
+             * @virtual
+             */
+            vfunc_search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+            /**
+             * @param _res_ 
+             * @virtual
+             */
+            vfunc_search_finish(_res_: Gio.AsyncResult): [MediaObjects | null, number];
+
+            /**
+             * @virtual
+             */
+            vfunc_get_search_classes(): Gee.ArrayList;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_search_classes(value: Gee.ArrayList): void;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaContainer.ConstructorProps {
+            search_classes: Gee.ArrayList;
+            searchClasses: Gee.ArrayList;
+        }
+    }
+
+    export interface SearchableContainerNamespace {
+        $gtype: GObject.GType<SearchableContainer>;
+        prototype: SearchableContainer;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface SearchableContainer extends MediaContainer, SearchableContainer.Interface {
+
+        // Properties
+        get search_classes(): Gee.ArrayList;
+        set search_classes(val: Gee.ArrayList);
+
+        get searchClasses(): Gee.ArrayList;
+        set searchClasses(val: Gee.ArrayList);
+
+        // Methods
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         */
+        search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null): globalThis.Promise<[MediaObjects | null, number]>;
+
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<[MediaObjects | null, number]> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        search_finish(_res_: Gio.AsyncResult): [MediaObjects | null, number];
+
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         */
+        simple_search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null): globalThis.Promise<[MediaObjects | null, number]>;
+
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        simple_search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param expression 
+         * @param offset 
+         * @param max_count 
+         * @param sort_criteria 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        simple_search(expression: SearchExpression | null, offset: number, max_count: number, sort_criteria: string, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<[MediaObjects | null, number]> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        simple_search_finish(_res_: Gio.AsyncResult): [MediaObjects | null, number];
+
+        /**
+         * @param id 
+         * @param cancellable 
+         */
+        find_object(id: string, cancellable: Gio.Cancellable | null): globalThis.Promise<MediaObject | null>;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        find_object(id: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        find_object(id: string, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<MediaObject | null> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        find_object_finish(_res_: Gio.AsyncResult): MediaObject | null;
+
+        get_search_classes(): Gee.ArrayList;
+
+        /**
+         * @param value 
+         */
+        set_search_classes(value: Gee.ArrayList): void;
+    }
+
+
+    export const SearchableContainer: SearchableContainerNamespace & {
+        new (): SearchableContainer; // This allows `obj instanceof SearchableContainer`
+    };
+
+    namespace TrackableContainer {
+        // Signal signatures
+        interface SignalSignatures {
+            /**
+             * @signal
+             */
+            "child-added": (object: MediaObject) => void;
+            /**
+             * @signal
+             */
+            "child-removed": (object: MediaObject) => void;
+        }
+        /**
+         * Interface for implementing TrackableContainer.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * @param object 
+             * @param _callback_ 
+             * @virtual
+             */
+            vfunc_add_child(object: MediaObject, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+            /**
+             * @param _res_ 
+             * @virtual
+             */
+            vfunc_add_child_finish(_res_: Gio.AsyncResult): void;
+
+            /**
+             * @param object 
+             * @param _callback_ 
+             * @virtual
+             */
+            vfunc_remove_child(object: MediaObject, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+            /**
+             * @param _res_ 
+             * @virtual
+             */
+            vfunc_remove_child_finish(_res_: Gio.AsyncResult): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_service_reset_token(): string;
+
+            /**
+             * @param token 
+             * @virtual
+             */
+            vfunc_set_service_reset_token(token: string): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_system_update_id(): number;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaContainer.ConstructorProps {}
+    }
+
+    export interface TrackableContainerNamespace {
+        $gtype: GObject.GType<TrackableContainer>;
+        prototype: TrackableContainer;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface TrackableContainer extends MediaContainer, TrackableContainer.Interface {
+
+        // Methods
+        clear(): globalThis.Promise<void>;
+
+        /**
+         * @param _callback_ 
+         */
+        clear(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _callback_ 
+         */
+        clear(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         */
+        clear_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @param object 
+         */
+        add_child(object: MediaObject): globalThis.Promise<void>;
+
+        /**
+         * @param object 
+         * @param _callback_ 
+         */
+        add_child(object: MediaObject, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param object 
+         * @param _callback_ 
+         */
+        add_child(object: MediaObject, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         */
+        add_child_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @param object 
+         */
+        add_child_tracked(object: MediaObject): globalThis.Promise<void>;
+
+        /**
+         * @param object 
+         * @param _callback_ 
+         */
+        add_child_tracked(object: MediaObject, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param object 
+         * @param _callback_ 
+         */
+        add_child_tracked(object: MediaObject, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         */
+        add_child_tracked_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @param object 
+         */
+        remove_child(object: MediaObject): globalThis.Promise<void>;
+
+        /**
+         * @param object 
+         * @param _callback_ 
+         */
+        remove_child(object: MediaObject, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param object 
+         * @param _callback_ 
+         */
+        remove_child(object: MediaObject, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         */
+        remove_child_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @param object 
+         */
+        remove_child_tracked(object: MediaObject): globalThis.Promise<void>;
+
+        /**
+         * @param object 
+         * @param _callback_ 
+         */
+        remove_child_tracked(object: MediaObject, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param object 
+         * @param _callback_ 
+         */
+        remove_child_tracked(object: MediaObject, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         */
+        remove_child_tracked_finish(_res_: Gio.AsyncResult): void;
+
+        get_service_reset_token(): string;
+
+        /**
+         * @param token 
+         */
+        set_service_reset_token(token: string): void;
+
+        get_system_update_id(): number;
+    }
+
+
+    export const TrackableContainer: TrackableContainerNamespace & {
+        new (): TrackableContainer; // This allows `obj instanceof TrackableContainer`
+    };
+
+    namespace TrackableItem {
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaItem.ConstructorProps {}
+    }
+
+    export interface TrackableItemNamespace {
+        $gtype: GObject.GType<TrackableItem>;
+        prototype: TrackableItem;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface TrackableItem extends MediaItem {
+
+        // Methods
+        changed(): void;
+    }
+
+
+    export const TrackableItem: TrackableItemNamespace & {
+        new (): TrackableItem; // This allows `obj instanceof TrackableItem`
+    };
+
+    namespace VisualItem {
+        /**
+         * Interface for implementing VisualItem.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * @virtual
+             */
+            vfunc_get_width(): number;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_width(value: number): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_height(): number;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_height(value: number): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_color_depth(): number;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_color_depth(value: number): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_thumbnails(): Gee.ArrayList;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_thumbnails(value: Gee.ArrayList): void;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaFileItem.ConstructorProps {
+            width: number;
+            height: number;
+            color_depth: number;
+            colorDepth: number;
+            thumbnails: Gee.ArrayList;
+        }
+    }
+
+    export interface VisualItemNamespace {
+        $gtype: GObject.GType<VisualItem>;
+        prototype: VisualItem;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface VisualItem extends MediaFileItem, VisualItem.Interface {
+
+        // Properties
+        get width(): number;
+        set width(val: number);
+
+        get height(): number;
+        set height(val: number);
+
+        get color_depth(): number;
+        set color_depth(val: number);
+
+        get colorDepth(): number;
+        set colorDepth(val: number);
+
+        get thumbnails(): Gee.ArrayList;
+        set thumbnails(val: Gee.ArrayList);
+
+        // Methods
+        get_width(): number;
+
+        /**
+         * @param value 
+         */
+        set_width(value: number): void;
+
+        get_height(): number;
+
+        /**
+         * @param value 
+         */
+        set_height(value: number): void;
+
+        get_color_depth(): number;
+
+        /**
+         * @param value 
+         */
+        set_color_depth(value: number): void;
+
+        get_thumbnails(): Gee.ArrayList;
+
+        /**
+         * @param value 
+         */
+        set_thumbnails(value: Gee.ArrayList): void;
+    }
+
+
+    export const VisualItem: VisualItemNamespace & {
+        new (): VisualItem; // This allows `obj instanceof VisualItem`
+    };
+
+    namespace WritableContainer {
+        /**
+         * Interface for implementing WritableContainer.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * @param item 
+             * @param cancellable 
+             * @param _callback_ 
+             * @virtual
+             */
+            vfunc_add_item(item: MediaFileItem, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+            /**
+             * @param _res_ 
+             * @virtual
+             */
+            vfunc_add_item_finish(_res_: Gio.AsyncResult): void;
+
+            /**
+             * @param container 
+             * @param cancellable 
+             * @param _callback_ 
+             * @virtual
+             */
+            vfunc_add_container(container: MediaContainer, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+            /**
+             * @param _res_ 
+             * @virtual
+             */
+            vfunc_add_container_finish(_res_: Gio.AsyncResult): void;
+
+            /**
+             * @param object 
+             * @param cancellable 
+             * @param _callback_ 
+             * @virtual
+             */
+            vfunc_add_reference(object: MediaObject, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+            /**
+             * @param _res_ 
+             * @virtual
+             */
+            vfunc_add_reference_finish(_res_: Gio.AsyncResult): string;
+
+            /**
+             * @param id 
+             * @param cancellable 
+             * @param _callback_ 
+             * @virtual
+             */
+            vfunc_remove_item(id: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+            /**
+             * @param _res_ 
+             * @virtual
+             */
+            vfunc_remove_item_finish(_res_: Gio.AsyncResult): void;
+
+            /**
+             * @param id 
+             * @param cancellable 
+             * @param _callback_ 
+             * @virtual
+             */
+            vfunc_remove_container(id: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+            /**
+             * @param _res_ 
+             * @virtual
+             */
+            vfunc_remove_container_finish(_res_: Gio.AsyncResult): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_create_classes(): Gee.ArrayList;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_create_classes(value: Gee.ArrayList): void;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaContainer.ConstructorProps {
+            create_classes: Gee.ArrayList;
+            createClasses: Gee.ArrayList;
+        }
+    }
+
+    export interface WritableContainerNamespace {
+        $gtype: GObject.GType<WritableContainer>;
+        prototype: WritableContainer;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface WritableContainer extends MediaContainer, WritableContainer.Interface {
+
+        // Properties
+        get create_classes(): Gee.ArrayList;
+        set create_classes(val: Gee.ArrayList);
+
+        get createClasses(): Gee.ArrayList;
+        set createClasses(val: Gee.ArrayList);
+
+        // Methods
+        /**
+         * @param upnp_class 
+         */
+        can_create(upnp_class: string): boolean;
+
+        /**
+         * @param item 
+         * @param cancellable 
+         */
+        add_item(item: MediaFileItem, cancellable: Gio.Cancellable | null): globalThis.Promise<void>;
+
+        /**
+         * @param item 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        add_item(item: MediaFileItem, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param item 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        add_item(item: MediaFileItem, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        add_item_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @param container 
+         * @param cancellable 
+         */
+        add_container(container: MediaContainer, cancellable: Gio.Cancellable | null): globalThis.Promise<void>;
+
+        /**
+         * @param container 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        add_container(container: MediaContainer, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param container 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        add_container(container: MediaContainer, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        add_container_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @param object 
+         * @param cancellable 
+         */
+        add_reference(object: MediaObject, cancellable: Gio.Cancellable | null): globalThis.Promise<string>;
+
+        /**
+         * @param object 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        add_reference(object: MediaObject, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param object 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        add_reference(object: MediaObject, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<string> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        add_reference_finish(_res_: Gio.AsyncResult): string;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         */
+        remove_item(id: string, cancellable: Gio.Cancellable | null): globalThis.Promise<void>;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        remove_item(id: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        remove_item(id: string, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        remove_item_finish(_res_: Gio.AsyncResult): void;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         */
+        remove_container(id: string, cancellable: Gio.Cancellable | null): globalThis.Promise<void>;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        remove_container(id: string, cancellable: Gio.Cancellable | null, _callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param id 
+         * @param cancellable 
+         * @param _callback_ 
+         */
+        remove_container(id: string, cancellable: Gio.Cancellable | null, _callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        remove_container_finish(_res_: Gio.AsyncResult): void;
+
+        get_create_classes(): Gee.ArrayList;
+
+        /**
+         * @param value 
+         */
+        set_create_classes(value: Gee.ArrayList): void;
+    }
+
+
+    export const WritableContainer: WritableContainerNamespace & {
+        new (): WritableContainer; // This allows `obj instanceof WritableContainer`
+    };
+
+    namespace DataSource {
+        // Signal signatures
+        interface SignalSignatures {
+            /**
+             * @signal
+             */
+            "data-available": (data: Uint8Array) => void;
+            /**
+             * @signal
+             */
+            done: () => void;
+            /**
+             * @signal
+             */
+            error: (_error_: GLib.Error) => void;
+        }
+        /**
+         * Interface for implementing DataSource.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * @param seek 
+             * @param playspeed 
+             * @virtual
+             */
+            vfunc_preroll(seek: HTTPSeekRequest | null, playspeed: PlaySpeedRequest | null): Gee.List | null;
+
+            /**
+             * @virtual
+             */
+            vfunc_start(): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_freeze(): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_thaw(): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_stop(): void;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    export interface DataSourceNamespace {
+        $gtype: GObject.GType<DataSource>;
+        prototype: DataSource;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface DataSource extends GObject.Object, DataSource.Interface {
+
+        // Methods
+        /**
+         * @param seek 
+         * @param playspeed 
+         * @throws GLib.Error
+         */
+        preroll(seek: HTTPSeekRequest | null, playspeed: PlaySpeedRequest | null): Gee.List | null;
+
+        /**
+         * @throws GLib.Error
+         */
+        start(): void;
+
+        freeze(): void;
+
+        thaw(): void;
+
+        stop(): void;
+    }
+
+
+    export const DataSource: DataSourceNamespace & {
+        new (): DataSource; // This allows `obj instanceof DataSource`
+    };
+
+    namespace UpdatableObject {
+        /**
+         * Interface for implementing UpdatableObject.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * @param _callback_ 
+             * @virtual
+             */
+            vfunc_commit(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+            /**
+             * @param _res_ 
+             * @virtual
+             */
+            vfunc_commit_finish(_res_: Gio.AsyncResult): void;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends MediaObject.ConstructorProps {}
+    }
+
+    export interface UpdatableObjectNamespace {
+        $gtype: GObject.GType<UpdatableObject>;
+        prototype: UpdatableObject;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface UpdatableObject extends MediaObject, UpdatableObject.Interface {
+
+        // Methods
+        commit(): globalThis.Promise<void>;
+
+        /**
+         * @param _callback_ 
+         */
+        commit(_callback_: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * @param _callback_ 
+         */
+        commit(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
+
+        /**
+         * @param _res_ 
+         * @throws GLib.Error
+         */
+        commit_finish(_res_: Gio.AsyncResult): void;
+    }
+
+
+    export const UpdatableObject: UpdatableObjectNamespace & {
+        new (): UpdatableObject; // This allows `obj instanceof UpdatableObject`
+    };
+
+    /**
+     * Name of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L188
+     */
+    const __name__: string;
+
+    /**
+     * Version of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L189
+     */
+    const __version__: string;
+}
+
+export default RygelServer;
+
+}
+
+declare module 'gi://RygelServer' {
+    import RygelServer28 from 'gi://RygelServer?version=2.8';
+    export default RygelServer28;
+}
+// END

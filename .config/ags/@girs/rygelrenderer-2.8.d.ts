@@ -1,0 +1,1049 @@
+/// <reference path="./rygelcore-2.8.d.ts" />
+/// <reference path="./glib-2.0.d.ts" />
+/// <reference path="./gee-0.8.d.ts" />
+/// <reference path="./gio-2.0.d.ts" />
+/// <reference path="./gobject-2.0.d.ts" />
+/// <reference path="./gmodule-2.0.d.ts" />
+/// <reference path="./gupnp-1.6.d.ts" />
+/// <reference path="./libxml2-2.0.d.ts" />
+/// <reference path="./soup-3.0.d.ts" />
+/// <reference path="./gssdp-1.6.d.ts" />
+/// <reference path="./gupnpav-1.0.d.ts" />
+
+/**
+ * Type Definitions for Gjs (https://gjs.guide/)
+ *
+ * These type definitions are automatically generated, do not edit them by hand.
+ * If you found a bug fix it in `ts-for-gir` or create a bug report on https://github.com/gjsify/ts-for-gir
+ *
+ * The based EJS template file is used for the generated .d.ts file of each GIR module like Gtk-4.0, GObject-2.0, ...
+ */
+
+declare module 'gi://RygelRenderer?version=2.8' {
+
+// Module dependencies
+import type RygelCore from 'gi://RygelCore?version=2.8';
+import type GLib from 'gi://GLib?version=2.0';
+import type Gee from 'gi://Gee?version=0.8';
+import type Gio from 'gi://Gio?version=2.0';
+import type GObject from 'gi://GObject?version=2.0';
+import type GModule from 'gi://GModule?version=2.0';
+import type GUPnP from 'gi://GUPnP?version=1.6';
+import type libxml2 from 'gi://libxml2?version=2.0';
+import type Soup from 'gi://Soup?version=3.0';
+import type GSSDP from 'gi://GSSDP?version=1.6';
+import type GUPnPAV from 'gi://GUPnPAV?version=1.0';
+
+export namespace RygelRenderer {
+
+    /**
+     * RygelRenderer-2.8
+     */
+
+
+    namespace MediaRendererPlugin {
+        // Signal signatures
+        interface SignalSignatures extends RygelCore.Plugin.SignalSignatures {
+            "notify::supported-profiles": (pspec: GObject.ParamSpec) => void;
+            "notify::capabilities": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::description": (pspec: GObject.ParamSpec) => void;
+            "notify::desc-path": (pspec: GObject.ParamSpec) => void;
+            "notify::active": (pspec: GObject.ParamSpec) => void;
+            "notify::resource-infos": (pspec: GObject.ParamSpec) => void;
+            "notify::icon-infos": (pspec: GObject.ParamSpec) => void;
+            "notify::default-icons": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends RygelCore.Plugin.ConstructorProps {
+            supported_profiles: RygelCore.DLNAProfile[];
+            supportedProfiles: RygelCore.DLNAProfile[];
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class MediaRendererPlugin extends RygelCore.Plugin {
+        static $gtype: GObject.GType<MediaRendererPlugin>;
+
+        // Properties
+        get supported_profiles(): RygelCore.DLNAProfile[];
+        set supported_profiles(val: RygelCore.DLNAProfile[]);
+
+        get supportedProfiles(): RygelCore.DLNAProfile[];
+        set supportedProfiles(val: RygelCore.DLNAProfile[]);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MediaRendererPlugin.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MediaRendererPlugin.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](name: string, title: string | null, description: string | null, capabilities: RygelCore.PluginCapabilities): MediaRendererPlugin;
+
+        // Conflicted with RygelCore.Plugin.new
+        static ["new"](...args: never[]): any;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MediaRendererPlugin.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaRendererPlugin.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MediaRendererPlugin.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaRendererPlugin.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MediaRendererPlugin.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MediaRendererPlugin.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @virtual
+         */
+        vfunc_get_player(): MediaPlayer | null;
+
+        /**
+         * @virtual
+         */
+        vfunc_get_controller(): PlayerController;
+
+        // Methods
+        get_player(): MediaPlayer | null;
+
+        get_controller(): PlayerController;
+
+        get_protocol_info(): string;
+
+        get_supported_profiles(): RygelCore.DLNAProfile[];
+
+        /**
+         * @param value 
+         */
+        set_supported_profiles(value: RygelCore.DLNAProfile[]): void;
+    }
+
+
+    namespace MediaRenderer {
+        // Signal signatures
+        interface SignalSignatures extends RygelCore.MediaDevice.SignalSignatures {
+            "notify::player": (pspec: GObject.ParamSpec) => void;
+            "notify::plugin": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::capabilities": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends RygelCore.MediaDevice.ConstructorProps {
+            player: MediaPlayer;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class MediaRenderer extends RygelCore.MediaDevice {
+        static $gtype: GObject.GType<MediaRenderer>;
+
+        // Properties
+        /**
+         * @construct-only
+         */
+        get player(): MediaPlayer;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MediaRenderer.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MediaRenderer.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](title: string, player: MediaPlayer, capabilities: RygelCore.PluginCapabilities): MediaRenderer;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MediaRenderer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaRenderer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MediaRenderer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MediaRenderer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MediaRenderer.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MediaRenderer.SignalSignatures[K]>): void;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaRendererPluginClass = typeof MediaRendererPlugin;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MediaRendererPluginPrivate {
+        static $gtype: GObject.GType<MediaRendererPluginPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaRendererClass = typeof MediaRenderer;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class MediaRendererPrivate {
+        static $gtype: GObject.GType<MediaRendererPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MediaPlayerIface = typeof MediaPlayer;
+
+    /**
+     * @gir-type Alias
+     */
+    type PlayerControllerIface = typeof PlayerController;
+
+    namespace MediaPlayer {
+        /**
+         * Interface for implementing MediaPlayer.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * @param time 
+             * @virtual
+             */
+            vfunc_seek(time: number): boolean;
+
+            /**
+             * @param bytes 
+             * @virtual
+             */
+            vfunc_seek_bytes(bytes: number): boolean;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_protocols(): string[];
+
+            /**
+             * @virtual
+             */
+            vfunc_get_mime_types(): string[];
+
+            /**
+             * @virtual
+             */
+            vfunc_get_playback_state(): string;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_playback_state(value: string): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_allowed_playback_speeds(): string[];
+
+            /**
+             * @virtual
+             */
+            vfunc_get_playback_speed(): string;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_playback_speed(value: string): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_uri(): string | null;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_uri(value: string | null): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_volume(): number;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_volume(value: number): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_duration(): bigint | number;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_size(): bigint | number;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_metadata(): string | null;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_metadata(value: string | null): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_mime_type(): string | null;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_mime_type(value: string | null): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_can_seek(): boolean;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_can_seek_bytes(): boolean;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_content_features(): string | null;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_content_features(value: string | null): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_position(): bigint | number;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_byte_position(): bigint | number;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_user_agent(): string | null;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_user_agent(value: string | null): void;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            playback_state: string;
+            playbackState: string;
+            allowed_playback_speeds: string[];
+            allowedPlaybackSpeeds: string[];
+            playback_speed: string;
+            playbackSpeed: string;
+            uri: string | null;
+            volume: number;
+            duration: bigint | number;
+            size: bigint | number;
+            metadata: string | null;
+            mime_type: string | null;
+            mimeType: string;
+            can_seek: boolean;
+            canSeek: boolean;
+            can_seek_bytes: boolean;
+            canSeekBytes: boolean;
+            content_features: string | null;
+            contentFeatures: string;
+            position: bigint | number;
+            byte_position: bigint | number;
+            bytePosition: bigint | number;
+            user_agent: string | null;
+            userAgent: string;
+        }
+    }
+
+    export interface MediaPlayerNamespace {
+        $gtype: GObject.GType<MediaPlayer>;
+        prototype: MediaPlayer;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface MediaPlayer extends GObject.Object, MediaPlayer.Interface {
+
+        // Properties
+        get playback_state(): string;
+        set playback_state(val: string);
+
+        get playbackState(): string;
+        set playbackState(val: string);
+
+        /**
+         * @read-only
+         */
+        get allowed_playback_speeds(): string[];
+
+        /**
+         * @read-only
+         */
+        get allowedPlaybackSpeeds(): string[];
+
+        get playback_speed(): string;
+        set playback_speed(val: string);
+
+        get playbackSpeed(): string;
+        set playbackSpeed(val: string);
+
+        get uri(): string | null;
+        set uri(val: string | null);
+
+        get volume(): number;
+        set volume(val: number);
+
+        /**
+         * @read-only
+         */
+        get duration(): number;
+
+        /**
+         * @read-only
+         */
+        get size(): number;
+
+        get metadata(): string | null;
+        set metadata(val: string | null);
+
+        get mime_type(): string | null;
+        set mime_type(val: string | null);
+
+        get mimeType(): string;
+        set mimeType(val: string);
+
+        /**
+         * @read-only
+         */
+        get can_seek(): boolean;
+
+        /**
+         * @read-only
+         */
+        get canSeek(): boolean;
+
+        /**
+         * @read-only
+         */
+        get can_seek_bytes(): boolean;
+
+        /**
+         * @read-only
+         */
+        get canSeekBytes(): boolean;
+
+        get content_features(): string | null;
+        set content_features(val: string | null);
+
+        get contentFeatures(): string;
+        set contentFeatures(val: string);
+
+        /**
+         * @read-only
+         */
+        get position(): number;
+
+        /**
+         * @read-only
+         */
+        get byte_position(): number;
+
+        /**
+         * @read-only
+         */
+        get bytePosition(): number;
+
+        get user_agent(): string | null;
+        set user_agent(val: string | null);
+
+        get userAgent(): string;
+        set userAgent(val: string);
+
+        // Methods
+        /**
+         * @param time 
+         */
+        seek(time: bigint | number): boolean;
+
+        /**
+         * @param bytes 
+         */
+        seek_bytes(bytes: bigint | number): boolean;
+
+        get_protocols(): string[];
+
+        get_mime_types(): string[];
+
+        /**
+         * @param speed 
+         */
+        play_speed_to_double(speed: string): number;
+
+        get_playback_state(): string;
+
+        /**
+         * @param value 
+         */
+        set_playback_state(value: string): void;
+
+        get_allowed_playback_speeds(): string[];
+
+        get_playback_speed(): string;
+
+        /**
+         * @param value 
+         */
+        set_playback_speed(value: string): void;
+
+        get_uri(): string | null;
+
+        /**
+         * @param value 
+         */
+        set_uri(value: string | null): void;
+
+        get_volume(): number;
+
+        /**
+         * @param value 
+         */
+        set_volume(value: number): void;
+
+        get_duration(): number;
+
+        get_size(): number;
+
+        get_metadata(): string | null;
+
+        /**
+         * @param value 
+         */
+        set_metadata(value: string | null): void;
+
+        get_mime_type(): string | null;
+
+        /**
+         * @param value 
+         */
+        set_mime_type(value: string | null): void;
+
+        get_can_seek(): boolean;
+
+        get_can_seek_bytes(): boolean;
+
+        get_content_features(): string | null;
+
+        /**
+         * @param value 
+         */
+        set_content_features(value: string | null): void;
+
+        get_duration_as_str(): string;
+
+        get_position(): number;
+
+        get_byte_position(): number;
+
+        get_position_as_str(): string;
+
+        get_user_agent(): string | null;
+
+        /**
+         * @param value 
+         */
+        set_user_agent(value: string | null): void;
+
+        get_protocol_info(): string;
+    }
+
+
+    export const MediaPlayer: MediaPlayerNamespace & {
+        new (): MediaPlayer; // This allows `obj instanceof MediaPlayer`
+    };
+
+    namespace PlayerController {
+        /**
+         * Interface for implementing PlayerController.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * @virtual
+             */
+            vfunc_next(): boolean;
+
+            /**
+             * @virtual
+             */
+            vfunc_previous(): boolean;
+
+            /**
+             * @param uri 
+             * @param metadata 
+             * @param mime 
+             * @param features 
+             * @virtual
+             */
+            vfunc_set_single_play_uri(uri: string, metadata: string, mime: string | null, features: string | null): void;
+
+            /**
+             * @param uri 
+             * @param metadata 
+             * @param collection 
+             * @virtual
+             */
+            vfunc_set_playlist_uri(uri: string, metadata: string, collection: GUPnPAV.MediaCollection): void;
+
+            /**
+             * @param uri 
+             * @param metadata 
+             * @param mime 
+             * @param features 
+             * @virtual
+             */
+            vfunc_set_next_single_play_uri(uri: string, metadata: string, mime: string | null, features: string | null): void;
+
+            /**
+             * @param uri 
+             * @param metadata 
+             * @param collection 
+             * @virtual
+             */
+            vfunc_set_next_playlist_uri(uri: string, metadata: string, collection: GUPnPAV.MediaCollection): void;
+
+            /**
+             * @param play_mode 
+             * @virtual
+             */
+            vfunc_is_play_mode_valid(play_mode: string): boolean;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_playback_state(): string;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_playback_state(value: string): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_n_tracks(): number;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_n_tracks(value: number): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_track(): number;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_track(value: number): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_uri(): string;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_uri(value: string): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_metadata(): string;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_metadata(value: string): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_track_uri(): string;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_track_uri(value: string): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_track_metadata(): string;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_track_metadata(value: string): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_next_uri(): string;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_next_uri(value: string): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_next_metadata(): string;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_next_metadata(value: string): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_current_transport_actions(): string;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_play_mode(): string;
+
+            /**
+             * @param value 
+             * @virtual
+             */
+            vfunc_set_play_mode(value: string): void;
+
+            /**
+             * @virtual
+             */
+            vfunc_get_can_pause(): boolean;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            playback_state: string;
+            playbackState: string;
+            n_tracks: number;
+            nTracks: number;
+            track: number;
+            uri: string;
+            metadata: string;
+            track_uri: string;
+            trackUri: string;
+            track_metadata: string;
+            trackMetadata: string;
+            next_uri: string;
+            nextUri: string;
+            next_metadata: string;
+            nextMetadata: string;
+            current_transport_actions: string;
+            currentTransportActions: string;
+            play_mode: string;
+            playMode: string;
+            can_pause: boolean;
+            canPause: boolean;
+        }
+    }
+
+    export interface PlayerControllerNamespace {
+        $gtype: GObject.GType<PlayerController>;
+        prototype: PlayerController;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface PlayerController extends GObject.Object, PlayerController.Interface {
+
+        // Properties
+        get playback_state(): string;
+        set playback_state(val: string);
+
+        get playbackState(): string;
+        set playbackState(val: string);
+
+        get n_tracks(): number;
+        set n_tracks(val: number);
+
+        get nTracks(): number;
+        set nTracks(val: number);
+
+        get track(): number;
+        set track(val: number);
+
+        get uri(): string;
+        set uri(val: string);
+
+        get metadata(): string;
+        set metadata(val: string);
+
+        get track_uri(): string;
+        set track_uri(val: string);
+
+        get trackUri(): string;
+        set trackUri(val: string);
+
+        get track_metadata(): string;
+        set track_metadata(val: string);
+
+        get trackMetadata(): string;
+        set trackMetadata(val: string);
+
+        get next_uri(): string;
+        set next_uri(val: string);
+
+        get nextUri(): string;
+        set nextUri(val: string);
+
+        get next_metadata(): string;
+        set next_metadata(val: string);
+
+        get nextMetadata(): string;
+        set nextMetadata(val: string);
+
+        /**
+         * @read-only
+         */
+        get current_transport_actions(): string;
+
+        /**
+         * @read-only
+         */
+        get currentTransportActions(): string;
+
+        get play_mode(): string;
+        set play_mode(val: string);
+
+        get playMode(): string;
+        set playMode(val: string);
+
+        /**
+         * @read-only
+         */
+        get can_pause(): boolean;
+
+        /**
+         * @read-only
+         */
+        get canPause(): boolean;
+
+        // Methods
+        next(): boolean;
+
+        previous(): boolean;
+
+        /**
+         * @param uri 
+         * @param metadata 
+         * @param mime 
+         * @param features 
+         */
+        set_single_play_uri(uri: string, metadata: string, mime: string | null, features: string | null): void;
+
+        /**
+         * @param uri 
+         * @param metadata 
+         * @param collection 
+         */
+        set_playlist_uri(uri: string, metadata: string, collection: GUPnPAV.MediaCollection): void;
+
+        /**
+         * @param uri 
+         * @param metadata 
+         * @param mime 
+         * @param features 
+         */
+        set_next_single_play_uri(uri: string, metadata: string, mime: string | null, features: string | null): void;
+
+        /**
+         * @param uri 
+         * @param metadata 
+         * @param collection 
+         */
+        set_next_playlist_uri(uri: string, metadata: string, collection: GUPnPAV.MediaCollection): void;
+
+        /**
+         * @param play_mode 
+         */
+        is_play_mode_valid(play_mode: string): boolean;
+
+        /**
+         * @param input 
+         */
+        unescape(input: string): string;
+
+        get_playback_state(): string;
+
+        /**
+         * @param value 
+         */
+        set_playback_state(value: string): void;
+
+        get_n_tracks(): number;
+
+        /**
+         * @param value 
+         */
+        set_n_tracks(value: number): void;
+
+        get_track(): number;
+
+        /**
+         * @param value 
+         */
+        set_track(value: number): void;
+
+        get_uri(): string;
+
+        /**
+         * @param value 
+         */
+        set_uri(value: string): void;
+
+        get_metadata(): string;
+
+        /**
+         * @param value 
+         */
+        set_metadata(value: string): void;
+
+        get_track_uri(): string;
+
+        /**
+         * @param value 
+         */
+        set_track_uri(value: string): void;
+
+        get_track_metadata(): string;
+
+        /**
+         * @param value 
+         */
+        set_track_metadata(value: string): void;
+
+        get_next_uri(): string;
+
+        /**
+         * @param value 
+         */
+        set_next_uri(value: string): void;
+
+        get_next_metadata(): string;
+
+        /**
+         * @param value 
+         */
+        set_next_metadata(value: string): void;
+
+        get_current_transport_actions(): string;
+
+        get_play_mode(): string;
+
+        /**
+         * @param value 
+         */
+        set_play_mode(value: string): void;
+
+        get_can_pause(): boolean;
+    }
+
+
+    export const PlayerController: PlayerControllerNamespace & {
+        new (): PlayerController; // This allows `obj instanceof PlayerController`
+    };
+
+    /**
+     * Name of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L188
+     */
+    const __name__: string;
+
+    /**
+     * Version of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L189
+     */
+    const __version__: string;
+}
+
+export default RygelRenderer;
+
+}
+
+declare module 'gi://RygelRenderer' {
+    import RygelRenderer28 from 'gi://RygelRenderer?version=2.8';
+    export default RygelRenderer28;
+}
+// END

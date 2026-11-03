@@ -1,0 +1,6598 @@
+/// <reference path="./cairo-1.0.d.ts" />
+/// <reference path="./cairo.d.ts" />
+/// <reference path="./gobject-2.0.d.ts" />
+/// <reference path="./glib-2.0.d.ts" />
+/// <reference path="./pango-1.0.d.ts" />
+/// <reference path="./harfbuzz-0.0.d.ts" />
+/// <reference path="./freetype2-2.0.d.ts" />
+/// <reference path="./gio-2.0.d.ts" />
+/// <reference path="./gmodule-2.0.d.ts" />
+/// <reference path="./gtk-4.0.d.ts" />
+/// <reference path="./gsk-4.0.d.ts" />
+/// <reference path="./graphene-1.0.d.ts" />
+/// <reference path="./gdk-4.0.d.ts" />
+/// <reference path="./pangocairo-1.0.d.ts" />
+/// <reference path="./gdkpixbuf-2.0.d.ts" />
+
+/**
+ * Type Definitions for Gjs (https://gjs.guide/)
+ *
+ * These type definitions are automatically generated, do not edit them by hand.
+ * If you found a bug fix it in `ts-for-gir` or create a bug report on https://github.com/gjsify/ts-for-gir
+ *
+ * The based EJS template file is used for the generated .d.ts file of each GIR module like Gtk-4.0, GObject-2.0, ...
+ */
+
+declare module 'gi://Vte?version=3.91' {
+
+// Module dependencies
+import type cairo from 'cairo';
+import type GObject from 'gi://GObject?version=2.0';
+import type GLib from 'gi://GLib?version=2.0';
+import type Pango from 'gi://Pango?version=1.0';
+import type HarfBuzz from 'gi://HarfBuzz?version=0.0';
+import type freetype2 from 'gi://freetype2?version=2.0';
+import type Gio from 'gi://Gio?version=2.0';
+import type GModule from 'gi://GModule?version=2.0';
+import type Gtk from 'gi://Gtk?version=4.0';
+import type Gsk from 'gi://Gsk?version=4.0';
+import type Graphene from 'gi://Graphene?version=1.0';
+import type Gdk from 'gi://Gdk?version=4.0';
+import type PangoCairo from 'gi://PangoCairo?version=1.0';
+import type GdkPixbuf from 'gi://GdkPixbuf?version=2.0';
+
+export namespace Vte {
+
+    /**
+     * Vte-3.91
+     */
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace Align {
+        export const $gtype: GObject.GType<Align>;
+    }
+
+    /**
+     * An enumeration type that can be used to specify how the terminal
+     * uses extra allocated space.
+     * @gir-type Enum
+     * @since 0.76
+     */
+    enum Align {
+        /**
+         * align to left/top
+         */
+        START = 0,
+        /**
+         * align to centre
+         */
+        CENTER = 1,
+        /**
+         * align to right/bottom
+         */
+        END = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace CursorBlinkMode {
+        export const $gtype: GObject.GType<CursorBlinkMode>;
+    }
+
+    /**
+     * An enumerated type which can be used to indicate the cursor blink mode
+     * for the terminal.
+     * @gir-type Enum
+     */
+    enum CursorBlinkMode {
+        /**
+         * Follow GTK+ settings for cursor blinking.
+         */
+        SYSTEM = 0,
+        /**
+         * Cursor blinks.
+         */
+        ON = 1,
+        /**
+         * Cursor does not blink.
+         */
+        OFF = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace CursorShape {
+        export const $gtype: GObject.GType<CursorShape>;
+    }
+
+    /**
+     * An enumerated type which can be used to indicate what should the terminal
+     * draw at the cursor position.
+     * @gir-type Enum
+     */
+    enum CursorShape {
+        /**
+         * Draw a block cursor.  This is the default.
+         */
+        BLOCK = 0,
+        /**
+         * Draw a vertical bar on the left side of character.
+         * This is similar to the default cursor for other GTK+ widgets.
+         */
+        IBEAM = 1,
+        /**
+         * Draw a horizontal bar below the character.
+         */
+        UNDERLINE = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace EraseBinding {
+        export const $gtype: GObject.GType<EraseBinding>;
+    }
+
+    /**
+     * An enumerated type which can be used to indicate which string the terminal
+     * should send to an application when the user presses the Delete or Backspace
+     * keys.
+     * @gir-type Enum
+     */
+    enum EraseBinding {
+        /**
+         * For backspace, attempt to determine the right value from the terminal's IO settings.  For delete, use the control sequence.
+         */
+        AUTO = 0,
+        /**
+         * Send an ASCII backspace character (0x08).
+         */
+        ASCII_BACKSPACE = 1,
+        /**
+         * Send an ASCII delete character (0x7F).
+         */
+        ASCII_DELETE = 2,
+        /**
+         * Send the "@@7" control sequence.
+         */
+        DELETE_SEQUENCE = 3,
+        /**
+         * Send terminal's "erase" setting.
+         */
+        TTY = 4,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace Format {
+        export const $gtype: GObject.GType<Format>;
+    }
+
+    /**
+     * An enumeration type that can be used to specify the format the selection
+     * should be copied to the clipboard in.
+     * @gir-type Enum
+     * @since 0.50
+     */
+    enum Format {
+        /**
+         * Export as plain text
+         */
+        TEXT = 1,
+        /**
+         * Export as HTML formatted text
+         */
+        HTML = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace ProgressHint {
+        export const $gtype: GObject.GType<ProgressHint>;
+    }
+
+    /**
+     * An enum describing how to interpret progress state, for the
+     * `VTE_TERMPROP_PROGRESS_HINT` termprop.
+     * @gir-type Enum
+     * @since 0.80
+     */
+    enum ProgressHint {
+        /**
+         * no progress current
+         */
+        INACTIVE = 0,
+        /**
+         * progress is normal
+         */
+        ACTIVE = 1,
+        /**
+         * progress is aborted by an error
+         */
+        ERROR = 2,
+        /**
+         * progress is indeterminate
+         */
+        INDETERMINATE = 3,
+        /**
+         * progress is paused
+         */
+        PAUSED = 4,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace PropertyId {
+        export const $gtype: GObject.GType<PropertyId>;
+    }
+
+    /**
+     * An enum containing the IDs of the always-installed termprops.
+     * @gir-type Enum
+     * @since 0.78
+     */
+    enum PropertyId {
+        /**
+         * the ID of the `VTE_TERMPROP_CURRENT_DIRECTORY_URI` termprop
+         */
+        CURRENT_DIRECTORY_URI = 0,
+        /**
+         * the ID of the `VTE_TERMPROP_CURRENT_FILE_URI` termprop
+         */
+        CURRENT_FILE_URI = 1,
+        /**
+         * the ID of the `VTE_TERMPROP_XTERM_TITLE` termprop
+         */
+        XTERM_TITLE = 2,
+        /**
+         * the ID of the `VTE_TERMPROP_CONTAINER_NAME` termprop
+         */
+        CONTAINER_NAME = 3,
+        /**
+         * the ID of the `VTE_TERMPROP_CONTAINER_RUNTIME` termprop
+         */
+        CONTAINER_RUNTIME = 4,
+        /**
+         * the ID of the `VTE_TERMPROP_CONTAINER_UID` termprop
+         */
+        CONTAINER_UID = 5,
+        /**
+         * the ID of the `VTE_TERMPROP_SHELL_PRECMD` termprop
+         */
+        SHELL_PRECMD = 6,
+        /**
+         * the ID of the `VTE_TERMPROP_SHELL_PREEXEC` termprop
+         */
+        SHELL_PREEXEC = 7,
+        /**
+         * the ID of the `VTE_TERMPROP_SHELL_POSTEXEC` termprop
+         */
+        SHELL_POSTEXEC = 8,
+        /**
+         * the ID of the `VTE_TERMPROP_PROGRESS_HINT` termprop. Since: 0.80
+         */
+        PROGRESS_HINT = 9,
+        /**
+         * the ID of the `VTE_TERMPROP_PROGRESS_VALUE` termprop. Since: 0.80
+         */
+        PROGRESS_VALUE = 10,
+        /**
+         * the ID of the `VTE_TERMPROP_ICON_COLOR` termprop. Since: 0.80
+         */
+        ICON_COLOR = 11,
+        /**
+         * the ID of the `VTE_TERMPROP_ICON_IMAGE` termprop. Since: 0.80
+         */
+        ICON_IMAGE = 12,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace PropertyType {
+        export const $gtype: GObject.GType<PropertyType>;
+    }
+
+    /**
+     * An enumeration type describing types of properties.
+     * @gir-type Enum
+     * @since 0.78
+     */
+    enum PropertyType {
+        /**
+         * no value, use for signalling
+         */
+        VALUELESS = 0,
+        /**
+         * a bool
+         */
+        BOOL = 1,
+        /**
+         * a signed 64-bit integer
+         */
+        INT = 2,
+        /**
+         * an unsigned 64-bit integer
+         */
+        UINT = 3,
+        /**
+         * a finite double-precision floating point number
+         */
+        DOUBLE = 4,
+        /**
+         * a color
+         */
+        RGB = 5,
+        /**
+         * a color with alpha
+         */
+        RGBA = 6,
+        /**
+         * a string
+         */
+        STRING = 7,
+        /**
+         * binary data
+         */
+        DATA = 8,
+        /**
+         * a UUID
+         */
+        UUID = 9,
+        /**
+         * a URI
+         */
+        URI = 10,
+        /**
+         * an image. Since: 0.80
+         */
+        IMAGE = 11,
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class PtyError extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        /**
+         * Obsolete. Deprecated: 0.42
+         */
+        static PTY_HELPER_FAILED: number;
+
+        /**
+         * failure when using PTY98 to allocate the PTY
+         */
+        static PTY98_FAILED: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+
+        // Static methods
+        /**
+         * Error domain for VTE PTY errors. Errors in this domain will be from the {@link Vte.PtyError}
+         * enumeration. See {@link GLib.Error} for more information on error domains.
+         */
+        static quark(): GLib.Quark;
+    }
+
+
+    /**
+     * An enum type for regex errors. In addition to the values listed above,
+     * any PCRE2 error values may occur.
+     * @gir-type Struct
+     */
+    class RegexError extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        /**
+         * The PCRE2 library was built without
+         *   Unicode support which is required for VTE
+         */
+        static INCOMPATIBLE: number;
+
+        /**
+         * Regexes are not supported because VTE was
+         *   built without PCRE2 support
+         */
+        static NOT_SUPPORTED: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+
+        // Static methods
+        static quark(): GLib.Quark;
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace TextBlinkMode {
+        export const $gtype: GObject.GType<TextBlinkMode>;
+    }
+
+    /**
+     * An enumerated type which can be used to indicate whether the terminal allows
+     * the text contents to be blinked.
+     * @gir-type Enum
+     * @since 0.52
+     */
+    enum TextBlinkMode {
+        /**
+         * Do not blink the text.
+         */
+        NEVER = 0,
+        /**
+         * Allow blinking text only if the terminal is focused.
+         */
+        FOCUSED = 1,
+        /**
+         * Allow blinking text only if the terminal is unfocused.
+         */
+        UNFOCUSED = 2,
+        /**
+         * Allow blinking text. This is the default.
+         */
+        ALWAYS = 3,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace WriteFlags {
+        export const $gtype: GObject.GType<WriteFlags>;
+    }
+
+    /**
+     * A flag type to determine how terminal contents should be written
+     * to an output stream.
+     * @gir-type Enum
+     */
+    enum WriteFlags {
+        /**
+         * Write contents as UTF-8 text.  This is the default.
+         */
+        DEFAULT = 0,
+    }
+
+
+    /**
+     * The major version number of the VTE library
+     * (e.g. in version 3.1.4 this is 3).
+     * @default 0
+     */
+    const MAJOR_VERSION: number;
+
+    /**
+     * The micro version number of the VTE library
+     * (e.g. in version 3.1.4 this is 4).
+     * @default 1
+     */
+    const MICRO_VERSION: number;
+
+    /**
+     * The minor version number of the VTE library
+     * (e.g. in version 3.1.4 this is 1).
+     * @default 84
+     */
+    const MINOR_VERSION: number;
+
+    /**
+     * @default 1075314688
+     */
+    const REGEX_FLAGS_DEFAULT: number;
+
+    /**
+     * Use this as a spawn flag (together with flags from {@link GLib.SpawnFlags}) in
+     * `vte_pty_spawn_async()`.
+     * 
+     * Normally, the spawned process inherits the environment from the parent
+     * process; when this flag is used, only the environment variables passed
+     * to `vte_pty_spawn_async()` etc. are passed to the child process.
+     * @default 33554432
+     */
+    const SPAWN_NO_PARENT_ENVV: number;
+
+    /**
+     * Use this as a spawn flag (together with flags from {@link GLib.SpawnFlags}) in
+     * `vte_pty_spawn_async()`.
+     * 
+     * Prevents `vte_pty_spawn_async()` etc. from moving the newly created child
+     * process to a systemd user scope.
+     * @since 0.60
+     * @default 67108864
+     */
+    const SPAWN_NO_SYSTEMD_SCOPE: number;
+
+    /**
+     * Use this as a spawn flag (together with flags from {@link GLib.SpawnFlags}) in
+     * `vte_pty_spawn_async()`.
+     * 
+     * Requires `vte_pty_spawn_async()` etc. to move the newly created child
+     * process to a systemd user scope; if that fails, the whole spawn fails.
+     * 
+     * This is supported on Linux only.
+     * @since 0.60
+     * @default 134217728
+     */
+    const SPAWN_REQUIRE_SYSTEMD_SCOPE: number;
+
+    /**
+     * A {@link Vte.PropertyType.STRING} termprop that stores the name of the
+     * container.
+     * @since 0.78
+     * @default vte.container.name
+     */
+    const TERMPROP_CONTAINER_NAME: string;
+
+    /**
+     * A {@link Vte.PropertyType.STRING} termprop that stores the runtime of the
+     * container.
+     * @since 0.78
+     * @default vte.container.runtime
+     */
+    const TERMPROP_CONTAINER_RUNTIME: string;
+
+    /**
+     * A {@link Vte.PropertyType.UINT} termprop that stores the user ID of the
+     * container.
+     * @since 0.78
+     * @default vte.container.uid
+     */
+    const TERMPROP_CONTAINER_UID: string;
+
+    /**
+     * A {@link Vte.PropertyType.URI} termprop that stores the current directory
+     * URI as set by OSC 7.
+     * Use this with `vte_terminal_ref_termprop_uri()` instead of using
+     * `vte_terminal_get_current_directory_uri()`.
+     * 
+     * Note that this termprop is not settable via the termprop OSC.
+     * @since 0.78
+     * @default vte.cwd
+     */
+    const TERMPROP_CURRENT_DIRECTORY_URI: string;
+
+    /**
+     * A {@link Vte.PropertyType.URI} termprop that stores the current file URI
+     * as set by OSC 6.
+     * Use this with `vte_terminal_ref_termprop_uri()` instead of using
+     * `vte_terminal_get_current_file_uri()`.
+     * 
+     * Note that this termprop is not settable via the termprop OSC.
+     * @since 0.78
+     * @default vte.cwf
+     */
+    const TERMPROP_CURRENT_FILE_URI: string;
+
+    /**
+     * @default vte.icon.color
+     */
+    const TERMPROP_ICON_COLOR: string;
+
+    /**
+     * A {@link Vte.PropertyType.IMAGE} termprop to specify an image for use
+     * as a favicon.
+     * 
+     * Applications should prefer to use this termprop, if set, over
+     * the `VTE_TERMPROP_ICON_COLOR` color.
+     * 
+     * Note that in this vte version, this termprop is always unset.
+     * @since 0.80
+     * @default vte.icon.image
+     */
+    const TERMPROP_ICON_IMAGE: string;
+
+    /**
+     * The string prefix that any termprop's name must start with to be installed
+     * by `vte_install_termprop()`.
+     * @since 0.78
+     * @default vte.ext.
+     */
+    const TERMPROP_NAME_PREFIX: string;
+
+    /**
+     * A {@link Vte.PropertyType.INT} termprop that stores a hint how to interpret
+     * the `VTE_TERMPROP_PROGRESS_VALUE` termprop value. If set, this
+     * termprop's value will be from the {@link Vte.ProgressHint} enumeration.
+     * An unset termprop should be treated as if it had value
+     * {@link Vte.ProgressHint.ACTIVE} if the `VTE_TERMPROP_PROGRESS_VALUE`
+     * termprop has a value
+     * 
+     * Note that this termprop never will have the value
+     * {@link Vte.ProgressHint.INACTIVE}.
+     * 
+     * The value of this termprop should be ignored unless the
+     * `VTE_TERMPROP_PROGRESS_VALUE` termprop has a value.
+     * 
+     * Note that before version 0.82, this termprop could not be set by
+     * the termprop OSC, but instead only by OSC 9 ; 4 (ConEmu progress).
+     * @since 0.80
+     * @default vte.progress.hint
+     */
+    const TERMPROP_PROGRESS_HINT: string;
+
+    /**
+     * A {@link Vte.PropertyType.UINT} termprop that stores the progress of the running
+     * command as a value between 0 and 100.
+     * 
+     * Note that before version 0.82, this termprop could not be set by
+     * the termprop OSC, but instead only by OSC 9 ; 4 (ConEmu progress).
+     * @since 0.80
+     * @default vte.progress.value
+     */
+    const TERMPROP_PROGRESS_VALUE: string;
+
+    /**
+     * An ephemeral {@link Vte.PropertyType.UINT} termprop that signals that the shell
+     * has executed the commands entered at the prompt and these commands
+     * have returned. The termprop value is the exit code.
+     * @since 0.78
+     * @default vte.shell.postexec
+     */
+    const TERMPROP_SHELL_POSTEXEC: string;
+
+    /**
+     * A {@link Vte.PropertyType.VALUELESS} termprop that signals that the shell
+     * is going to prompt.
+     * @since 0.78
+     * @default vte.shell.precmd
+     */
+    const TERMPROP_SHELL_PRECMD: string;
+
+    /**
+     * A {@link Vte.PropertyType.VALUELESS} termprop that signals that the shell
+     * is preparing to execute the command entered at the prompt.
+     * @since 0.78
+     * @default vte.shell.preexec
+     */
+    const TERMPROP_SHELL_PREEXEC: string;
+
+    /**
+     * A {@link Vte.PropertyType.STRING} termprop that stores the xterm window title
+     * as set by OSC 0 and OSC 2.
+     * Use this with `vte_terminal_get_termprop_string()` instead of using
+     * `vte_terminal_get_window_title()`.
+     * 
+     * Note that this termprop is not settable via the termprop OSC.
+     * @since 0.78
+     * @default xterm.title
+     */
+    const TERMPROP_XTERM_TITLE: string;
+
+    /**
+     * @default 18446744073709551615
+     */
+    const TEST_FLAGS_ALL: number;
+
+    /**
+     * @default 0
+     */
+    const TEST_FLAGS_NONE: number;
+
+    /**
+     * Queries whether the legacy encoding `encoding` is supported.
+     * 
+     * If ICU support is not available, this function always returns `false`.
+     * 
+     * Note that UTF-8 is always supported; you can select it by
+     * passing `null` to `vte_terminal_set_encoding()`.
+     * @param encoding the name of the legacy encoding
+     * @returns `true` iff the legacy encoding `encoding` is supported
+     * @since 0.60
+     * @deprecated since 0.60
+     */
+    function get_encoding_supported(encoding: string): boolean;
+
+    /**
+     * Gets the list of supported legacy encodings.
+     * 
+     * If ICU support is not available, this returns an empty vector.
+     * Note that UTF-8 is always supported; you can select it by
+     * passing `null` to `vte_terminal_set_encoding()`.
+     * @param include_aliases whether to include alias names
+     * @returns the list of supported encodings; free with   `g_strfreev()`
+     * @since 0.60
+     * @deprecated since 0.60
+     */
+    function get_encodings(include_aliases: boolean): string[];
+
+    /**
+     * Gets features VTE was compiled with.
+     * @returns flags from {@link Vte.FeatureFlags}
+     * @since 0.62
+     */
+    function get_feature_flags(): FeatureFlags;
+
+    /**
+     * Gets a list of features vte was compiled with.
+     * @returns a string with features
+     * @since 0.40
+     */
+    function get_features(): string;
+
+    /**
+     * Returns the major version of the VTE library at runtime.
+     * Contrast this with `VTE_MAJOR_VERSION` which represents
+     * the version of the VTE library that the code was compiled
+     * with.
+     * @returns the major version
+     * @since 0.40
+     */
+    function get_major_version(): number;
+
+    /**
+     * Returns the micro version of the VTE library at runtime.
+     * Contrast this with `VTE_MICRO_VERSION` which represents
+     * the version of the VTE library that the code was compiled
+     * with.
+     * @returns the micro version
+     * @since 0.40
+     */
+    function get_micro_version(): number;
+
+    /**
+     * Returns the minor version of the VTE library at runtime.
+     * Contrast this with `VTE_MINOR_VERSION` which represents
+     * the version of the VTE library that the code was compiled
+     * with.
+     * @returns the minor version
+     * @since 0.40
+     */
+    function get_minor_version(): number;
+
+    /**
+     * Gets the names of the installed termprops in an unspecified order.
+     * @returns the names of the installed   termprops, or `null` if there are no termprops
+     * @since 0.78
+     */
+    function get_termprops(): string[] | null;
+
+    /**
+     * Gets the user's shell, or `null`. In the latter case, the
+     * system default (usually "/bin/sh") should be used.
+     * @returns a newly allocated string with the   user's shell, or `null`
+     */
+    function get_user_shell(): string;
+
+    /**
+     * Installs a new terminal property that can be set by the application.
+     * 
+     * `name` must follow the rules for termprop names as laid out above; it
+     * must have at least 4 components, the first two of which must be "vte",
+     * and "ext". Use the `VTE_TERMPROP_NAME_PREFIX` macro which defines this
+     * name prefix.
+     * 
+     * You should use an identifier for your terminal as the first component
+     * after the prefix, as a namespace marker.
+     * 
+     * It is a programming error to call this function with a `name` that does
+     * not meet these requirements.
+     * 
+     * It is a programming error to call this function after any {@link Vte.Terminal}
+     * instances have been created.
+     * 
+     * It is a programming error to call this function if the named termprop
+     * is already installed with a different type or flags.
+     * @param name a namespaced property name
+     * @param type a {@link Vte.PropertyType} to use for the property
+     * @param flags flags from {@link Vte.PropertyFlags}
+     * @returns an ID for the termprop
+     * @since 0.78
+     */
+    function install_termprop(name: string, type: PropertyType, flags: PropertyFlags): number;
+
+    /**
+     * Installs a new terminal property `name` as an alias for the terminal
+     * property `target_name`.
+     * @param name a namespaced property name
+     * @param target_name the target property name
+     * @returns the ID for the termprop `target_name`
+     * @since 0.78
+     */
+    function install_termprop_alias(name: string, target_name: string): number;
+
+    /**
+     * Error domain for VTE PTY errors. Errors in this domain will be from the {@link Vte.PtyError}
+     * enumeration. See {@link GLib.Error} for more information on error domains.
+     * @returns the error domain for VTE PTY errors
+     */
+    function pty_error_quark(): GLib.Quark;
+
+    /**
+     * Gets the property type of the termprop. For properties installed by
+     * `vte_install_termprop()`, the name starts with "vte.ext.".
+     * 
+     * For an alias termprop (see `vte_install_termprop_alias()`), `resolved_name`
+     * will be name of the alias' target termprop; otherwise it will be `name`.
+     * @param name a termprop name
+     * @returns `true` iff the termprop exists, and then `prop`, `type` and   `flags` will be filled in
+     * @since 0.78
+     */
+    function query_termprop(name: string): [boolean, string, number, PropertyType | null, PropertyFlags | null];
+
+    /**
+     * Like `vte_query_termprop()` except that it takes the termprop by ID.
+     * See that function for more information.
+     * 
+     * For an alias termprop (see `vte_install_termprop_alias()`), `resolved_name`
+     * will be name of the alias' target termprop; otherwise it will be `name`.
+     * @param prop a termprop ID
+     * @returns `true` iff the termprop exists, and then `name`, `type` and   `flags` will be filled in
+     * @since 0.78
+     */
+    function query_termprop_by_id(prop: number): [boolean, string, PropertyType | null, PropertyFlags | null];
+
+    function regex_error_quark(): GLib.Quark;
+
+    /**
+     * Checks whether `str` is a valid string representation of an UUID.
+     * @param str a string
+     * @param len the length of `str`, or -1 is `str` is NUL terminated
+     * @param fmt a {@link Vte.UuidFormat}
+     * @returns `true` iff `str` is a valid string representation
+     * @since 0.78
+     */
+    function uuid_validate_string(str: string, len: bigint | number, fmt: UuidFormat): boolean;
+
+    /**
+     * @gir-type Callback
+     */
+    interface SelectionFunc {
+        (terminal: Terminal, column: number, row: number): boolean;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface TerminalSpawnAsyncCallback {
+        (terminal: Terminal, pid: GLib.Pid, error: GLib.Error | null): void;
+    }
+
+    /**
+     * An enumeration type for features.
+     * @gir-type Flags
+     * @since 0.62
+     */
+    enum FeatureFlags {
+        /**
+         * whether VTE was built with bidirectional text support
+         */
+        FLAG_BIDI = 1,
+        /**
+         * whether VTE was built with ICU support
+         */
+        FLAG_ICU = 2,
+        /**
+         * whether VTE was built with systemd support
+         */
+        FLAG_SYSTEMD = 4,
+        /**
+         * whether VTE was built with SIXEL support
+         */
+        FLAG_SIXEL = 8,
+        /**
+         * mask of all feature flags
+         */
+        FLAGS_MASK = -1,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    export namespace PropertyFlags {
+        export const $gtype: GObject.GType<PropertyFlags>;
+    }
+
+    /**
+     * A flags type.
+     * @gir-type Flags
+     * @since 0.78
+     */
+    enum PropertyFlags {
+        /**
+         * no flags, default
+         */
+        NONE = 0,
+        /**
+         * denotes an ephemeral termprop
+         */
+        EPHEMERAL = 1,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    export namespace PtyFlags {
+        export const $gtype: GObject.GType<PtyFlags>;
+    }
+
+    /**
+     * @gir-type Flags
+     */
+    enum PtyFlags {
+        /**
+         * Unused. Deprecated: 0.38
+         */
+        NO_LASTLOG = 1,
+        /**
+         * Unused. Deprecated: 0.38
+         */
+        NO_UTMP = 2,
+        /**
+         * Unused. Deprecated: 0.38
+         */
+        NO_WTMP = 4,
+        /**
+         * Unused. Deprecated: 0.38
+         */
+        NO_HELPER = 8,
+        /**
+         * Unused. Deprecated: 0.38
+         */
+        NO_FALLBACK = 16,
+        /**
+         * Do not start a new session for the child in
+         *   `vte_pty_child_setup()`. See man:setsid(2) for more information. Since: 0.58
+         */
+        NO_SESSION = 32,
+        /**
+         * Do not set the PTY as the controlling TTY for the child
+         *   in `vte_pty_child_setup()`. See man:tty_ioctl(4) for more information. Since: 0.58
+         */
+        NO_CTTY = 64,
+        /**
+         * the default flags
+         */
+        DEFAULT = 0,
+    }
+
+
+    /**
+     * @gir-type Flags
+     */
+    export namespace UuidFormat {
+        export const $gtype: GObject.GType<UuidFormat>;
+    }
+
+    /**
+     * @gir-type Flags
+     */
+    enum UuidFormat {
+        SIMPLE = 1,
+        BRACED = 2,
+        URN = 4,
+        ANY = 7,
+    }
+
+
+    namespace Pty {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::fd": (pspec: GObject.ParamSpec) => void;
+            "notify::flags": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.Initable.ConstructorProps {
+            fd: number;
+            flags: PtyFlags;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class Pty extends GObject.Object implements Gio.Initable {
+        static $gtype: GObject.GType<Pty>;
+
+        // Properties
+        /**
+         * The file descriptor of the PTY master.
+         * @construct-only
+         * @default -1
+         */
+        get fd(): number;
+
+        /**
+         * Flags.
+         * @construct-only
+         * @default Vte.PtyFlags.DEFAULT
+         */
+        get flags(): PtyFlags;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Pty.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Pty.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static new_foreign_sync(fd: number, cancellable: Gio.Cancellable | null): Pty;
+
+        static new_sync(flags: PtyFlags, cancellable: Gio.Cancellable | null): Pty;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Pty.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Pty.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Pty.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Pty.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Pty.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Pty.SignalSignatures[K]>): void;
+
+        // Methods
+        child_setup(): void;
+
+        /**
+         * Since 0.42 this is a no-op.
+         * @deprecated since 0.42
+         */
+        close(): void;
+
+        /**
+         * @returns the file descriptor of the PTY master in `pty`. The   file descriptor belongs to `pty` and must not be closed or have   its flags changed
+         */
+        get_fd(): number;
+
+        /**
+         * Reads the pseudo terminal's window size.
+         * 
+         * If getting the window size failed, `error` will be set to a {@link GLib.IOError}.
+         * @returns `true` on success, `false` on failure with `error` filled in
+         * @throws GLib.Error
+         */
+        get_size(): [boolean, number, number];
+
+        /**
+         * Attempts to resize the pseudo terminal's window size.  If successful, the
+         * OS kernel will send <literal>SIGWINCH</literal> to the child process group.
+         * 
+         * If setting the window size failed, `error` will be set to a {@link GLib.IOError}.
+         * @param rows the desired number of rows
+         * @param columns the desired number of columns
+         * @returns `true` on success, `false` on failure with `error` filled in
+         * @throws GLib.Error
+         */
+        set_size(rows: number, columns: number): boolean;
+
+        /**
+         * Tells the kernel whether the terminal is UTF-8 or not, in case it can make
+         * use of the info.  Linux 2.6.5 or so defines IUTF8 to make the line
+         * discipline do multibyte backspace correctly.
+         * @param utf8 whether or not the pty is in UTF-8 mode
+         * @returns `true` on success, `false` on failure with `error` filled in
+         * @throws GLib.Error
+         */
+        set_utf8(utf8: boolean): boolean;
+
+        /**
+         * Like `vte_pty_spawn_with_fds_async()`, except that this function does not
+         * allow passing file descriptors to the child process. See `vte_pty_spawn_with_fds_async()`
+         * for more information.
+         * @param working_directory the name of a directory the command should start   in, or `null` to use the current working directory
+         * @param argv child's argument vector
+         * @param envv a list of environment   variables to be added to the environment before starting the process, or `null`
+         * @param spawn_flags flags from {@link GLib.SpawnFlags}
+         * @param child_setup an extra child setup function to run in the child just before `exec()`, or `null`
+         * @param timeout a timeout value in ms, -1 for the default timeout, or G_MAXINT to wait indefinitely
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @since 0.48
+         */
+        spawn_async(working_directory: string | null, argv: string[], envv: string[] | null, spawn_flags: GLib.SpawnFlags, child_setup: GLib.SpawnChildSetupFunc | null, timeout: number, cancellable: Gio.Cancellable | null): globalThis.Promise<GLib.Pid | null>;
+
+        /**
+         * Like `vte_pty_spawn_with_fds_async()`, except that this function does not
+         * allow passing file descriptors to the child process. See `vte_pty_spawn_with_fds_async()`
+         * for more information.
+         * @param working_directory the name of a directory the command should start   in, or `null` to use the current working directory
+         * @param argv child's argument vector
+         * @param envv a list of environment   variables to be added to the environment before starting the process, or `null`
+         * @param spawn_flags flags from {@link GLib.SpawnFlags}
+         * @param child_setup an extra child setup function to run in the child just before `exec()`, or `null`
+         * @param timeout a timeout value in ms, -1 for the default timeout, or G_MAXINT to wait indefinitely
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback}, or `null`
+         * @since 0.48
+         */
+        spawn_async(working_directory: string | null, argv: string[], envv: string[] | null, spawn_flags: GLib.SpawnFlags, child_setup: GLib.SpawnChildSetupFunc | null, timeout: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Like `vte_pty_spawn_with_fds_async()`, except that this function does not
+         * allow passing file descriptors to the child process. See `vte_pty_spawn_with_fds_async()`
+         * for more information.
+         * @param working_directory the name of a directory the command should start   in, or `null` to use the current working directory
+         * @param argv child's argument vector
+         * @param envv a list of environment   variables to be added to the environment before starting the process, or `null`
+         * @param spawn_flags flags from {@link GLib.SpawnFlags}
+         * @param child_setup an extra child setup function to run in the child just before `exec()`, or `null`
+         * @param timeout a timeout value in ms, -1 for the default timeout, or G_MAXINT to wait indefinitely
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback}, or `null`
+         * @since 0.48
+         */
+        spawn_async(working_directory: string | null, argv: string[], envv: string[] | null, spawn_flags: GLib.SpawnFlags, child_setup: GLib.SpawnChildSetupFunc | null, timeout: number, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<GLib.Pid | null> | void;
+
+        /**
+         * @param result a {@link Gio.AsyncResult}
+         * @returns `true` on success, or `false` on error with `error` filled in
+         * @since 0.48
+         * @throws GLib.Error
+         */
+        spawn_finish(result: Gio.AsyncResult): [boolean, GLib.Pid | null];
+
+        /**
+         * Starts the specified command under the pseudo-terminal `pty`.
+         * The `argv` and `envv` lists should be `null`-terminated.
+         * The "TERM" environment variable is automatically set to a default value,
+         * but can be overridden from `envv`.
+         * `pty_flags` controls logging the session to the specified system log files.
+         * 
+         * Note also that {@link GLib.SpawnFlags.STDOUT_TO_DEV_NULL}, {@link GLib.SpawnFlags.STDERR_TO_DEV_NULL},
+         * and {@link GLib.SpawnFlags.CHILD_INHERITS_STDIN} are not supported in `spawn_flags`, since
+         * stdin, stdout and stderr of the child process will always be connected to
+         * the PTY. Also {@link GLib.SpawnFlags.LEAVE_DESCRIPTORS_OPEN} is not supported; and
+         * {@link GLib.SpawnFlags.DO_NOT_REAP_CHILD} will always be added to `spawn_flags`.
+         * 
+         * If `fds` is not `null`, the child process will map the file descriptors from
+         * `fds` according to `map_fds`; `n_map_fds` must be less or equal to `n_fds`.
+         * This function will take ownership of the file descriptors in `fds`;
+         * you must not use or close them after this call. All file descriptors in `fds`
+         * must have the FD_CLOEXEC flag set on them; it will be unset in the child process
+         * before calling man:execve(2). Note also that no file descriptor may be mapped
+         * to stdin, stdout, or stderr (file descriptors 0, 1, or 2), since these will be
+         * assigned to the PTY. All open file descriptors apart from those mapped as above
+         * will be closed when `execve()` is called.
+         * 
+         * Beginning with 0.60, and on linux only, and unless `VTE_SPAWN_NO_SYSTEMD_SCOPE` is
+         * passed in `spawn_flags`, the newly created child process will be moved to its own
+         * systemd user scope; and if `VTE_SPAWN_REQUIRE_SYSTEMD_SCOPE` is passed, and creation
+         * of the systemd user scope fails, the whole spawn will fail.
+         * You can override the options used for the systemd user scope by
+         * providing a systemd override file for 'vte-spawn-.scope' unit. See man:systemd.unit(5)
+         * for further information.
+         * 
+         * See `vte_pty_new()`, and `vte_terminal_watch_child()` for more information.
+         * @param working_directory the name of a directory the command should start   in, or `null` to use the current working directory
+         * @param argv child's argument vector
+         * @param envv a list of environment   variables to be added to the environment before starting the process, or `null`
+         * @param fds an array of file descriptors, or `null`
+         * @param map_fds an array of integers, or `null`
+         * @param spawn_flags flags from {@link GLib.SpawnFlags}
+         * @param child_setup an extra child setup function to run in the child just before `exec()`, or `null`
+         * @param timeout a timeout value in ms, -1 for the default timeout, or G_MAXINT to wait indefinitely
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @param callback a {@link Gio.AsyncReadyCallback}, or `null`
+         * @since 0.62
+         */
+        spawn_with_fds_async(working_directory: string | null, argv: string[], envv: string[] | null, fds: number[] | null, map_fds: number[] | null, spawn_flags: GLib.SpawnFlags, child_setup: GLib.SpawnChildSetupFunc | null, timeout: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @returns `true` if successful. If an error has occurred, this function will     return `false` and set `error` appropriately if present.
+         * @since 2.22
+         * @throws GLib.Error
+         */
+        init(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Initializes the object implementing the interface.
+         * 
+         * This method is intended for language bindings. If writing in C,
+         * `g_initable_new()` should typically be used instead.
+         * 
+         * The object must be initialized before any real use after initial
+         * construction, either with this function or `g_async_initable_init_async()`.
+         * 
+         * Implementations may also support cancellation. If `cancellable` is not `null`,
+         * then initialization can be cancelled by triggering the cancellable object
+         * from another thread. If the operation was cancelled, the error
+         * {@link Gio.IOErrorEnum.CANCELLED} will be returned. If `cancellable` is not `null` and
+         * the object doesn't support cancellable initialization the error
+         * {@link Gio.IOErrorEnum.NOT_SUPPORTED} will be returned.
+         * 
+         * If the object is not initialized, or initialization returns with an
+         * error, then all operations on the object except `g_object_ref()` and
+         * `g_object_unref()` are considered to be invalid, and have undefined
+         * behaviour. See the [description][iface@Gio.Initable#description] for more details.
+         * 
+         * Callers should not assume that a class which implements {@link Gio.Initable} can be
+         * initialized multiple times, unless the class explicitly documents itself as
+         * supporting this. Generally, a class’ implementation of `init()` can assume
+         * (and assert) that it will only be called once. Previously, this documentation
+         * recommended all {@link Gio.Initable} implementations should be idempotent; that
+         * recommendation was relaxed in GLib 2.54.
+         * 
+         * If a class explicitly supports being initialized multiple times, it is
+         * recommended that the method is idempotent: multiple calls with the same
+         * arguments should return the same results. Only the first call initializes
+         * the object; further calls return the result of the first call.
+         * 
+         * One reason why a class might need to support idempotent initialization is if
+         * it is designed to be used via the singleton pattern, with a
+         * {@link GObject.ObjectClass}.constructor that sometimes returns an existing instance.
+         * In this pattern, a caller would expect to be able to call `g_initable_init()`
+         * on the result of `g_object_new()`, regardless of whether it is in fact a new
+         * instance.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @since 2.22
+         * @virtual
+         */
+        vfunc_init(cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    namespace Terminal {
+        // Signal signatures
+        interface SignalSignatures extends Gtk.Widget.SignalSignatures {
+            /**
+             * This signal is emitted when the a child sends a bell request to the
+             * terminal.
+             * @signal
+             * @run-last
+             */
+            bell: () => void;
+            /**
+             * Emitted whenever the cell size changes, e.g. due to a change in
+             * font, font-scale or cell-width/height-scale.
+             * 
+             * Note that this signal should rather be called "cell-size-changed".
+             * @signal
+             * @run-last
+             */
+            "char-size-changed": (width: number, height: number) => void;
+            /**
+             * This signal is emitted when the terminal detects that a child
+             * watched using `vte_terminal_watch_child()` has exited.
+             * @signal
+             * @run-last
+             */
+            "child-exited": (status: number) => void;
+            /**
+             * Emitted whenever the terminal receives input from the user and
+             * prepares to send it to the child process.
+             * @signal
+             * @run-last
+             */
+            commit: (text: string, size: number) => void;
+            /**
+             * Emitted whenever the visible appearance of the terminal has changed.
+             * Used primarily by `VteTerminalAccessible`.
+             * @signal
+             * @run-last
+             */
+            "contents-changed": () => void;
+            /**
+             * Emitted whenever `vte_terminal_copy_clipboard()` is called.
+             * @signal
+             * @action
+             * @run-last
+             */
+            "copy-clipboard": () => void;
+            /**
+             * Emitted when the current directory URI is modified.
+             * @signal
+             * @deprecated since 0.78: Use the {@link Vte.Terminal.termprop_changed} signal   for the `VTE_TERMPROP_CURRENT_DIRECTORY_URI` termprop.
+             * @run-last
+             */
+            "current-directory-uri-changed": () => void;
+            /**
+             * Emitted when the current file URI is modified.
+             * @signal
+             * @deprecated since 0.78: Use the {@link Vte.Terminal.termprop_changed} signal   for the `VTE_TERMPROP_CURRENT_FILE_URI` termprop.
+             * @run-last
+             */
+            "current-file-uri-changed": () => void;
+            /**
+             * Emitted whenever the cursor moves to a new character cell.  Used
+             * primarily by `VteTerminalAccessible`.
+             * @signal
+             * @run-last
+             */
+            "cursor-moved": () => void;
+            /**
+             * Emitted when the user hits the '-' key while holding the Control key.
+             * @signal
+             * @run-last
+             */
+            "decrease-font-size": () => void;
+            /**
+             * Never emitted.
+             * @signal
+             * @deprecated since 0.60
+             * @run-last
+             */
+            "deiconify-window": () => void;
+            /**
+             * Emitted whenever the terminal's current encoding has changed.
+             * 
+             * Note: support for non-UTF-8 is deprecated.
+             * @signal
+             * @run-last
+             */
+            "encoding-changed": () => void;
+            /**
+             * Emitted when the terminal receives an end-of-file from a child which
+             * is running in the terminal.  This signal is frequently (but not
+             * always) emitted with a {@link Vte.Terminal.SignalSignatures.child_exited | Vte.Terminal::child-exited} signal.
+             * @signal
+             * @run-last
+             */
+            eof: () => void;
+            /**
+             * Emitted when the hovered hyperlink changes.
+             * 
+             * `uri` and `bbox` are owned by VTE, must not be modified, and might
+             * change after the signal handlers returns.
+             * 
+             * The signal is not re-emitted when the bounding box changes for the
+             * same hyperlink. This might change in a future VTE version without notice.
+             * @signal
+             * @since 0.50
+             * @run-last
+             */
+            "hyperlink-hover-uri-changed": (object: string, p0: Gdk.Rectangle) => void;
+            /**
+             * @signal
+             * @deprecated since 0.54: This signal is never emitted.
+             * @run-last
+             */
+            "icon-title-changed": () => void;
+            /**
+             * Never emitted.
+             * @signal
+             * @deprecated since 0.60
+             * @run-last
+             */
+            "iconify-window": () => void;
+            /**
+             * Emitted when the user hits the '+' key while holding the Control key.
+             * @signal
+             * @run-last
+             */
+            "increase-font-size": () => void;
+            /**
+             * Never emitted.
+             * @signal
+             * @deprecated since 0.60
+             * @run-last
+             */
+            "lower-window": () => void;
+            /**
+             * Never emitted.
+             * @signal
+             * @deprecated since 0.60
+             * @run-last
+             */
+            "maximize-window": () => void;
+            /**
+             * Never emitted.
+             * @signal
+             * @deprecated since 0.60
+             * @run-last
+             */
+            "move-window": (x: number, y: number) => void;
+            /**
+             * Emitted whenever `vte_terminal_paste_clipboard()` is called.
+             * @signal
+             * @action
+             * @run-last
+             */
+            "paste-clipboard": () => void;
+            /**
+             * Never emitted.
+             * @signal
+             * @deprecated since 0.60
+             * @run-last
+             */
+            "raise-window": () => void;
+            /**
+             * Never emitted.
+             * @signal
+             * @deprecated since 0.60
+             * @run-last
+             */
+            "refresh-window": () => void;
+            /**
+             * Emitted at the child application's request.
+             * @signal
+             * @run-last
+             */
+            "resize-window": (width: number, height: number) => void;
+            /**
+             * Never emitted.
+             * @signal
+             * @deprecated since 0.60
+             * @run-last
+             */
+            "restore-window": () => void;
+            /**
+             * Emitted whenever the contents of terminal's selection changes.
+             * @signal
+             * @run-last
+             */
+            "selection-changed": () => void;
+            /**
+             * Emitted with non-`null` context before `terminal` shows a context menu.
+             * The handler may set either a menu model using
+             * `vte_terminal_set_context_menu_model()`, or a menu using
+             * `vte_terminal_set_context_menu()`, which will then be used as context
+             * menu, or keep a previously set context menu or context menu model,
+             * but update the menu and/or its {@link Gio.Action.s} visibility and sensitivity.
+             * If neither a menu model nor a menu are set, a context menu
+             * will not be shown.
+             * 
+             * Note that `context` is only valid during the signal emission; you may
+             * not retain it to call methods on it afterwards.
+             * 
+             * Also emitted with `null` context after the context menu has been dismissed.
+             * @signal
+             * @run-last
+             */
+            "setup-context-menu": (context: EventContext | null) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed": (name: string) => void;
+            /**
+             * Emitted when termprops have changed. `props` is an array containing
+             * the IDs of the terminal properties that may have changed since
+             * the last emission of this signal, in an undefined order.
+             * Note that emission of this signal is delayed from the receipt of the
+             * OSC sequences, and a termprop may have been changed more than once
+             * inbetween signal emissions, but only the value set last is retrievable.
+             * 
+             * The default handler for this signal emits the "termprop-changed"
+             * signal for each changed property. Returning `true` from a handler
+             * running before the default will prevent this.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop, as well as call `vte_terminal_reset_termprop()`
+             * (and its by-ID variant) to reset any termprop, or emit the
+             * VteTerminal::termprop-changed signal; but it must *not*
+             * call *any* other API on `terminal`, including API of its parent classes.
+             * @signal
+             * @since 0.78
+             * @run-last
+             */
+            "termprops-changed": (props: number[]) => boolean | void;
+            /**
+             * Emitted when the {@link Vte.Terminal.window_title} property is modified.
+             * @signal
+             * @deprecated since 0.78: Use the {@link Vte.Terminal.termprop_changed} signal   for the `VTE_TERMPROP_XTERM_TITLE` termprop.
+             * @run-last
+             */
+            "window-title-changed": () => void;
+            "notify::allow-bold": (pspec: GObject.ParamSpec) => void;
+            "notify::allow-hyperlink": (pspec: GObject.ParamSpec) => void;
+            "notify::audible-bell": (pspec: GObject.ParamSpec) => void;
+            "notify::backspace-binding": (pspec: GObject.ParamSpec) => void;
+            "notify::bold-is-bright": (pspec: GObject.ParamSpec) => void;
+            "notify::cell-height-scale": (pspec: GObject.ParamSpec) => void;
+            "notify::cell-width-scale": (pspec: GObject.ParamSpec) => void;
+            "notify::cjk-ambiguous-width": (pspec: GObject.ParamSpec) => void;
+            "notify::context-menu": (pspec: GObject.ParamSpec) => void;
+            "notify::context-menu-model": (pspec: GObject.ParamSpec) => void;
+            "notify::current-directory-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::current-file-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::cursor-blink-mode": (pspec: GObject.ParamSpec) => void;
+            "notify::cursor-shape": (pspec: GObject.ParamSpec) => void;
+            "notify::delete-binding": (pspec: GObject.ParamSpec) => void;
+            "notify::enable-a11y": (pspec: GObject.ParamSpec) => void;
+            "notify::enable-bidi": (pspec: GObject.ParamSpec) => void;
+            "notify::enable-fallback-scrolling": (pspec: GObject.ParamSpec) => void;
+            "notify::enable-legacy-osc777": (pspec: GObject.ParamSpec) => void;
+            "notify::enable-shaping": (pspec: GObject.ParamSpec) => void;
+            "notify::enable-sixel": (pspec: GObject.ParamSpec) => void;
+            "notify::encoding": (pspec: GObject.ParamSpec) => void;
+            "notify::font-desc": (pspec: GObject.ParamSpec) => void;
+            "notify::font-options": (pspec: GObject.ParamSpec) => void;
+            "notify::font-scale": (pspec: GObject.ParamSpec) => void;
+            "notify::hyperlink-hover-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::icon-title": (pspec: GObject.ParamSpec) => void;
+            "notify::input-enabled": (pspec: GObject.ParamSpec) => void;
+            "notify::pointer-autohide": (pspec: GObject.ParamSpec) => void;
+            "notify::pty": (pspec: GObject.ParamSpec) => void;
+            "notify::rewrap-on-resize": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-on-insert": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-on-keystroke": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-on-output": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-unit-is-pixels": (pspec: GObject.ParamSpec) => void;
+            "notify::scrollback-lines": (pspec: GObject.ParamSpec) => void;
+            "notify::text-blink-mode": (pspec: GObject.ParamSpec) => void;
+            "notify::window-title": (pspec: GObject.ParamSpec) => void;
+            "notify::word-char-exceptions": (pspec: GObject.ParamSpec) => void;
+            "notify::xalign": (pspec: GObject.ParamSpec) => void;
+            "notify::xfill": (pspec: GObject.ParamSpec) => void;
+            "notify::yalign": (pspec: GObject.ParamSpec) => void;
+            "notify::yfill": (pspec: GObject.ParamSpec) => void;
+            "notify::can-focus": (pspec: GObject.ParamSpec) => void;
+            "notify::can-target": (pspec: GObject.ParamSpec) => void;
+            "notify::css-classes": (pspec: GObject.ParamSpec) => void;
+            "notify::css-name": (pspec: GObject.ParamSpec) => void;
+            "notify::cursor": (pspec: GObject.ParamSpec) => void;
+            "notify::focus-on-click": (pspec: GObject.ParamSpec) => void;
+            "notify::focusable": (pspec: GObject.ParamSpec) => void;
+            "notify::halign": (pspec: GObject.ParamSpec) => void;
+            "notify::has-default": (pspec: GObject.ParamSpec) => void;
+            "notify::has-focus": (pspec: GObject.ParamSpec) => void;
+            "notify::has-tooltip": (pspec: GObject.ParamSpec) => void;
+            "notify::height-request": (pspec: GObject.ParamSpec) => void;
+            "notify::hexpand": (pspec: GObject.ParamSpec) => void;
+            "notify::hexpand-set": (pspec: GObject.ParamSpec) => void;
+            "notify::layout-manager": (pspec: GObject.ParamSpec) => void;
+            "notify::limit-events": (pspec: GObject.ParamSpec) => void;
+            "notify::margin-bottom": (pspec: GObject.ParamSpec) => void;
+            "notify::margin-end": (pspec: GObject.ParamSpec) => void;
+            "notify::margin-start": (pspec: GObject.ParamSpec) => void;
+            "notify::margin-top": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::opacity": (pspec: GObject.ParamSpec) => void;
+            "notify::overflow": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::receives-default": (pspec: GObject.ParamSpec) => void;
+            "notify::root": (pspec: GObject.ParamSpec) => void;
+            "notify::scale-factor": (pspec: GObject.ParamSpec) => void;
+            "notify::sensitive": (pspec: GObject.ParamSpec) => void;
+            "notify::tooltip-markup": (pspec: GObject.ParamSpec) => void;
+            "notify::tooltip-text": (pspec: GObject.ParamSpec) => void;
+            "notify::valign": (pspec: GObject.ParamSpec) => void;
+            "notify::vexpand": (pspec: GObject.ParamSpec) => void;
+            "notify::vexpand-set": (pspec: GObject.ParamSpec) => void;
+            "notify::visible": (pspec: GObject.ParamSpec) => void;
+            "notify::width-request": (pspec: GObject.ParamSpec) => void;
+            "notify::accessible-role": (pspec: GObject.ParamSpec) => void;
+            "notify::hadjustment": (pspec: GObject.ParamSpec) => void;
+            "notify::hscroll-policy": (pspec: GObject.ParamSpec) => void;
+            "notify::vadjustment": (pspec: GObject.ParamSpec) => void;
+            "notify::vscroll-policy": (pspec: GObject.ParamSpec) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::allow-bold": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::allow-hyperlink": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::audible-bell": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::backspace-binding": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::bold-is-bright": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::cell-height-scale": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::cell-width-scale": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::cjk-ambiguous-width": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::context-menu": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::context-menu-model": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::current-directory-uri": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::current-file-uri": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::cursor-blink-mode": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::cursor-shape": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::delete-binding": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::enable-a11y": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::enable-bidi": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::enable-fallback-scrolling": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::enable-legacy-osc777": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::enable-shaping": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::enable-sixel": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::encoding": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::font-desc": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::font-options": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::font-scale": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::hyperlink-hover-uri": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::icon-title": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::input-enabled": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::pointer-autohide": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::pty": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::rewrap-on-resize": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::scroll-on-insert": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::scroll-on-keystroke": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::scroll-on-output": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::scroll-unit-is-pixels": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::scrollback-lines": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::text-blink-mode": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::window-title": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::word-char-exceptions": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::xalign": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::xfill": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::yalign": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::yfill": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::can-focus": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::can-target": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::css-classes": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::css-name": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::cursor": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::focus-on-click": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::focusable": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::halign": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::has-default": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::has-focus": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::has-tooltip": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::height-request": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::hexpand": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::hexpand-set": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::layout-manager": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::limit-events": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::margin-bottom": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::margin-end": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::margin-start": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::margin-top": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::name": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::opacity": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::overflow": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::parent": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::receives-default": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::root": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::scale-factor": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::sensitive": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::tooltip-markup": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::tooltip-text": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::valign": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::vexpand": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::vexpand-set": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::visible": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::width-request": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::accessible-role": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::hadjustment": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::hscroll-policy": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::vadjustment": (name: string) => void;
+            /**
+             * The "termprop-changed" signal is emitted when a termprop
+             * has changed or been reset.
+             * 
+             * The handler may use the vte_terminal_get_termprop_*()
+             * functions (and their by-ID variants), to retrieve the value of
+             * any termprop (not just `name`); but it must *not* call *any*
+             * other API on `terminal`, including API of its parent classes.
+             * 
+             * This signal supports detailed connections, so e.g. subscribing
+             * to "termprop-changed::name" only runs the callback when the
+             * termprop "name" has changed.
+             * @signal
+             * @since 0.78
+             * @detailed
+             * @run-last
+             */
+            "termprop-changed::vscroll-policy": (name: string) => void;
+            [key: `termprop-changed::${string}`]: (name: string) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Gtk.Widget.ConstructorProps, Gtk.Accessible.ConstructorProps, Gtk.AccessibleText.ConstructorProps, Gtk.Buildable.ConstructorProps, Gtk.ConstraintTarget.ConstructorProps, Gtk.Scrollable.ConstructorProps {
+            allow_bold: boolean;
+            allowBold: boolean;
+            allow_hyperlink: boolean;
+            allowHyperlink: boolean;
+            audible_bell: boolean;
+            audibleBell: boolean;
+            backspace_binding: EraseBinding;
+            backspaceBinding: EraseBinding;
+            bold_is_bright: boolean;
+            boldIsBright: boolean;
+            cell_height_scale: number;
+            cellHeightScale: number;
+            cell_width_scale: number;
+            cellWidthScale: number;
+            cjk_ambiguous_width: number;
+            cjkAmbiguousWidth: number;
+            context_menu: Gtk.Popover | null;
+            contextMenu: Gtk.Popover | null;
+            context_menu_model: Gio.MenuModel | null;
+            contextMenuModel: Gio.MenuModel | null;
+            current_directory_uri: string | null;
+            currentDirectoryUri: string | null;
+            current_file_uri: string | null;
+            currentFileUri: string | null;
+            cursor_blink_mode: CursorBlinkMode;
+            cursorBlinkMode: CursorBlinkMode;
+            cursor_shape: CursorShape;
+            cursorShape: CursorShape;
+            delete_binding: EraseBinding;
+            deleteBinding: EraseBinding;
+            enable_a11y: boolean;
+            enableA11y: boolean;
+            enable_bidi: boolean;
+            enableBidi: boolean;
+            enable_fallback_scrolling: boolean;
+            enableFallbackScrolling: boolean;
+            enable_legacy_osc777: boolean;
+            enableLegacyOsc777: boolean;
+            enable_shaping: boolean;
+            enableShaping: boolean;
+            enable_sixel: boolean;
+            enableSixel: boolean;
+            encoding: string | null;
+            font_desc: Pango.FontDescription;
+            fontDesc: Pango.FontDescription;
+            font_options: cairo.FontOptions | null;
+            fontOptions: cairo.FontOptions | null;
+            font_scale: number;
+            fontScale: number;
+            hyperlink_hover_uri: string;
+            hyperlinkHoverUri: string;
+            icon_title: string | null;
+            iconTitle: string | null;
+            input_enabled: boolean;
+            inputEnabled: boolean;
+            pointer_autohide: boolean;
+            pointerAutohide: boolean;
+            pty: Pty | null;
+            rewrap_on_resize: boolean;
+            rewrapOnResize: boolean;
+            scroll_on_insert: boolean;
+            scrollOnInsert: boolean;
+            scroll_on_keystroke: boolean;
+            scrollOnKeystroke: boolean;
+            scroll_on_output: boolean;
+            scrollOnOutput: boolean;
+            scroll_unit_is_pixels: boolean;
+            scrollUnitIsPixels: boolean;
+            scrollback_lines: number;
+            scrollbackLines: number;
+            text_blink_mode: TextBlinkMode;
+            textBlinkMode: TextBlinkMode;
+            window_title: string | null;
+            windowTitle: string | null;
+            word_char_exceptions: string | null;
+            wordCharExceptions: string | null;
+            xalign: Align;
+            xfill: boolean;
+            yalign: Align;
+            yfill: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class Terminal extends Gtk.Widget implements Gtk.Accessible, Gtk.AccessibleText, Gtk.Buildable, Gtk.ConstraintTarget, Gtk.Scrollable {
+        static $gtype: GObject.GType<Terminal>;
+
+        // Properties
+        /**
+         * Controls whether or not the terminal will attempt to draw bold text,
+         * by using a bold font variant.
+         * @deprecated since 0.60: There's probably no reason for this feature to exist.
+         * @default true
+         */
+        get allow_bold(): boolean;
+        set allow_bold(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will attempt to draw bold text,
+         * by using a bold font variant.
+         * @deprecated since 0.60: There's probably no reason for this feature to exist.
+         * @default true
+         */
+        get allowBold(): boolean;
+        set allowBold(val: boolean);
+
+        /**
+         * Controls whether or not hyperlinks (OSC 8 escape sequence) are recognized and displayed.
+         * @since 0.50
+         * @default false
+         */
+        get allow_hyperlink(): boolean;
+        set allow_hyperlink(val: boolean);
+
+        /**
+         * Controls whether or not hyperlinks (OSC 8 escape sequence) are recognized and displayed.
+         * @since 0.50
+         * @default false
+         */
+        get allowHyperlink(): boolean;
+        set allowHyperlink(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will beep when the child outputs the
+         * "bl" sequence.
+         * @default true
+         */
+        get audible_bell(): boolean;
+        set audible_bell(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will beep when the child outputs the
+         * "bl" sequence.
+         * @default true
+         */
+        get audibleBell(): boolean;
+        set audibleBell(val: boolean);
+
+        /**
+         * Controls what string or control sequence the terminal sends to its child
+         * when the user presses the backspace key.
+         * @default Vte.EraseBinding.AUTO
+         */
+        get backspace_binding(): EraseBinding;
+        set backspace_binding(val: EraseBinding);
+
+        /**
+         * Controls what string or control sequence the terminal sends to its child
+         * when the user presses the backspace key.
+         * @default Vte.EraseBinding.AUTO
+         */
+        get backspaceBinding(): EraseBinding;
+        set backspaceBinding(val: EraseBinding);
+
+        /**
+         * Whether the SGR 1 attribute also switches to the bright counterpart
+         * of the first 8 palette colors, in addition to making them bold (legacy behavior)
+         * or if SGR 1 only enables bold and leaves the color intact.
+         * @since 0.52
+         * @default false
+         */
+        get bold_is_bright(): boolean;
+        set bold_is_bright(val: boolean);
+
+        /**
+         * Whether the SGR 1 attribute also switches to the bright counterpart
+         * of the first 8 palette colors, in addition to making them bold (legacy behavior)
+         * or if SGR 1 only enables bold and leaves the color intact.
+         * @since 0.52
+         * @default false
+         */
+        get boldIsBright(): boolean;
+        set boldIsBright(val: boolean);
+
+        /**
+         * Scale factor for the cell height, to increase line spacing. (The font's height is not affected.)
+         * @since 0.52
+         * @default 1
+         */
+        get cell_height_scale(): number;
+        set cell_height_scale(val: number);
+
+        /**
+         * Scale factor for the cell height, to increase line spacing. (The font's height is not affected.)
+         * @since 0.52
+         * @default 1
+         */
+        get cellHeightScale(): number;
+        set cellHeightScale(val: number);
+
+        /**
+         * Scale factor for the cell width, to increase letter spacing. (The font's width is not affected.)
+         * @since 0.52
+         * @default 1
+         */
+        get cell_width_scale(): number;
+        set cell_width_scale(val: number);
+
+        /**
+         * Scale factor for the cell width, to increase letter spacing. (The font's width is not affected.)
+         * @since 0.52
+         * @default 1
+         */
+        get cellWidthScale(): number;
+        set cellWidthScale(val: number);
+
+        /**
+         * This setting controls whether ambiguous-width characters are narrow or wide.
+         * (Note that when using a non-UTF-8 encoding set via `vte_terminal_set_encoding()`,
+         * the width of ambiguous-width characters is fixed and determined by the encoding
+         * itself.)
+         * 
+         * This setting only takes effect the next time the terminal is reset, either
+         * via escape sequence or with `vte_terminal_reset()`.
+         * @default 1
+         */
+        get cjk_ambiguous_width(): number;
+        set cjk_ambiguous_width(val: number);
+
+        /**
+         * This setting controls whether ambiguous-width characters are narrow or wide.
+         * (Note that when using a non-UTF-8 encoding set via `vte_terminal_set_encoding()`,
+         * the width of ambiguous-width characters is fixed and determined by the encoding
+         * itself.)
+         * 
+         * This setting only takes effect the next time the terminal is reset, either
+         * via escape sequence or with `vte_terminal_reset()`.
+         * @default 1
+         */
+        get cjkAmbiguousWidth(): number;
+        set cjkAmbiguousWidth(val: number);
+
+        /**
+         * The menu used for context menus. Note that context menu model set with the
+         * {@link Vte.Terminal.SignalSignatures.context_menu_model | Vte.Terminal::context-menu-model} property or `vte_terminal_set_context_menu_model()`
+         * takes precedence over this.
+         * @since 0.76
+         */
+        get context_menu(): Gtk.Popover | null;
+        set context_menu(val: Gtk.Popover | null);
+
+        /**
+         * The menu used for context menus. Note that context menu model set with the
+         * {@link Vte.Terminal.SignalSignatures.context_menu_model | Vte.Terminal::context-menu-model} property or `vte_terminal_set_context_menu_model()`
+         * takes precedence over this.
+         * @since 0.76
+         */
+        get contextMenu(): Gtk.Popover | null;
+        set contextMenu(val: Gtk.Popover | null);
+
+        /**
+         * The menu model used for context menus. If non-`null`, the context menu is
+         * generated from this model, and overrides a context menu set with the
+         * {@link Vte.Terminal.SignalSignatures.context_menu | Vte.Terminal::context-menu} property or `vte_terminal_set_context_menu()`.
+         * @since 0.76
+         */
+        get context_menu_model(): Gio.MenuModel | null;
+        set context_menu_model(val: Gio.MenuModel | null);
+
+        /**
+         * The menu model used for context menus. If non-`null`, the context menu is
+         * generated from this model, and overrides a context menu set with the
+         * {@link Vte.Terminal.SignalSignatures.context_menu | Vte.Terminal::context-menu} property or `vte_terminal_set_context_menu()`.
+         * @since 0.76
+         */
+        get contextMenuModel(): Gio.MenuModel | null;
+        set contextMenuModel(val: Gio.MenuModel | null);
+
+        /**
+         * The current directory URI, or `null` if unset.
+         * @deprecated since 0.78: Use the `VTE_TERMPROP_CURRENT_DIRECTORY_URI` termprop.
+         * @read-only
+         * @default null
+         */
+        get current_directory_uri(): string | null;
+
+        /**
+         * The current directory URI, or `null` if unset.
+         * @deprecated since 0.78: Use the `VTE_TERMPROP_CURRENT_DIRECTORY_URI` termprop.
+         * @read-only
+         * @default null
+         */
+        get currentDirectoryUri(): string | null;
+
+        /**
+         * The current file URI, or `null` if unset.
+         * @deprecated since 0.78: Use the `VTE_TERMPROP_CURRENT_FILE_URI` termprop.
+         * @read-only
+         * @default null
+         */
+        get current_file_uri(): string | null;
+
+        /**
+         * The current file URI, or `null` if unset.
+         * @deprecated since 0.78: Use the `VTE_TERMPROP_CURRENT_FILE_URI` termprop.
+         * @read-only
+         * @default null
+         */
+        get currentFileUri(): string | null;
+
+        /**
+         * Sets whether or not the cursor will blink. Using {@link Vte.CursorBlinkMode.SYSTEM}
+         * will use the {@link Gtk.Settings.gtk_cursor_blink} setting.
+         * @default Vte.CursorBlinkMode.SYSTEM
+         */
+        get cursor_blink_mode(): CursorBlinkMode;
+        set cursor_blink_mode(val: CursorBlinkMode);
+
+        /**
+         * Sets whether or not the cursor will blink. Using {@link Vte.CursorBlinkMode.SYSTEM}
+         * will use the {@link Gtk.Settings.gtk_cursor_blink} setting.
+         * @default Vte.CursorBlinkMode.SYSTEM
+         */
+        get cursorBlinkMode(): CursorBlinkMode;
+        set cursorBlinkMode(val: CursorBlinkMode);
+
+        /**
+         * Controls the shape of the cursor.
+         * @default Vte.CursorShape.BLOCK
+         */
+        get cursor_shape(): CursorShape;
+        set cursor_shape(val: CursorShape);
+
+        /**
+         * Controls the shape of the cursor.
+         * @default Vte.CursorShape.BLOCK
+         */
+        get cursorShape(): CursorShape;
+        set cursorShape(val: CursorShape);
+
+        /**
+         * Controls what string or control sequence the terminal sends to its child
+         * when the user presses the delete key.
+         * @default Vte.EraseBinding.AUTO
+         */
+        get delete_binding(): EraseBinding;
+        set delete_binding(val: EraseBinding);
+
+        /**
+         * Controls what string or control sequence the terminal sends to its child
+         * when the user presses the delete key.
+         * @default Vte.EraseBinding.AUTO
+         */
+        get deleteBinding(): EraseBinding;
+        set deleteBinding(val: EraseBinding);
+
+        /**
+         * Controls whether or not a11y is enabled for the widget.
+         * @since 0.78
+         * @default true
+         */
+        get enable_a11y(): boolean;
+        set enable_a11y(val: boolean);
+
+        /**
+         * Controls whether or not a11y is enabled for the widget.
+         * @since 0.78
+         * @default true
+         */
+        get enableA11y(): boolean;
+        set enableA11y(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will perform bidirectional text rendering.
+         * @since 0.58
+         * @default true
+         */
+        get enable_bidi(): boolean;
+        set enable_bidi(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will perform bidirectional text rendering.
+         * @since 0.58
+         * @default true
+         */
+        get enableBidi(): boolean;
+        set enableBidi(val: boolean);
+
+        /**
+         * @default true
+         */
+        get enable_fallback_scrolling(): boolean;
+        set enable_fallback_scrolling(val: boolean);
+
+        /**
+         * @default true
+         */
+        get enableFallbackScrolling(): boolean;
+        set enableFallbackScrolling(val: boolean);
+
+        /**
+         * Whether legacy OSC 777 sequences are translated to
+         * their corresponding termprops.
+         * @since 0.78
+         * @default false
+         */
+        get enable_legacy_osc777(): boolean;
+        set enable_legacy_osc777(val: boolean);
+
+        /**
+         * Whether legacy OSC 777 sequences are translated to
+         * their corresponding termprops.
+         * @since 0.78
+         * @default false
+         */
+        get enableLegacyOsc777(): boolean;
+        set enableLegacyOsc777(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will shape Arabic text.
+         * @since 0.58
+         * @default true
+         */
+        get enable_shaping(): boolean;
+        set enable_shaping(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will shape Arabic text.
+         * @since 0.58
+         * @default true
+         */
+        get enableShaping(): boolean;
+        set enableShaping(val: boolean);
+
+        /**
+         * Controls whether SIXEL image support is enabled.
+         * @since 0.62
+         * @default false
+         */
+        get enable_sixel(): boolean;
+        set enable_sixel(val: boolean);
+
+        /**
+         * Controls whether SIXEL image support is enabled.
+         * @since 0.62
+         * @default false
+         */
+        get enableSixel(): boolean;
+        set enableSixel(val: boolean);
+
+        /**
+         * Controls the encoding the terminal will expect data from the child to
+         * be encoded with.  For certain terminal types, applications executing in the
+         * terminal can change the encoding.  The default is defined by the
+         * application's locale settings.
+         * @deprecated since 0.54: Instead of using this, you should use a tool like   luit(1) when support for non-UTF-8 is required
+         * @default null
+         */
+        get encoding(): string | null;
+        set encoding(val: string | null);
+
+        /**
+         * Specifies the font used for rendering all text displayed by the terminal,
+         * overriding any fonts set using `gtk_widget_modify_font()`.  The terminal
+         * will immediately attempt to load the desired font, retrieve its
+         * metrics, and attempt to resize itself to keep the same number of rows
+         * and columns.
+         */
+        get font_desc(): Pango.FontDescription;
+        set font_desc(val: Pango.FontDescription);
+
+        /**
+         * Specifies the font used for rendering all text displayed by the terminal,
+         * overriding any fonts set using `gtk_widget_modify_font()`.  The terminal
+         * will immediately attempt to load the desired font, retrieve its
+         * metrics, and attempt to resize itself to keep the same number of rows
+         * and columns.
+         */
+        get fontDesc(): Pango.FontDescription;
+        set fontDesc(val: Pango.FontDescription);
+
+        /**
+         * The terminal's font options, or `null` to use the default font options.
+         * 
+         * Note that on GTK4, the terminal by default uses font options
+         * with {@link cairo.HintMetrics.ON} set; to override that, use this
+         * function to set a {@link cairo.FontOptions} that has
+         * {@link cairo.HintMetrics.OFF} set.
+         * @since 0.74
+         */
+        get font_options(): cairo.FontOptions | null;
+        set font_options(val: cairo.FontOptions | null);
+
+        /**
+         * The terminal's font options, or `null` to use the default font options.
+         * 
+         * Note that on GTK4, the terminal by default uses font options
+         * with {@link cairo.HintMetrics.ON} set; to override that, use this
+         * function to set a {@link cairo.FontOptions} that has
+         * {@link cairo.HintMetrics.OFF} set.
+         * @since 0.74
+         */
+        get fontOptions(): cairo.FontOptions | null;
+        set fontOptions(val: cairo.FontOptions | null);
+
+        /**
+         * The terminal's font scale.
+         * @default 1
+         */
+        get font_scale(): number;
+        set font_scale(val: number);
+
+        /**
+         * The terminal's font scale.
+         * @default 1
+         */
+        get fontScale(): number;
+        set fontScale(val: number);
+
+        /**
+         * The currently hovered hyperlink URI, or `null` if unset.
+         * @since 0.50
+         * @read-only
+         * @default null
+         */
+        get hyperlink_hover_uri(): string;
+
+        /**
+         * The currently hovered hyperlink URI, or `null` if unset.
+         * @since 0.50
+         * @read-only
+         * @default null
+         */
+        get hyperlinkHoverUri(): string;
+
+        /**
+         * @deprecated since 0.54: This property is always `null`.
+         * @read-only
+         * @default null
+         */
+        get icon_title(): string | null;
+
+        /**
+         * @deprecated since 0.54: This property is always `null`.
+         * @read-only
+         * @default null
+         */
+        get iconTitle(): string | null;
+
+        /**
+         * Controls whether the terminal allows user input. When user input is disabled,
+         * key press and mouse button press and motion events are not sent to the
+         * terminal's child.
+         * @default true
+         */
+        get input_enabled(): boolean;
+        set input_enabled(val: boolean);
+
+        /**
+         * Controls whether the terminal allows user input. When user input is disabled,
+         * key press and mouse button press and motion events are not sent to the
+         * terminal's child.
+         * @default true
+         */
+        get inputEnabled(): boolean;
+        set inputEnabled(val: boolean);
+
+        /**
+         * Controls the value of the terminal's mouse autohide setting.  When autohiding
+         * is enabled, the mouse cursor will be hidden when the user presses a key and
+         * shown when the user moves the mouse.
+         * @default false
+         */
+        get pointer_autohide(): boolean;
+        set pointer_autohide(val: boolean);
+
+        /**
+         * Controls the value of the terminal's mouse autohide setting.  When autohiding
+         * is enabled, the mouse cursor will be hidden when the user presses a key and
+         * shown when the user moves the mouse.
+         * @default false
+         */
+        get pointerAutohide(): boolean;
+        set pointerAutohide(val: boolean);
+
+        /**
+         * The PTY object for the terminal.
+         */
+        get pty(): Pty | null;
+        set pty(val: Pty | null);
+
+        /**
+         * Controls whether or not the terminal will rewrap its contents, including
+         * the scrollback buffer, whenever the terminal's width changes.
+         * @deprecated since 0.58
+         * @default true
+         */
+        get rewrap_on_resize(): boolean;
+        set rewrap_on_resize(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will rewrap its contents, including
+         * the scrollback buffer, whenever the terminal's width changes.
+         * @deprecated since 0.58
+         * @default true
+         */
+        get rewrapOnResize(): boolean;
+        set rewrapOnResize(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will forcibly scroll to the bottom of
+         * the viewable history when the text is inserted (e.g. by a paste).
+         * @since 0.76
+         * @default false
+         */
+        get scroll_on_insert(): boolean;
+        set scroll_on_insert(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will forcibly scroll to the bottom of
+         * the viewable history when the text is inserted (e.g. by a paste).
+         * @since 0.76
+         * @default false
+         */
+        get scrollOnInsert(): boolean;
+        set scrollOnInsert(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will forcibly scroll to the bottom of
+         * the viewable history when the user presses a key.  Modifier keys do not
+         * trigger this behavior.
+         * @default false
+         */
+        get scroll_on_keystroke(): boolean;
+        set scroll_on_keystroke(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will forcibly scroll to the bottom of
+         * the viewable history when the user presses a key.  Modifier keys do not
+         * trigger this behavior.
+         * @default false
+         */
+        get scrollOnKeystroke(): boolean;
+        set scrollOnKeystroke(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will forcibly scroll to the bottom of
+         * the viewable history when the new data is received from the child.
+         * @default true
+         */
+        get scroll_on_output(): boolean;
+        set scroll_on_output(val: boolean);
+
+        /**
+         * Controls whether or not the terminal will forcibly scroll to the bottom of
+         * the viewable history when the new data is received from the child.
+         * @default true
+         */
+        get scrollOnOutput(): boolean;
+        set scrollOnOutput(val: boolean);
+
+        /**
+         * Controls whether the terminal's GtkAdjustment values unit is lines
+         * or pixels. This can be enabled when the terminal is the child of a
+         * GtkScrolledWindow to fix some bugs with its kinetic scrolling.
+         * @since 0.66
+         * @default false
+         */
+        get scroll_unit_is_pixels(): boolean;
+        set scroll_unit_is_pixels(val: boolean);
+
+        /**
+         * Controls whether the terminal's GtkAdjustment values unit is lines
+         * or pixels. This can be enabled when the terminal is the child of a
+         * GtkScrolledWindow to fix some bugs with its kinetic scrolling.
+         * @since 0.66
+         * @default false
+         */
+        get scrollUnitIsPixels(): boolean;
+        set scrollUnitIsPixels(val: boolean);
+
+        /**
+         * The length of the scrollback buffer used by the terminal.  The size of
+         * the scrollback buffer will be set to the larger of this value and the number
+         * of visible rows the widget can display, so 0 can safely be used to disable
+         * scrollback.  Note that this setting only affects the normal screen buffer.
+         * For terminal types which have an alternate screen buffer, no scrollback is
+         * allowed on the alternate screen buffer.
+         * 
+         * Note that any value greater or equal to `G_MAXINT` is interpreted as unlimited
+         * scrollback, i.e. like `-1` when passed to `vte_terminal_set_scrollback_lines()`,
+         * and the value of this property for unlimited scrollback is `G_MAXUINT`.
+         * @default 512
+         */
+        get scrollback_lines(): number;
+        set scrollback_lines(val: number);
+
+        /**
+         * The length of the scrollback buffer used by the terminal.  The size of
+         * the scrollback buffer will be set to the larger of this value and the number
+         * of visible rows the widget can display, so 0 can safely be used to disable
+         * scrollback.  Note that this setting only affects the normal screen buffer.
+         * For terminal types which have an alternate screen buffer, no scrollback is
+         * allowed on the alternate screen buffer.
+         * 
+         * Note that any value greater or equal to `G_MAXINT` is interpreted as unlimited
+         * scrollback, i.e. like `-1` when passed to `vte_terminal_set_scrollback_lines()`,
+         * and the value of this property for unlimited scrollback is `G_MAXUINT`.
+         * @default 512
+         */
+        get scrollbackLines(): number;
+        set scrollbackLines(val: number);
+
+        /**
+         * Controls whether or not the terminal will allow blinking text.
+         * @since 0.52
+         * @default Vte.TextBlinkMode.ALWAYS
+         */
+        get text_blink_mode(): TextBlinkMode;
+        set text_blink_mode(val: TextBlinkMode);
+
+        /**
+         * Controls whether or not the terminal will allow blinking text.
+         * @since 0.52
+         * @default Vte.TextBlinkMode.ALWAYS
+         */
+        get textBlinkMode(): TextBlinkMode;
+        set textBlinkMode(val: TextBlinkMode);
+
+        /**
+         * The terminal's title.
+         * @deprecated since 0.78: Use the `VTE_TERMPROP_XTERM_TITLE` termprop.
+         * @read-only
+         * @default null
+         */
+        get window_title(): string | null;
+
+        /**
+         * The terminal's title.
+         * @deprecated since 0.78: Use the `VTE_TERMPROP_XTERM_TITLE` termprop.
+         * @read-only
+         * @default null
+         */
+        get windowTitle(): string | null;
+
+        /**
+         * The set of characters which will be considered parts of a word
+         * when doing word-wise selection, in addition to the default which only
+         * considers alphanumeric characters part of a word.
+         * 
+         * If `null`, a built-in set is used.
+         * @since 0.40
+         * @read-only
+         * @default null
+         */
+        get word_char_exceptions(): string | null;
+
+        /**
+         * The set of characters which will be considered parts of a word
+         * when doing word-wise selection, in addition to the default which only
+         * considers alphanumeric characters part of a word.
+         * 
+         * If `null`, a built-in set is used.
+         * @since 0.40
+         * @read-only
+         * @default null
+         */
+        get wordCharExceptions(): string | null;
+
+        /**
+         * The horizontal alignment of `terminal` within its allocation.
+         * @since 0.76
+         * @default Vte.Align.START
+         */
+        get xalign(): Align;
+        set xalign(val: Align);
+
+        /**
+         * The horizontal fillment of `terminal` within its allocation.
+         * @since 0.76
+         * @default true
+         */
+        get xfill(): boolean;
+        set xfill(val: boolean);
+
+        /**
+         * The vertical alignment of `terminal` within its allocation
+         * @since 0.76
+         * @default Vte.Align.START
+         */
+        get yalign(): Align;
+        set yalign(val: Align);
+
+        /**
+         * The vertical fillment of `terminal` within its allocation.
+         * Note that {@link Vte.Terminal.yfill}=`true` is only supported with
+         * {@link Vte.Terminal.yalign}={@link Vte.Align.START}, and is ignored for
+         * all other yalign values.
+         * @since 0.76
+         * @default true
+         */
+        get yfill(): boolean;
+        set yfill(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Terminal.SignalSignatures;
+
+        // Fields
+        widget: Gtk.Widget;
+
+        // Constructors
+        constructor(properties?: Partial<Terminal.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): Terminal;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Terminal.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Terminal.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Terminal.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Terminal.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Terminal.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Terminal.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * @virtual
+         */
+        vfunc_bell(): void;
+
+        /**
+         * @param char_width 
+         * @param char_height 
+         * @virtual
+         */
+        vfunc_char_size_changed(char_width: number, char_height: number): void;
+
+        /**
+         * @param status 
+         * @virtual
+         */
+        vfunc_child_exited(status: number): void;
+
+        /**
+         * @param text 
+         * @param size 
+         * @virtual
+         */
+        vfunc_commit(text: string, size: number): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_contents_changed(): void;
+
+        /**
+         * Places the selected text in the terminal in the #GDK_SELECTION_CLIPBOARD
+         * selection.
+         * @deprecated since 0.50: Use `vte_terminal_copy_clipboard_format()` with {@link Vte.Format.TEXT}   instead.
+         * @virtual
+         */
+        vfunc_copy_clipboard(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_cursor_moved(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_decrease_font_size(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_deiconify_window(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_encoding_changed(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_eof(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_icon_title_changed(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_iconify_window(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_increase_font_size(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_lower_window(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_maximize_window(): void;
+
+        /**
+         * @param x 
+         * @param y 
+         * @virtual
+         */
+        vfunc_move_window(x: number, y: number): void;
+
+        /**
+         * Sends the contents of the #GDK_SELECTION_CLIPBOARD selection to the
+         * terminal's child. It's called on paste menu item, or when
+         * user presses Shift+Insert.
+         * @virtual
+         */
+        vfunc_paste_clipboard(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_raise_window(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_refresh_window(): void;
+
+        /**
+         * @param width 
+         * @param height 
+         * @virtual
+         */
+        vfunc_resize_window(width: number, height: number): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_restore_window(): void;
+
+        /**
+         * @virtual
+         */
+        vfunc_selection_changed(): void;
+
+        /**
+         * @param context 
+         * @virtual
+         */
+        vfunc_setup_context_menu(context: EventContext): void;
+
+        /**
+         * @param prop 
+         * @virtual
+         */
+        vfunc_termprop_changed(prop: string): void;
+
+        /**
+         * @param props 
+         * @param n_props 
+         * @virtual
+         */
+        vfunc_termprops_changed(props: number, n_props: number): boolean;
+
+        /**
+         * @virtual
+         */
+        vfunc_window_title_changed(): void;
+
+        // Methods
+        /**
+         * Returns a nonempty string: the target of the explicit hyperlink (printed using the OSC 8
+         * escape sequence) at the position (x, y), or `null`.
+         * 
+         * Proper use of the escape sequence should result in URI-encoded URIs with a proper scheme
+         * like "http://", "https://", "file://", "mailto:" etc. This is, however, not enforced by VTE.
+         * The caller must tolerate the returned string potentially not being a valid URI.
+         * @param x 
+         * @param y 
+         * @returns a newly allocated string containing the target of the hyperlink,  or `null`
+         * @since 0.70
+         */
+        check_hyperlink_at(x: number, y: number): string | null;
+
+        /**
+         * Checks if the text in and around the position (x, y) matches any of the
+         * regular expressions previously set using `vte_terminal_match_add()`.  If a
+         * match exists, the text string is returned and if `tag` is not `null`, the number
+         * associated with the matched regular expression will be stored in `tag`.
+         * 
+         * If more than one regular expression has been set with
+         * `vte_terminal_match_add()`, then expressions are checked in the order in
+         * which they were added.
+         * @param x 
+         * @param y 
+         * @returns a newly allocated string which matches one of the previously   set regular expressions, or `null` if there is no match
+         * @since 0.70
+         */
+        check_match_at(x: number, y: number): [string | null, number];
+
+        /**
+         * Like `vte_terminal_check_regex_simple_at()`, but returns an array of strings,
+         * containing the matching text (or `null` if no match) corresponding to each of the
+         * regexes in `regexes`.
+         * 
+         * You must free each string and the array; but note that this is *not* a `null`-terminated
+         * string array, and so you must *not* use `g_strfreev()` on it.
+         * @param x 
+         * @param y 
+         * @param regexes an array of {@link Vte.Regex}
+         * @param match_flags PCRE2 match flags, or 0
+         * @returns a newly allocated array of strings,   or `null` if none of the regexes matched
+         * @since 0.70
+         */
+        check_regex_simple_at(x: number, y: number, regexes: Regex[], match_flags: number): string[] | null;
+
+        /**
+         * Places the selected text in the terminal in the #GDK_SELECTION_CLIPBOARD
+         * selection.
+         * @deprecated since 0.50: Use `vte_terminal_copy_clipboard_format()` with {@link Vte.Format.TEXT}   instead.
+         */
+        copy_clipboard(): void;
+
+        /**
+         * Places the selected text in the terminal in the #GDK_SELECTION_CLIPBOARD
+         * selection in the form specified by `format`.
+         * 
+         * For all formats, the selection data (see `GtkSelectionData`) will include the
+         * text targets (see `gtk_target_list_add_text_targets()` and
+         * `gtk_selection_data_targets_includes_text()`). For {@link Vte.Format.HTML},
+         * the selection will also include the "text/html" target, which when requested,
+         * returns the HTML data in UTF-16 with a U+FEFF BYTE ORDER MARK character at
+         * the start.
+         * @param format a {@link Vte.Format}
+         * @since 0.50
+         */
+        copy_clipboard_format(format: Format): void;
+
+        /**
+         * Places the selected text in the terminal in the #GDK_SELECTION_PRIMARY
+         * selection.
+         */
+        copy_primary(): void;
+
+        /**
+         * Returns the value of a {@link Vte.PropertyType.STRING} termprop, or `null` if
+         *   `prop` is unset, or `prop` is not a registered property.
+         * @param prop a termprop name
+         * @returns the property's value, or `null`
+         * @since 0.78
+         */
+        dup_termprop_string(prop: string): [string | null, number];
+
+        /**
+         * Like `vte_terminal_dup_termprop_string()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns the property's value, or `null`
+         * @since 0.78
+         */
+        dup_termprop_string_by_id(prop: number): [string | null, number];
+
+        /**
+         * Returns the value of a {@link Vte.PropertyType.UUID} termprop as a {@link Vte.Uuid}, or `null` if
+         *   `prop` is unset, or `prop` is not a registered property.
+         * @param prop a termprop name
+         * @returns the property's value as a {@link Vte.Uuid}, or `null`
+         * @since 0.78
+         */
+        dup_termprop_uuid(prop: string): Uuid | null;
+
+        /**
+         * Like `vte_terminal_dup_termprop_uuid()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns the property's value as a {@link Vte.Uuid}, or `null`
+         * @since 0.78
+         */
+        dup_termprop_uuid_by_id(prop: number): Uuid | null;
+
+        /**
+         * Interprets `data` as if it were data received from a child process.
+         * @param data a string in the terminal's current encoding
+         */
+        feed(data: Uint8Array | string | null): void;
+
+        /**
+         * Sends a block of UTF-8 text to the child as if it were entered by the user
+         * at the keyboard.
+         * @param text data to send to the child
+         */
+        feed_child(text: Uint8Array | string | null): void;
+
+        /**
+         * Sends a block of binary data to the child.
+         * @param data data to send to the child
+         * @deprecated since 0.60: Don't send binary data. Use `vte_terminal_feed_child()` instead to send   UTF-8 text
+         */
+        feed_child_binary(data: Uint8Array | string | null): void;
+
+        /**
+         * Checks whether or not the terminal will attempt to draw bold text,
+         * by using a bold font variant.
+         * @returns `true` if bolding is enabled, `false` if not
+         * @deprecated since 0.60: There's probably no reason for this feature to exist.
+         */
+        get_allow_bold(): boolean;
+
+        /**
+         * Checks whether or not hyperlinks (OSC 8 escape sequence) are allowed.
+         * @returns `true` if hyperlinks are enabled, `false` if not
+         * @since 0.50
+         */
+        get_allow_hyperlink(): boolean;
+
+        /**
+         * Checks whether or not the terminal will beep when the child outputs the
+         * "bl" sequence.
+         * @returns `true` if audible bell is enabled, `false` if not
+         */
+        get_audible_bell(): boolean;
+
+        /**
+         * Checks whether the SGR 1 attribute also switches to the bright counterpart
+         * of the first 8 palette colors, in addition to making them bold (legacy behavior)
+         * or if SGR 1 only enables bold and leaves the color intact.
+         * @returns `true` if bold also enables bright, `false` if not
+         * @since 0.52
+         */
+        get_bold_is_bright(): boolean;
+
+        /**
+         * @returns the terminal's cell height scale
+         * @since 0.52
+         */
+        get_cell_height_scale(): number;
+
+        /**
+         * @returns the terminal's cell width scale
+         * @since 0.52
+         */
+        get_cell_width_scale(): number;
+
+        /**
+         * @returns the height of a character cell Note that this method should rather be called vte_terminal_get_cell_height, because the return value takes cell-height-scale into account.
+         */
+        get_char_height(): number;
+
+        /**
+         * @returns the width of a character cell Note that this method should rather be called vte_terminal_get_cell_width, because the return value takes cell-width-scale into account.
+         */
+        get_char_width(): number;
+
+        /**
+         * Returns whether ambiguous-width characters are narrow or wide.
+         * (Note that when using a non-UTF-8 encoding set via `vte_terminal_set_encoding()`,
+         * the width of ambiguous-width characters is fixed and determined by the encoding
+         * itself.)
+         * @returns 1 if ambiguous-width characters are narrow, or 2 if they are wide
+         */
+        get_cjk_ambiguous_width(): number;
+
+        /**
+         * Returns the background colour, as used by `terminal` when
+         * drawing the background, which may be different from
+         * the color set by `vte_terminal_set_color_background()`.
+         * 
+         * Note: you must only call this function while handling the
+         * GtkWidget::draw signal.
+         * 
+         * This function is rarely useful. One use for it is if you disable
+         * drawing the background (see `vte_terminal_set_clear_background()`)
+         * and then need to draw the background yourself.
+         * @since 0.54
+         */
+        get_color_background_for_draw(): Gdk.RGBA;
+
+        /**
+         * @returns the number of columns
+         */
+        get_column_count(): number;
+
+        /**
+         * @returns the context menu, or `null`
+         * @since 0.76
+         */
+        get_context_menu(): Gtk.Widget | null;
+
+        /**
+         * @returns the context menu model, or `null`
+         * @since 0.76
+         */
+        get_context_menu_model(): Gio.MenuModel | null;
+
+        /**
+         * @returns the URI of the current directory of the   process running in the terminal, or `null`
+         * @deprecated since 0.78: Use the `VTE_TERMPROP_CURRENT_FILE_URI_STRING` termprop.
+         */
+        get_current_directory_uri(): string | null;
+
+        /**
+         * @returns the URI of the current file the   process running in the terminal is operating on, or `null` if   not set
+         * @deprecated since 0.78: Use the `VTE_TERMPROP_CURRENT_FILE_URI_STRING` termprop.
+         */
+        get_current_file_uri(): string | null;
+
+        /**
+         * Returns the currently set cursor blink mode.
+         * @returns cursor blink mode.
+         */
+        get_cursor_blink_mode(): CursorBlinkMode;
+
+        /**
+         * Reads the location of the insertion cursor and returns it.  The row
+         * coordinate is absolute.
+         * 
+         * This method is unaware of BiDi. The returned column is logical column.
+         */
+        get_cursor_position(): [number, number];
+
+        /**
+         * Returns the currently set cursor shape.
+         * @returns cursor shape.
+         */
+        get_cursor_shape(): CursorShape;
+
+        /**
+         * Checks whether the terminal communicates with a11y backends
+         * @returns `true` if a11y is enabled, `false` if not
+         * @since 0.78
+         */
+        get_enable_a11y(): boolean;
+
+        /**
+         * Checks whether the terminal performs bidirectional text rendering.
+         * @returns `true` if BiDi is enabled, `false` if not
+         * @since 0.58
+         */
+        get_enable_bidi(): boolean;
+
+        /**
+         * @returns `true` if fallback scrolling is enabled
+         * @since 0.64
+         */
+        get_enable_fallback_scrolling(): boolean;
+
+        /**
+         * @returns `true` iff legacy OSC 777 is enabled
+         * @since 0.78
+         */
+        get_enable_legacy_osc777(): boolean;
+
+        /**
+         * Checks whether the terminal shapes Arabic text.
+         * @returns `true` if Arabic shaping is enabled, `false` if not
+         * @since 0.58
+         */
+        get_enable_shaping(): boolean;
+
+        /**
+         * @returns `false`
+         * @since 0.62
+         */
+        get_enable_sixel(): boolean;
+
+        /**
+         * Determines the name of the encoding in which the terminal expects data to be
+         * encoded, or `null` if UTF-8 is in use.
+         * @returns the current encoding for the terminal
+         * @deprecated since 0.54: Support for non-UTF-8 is deprecated.
+         */
+        get_encoding(): string | null;
+
+        /**
+         * Queries the terminal for information about the fonts which will be
+         * used to draw text in the terminal.  The actual font takes the font scale
+         * into account, this is not reflected in the return value, the unscaled
+         * font is returned.
+         * @returns a {@link Pango.FontDescription} describing the font the terminal uses to render text at the default font scale of 1.0.
+         */
+        get_font(): Pango.FontDescription;
+
+        /**
+         * @returns the terminal's font options, or `null`
+         * @since 0.74
+         */
+        get_font_options(): cairo.FontOptions | null;
+
+        /**
+         * @returns the terminal's font scale
+         */
+        get_font_scale(): number;
+
+        /**
+         * Checks if the terminal currently contains selected text.  Note that this
+         * is different from determining if the terminal is the owner of any
+         * `GtkClipboard` items.
+         * @returns `true` if part of the text in the terminal is selected.
+         */
+        get_has_selection(): boolean;
+
+        /**
+         * @returns `null`
+         * @deprecated since 0.54
+         */
+        get_icon_title(): string | null;
+
+        /**
+         * Returns whether the terminal allow user input.
+         */
+        get_input_enabled(): boolean;
+
+        /**
+         * Determines the value of the terminal's mouse autohide setting.  When
+         * autohiding is enabled, the mouse cursor will be hidden when the user presses
+         * a key and shown when the user moves the mouse.  This setting can be changed
+         * using `vte_terminal_set_mouse_autohide()`.
+         * @returns `true` if autohiding is enabled, `false` if not
+         */
+        get_mouse_autohide(): boolean;
+
+        /**
+         * Returns the {@link Vte.Pty} of `terminal`.
+         * @returns a {@link Vte.Pty}, or `null`
+         */
+        get_pty(): Pty | null;
+
+        /**
+         * Checks whether or not the terminal will rewrap its contents upon resize.
+         * @returns `true` if rewrapping is enabled, `false` if not
+         * @deprecated since 0.58
+         */
+        get_rewrap_on_resize(): boolean;
+
+        /**
+         * @returns the number of rows
+         */
+        get_row_count(): number;
+
+        /**
+         * @returns whether or not the terminal will forcibly scroll to the bottom of the viewable history when the new data is received from the child.
+         * @since 0.76
+         */
+        get_scroll_on_insert(): boolean;
+
+        /**
+         * @returns whether or not the terminal will forcibly scroll to the bottom of the viewable history when the user presses a key.  Modifier keys do not trigger this behavior.
+         * @since 0.52
+         */
+        get_scroll_on_keystroke(): boolean;
+
+        /**
+         * @returns whether or not the terminal will forcibly scroll to the bottom of the viewable history when the new data is received from the child.
+         * @since 0.52
+         */
+        get_scroll_on_output(): boolean;
+
+        /**
+         * @returns `true` if the scroll unit is pixels; or `false` if the unit is lines
+         * @since 0.66
+         */
+        get_scroll_unit_is_pixels(): boolean;
+
+        /**
+         * @returns length of the scrollback buffer used by the terminal. A negative value means "infinite scrollback".
+         * @since 0.52
+         */
+        get_scrollback_lines(): number;
+
+        /**
+         * For a {@link Vte.PropertyType.BOOL} termprop, sets `value` to `prop`'s value,
+         *   or to `false` if `prop` is unset, or `prop` is not a registered property.
+         * @param prop a termprop name
+         * @returns `true` iff the termprop is set
+         * @since 0.78
+         */
+        get_termprop_bool(prop: string): [boolean, boolean];
+
+        /**
+         * Like `vte_terminal_get_termprop_bool()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns `true` iff the termprop is set
+         * @since 0.78
+         */
+        get_termprop_bool_by_id(prop: number): [boolean, boolean];
+
+        /**
+         * Returns the value of a {@link Vte.PropertyType.DATA} termprop, or `null` if
+         *   `prop` is unset, or `prop` is not a registered property.
+         * @param prop a termprop name
+         * @returns the property's value, or `null`
+         * @since 0.78
+         */
+        get_termprop_data(prop: string): Uint8Array | null;
+
+        /**
+         * Like `vte_terminal_get_termprop_data()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns the property's value, or `null`
+         * @since 0.78
+         */
+        get_termprop_data_by_id(prop: number): Uint8Array | null;
+
+        /**
+         * For a {@link Vte.PropertyType.DOUBLE} termprop, sets `value` to `prop`'s value,
+         *   which is finite; or to 0.0 if `prop` is unset, or `prop` is not a
+         *   registered property.
+         * @param prop a termprop name
+         * @returns `true` iff the termprop is set
+         * @since 0.78
+         */
+        get_termprop_double(prop: string): [boolean, number];
+
+        /**
+         * Like `vte_terminal_get_termprop_double()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns `true` iff the termprop is set
+         * @since 0.78
+         */
+        get_termprop_double_by_id(prop: number): [boolean, number];
+
+        /**
+         * See `vte_properties_get_property_enum()` for more information.
+         * @param prop a property name of a {@link Vte.PropertyType.STRING} property
+         * @param gtype a {@link GObject.GType} of an enum type
+         * @returns `true` iff the property was set and could be parsed a   a value of the enumeration type
+         * @since 0.82
+         */
+        get_termprop_enum(prop: string, gtype: GObject.GType): [boolean, number];
+
+        /**
+         * Like `vte_terminal_get_termprop_enum()` except that it takes the property
+         * by ID. See that function for more information.
+         * @param prop a property ID of a {@link Vte.PropertyType.STRING} property
+         * @param gtype a {@link GObject.GType} of an enum type
+         * @returns `true` iff the property was set and could be parsed a   a value of enumeration type `type`
+         * @since 0.82
+         */
+        get_termprop_enum_by_id(prop: number, gtype: GObject.GType): [boolean, number];
+
+        /**
+         * See `vte_properties_get_property_flags()` for more information.
+         * @param prop 
+         * @param gtype a {@link GObject.GType} of a flags type
+         * @param ignore_unknown_flags whether to ignore unknown flags
+         * @returns `true` iff the property was set and could be parsed a   a value of the flags type
+         * @since 0.82
+         */
+        get_termprop_flags(prop: string, gtype: GObject.GType, ignore_unknown_flags: boolean): [boolean, number];
+
+        /**
+         * Like `vte_terminal_get_termprop_flags()` except that it takes the property
+         * by ID. See that function for more information.
+         * @param prop 
+         * @param gtype a {@link GObject.GType} of a flags type
+         * @param ignore_unknown_flags whether to ignore unknown flags
+         * @returns `true` iff the property was set and could be parsed a   a value of flags type `type`
+         * @since 0.82
+         */
+        get_termprop_flags_by_id(prop: number, gtype: GObject.GType, ignore_unknown_flags: boolean): [boolean, number];
+
+        /**
+         * For a {@link Vte.PropertyType.INT} termprop, sets `value` to `prop`'s value,
+         * or to 0 if `prop` is unset, or if `prop` is not a registered property.
+         * 
+         * If only a subset or range of values are acceptable for the given property,
+         * the caller must validate the returned value and treat any out-of-bounds
+         * value as if the termprop had no value; in particular it *must not* clamp
+         * the values to the expected range.
+         * @param prop a termprop name
+         * @returns `true` iff the termprop is set
+         * @since 0.78
+         */
+        get_termprop_int(prop: string): [boolean, number];
+
+        /**
+         * Like `vte_terminal_get_termprop_int()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns `true` iff the termprop is set
+         * @since 0.78
+         */
+        get_termprop_int_by_id(prop: number): [boolean, number];
+
+        /**
+         * Stores the value of a {@link Vte.PropertyType.RGB} or {@link Vte.PropertyType.RGBA} termprop in `color` and
+         * returns `true` if the termprop is set, or stores rgb(0,0,0) or rgba(0,0,0,1) in `color`
+         * and returns `false` if the termprop is unset.
+         * @param prop a termprop name
+         * @returns `true` iff the termprop is set
+         * @since 0.78
+         */
+        get_termprop_rgba(prop: string): [boolean, Gdk.RGBA | null];
+
+        /**
+         * Like `vte_terminal_get_termprop_rgba()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns `true` iff the termprop is set
+         * @since 0.78
+         */
+        get_termprop_rgba_by_id(prop: number): [boolean, Gdk.RGBA | null];
+
+        /**
+         * Returns the value of a {@link Vte.PropertyType.STRING} termprop, or `null` if
+         *   `prop` is unset, or `prop` is not a registered property.
+         * @param prop a termprop name
+         * @returns the property's value, or `null`
+         * @since 0.78
+         */
+        get_termprop_string(prop: string): [string | null, number];
+
+        /**
+         * Like `vte_terminal_get_termprop_string()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns the property's value, or `null`
+         * @since 0.78
+         */
+        get_termprop_string_by_id(prop: number): [string | null, number];
+
+        /**
+         * For a {@link Vte.PropertyType.UINT} termprop, sets `value` to `prop`'s value,
+         * or to 0 if `prop` is unset, or `prop` is not a registered property.
+         * 
+         * If only a subset or range of values are acceptable for the given property,
+         * the caller must validate the returned value and treat any out-of-bounds
+         * value as if the termprop had no value; in particular it *must not* clamp
+         * the values to the expected range.
+         * @param prop a termprop name
+         * @returns `true` iff the termprop is set
+         * @since 0.78
+         */
+        get_termprop_uint(prop: string): [boolean, number];
+
+        /**
+         * Like `vte_terminal_get_termprop_uint()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns `true` iff the termprop is set
+         * @since 0.78
+         */
+        get_termprop_uint_by_id(prop: number): [boolean, number];
+
+        /**
+         * Returns `true` with the value of `prop` stored in `value` (if not `null`) if,
+         *   the termprop has a value, or `false` if `prop` is unset, or `prop` is not
+         *   a registered property; in that case `value` will not be set.
+         * 
+         * The value type returned depends on the termprop type:
+         * * A {@link Vte.PropertyType.VALUELESS} termprop stores no value, and returns `false`
+         *   from this function.
+         * * A {@link Vte.PropertyType.BOOL} termprop stores a `G_TYPE_BOOLEAN` value.
+         * * A {@link Vte.PropertyType.INT} termprop stores a `G_TYPE_INT64` value.
+         * * A {@link Vte.PropertyType.UINT} termprop stores a `G_TYPE_UINT64` value.
+         * * A {@link Vte.PropertyType.DOUBLE} termprop stores a `G_TYPE_DOUBLE` value.
+         * * A {@link Vte.PropertyType.RGB} termprop stores a boxed {@link Gdk.RGBA} value with alpha 1.0 on gtk3,
+         *    and nothing on gtk4.
+         * * A {@link Vte.PropertyType.RGBA} termprop stores a boxed {@link Gdk.RGBA} value on gtk3,
+         *    and nothing on gtk4.
+         * * A {@link Vte.PropertyType.STRING} termprop stores a `G_TYPE_STRING` value.
+         * * A {@link Vte.PropertyType.DATA} termprop stores a boxed {@link GLib.Bytes} value.
+         * * A {@link Vte.PropertyType.UUID} termprop stores a boxed {@link Vte.Uuid} value.
+         * * A {@link Vte.PropertyType.URI} termprop stores a boxed {@link GLib.Uri} value.
+         * * A {@link Vte.PropertyType.IMAGE} termprop stores a boxed {@link cairo.Surface} value on gtk3,
+         *     and a boxed {@link Gdk.Texture} on gtk4
+         * @param prop a termprop name
+         * @returns `true` iff the property has a value, with `gvalue` containig   the property's value.
+         * @since 0.78
+         */
+        get_termprop_value(prop: string): [boolean, unknown | null];
+
+        /**
+         * Like `vte_terminal_get_termprop_value()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns `true` iff the property has a value, with `gvalue` containig   the property's value.
+         * @since 0.78
+         */
+        get_termprop_value_by_id(prop: number): [boolean, unknown | null];
+
+        /**
+         * Extracts a view of the visible part of the terminal.
+         * 
+         * This method is unaware of BiDi. The columns returned in `attributes` are
+         * logical columns.
+         * 
+         * Note: since 0.68, passing a non-`null` `attributes` parameter is deprecated. Starting with
+         * 0.72, passing a non-`null` `attributes` parameter will make this function itself return `null`.
+         * Since 0.72, passing a non-`null` `is_selected` parameter will make this function itself return `null`.
+         * @param is_selected a {@link Vte.SelectionFunc} callback. Deprecated: 0.44: Always pass `null` here.
+         * @returns a newly allocated text string, or `null`.
+         * @deprecated since 0.76: Use `vte_terminal_get_text_format()` instead
+         */
+        get_text(is_selected: SelectionFunc | null): [string | null, CharAttributes[] | null];
+
+        /**
+         * Checks whether or not the terminal will allow blinking text.
+         * @returns the blinking setting
+         * @since 0.52
+         */
+        get_text_blink_mode(): TextBlinkMode;
+
+        /**
+         * Returns text from the visible part of the terminal in the specified format.
+         * 
+         * This method is unaware of BiDi. The columns returned in `attributes` are
+         * logical columns.
+         * @param format the {@link Vte.Format} to use
+         * @returns a newly allocated text string, or `null`.
+         * @since 0.76
+         */
+        get_text_format(format: Format): string | null;
+
+        /**
+         * Extracts a view of the visible part of the terminal.
+         * 
+         * This method is unaware of BiDi. The columns returned in `attributes` are
+         * logical columns.
+         * 
+         * Note: since 0.68, passing a non-`null` `array` parameter is deprecated. Starting with
+         * 0.72, passing a non-`null` `array` parameter will make this function itself return `null`.
+         * Since 0.72, passing a non-`null` `is_selected` parameter will make this function itself return `null`.
+         * @param is_selected a {@link Vte.SelectionFunc} callback. Deprecated: 0.44: Always pass `null` here.
+         * @returns a newly allocated text string, or `null`.
+         * @deprecated since 0.56: Use `vte_terminal_get_text_format()` instead.
+         */
+        get_text_include_trailing_spaces(is_selected: SelectionFunc | null): [string, CharAttributes[] | null];
+
+        /**
+         * Extracts a view of the visible part of the terminal. The
+         * entire scrollback buffer is scanned, so it is possible to read the entire
+         * contents of the buffer using this function.
+         * 
+         * This method is unaware of BiDi. The columns passed in `start_col` and `end_row`,
+         * and returned in `attributes` are logical columns.
+         * 
+         * Since 0.68, passing a non-`null` `array` parameter is deprecated.
+         * Since 0.72, passing a non-`null` `array` parameter will make this function
+         *   itself return `null`.
+         * Since 0.72, passing a non-`null` `is_selected` function will make this function
+         *   itself return `null`.
+         * @param start_row first row to search for data
+         * @param start_col first column to search for data
+         * @param end_row last row to search for data
+         * @param end_col last column to search for data
+         * @param is_selected a {@link Vte.SelectionFunc} callback. Deprecated: 0.44: Always pass `null` here
+         * @returns a newly allocated text string, or `null`.
+         * @deprecated since 0.76: Use `vte_terminal_get_text_range_format()` instead
+         */
+        get_text_range(start_row: bigint | number, start_col: bigint | number, end_row: bigint | number, end_col: bigint | number, is_selected: SelectionFunc | null): [string | null, CharAttributes[] | null];
+
+        /**
+         * Returns the specified range of text in the specified format.
+         * @param format the {@link Vte.Format} to use
+         * @param start_row the first row of the range
+         * @param start_col the first column of the range
+         * @param end_row the last row of the range
+         * @param end_col the last column of the range
+         * @returns a newly allocated string, or `null`.
+         * @since 0.72
+         */
+        get_text_range_format(format: Format, start_row: bigint | number, start_col: bigint | number, end_row: bigint | number, end_col: bigint | number): [string | null, number];
+
+        /**
+         * Gets the currently selected text in the format specified by `format`.
+         * Since 0.72, this function also supports {@link Vte.Format.HTML} format.
+         * @param format the {@link Vte.Format} to use
+         * @returns a newly allocated string containing the selected text, or `null` if there is no selection or the format is not supported
+         * @since 0.70
+         */
+        get_text_selected(format: Format): string | null;
+
+        /**
+         * Gets the currently selected text in the format specified by `format`.
+         * @param format the {@link Vte.Format} to use
+         * @returns a newly allocated string containing the selected text, or `null` if there is no selection or the format is not supported
+         * @since 0.72
+         */
+        get_text_selected_full(format: Format): [string | null, number];
+
+        /**
+         * @returns the window title, or `null`
+         * @deprecated since 0.78: Use the `VTE_TERMPROP_XTERM_TITLE` termprop.
+         */
+        get_window_title(): string | null;
+
+        /**
+         * Returns the set of characters which will be considered parts of a word
+         * when doing word-wise selection, in addition to the default which only
+         * considers alphanumeric characters part of a word.
+         * 
+         * If `null`, a built-in set is used.
+         * @returns a string, or `null`
+         * @since 0.40
+         */
+        get_word_char_exceptions(): string | null;
+
+        /**
+         * @returns the horizontal alignment of `terminal` within its allocation
+         * @since 0.76
+         */
+        get_xalign(): Align;
+
+        /**
+         * @returns the horizontal fillment of `terminal` within its allocation
+         * @since 0.76
+         */
+        get_xfill(): boolean;
+
+        /**
+         * @returns the vertical alignment of `terminal` within its allocation
+         * @since 0.76
+         */
+        get_yalign(): Align;
+
+        /**
+         * @returns the vertical fillment of `terminal` within its allocation
+         * @since 0.76
+         */
+        get_yfill(): boolean;
+
+        /**
+         * Adds the regular expression `regex` to the list of matching expressions.  When the
+         * user moves the mouse cursor over a section of displayed text which matches
+         * this expression, the text will be highlighted.
+         * 
+         * Note that `regex` should have been created using the <literal>PCRE2_MULTILINE</literal>
+         * flag.
+         * @param regex a {@link Vte.Regex}
+         * @param flags PCRE2 match flags, or 0
+         * @returns an integer associated with this expression
+         * @since 0.46
+         */
+        match_add_regex(regex: Regex, flags: number): number;
+
+        /**
+         * Checks if the text in and around the specified position matches any of the
+         * regular expressions previously set using `vte_terminal_match_add()`.  If a
+         * match exists, the text string is returned and if `tag` is not `null`, the number
+         * associated with the matched regular expression will be stored in `tag`.
+         * 
+         * If more than one regular expression has been set with
+         * `vte_terminal_match_add()`, then expressions are checked in the order in
+         * which they were added.
+         * @param column the text column
+         * @param row the text row
+         * @returns a newly allocated string which matches one of the previously   set regular expressions
+         * @deprecated since 0.46: Use `vte_terminal_match_check_event()` instead.
+         */
+        match_check(column: bigint | number, row: bigint | number): [string | null, number];
+
+        /**
+         * Removes the regular expression which is associated with the given `tag` from
+         * the list of expressions which the terminal will highlight when the user
+         * moves the mouse cursor over matching text.
+         * @param tag the tag of the regex to remove
+         */
+        match_remove(tag: number): void;
+
+        /**
+         * Clears the list of regular expressions the terminal uses to highlight text
+         * when the user moves the mouse cursor.
+         */
+        match_remove_all(): void;
+
+        /**
+         * Sets which cursor the terminal will use if the pointer is over the pattern
+         * specified by `tag`.  The terminal keeps a reference to `cursor`.
+         * @param tag the tag of the regex which should use the specified cursor
+         * @param cursor the {@link Gdk.Cursor} which the terminal should use when the pattern is   highlighted, or `null` to use the standard cursor
+         * @deprecated since 0.40: Use `vte_terminal_match_set_cursor_name()` instead.
+         */
+        match_set_cursor(tag: number, cursor: Gdk.Cursor | null): void;
+
+        /**
+         * Sets which cursor the terminal will use if the pointer is over the pattern
+         * specified by `tag`.
+         * @param tag the tag of the regex which should use the specified cursor
+         * @param cursor_name the name of the cursor
+         */
+        match_set_cursor_name(tag: number, cursor_name: string): void;
+
+        /**
+         * Sends the contents of the #GDK_SELECTION_CLIPBOARD selection to the
+         * terminal's child. It's called on paste menu item, or when
+         * user presses Shift+Insert.
+         */
+        paste_clipboard(): void;
+
+        /**
+         * Sends the contents of the #GDK_SELECTION_PRIMARY selection to the terminal's
+         * child. The terminal will call also paste the
+         * #GDK_SELECTION_PRIMARY selection when the user clicks with the the second
+         * mouse button.
+         */
+        paste_primary(): void;
+
+        /**
+         * Sends `text` to the terminal's child as if retrived from the clipboard,
+         * this differs from `vte_terminal_feed_child()` in that it may process
+         * `text` before passing it to the child (e.g. apply bracketed mode)
+         * @param text a string to paste
+         * @since 0.68
+         */
+        paste_text(text: string): void;
+
+        /**
+         * Creates a new {@link Vte.Pty}, sets the emulation property
+         * from {@link Vte.Terminal.emulation}, and sets the size using
+         * `terminal`'s size.
+         * 
+         * See `vte_pty_new()` for more information.
+         * @param flags flags from {@link Vte.PtyFlags}
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @returns a new {@link Vte.Pty}
+         * @throws GLib.Error
+         */
+        pty_new_sync(flags: PtyFlags, cancellable: Gio.Cancellable | null): Pty;
+
+        /**
+         * Returns the value of a {@link Vte.PropertyType.DATA} termprop as a {@link GLib.Bytes}, or `null` if
+         *   `prop` is unset, or `prop` is not a registered property.
+         * @param prop a termprop name
+         * @returns the property's value as a {@link GLib.Bytes}, or `null`
+         * @since 0.78
+         */
+        ref_termprop_data_bytes(prop: string): GLib.Bytes | null;
+
+        /**
+         * Like `vte_terminal_ref_termprop_data_bytes()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns the property's value as a {@link GLib.Bytes}, or `null`
+         * @since 0.78
+         */
+        ref_termprop_data_bytes_by_id(prop: number): GLib.Bytes | null;
+
+        /**
+         * Returns the value of a {@link Vte.PropertyType.IMAGE} termprop as a {@link cairo.Surface},
+         *   or `null` if `prop` is unset, or `prop` is not a registered property.
+         * 
+         * The surface will be a {@link cairo.SurfaceType.IMAGE} with format
+         * {@link cairo.Format.ARGB32} or {@link cairo.Format.RGB24}.
+         * 
+         * Note that the returned surface is owned by `terminal` and its contents
+         * must not be modified.
+         * @param prop a termprop name
+         * @returns the property's value as a {@link cairo.Surface}, or `null`
+         * @since 0.80
+         */
+        ref_termprop_image_surface(prop: string): cairo.Surface | null;
+
+        /**
+         * Like `vte_terminal_ref_termprop_image_surface()` except that it takes the
+         * termprop by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns the property's value as a {@link cairo.Surface}, or `null`
+         * @since 0.80
+         */
+        ref_termprop_image_surface_by_id(prop: number): cairo.Surface | null;
+
+        /**
+         * Returns the value of a {@link Vte.PropertyType.IMAGE} termprop as a {@link Gdk.Texture}, or `null` if
+         *   `prop` is unset, or `prop` is not a registered property.
+         * @param prop a termprop name
+         * @returns the property's value as a {@link Gdk.Texture}, or `null`
+         * @since 0.80
+         */
+        ref_termprop_image_texture(prop: string): Gdk.Texture | null;
+
+        /**
+         * Like `vte_terminal_ref_termprop_image_texture()` except that it takes the
+         * termprop by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns the property's value as a {@link Gdk.Texture}, or `null`
+         * @since 0.80
+         */
+        ref_termprop_image_texture_by_id(prop: number): Gdk.Texture | null;
+
+        /**
+         * Returns the value of a {@link Vte.PropertyType.URI} termprop as a {@link GLib.Uri}, or `null` if
+         *   `prop` is unset, or `prop` is not a registered property.
+         * @param prop a termprop name
+         * @returns the property's value as a {@link GLib.Uri}, or `null`
+         * @since 0.78
+         */
+        ref_termprop_uri(prop: string): GLib.Uri | null;
+
+        /**
+         * Like `vte_terminal_ref_termprop_uri()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns the property's value as a {@link GLib.Uri}, or `null`
+         * @since 0.78
+         */
+        ref_termprop_uri_by_id(prop: number): GLib.Uri | null;
+
+        /**
+         * Returns the value of `prop` as a {@link GLib.Variant}, or `null` if
+         *   `prop` unset, or `prop` is not a registered property.
+         * 
+         * The {@link GLib.VariantType} of the returned {@link GLib.Variant} depends on the termprop type:
+         * * A {@link Vte.PropertyType.VALUELESS} termprop returns a `G_VARIANT_TYPE_UNIT` variant.
+         * * A {@link Vte.PropertyType.BOOL} termprop returns a `G_VARIANT_TYPE_BOOLEAN` variant.
+         * * A {@link Vte.PropertyType.INT} termprop returns a `G_VARIANT_TYPE_INT64` variant.
+         * * A {@link Vte.PropertyType.UINT} termprop returns a `G_VARIANT_TYPE_UINT64` variant.
+         * * A {@link Vte.PropertyType.DOUBLE} termprop returns a `G_VARIANT_TYPE_DOUBLE` variant.
+         * * A {@link Vte.PropertyType.RGB} or {@link Vte.PropertyType.RGBA} termprop returns a "(ddddv)"
+         *   tuple containing the red, green, blue, and alpha (1.0 for {@link Vte.PropertyType.RGB})
+         *   components of the color and a variant of unspecified contents
+         * * A {@link Vte.PropertyType.STRING} termprop returns a `G_VARIANT_TYPE_STRING` variant.
+         * * A {@link Vte.PropertyType.DATA} termprop returns a "ay" variant (which is *not* a bytestring!).
+         * * A {@link Vte.PropertyType.UUID} termprop returns a `G_VARIANT_TYPE_STRING` variant
+         *   containing a string representation of the UUID in simple form.
+         * * A {@link Vte.PropertyType.URI} termprop returns a `G_VARIANT_TYPE_STRING` variant
+         *   containing a string representation of the URI
+         * * A {@link Vte.PropertyType.IMAGE} termprop returns `null` since an image has no
+         *   variant representation.
+         * @param prop a termprop name
+         * @returns a floating {@link GLib.Variant}, or `null`
+         * @since 0.78
+         */
+        ref_termprop_variant(prop: string): GLib.Variant | null;
+
+        /**
+         * Like `vte_terminal_ref_termprop_variant()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @returns a floating {@link GLib.Variant}, or `null`
+         * @since 0.78
+         */
+        ref_termprop_variant_by_id(prop: number): GLib.Variant | null;
+
+        /**
+         * Resets as much of the terminal's internal state as possible, discarding any
+         * unprocessed input data, resetting character attributes, cursor state,
+         * national character set state, status line, terminal modes (insert/delete),
+         * selection state, and encoding.
+         * @param clear_tabstops whether to reset tabstops
+         * @param clear_history whether to empty the terminal's scrollback buffer
+         */
+        reset(clear_tabstops: boolean, clear_history: boolean): void;
+
+        /**
+         * Resets the termprop `prop` to its default value.
+         * @param prop a termprop name
+         * @since 0.84
+         */
+        reset_termprop(prop: string): void;
+
+        /**
+         * Like `vte_terminal_reset_termprop()` except that it takes the termprop
+         * by ID. See that function for more information.
+         * @param prop a termprop ID
+         * @since 0.84
+         */
+        reset_termprop_by_id(prop: number): void;
+
+        /**
+         * Searches the next string matching the search regex set with
+         * `vte_terminal_search_set_regex()`.
+         * @returns `true` if a match was found
+         */
+        search_find_next(): boolean;
+
+        /**
+         * Searches the previous string matching the search regex set with
+         * `vte_terminal_search_set_regex()`.
+         * @returns `true` if a match was found
+         */
+        search_find_previous(): boolean;
+
+        /**
+         * @returns the search {@link Vte.Regex} regex set in `terminal`, or `null`
+         * @since 0.46
+         */
+        search_get_regex(): Regex;
+
+        /**
+         * @returns whether searching will wrap around
+         */
+        search_get_wrap_around(): boolean;
+
+        /**
+         * Sets the regex to search for. Unsets the search regex when passed `null`.
+         * 
+         * Note that `regex` should have been created using the
+         * <literal>PCRE2_MULTILINE</literal> flag.
+         * @param regex a {@link Vte.Regex}, or `null`
+         * @param flags PCRE2 match flags, or 0
+         * @since 0.46
+         */
+        search_set_regex(regex: Regex | null, flags: number): void;
+
+        /**
+         * Sets whether search should wrap around to the beginning of the
+         * terminal content when reaching its end.
+         * @param wrap_around whether search should wrap
+         */
+        search_set_wrap_around(wrap_around: boolean): void;
+
+        /**
+         * Selects all text within the terminal (not including the scrollback buffer).
+         */
+        select_all(): void;
+
+        /**
+         * Controls whether or not the terminal will attempt to draw bold text,
+         * by using a bold font variant.
+         * @param allow_bold `true` if the terminal should attempt to draw bold text
+         * @deprecated since 0.60: There's probably no reason for this feature to exist.
+         */
+        set_allow_bold(allow_bold: boolean): void;
+
+        /**
+         * Controls whether or not hyperlinks (OSC 8 escape sequence) are allowed.
+         * @param allow_hyperlink `true` if the terminal should allow hyperlinks
+         * @since 0.50
+         */
+        set_allow_hyperlink(allow_hyperlink: boolean): void;
+
+        /**
+         * Controls whether or not the terminal will beep when the child outputs the
+         * "bl" sequence.
+         * @param is_audible `true` if the terminal should beep
+         */
+        set_audible_bell(is_audible: boolean): void;
+
+        /**
+         * Modifies the terminal's backspace key binding, which controls what
+         * string or control sequence the terminal sends to its child when the user
+         * presses the backspace key.
+         * @param binding a {@link Vte.EraseBinding} for the backspace key
+         */
+        set_backspace_binding(binding: EraseBinding): void;
+
+        /**
+         * Sets whether the SGR 1 attribute also switches to the bright counterpart
+         * of the first 8 palette colors, in addition to making them bold (legacy behavior)
+         * or if SGR 1 only enables bold and leaves the color intact.
+         * @param bold_is_bright `true` if bold should also enable bright
+         * @since 0.52
+         */
+        set_bold_is_bright(bold_is_bright: boolean): void;
+
+        /**
+         * Sets the terminal's cell height scale to `scale`.
+         * 
+         * This can be used to increase the line spacing. (The font's height is not affected.)
+         * Valid values go from 1.0 (default) to 2.0 ("double spacing").
+         * @param scale the cell height scale
+         * @since 0.52
+         */
+        set_cell_height_scale(scale: number): void;
+
+        /**
+         * Sets the terminal's cell width scale to `scale`.
+         * 
+         * This can be used to increase the letter spacing. (The font's width is not affected.)
+         * Valid values go from 1.0 (default) to 2.0.
+         * @param scale the cell width scale
+         * @since 0.52
+         */
+        set_cell_width_scale(scale: number): void;
+
+        /**
+         * This setting controls whether ambiguous-width characters are narrow or wide.
+         * (Note that when using a non-UTF-8 encoding set via `vte_terminal_set_encoding()`,
+         * the width of ambiguous-width characters is fixed and determined by the encoding
+         * itself.)
+         * @param width either 1 (narrow) or 2 (wide)
+         */
+        set_cjk_ambiguous_width(width: number): void;
+
+        /**
+         * Sets whether to paint the background with the background colour.
+         * The default is `true`.
+         * 
+         * This function is rarely useful. One use for it is to add a background
+         * image to the terminal.
+         * @param setting whether to clear the background
+         * @since 0.52
+         */
+        set_clear_background(setting: boolean): void;
+
+        /**
+         * Sets the background color for text which does not have a specific background
+         * color assigned.  Only has effect when no background image is set and when
+         * the terminal is not transparent.
+         * @param background the new background color
+         */
+        set_color_background(background: Gdk.RGBA): void;
+
+        /**
+         * Sets the color used to draw bold text in the default foreground color.
+         * If `bold` is `null` then the default color is used.
+         * @param bold the new bold color or `null`
+         */
+        set_color_bold(bold: Gdk.RGBA | null): void;
+
+        /**
+         * Sets the background color for text which is under the cursor.  If `null`, text
+         * under the cursor will be drawn with foreground and background colors
+         * reversed.
+         * @param cursor_background the new color to use for the text cursor, or `null`
+         */
+        set_color_cursor(cursor_background: Gdk.RGBA | null): void;
+
+        /**
+         * Sets the foreground color for text which is under the cursor.  If `null`, text
+         * under the cursor will be drawn with foreground and background colors
+         * reversed.
+         * @param cursor_foreground the new color to use for the text cursor, or `null`
+         * @since 0.44
+         */
+        set_color_cursor_foreground(cursor_foreground: Gdk.RGBA | null): void;
+
+        /**
+         * Sets the foreground color used to draw normal text.
+         * @param foreground the new foreground color
+         */
+        set_color_foreground(foreground: Gdk.RGBA): void;
+
+        /**
+         * Sets the background color for text which is highlighted.  If `null`,
+         * it is unset.  If neither highlight background nor highlight foreground are set,
+         * highlighted text (which is usually highlighted because it is selected) will
+         * be drawn with foreground and background colors reversed.
+         * @param highlight_background the new color to use for highlighted text, or `null`
+         */
+        set_color_highlight(highlight_background: Gdk.RGBA | null): void;
+
+        /**
+         * Sets the foreground color for text which is highlighted.  If `null`,
+         * it is unset.  If neither highlight background nor highlight foreground are set,
+         * highlighted text (which is usually highlighted because it is selected) will
+         * be drawn with foreground and background colors reversed.
+         * @param highlight_foreground the new color to use for highlighted text, or `null`
+         */
+        set_color_highlight_foreground(highlight_foreground: Gdk.RGBA | null): void;
+
+        /**
+         * `palette` specifies the new values for the 256 palette colors: 8 standard colors,
+         * their 8 bright counterparts, 6x6x6 color cube, and 24 grayscale colors.
+         * Omitted entries will default to a hardcoded value.
+         * 
+         * `palette_size` must be 0, 8, 16, 232 or 256.
+         * 
+         * If `foreground` is `null` and `palette_size` is greater than 0, the new foreground
+         * color is taken from `palette`[7].  If `background` is `null` and `palette_size` is
+         * greater than 0, the new background color is taken from `palette`[0].
+         * @param foreground the new foreground color, or `null`
+         * @param background the new background color, or `null`
+         * @param palette the color palette
+         */
+        set_colors(foreground: Gdk.RGBA | null, background: Gdk.RGBA | null, palette: Gdk.RGBA[] | null): void;
+
+        /**
+         * Sets `menu` as the context menu in `terminal`.
+         * Use `null` to unset the current menu.
+         * 
+         * Note that a menu model set with `vte_terminal_set_context_menu_model()`
+         * takes precedence over a menu set using this function.
+         * @param menu a menu
+         * @since 0.76
+         */
+        set_context_menu(menu: Gtk.Widget | null): void;
+
+        /**
+         * Sets `model` as the context menu model in `terminal`.
+         * Use `null` to unset the current menu model.
+         * @param model a {@link Gio.MenuModel}
+         * @since 0.76
+         */
+        set_context_menu_model(model: Gio.MenuModel | null): void;
+
+        /**
+         * Sets whether or not the cursor will blink. Using {@link Vte.CursorBlinkMode.SYSTEM}
+         * will use the {@link Gtk.Settings.SignalSignatures.gtk_cursor_blink | Gtk.Settings::gtk-cursor-blink} setting.
+         * @param mode the {@link Vte.CursorBlinkMode} to use
+         */
+        set_cursor_blink_mode(mode: CursorBlinkMode): void;
+
+        /**
+         * Sets the shape of the cursor drawn.
+         * @param shape the {@link Vte.CursorShape} to use
+         */
+        set_cursor_shape(shape: CursorShape): void;
+
+        /**
+         * Reset the terminal palette to reasonable compiled-in default color.
+         */
+        set_default_colors(): void;
+
+        /**
+         * Modifies the terminal's delete key binding, which controls what
+         * string or control sequence the terminal sends to its child when the user
+         * presses the delete key.
+         * @param binding a {@link Vte.EraseBinding} for the delete key
+         */
+        set_delete_binding(binding: EraseBinding): void;
+
+        /**
+         * Controls whether or not the terminal will communicate with a11y backends.
+         * @param enable_a11y `true` to enable a11y support
+         * @since 0.78
+         */
+        set_enable_a11y(enable_a11y: boolean): void;
+
+        /**
+         * Controls whether or not the terminal will perform bidirectional text rendering.
+         * @param enable_bidi `true` to enable BiDi support
+         * @since 0.58
+         */
+        set_enable_bidi(enable_bidi: boolean): void;
+
+        /**
+         * Controls whether the terminal uses scroll events to scroll the history
+         * if the event was not otherwise consumed by it.
+         * 
+         * This function is rarely useful, except when the terminal is added to a
+         * {@link Gtk.ScrolledWindow}, to perform kinetic scrolling (while vte itself does
+         * not, yet, implement kinetic scrolling by itself).
+         * @param enable whether to enable fallback scrolling
+         * @since 0.64
+         */
+        set_enable_fallback_scrolling(enable: boolean): void;
+
+        /**
+         * Sets whether legacy OSC 777 sequences are translated to
+         * their corresponding termprops.
+         * @param enable whether to enable legacy OSC 777
+         * @since 0.78
+         */
+        set_enable_legacy_osc777(enable: boolean): void;
+
+        /**
+         * Controls whether or not the terminal will shape Arabic text.
+         * @param enable_shaping `true` to enable Arabic shaping
+         * @since 0.58
+         */
+        set_enable_shaping(enable_shaping: boolean): void;
+
+        /**
+         * Set whether to enable SIXEL images.
+         * @param enabled whether to enable SIXEL images
+         * @since 0.62
+         */
+        set_enable_sixel(enabled: boolean): void;
+
+        /**
+         * Changes the encoding the terminal will expect data from the child to
+         * be encoded with.  For certain terminal types, applications executing in the
+         * terminal can change the encoding. If `codeset` is `null`, it uses "UTF-8".
+         * 
+         * Note: Support for non-UTF-8 is deprecated and may get removed altogether.
+         * Instead of this function, you should use a wrapper like luit(1) when
+         * spawning the child process.
+         * @param codeset target charset, or `null` to use UTF-8
+         * @returns `true` if the encoding could be changed to the specified one,  or `false` with `error` set to {@link GLib.ConvertError.NO_CONVERSION}.
+         * @deprecated since 0.54: Support for non-UTF-8 is deprecated.
+         * @throws GLib.Error
+         */
+        set_encoding(codeset: string | null): boolean;
+
+        /**
+         * Sets the font used for rendering all text displayed by the terminal,
+         * overriding any fonts set using `gtk_widget_modify_font()`.  The terminal
+         * will immediately attempt to load the desired font, retrieve its
+         * metrics, and attempt to resize itself to keep the same number of rows
+         * and columns.  The font scale is applied to the specified font.
+         * @param font_desc a {@link Pango.FontDescription} for the desired font, or `null`
+         */
+        set_font(font_desc: Pango.FontDescription | null): void;
+
+        /**
+         * Sets the terminal's font options to `options`.
+         * 
+         * Note that on GTK4, the terminal by default uses font options
+         * with {@link cairo.HintMetrics.ON} set; to override that, use this
+         * function to set a {@link cairo.FontOptions} that has
+         * {@link cairo.HintMetrics.OFF} set.
+         * @param font_options the font options, or `null`
+         * @since 0.74
+         */
+        set_font_options(font_options: cairo.FontOptions | null): void;
+
+        /**
+         * Sets the terminal's font scale to `scale`.
+         * @param scale the font scale
+         */
+        set_font_scale(scale: number): void;
+
+        /**
+         * Enables or disables user input. When user input is disabled,
+         * the terminal's child will not receive any key press, or mouse button
+         * press or motion events sent to it.
+         * @param enabled whether to enable user input
+         */
+        set_input_enabled(enabled: boolean): void;
+
+        /**
+         * Changes the value of the terminal's mouse autohide setting.  When autohiding
+         * is enabled, the mouse cursor will be hidden when the user presses a key and
+         * shown when the user moves the mouse.  This setting can be read using
+         * `vte_terminal_get_mouse_autohide()`.
+         * @param setting whether the mouse pointer should autohide
+         */
+        set_mouse_autohide(setting: boolean): void;
+
+        /**
+         * Sets `pty` as the PTY to use in `terminal`.
+         * Use `null` to unset the PTY.
+         * @param pty a {@link Vte.Pty}, or `null`
+         */
+        set_pty(pty: Pty | null): void;
+
+        /**
+         * Controls whether or not the terminal will rewrap its contents, including
+         * the scrollback history, whenever the terminal's width changes.
+         * @param rewrap `true` if the terminal should rewrap on resize
+         * @deprecated since 0.58
+         */
+        set_rewrap_on_resize(rewrap: boolean): void;
+
+        /**
+         * Controls whether or not the terminal will forcibly scroll to the bottom of
+         * the viewable history when text is inserted, e.g. by a paste.
+         * @param scroll whether the terminal should scroll on insert
+         * @since 0.76
+         */
+        set_scroll_on_insert(scroll: boolean): void;
+
+        /**
+         * Controls whether or not the terminal will forcibly scroll to the bottom of
+         * the viewable history when the user presses a key.  Modifier keys do not
+         * trigger this behavior.
+         * @param scroll whether the terminal should scroll on keystrokes
+         * @since 0.52
+         */
+        set_scroll_on_keystroke(scroll: boolean): void;
+
+        /**
+         * Controls whether or not the terminal will forcibly scroll to the bottom of
+         * the viewable history when the new data is received from the child.
+         * @param scroll whether the terminal should scroll on output
+         * @since 0.52
+         */
+        set_scroll_on_output(scroll: boolean): void;
+
+        /**
+         * Controls whether the terminal's scroll unit is lines or pixels.
+         * 
+         * This function is rarely useful, except when the terminal is added to a
+         * {@link Gtk.ScrolledWindow}.
+         * @param enable whether to use pixels as scroll unit
+         * @since 0.66
+         */
+        set_scroll_unit_is_pixels(enable: boolean): void;
+
+        /**
+         * Sets the length of the scrollback buffer used by the terminal.  The size of
+         * the scrollback buffer will be set to the larger of this value and the number
+         * of visible rows the widget can display, so 0 can safely be used to disable
+         * scrollback.
+         * 
+         * A negative value means "infinite scrollback".
+         * 
+         * Using a large scrollback buffer (roughly 1M+ lines) may lead to performance
+         * degradation or exhaustion of system resources, and is therefore not recommended.
+         * 
+         * Note that this setting only affects the normal screen buffer.
+         * No scrollback is allowed on the alternate screen buffer.
+         * @param lines the length of the history buffer
+         */
+        set_scrollback_lines(lines: bigint | number): void;
+
+        /**
+         * Attempts to change the terminal's size in terms of rows and columns.  If
+         * the attempt succeeds, the widget will resize itself to the proper size.
+         * @param columns the desired number of columns
+         * @param rows the desired number of rows
+         */
+        set_size(columns: bigint | number, rows: bigint | number): void;
+
+        /**
+         * Suppress emissions of signals and property notifications
+         * that are deprecated.
+         * @since 0.78
+         */
+        set_suppress_legacy_signals(): void;
+
+        /**
+         * Controls whether or not the terminal will allow blinking text.
+         * @param text_blink_mode the {@link Vte.TextBlinkMode} to use
+         * @since 0.52
+         */
+        set_text_blink_mode(text_blink_mode: TextBlinkMode): void;
+
+        /**
+         * With this function you can provide a set of characters which will
+         * be considered parts of a word when doing word-wise selection, in
+         * addition to the default which only considers alphanumeric characters
+         * part of a word.
+         * 
+         * The characters in `exceptions` must be non-alphanumeric, each character
+         * must occur only once, and if `exceptions` contains the character
+         * U+002D HYPHEN-MINUS, it must be at the start of the string.
+         * 
+         * Use `null` to reset the set of exception characters to the default.
+         * @param exceptions a string of ASCII punctuation characters, or `null`
+         * @since 0.40
+         */
+        set_word_char_exceptions(exceptions: string): void;
+
+        /**
+         * Sets the horizontal alignment of `terminal` within its allocation.
+         * 
+         * Note: `VTE_ALIGN_START_FILL` is not supported, and will be treated
+         *   like {@link Vte.Align.START}.
+         * @param align alignment value from {@link Vte.Align}
+         * @since 0.76
+         */
+        set_xalign(align: Align): void;
+
+        /**
+         * Sets the horizontal fillment of `terminal` within its allocation.
+         * 
+         * Note: `VTE_FILL_START_FILL` is not supported, and will be treated
+         *   like `VTE_FILL_START`.
+         * @param fill fillment value from `VteFill`
+         * @since 0.76
+         */
+        set_xfill(fill: boolean): void;
+
+        /**
+         * Sets the vertical alignment of `terminal` within its allocation.
+         * @param align alignment value from {@link Vte.Align}
+         * @since 0.76
+         */
+        set_yalign(align: Align): void;
+
+        /**
+         * Sets the vertical fillment of `terminal` within its allocation.
+         * Note that yfill is only supported with yalign set to
+         * {@link Vte.Align.START}, and is ignored for all other yalign values.
+         * @param fill fillment value from `VteFill`
+         * @since 0.76
+         */
+        set_yfill(fill: boolean): void;
+
+        /**
+         * A convenience function that wraps creating the {@link Vte.Pty} and spawning
+         * the child process on it. Like `vte_terminal_spawn_with_fds_async()`,
+         * except that this function does not allow passing file descriptors to
+         * the child process. See `vte_terminal_spawn_with_fds_async()` for more
+         * information.
+         * @param pty_flags flags from {@link Vte.PtyFlags}
+         * @param working_directory the name of a directory the command should start   in, or `null` to use the current working directory
+         * @param argv child's argument vector
+         * @param envv a list of environment   variables to be added to the environment before starting the process, or `null`
+         * @param spawn_flags flags from {@link GLib.SpawnFlags}
+         * @param child_setup an extra child setup function to run in the child just before `exec()`, or `null`
+         * @param timeout a timeout value in ms, -1 for the default timeout, or G_MAXINT to wait indefinitely
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @param callback a {@link Vte.TerminalSpawnAsyncCallback}, or `null`
+         * @since 0.48
+         */
+        spawn_async(pty_flags: PtyFlags, working_directory: string | null, argv: string[], envv: string[] | null, spawn_flags: GLib.SpawnFlags, child_setup: GLib.SpawnChildSetupFunc | null, timeout: number, cancellable: Gio.Cancellable | null, callback: TerminalSpawnAsyncCallback | null): void;
+
+        /**
+         * Starts the specified command under a newly-allocated controlling
+         * pseudo-terminal.  The `argv` and `envv` lists should be `null`-terminated.
+         * The "TERM" environment variable is automatically set to a default value,
+         * but can be overridden from `envv`.
+         * `pty_flags` controls logging the session to the specified system log files.
+         * 
+         * Note that {@link GLib.SpawnFlags.DO_NOT_REAP_CHILD} will always be added to `spawn_flags`.
+         * 
+         * Note also that {@link GLib.SpawnFlags.STDOUT_TO_DEV_NULL}, {@link GLib.SpawnFlags.STDERR_TO_DEV_NULL},
+         * and {@link GLib.SpawnFlags.CHILD_INHERITS_STDIN} are not supported in `spawn_flags`, since
+         * stdin, stdout and stderr of the child process will always be connected to
+         * the PTY.
+         * 
+         * Note that all open file descriptors will be closed in the child. If you want
+         * to keep some file descriptor open for use in the child process, you need to
+         * use a child setup function that unsets the FD_CLOEXEC flag on that file
+         * descriptor.
+         * 
+         * See `vte_pty_new()`, `g_spawn_async()` and `vte_terminal_watch_child()` for more information.
+         * 
+         * Beginning with 0.52, sets PWD to `working_directory` in order to preserve symlink components.
+         * The caller should also make sure that symlinks were preserved while constructing the value of `working_directory`,
+         * e.g. by using `vte_terminal_get_current_directory_uri()`, `g_get_current_dir()` or `get_current_dir_name()`.
+         * @param pty_flags flags from {@link Vte.PtyFlags}
+         * @param working_directory the name of a directory the command should start   in, or `null` to use the current working directory
+         * @param argv child's argument vector
+         * @param envv a list of environment   variables to be added to the environment before starting the process, or `null`
+         * @param spawn_flags flags from {@link GLib.SpawnFlags}
+         * @param child_setup an extra child setup function to run in the child just before `exec()`, or `null`
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @returns `true` on success, or `false` on error with `error` filled in
+         * @deprecated since 0.48: Use `vte_terminal_spawn_async()` instead.
+         * @throws GLib.Error
+         */
+        spawn_sync(pty_flags: PtyFlags, working_directory: string | null, argv: string[], envv: string[] | null, spawn_flags: GLib.SpawnFlags, child_setup: GLib.SpawnChildSetupFunc | null, cancellable: Gio.Cancellable | null): [boolean, GLib.Pid | null];
+
+        /**
+         * A convenience function that wraps creating the {@link Vte.Pty} and spawning
+         * the child process on it. See `vte_pty_new_sync()`, `vte_pty_spawn_with_fds_async()`,
+         * and `vte_pty_spawn_finish()` for more information.
+         * 
+         * When the operation is finished successfully, `callback` will be called
+         * with the child {@link GLib.Pid}, and a `null` {@link GLib.Error}. The child PID will already be
+         * watched via `vte_terminal_watch_child()`.
+         * 
+         * When the operation fails, `callback` will be called with a -1 {@link GLib.Pid},
+         * and a non-`null` {@link GLib.Error} containing the error information.
+         * 
+         * Note that {@link GLib.SpawnFlags.STDOUT_TO_DEV_NULL}, {@link GLib.SpawnFlags.STDERR_TO_DEV_NULL},
+         * and {@link GLib.SpawnFlags.CHILD_INHERITS_STDIN} are not supported in `spawn_flags`, since
+         * stdin, stdout and stderr of the child process will always be connected to
+         * the PTY.
+         * 
+         * If `fds` is not `null`, the child process will map the file descriptors from
+         * `fds` according to `map_fds`; `n_map_fds` must be less or equal to `n_fds`.
+         * This function will take ownership of the file descriptors in `fds`;
+         * you must not use or close them after this call.
+         * 
+         * Note that all  open file descriptors apart from those mapped as above
+         * will be closed in the child. (If you want to keep some other file descriptor
+         * open for use in the child process, you need to use a child setup function
+         * that unsets the FD_CLOEXEC flag on that file descriptor manually.)
+         * 
+         * Beginning with 0.60, and on linux only, and unless `VTE_SPAWN_NO_SYSTEMD_SCOPE` is
+         * passed in `spawn_flags`, the newly created child process will be moved to its own
+         * systemd user scope; and if `VTE_SPAWN_REQUIRE_SYSTEMD_SCOPE` is passed, and creation
+         * of the systemd user scope fails, the whole spawn will fail.
+         * You can override the options used for the systemd user scope by
+         * providing a systemd override file for 'vte-spawn-.scope' unit. See man:systemd.unit(5)
+         * for further information.
+         * 
+         * Note that if `terminal` has been destroyed before the operation is called,
+         * `callback` will be called with a `null` `terminal`; you must not do anything
+         * in the callback besides freeing any resources associated with `user_data`,
+         * but taking care not to access the now-destroyed {@link Vte.Terminal}. Note that
+         * in this case, if spawning was successful, the child process will be aborted
+         * automatically.
+         * 
+         * Beginning with 0.52, sets PWD to `working_directory` in order to preserve symlink components.
+         * The caller should also make sure that symlinks were preserved while constructing the value of `working_directory`,
+         * e.g. by using `vte_terminal_get_current_directory_uri()`, `g_get_current_dir()` or `get_current_dir_name()`.
+         * @param pty_flags flags from {@link Vte.PtyFlags}
+         * @param working_directory the name of a directory the command should start   in, or `null` to use the current working directory
+         * @param argv child's argument vector
+         * @param envv a list of environment   variables to be added to the environment before starting the process, or `null`
+         * @param fds an array of file descriptors, or `null`
+         * @param map_fds an array of integers, or `null`
+         * @param spawn_flags flags from {@link GLib.SpawnFlags}
+         * @param child_setup an extra child setup function to run in the child just before `exec()`, or `null`
+         * @param timeout a timeout value in ms, -1 for the default timeout, or G_MAXINT to wait indefinitely
+         * @param cancellable a {@link Gio.Cancellable}, or `null`
+         * @param callback a {@link Vte.TerminalSpawnAsyncCallback}, or `null`
+         * @since 0.62
+         */
+        spawn_with_fds_async(pty_flags: PtyFlags, working_directory: string | null, argv: string[], envv: string[] | null, fds: number[] | null, map_fds: number[] | null, spawn_flags: GLib.SpawnFlags, child_setup: GLib.SpawnChildSetupFunc | null, timeout: number, cancellable: Gio.Cancellable | null, callback: TerminalSpawnAsyncCallback | null): void;
+
+        /**
+         * Clears the current selection.
+         */
+        unselect_all(): void;
+
+        /**
+         * Watches `child_pid`. When the process exists, the {@link Vte.Terminal.SignalSignatures.child_exited | Vte.Terminal::child-exited}
+         * signal will be called with the child's exit status.
+         * 
+         * Prior to calling this function, a {@link Vte.Pty} must have been set in `terminal`
+         * using `vte_terminal_set_pty()`.
+         * When the child exits, the terminal's {@link Vte.Pty} will be set to `null`.
+         * 
+         * Note: `g_child_watch_add()` or `g_child_watch_add_full()` must not have
+         * been called for `child_pid`, nor a {@link GLib.Source} for it been created with
+         * `g_child_watch_source_new()`.
+         * 
+         * Note: when using the `g_spawn_async()` family of functions,
+         * the {@link GLib.SpawnFlags.DO_NOT_REAP_CHILD} flag MUST have been passed.
+         * @param child_pid a {@link GLib.Pid}
+         */
+        watch_child(child_pid: GLib.Pid): void;
+
+        /**
+         * Write contents of the current contents of `terminal` (including any
+         * scrollback history) to `stream` according to `flags`.
+         * 
+         * If `cancellable` is not `null`, then the operation can be cancelled by triggering
+         * the cancellable object from another thread. If the operation was cancelled,
+         * the error {@link Gio.IOErrorEnum.CANCELLED} will be returned in `error`.
+         * 
+         * This is a synchronous operation and will make the widget (and input
+         * processing) during the write operation, which may take a long time
+         * depending on scrollback history and `stream` availability for writing.
+         * @param stream a {@link Gio.OutputStream} to write to
+         * @param flags a set of {@link Vte.WriteFlags}
+         * @param cancellable a {@link Gio.Cancellable} object, or `null`
+         * @returns `true` on success, `false` if there was an error
+         * @throws GLib.Error
+         */
+        write_contents_sync(stream: Gio.OutputStream, flags: WriteFlags, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * The accessible role of the given {@link Gtk.Accessible} implementation.
+         * 
+         * The accessible role cannot be changed once set.
+         * @default Gtk.AccessibleRole.NONE
+          * @category Inherited from Gtk.Accessible
+         */
+        get accessible_role(): Gtk.AccessibleRole;
+        set accessible_role(val: Gtk.AccessibleRole);
+
+        /**
+         * The accessible role of the given {@link Gtk.Accessible} implementation.
+         * 
+         * The accessible role cannot be changed once set.
+         * @default Gtk.AccessibleRole.NONE
+          * @category Inherited from Gtk.Accessible
+         */
+        get accessibleRole(): Gtk.AccessibleRole;
+        set accessibleRole(val: Gtk.AccessibleRole);
+
+        /**
+         * Horizontal {@link Gtk.Adjustment} of the scrollable widget.
+         * 
+         * This adjustment is shared between the scrollable widget and its parent.
+          * @category Inherited from Gtk.Scrollable
+         */
+        get hadjustment(): Gtk.Adjustment | null;
+        set hadjustment(val: Gtk.Adjustment | null);
+
+        /**
+         * Determines when horizontal scrolling should start.
+         * @default Gtk.ScrollablePolicy.MINIMUM
+          * @category Inherited from Gtk.Scrollable
+         */
+        get hscroll_policy(): Gtk.ScrollablePolicy;
+        set hscroll_policy(val: Gtk.ScrollablePolicy);
+
+        /**
+         * Determines when horizontal scrolling should start.
+         * @default Gtk.ScrollablePolicy.MINIMUM
+          * @category Inherited from Gtk.Scrollable
+         */
+        get hscrollPolicy(): Gtk.ScrollablePolicy;
+        set hscrollPolicy(val: Gtk.ScrollablePolicy);
+
+        /**
+         * Vertical {@link Gtk.Adjustment} of the scrollable widget.
+         * 
+         * This adjustment is shared between the scrollable widget and its parent.
+          * @category Inherited from Gtk.Scrollable
+         */
+        get vadjustment(): Gtk.Adjustment | null;
+        set vadjustment(val: Gtk.Adjustment | null);
+
+        /**
+         * Determines when vertical scrolling should start.
+         * @default Gtk.ScrollablePolicy.MINIMUM
+          * @category Inherited from Gtk.Scrollable
+         */
+        get vscroll_policy(): Gtk.ScrollablePolicy;
+        set vscroll_policy(val: Gtk.ScrollablePolicy);
+
+        /**
+         * Determines when vertical scrolling should start.
+         * @default Gtk.ScrollablePolicy.MINIMUM
+          * @category Inherited from Gtk.Scrollable
+         */
+        get vscrollPolicy(): Gtk.ScrollablePolicy;
+        set vscrollPolicy(val: Gtk.ScrollablePolicy);
+
+        /**
+         * Requests the user's screen reader to announce the given message.
+         * 
+         * This kind of notification is useful for messages that
+         * either have only a visual representation or that are not
+         * exposed visually at all, e.g. a notification about a
+         * successful operation.
+         * 
+         * Also, by using this API, you can ensure that the message
+         * does not interrupts the user's current screen reader output.
+         * @param message the string to announce
+         * @param priority the priority of the announcement
+         * @since 4.14
+         */
+        announce(message: string, priority: Gtk.AccessibleAnnouncementPriority): void;
+
+        /**
+         * Retrieves the accessible identifier for the accessible object.
+         * 
+         * This functionality can be overridden by {@link Gtk.Accessible}
+         * implementations.
+         * 
+         * It is left to the accessible implementation to define the scope
+         * and uniqueness of the identifier.
+         * @returns the accessible identifier
+         * @since 4.22
+         */
+        get_accessible_id(): string | null;
+
+        /**
+         * Retrieves the accessible parent for an accessible object.
+         * 
+         * This function returns `NULL` for top level widgets.
+         * @returns the accessible parent
+         * @since 4.10
+         */
+        get_accessible_parent(): Gtk.Accessible | null;
+
+        /**
+         * Retrieves the accessible role of an accessible object.
+         * @returns the accessible role
+         */
+        get_accessible_role(): Gtk.AccessibleRole;
+
+        /**
+         * Retrieves the implementation for the given accessible object.
+         * @returns the accessible implementation object
+         * @since 4.10
+         */
+        get_at_context(): Gtk.ATContext;
+
+        /**
+         * Queries the coordinates and dimensions of this accessible
+         * 
+         * This functionality can be overridden by {@link Gtk.Accessible}
+         * implementations, e.g. to get the bounds from an ignored
+         * child widget.
+         * @returns true if the bounds are valid, and false otherwise
+         * @since 4.10
+         */
+        get_bounds(): [boolean, number, number, number, number];
+
+        /**
+         * Retrieves the first accessible child of an accessible object.
+         * @returns the first accessible child
+         * @since 4.10
+         */
+        get_first_accessible_child(): Gtk.Accessible | null;
+
+        /**
+         * Retrieves the next accessible sibling of an accessible object
+         * @returns the next accessible sibling
+         * @since 4.10
+         */
+        get_next_accessible_sibling(): Gtk.Accessible | null;
+
+        /**
+         * Queries a platform state, such as focus.
+         * 
+         * This functionality can be overridden by {@link Gtk.Accessible}
+         * implementations, e.g. to get platform state from an ignored
+         * child widget, as is the case for {@link Gtk.Text} wrappers.
+         * @param state platform state to query
+         * @returns the value of state for the accessible
+         * @since 4.10
+         */
+        get_platform_state(state: Gtk.AccessiblePlatformState): boolean;
+
+        /**
+         * Resets the accessible property to its default value.
+         * @param property the accessible property
+         */
+        reset_property(property: Gtk.AccessibleProperty): void;
+
+        /**
+         * Resets the accessible relation to its default value.
+         * @param relation the accessible relation
+         */
+        reset_relation(relation: Gtk.AccessibleRelation): void;
+
+        /**
+         * Resets the accessible state to its default value.
+         * @param state the accessible state
+         */
+        reset_state(state: Gtk.AccessibleState): void;
+
+        /**
+         * Sets the parent and sibling of an accessible object.
+         * 
+         * This function is meant to be used by accessible implementations that are
+         * not part of the widget hierarchy, and but act as a logical bridge between
+         * widgets. For instance, if a widget creates an object that holds metadata
+         * for each child, and you want that object to implement the {@link Gtk.Accessible}
+         * interface, you will use this function to ensure that the parent of each
+         * child widget is the metadata object, and the parent of each metadata
+         * object is the container widget.
+         * @param parent the parent accessible object
+         * @param next_sibling the sibling accessible object
+         * @since 4.10
+         */
+        set_accessible_parent(parent: Gtk.Accessible | null, next_sibling: Gtk.Accessible | null): void;
+
+        /**
+         * Updates the next accessible sibling.
+         * 
+         * That might be useful when a new child of a custom accessible
+         * is created, and it needs to be linked to a previous child.
+         * @param new_sibling the new next accessible sibling to set
+         * @since 4.10
+         */
+        update_next_accessible_sibling(new_sibling: Gtk.Accessible | null): void;
+
+        /**
+         * Informs ATs that the platform state has changed.
+         * 
+         * This function should be used by {@link Gtk.Accessible} implementations that
+         * have a platform state but are not widgets. Widgets handle platform
+         * states automatically.
+         * @param state the platform state to update
+         * @since 4.18
+         */
+        update_platform_state(state: Gtk.AccessiblePlatformState): void;
+
+        /**
+         * Updates an array of accessible properties.
+         * 
+         * This function should be called by {@link Gtk.Widget} types whenever an accessible
+         * property change must be communicated to assistive technologies.
+         * 
+         * This function is meant to be used by language bindings.
+         * @param properties an array of accessible properties
+         * @param values an array of `GValues`, one for each property
+         */
+        update_property(properties: Gtk.AccessibleProperty[], values: (GObject.Value | any)[]): void;
+
+        /**
+         * Updates an array of accessible relations.
+         * 
+         * This function should be called by {@link Gtk.Widget} types whenever an accessible
+         * relation change must be communicated to assistive technologies.
+         * 
+         * This function is meant to be used by language bindings.
+         * @param relations an array of accessible relations
+         * @param values an array of `GValues`, one for each relation
+         */
+        update_relation(relations: Gtk.AccessibleRelation[], values: (GObject.Value | any)[]): void;
+
+        /**
+         * Updates an array of accessible states.
+         * 
+         * This function should be called by {@link Gtk.Widget} types whenever an accessible
+         * state change must be communicated to assistive technologies.
+         * 
+         * This function is meant to be used by language bindings.
+         * @param states an array of accessible states
+         * @param values an array of `GValues`, one for each state
+         */
+        update_state(states: Gtk.AccessibleState[], values: (GObject.Value | any)[]): void;
+
+        /**
+         * Retrieves the accessible identifier for the accessible object.
+         * 
+         * This functionality can be overridden by {@link Gtk.Accessible}
+         * implementations.
+         * 
+         * It is left to the accessible implementation to define the scope
+         * and uniqueness of the identifier.
+         * @since 4.22
+         * @virtual
+         */
+        vfunc_get_accessible_id(): string | null;
+
+        /**
+         * Retrieves the accessible parent for an accessible object.
+         * 
+         * This function returns `NULL` for top level widgets.
+         * @since 4.10
+         * @virtual
+         */
+        vfunc_get_accessible_parent(): Gtk.Accessible | null;
+
+        /**
+         * Retrieves the implementation for the given accessible object.
+         * @since 4.10
+         * @virtual
+         */
+        vfunc_get_at_context(): Gtk.ATContext | null;
+
+        /**
+         * Queries the coordinates and dimensions of this accessible
+         * 
+         * This functionality can be overridden by {@link Gtk.Accessible}
+         * implementations, e.g. to get the bounds from an ignored
+         * child widget.
+         * @since 4.10
+         * @virtual
+         */
+        vfunc_get_bounds(): [boolean, number, number, number, number];
+
+        /**
+         * Retrieves the first accessible child of an accessible object.
+         * @since 4.10
+         * @virtual
+         */
+        vfunc_get_first_accessible_child(): Gtk.Accessible | null;
+
+        /**
+         * Retrieves the next accessible sibling of an accessible object
+         * @since 4.10
+         * @virtual
+         */
+        vfunc_get_next_accessible_sibling(): Gtk.Accessible | null;
+
+        /**
+         * Queries a platform state, such as focus.
+         * 
+         * This functionality can be overridden by {@link Gtk.Accessible}
+         * implementations, e.g. to get platform state from an ignored
+         * child widget, as is the case for {@link Gtk.Text} wrappers.
+         * @param state platform state to query
+         * @since 4.10
+         * @virtual
+         */
+        vfunc_get_platform_state(state: Gtk.AccessiblePlatformState): boolean;
+
+        /**
+         * Updates the position of the caret.
+         * 
+         * Implementations of the {@link Gtk.AccessibleText} interface should call this
+         * function every time the caret has moved, in order to notify assistive
+         * technologies.
+         * @since 4.14
+         */
+        update_caret_position(): void;
+
+        /**
+         * Notifies assistive technologies of a change in contents.
+         * 
+         * Implementations of the {@link Gtk.AccessibleText} interface should call this
+         * function every time their contents change as the result of an operation,
+         * like an insertion or a removal.
+         * 
+         * Note: If the change is a deletion, this function must be called *before*
+         * removing the contents, if it is an insertion, it must be called *after*
+         * inserting the new contents.
+         * @param change the type of change in the contents
+         * @param start the starting offset of the change, in characters
+         * @param end the end offset of the change, in characters
+         * @since 4.14
+         */
+        update_contents(change: Gtk.AccessibleTextContentChange, start: number, end: number): void;
+
+        /**
+         * Updates the boundary of the selection.
+         * 
+         * Implementations of the {@link Gtk.AccessibleText} interface should call this
+         * function every time the selection has moved, in order to notify assistive
+         * technologies.
+         * @since 4.14
+         */
+        update_selection_bound(): void;
+
+        /**
+         * Retrieves the text attributes inside the accessible object.
+         * 
+         * Each attribute is composed by:
+         * 
+         * - a range
+         * - a name
+         * - a value
+         * 
+         * It is left to the implementation to determine the serialization format
+         * of the value to a string.
+         * 
+         * GTK provides support for various text attribute names and values, but
+         * implementations of this interface are free to add their own attributes.
+         * 
+         * If this function returns true, `n_ranges` will be set to a value
+         * greater than or equal to one, `ranges` will be set to a newly
+         * allocated array of [struct#Gtk.AccessibleTextRange].
+         * @param offset the offset, in characters
+         * @since 4.14
+         * @virtual
+         */
+        vfunc_get_attributes(offset: number): [boolean, Gtk.AccessibleTextRange[] | null, string[] | null, string[] | null];
+
+        /**
+         * Retrieves the position of the caret inside the accessible object.
+         * @since 4.14
+         * @virtual
+         */
+        vfunc_get_caret_position(): number;
+
+        /**
+         * Retrieve the current contents of the accessible object within
+         * the given range.
+         * 
+         * If `end` is `G_MAXUINT`, the end of the range is the full content
+         * of the accessible object.
+         * @param start the beginning of the range, in characters
+         * @param end the end of the range, in characters
+         * @since 4.14
+         * @virtual
+         */
+        vfunc_get_contents(start: number, end: number): GLib.Bytes | Uint8Array;
+
+        /**
+         * Retrieve the current contents of the accessible object starting
+         * from the given offset, and using the given granularity.
+         * 
+         * The `start` and `end` values contain the boundaries of the text.
+         * @param offset the offset, in characters
+         * @param granularity the granularity of the query
+         * @since 4.14
+         * @virtual
+         */
+        vfunc_get_contents_at(offset: number, granularity: Gtk.AccessibleTextGranularity): [GLib.Bytes | Uint8Array, number, number];
+
+        /**
+         * Retrieves the default text attributes inside the accessible object.
+         * 
+         * Each attribute is composed by:
+         * 
+         * - a name
+         * - a value
+         * 
+         * It is left to the implementation to determine the serialization format
+         * of the value to a string.
+         * 
+         * GTK provides support for various text attribute names and values, but
+         * implementations of this interface are free to add their own attributes.
+         * @since 4.14
+         * @virtual
+         */
+        vfunc_get_default_attributes(): [string[] | null, string[] | null];
+
+        /**
+         * Obtains the extents of a range of text, in widget coordinates.
+         * @param start the start offset, in characters
+         * @param end the end offset, in characters, `extents` (out caller-allocates): return location for the extents
+         * @param extents 
+         * @since 4.16
+         * @virtual
+         */
+        vfunc_get_extents(start: number, end: number, extents: Graphene.Rect): boolean;
+
+        /**
+         * Gets the text offset at a given point.
+         * @param point a point in widget coordinates of `self`
+         * @since 4.16
+         * @virtual
+         */
+        vfunc_get_offset(point: Graphene.Point): [boolean, number];
+
+        /**
+         * Retrieves the selection ranges in the accessible object.
+         * 
+         * If this function returns true, `n_ranges` will be set to a value
+         * greater than or equal to one, and `ranges` will be set to a newly
+         * allocated array of [struct#Gtk.AccessibleTextRange].
+         * @since 4.14
+         * @virtual
+         */
+        vfunc_get_selection(): [boolean, Gtk.AccessibleTextRange[] | null];
+
+        /**
+         * Sets the caret position.
+         * @param offset the text offset in characters
+         * @since 4.22
+         * @virtual
+         */
+        vfunc_set_caret_position(offset: number): boolean;
+
+        /**
+         * Sets the caret position.
+         * @param i the selection to set
+         * @param range the range to set the selection to
+         * @since 4.22
+         * @virtual
+         */
+        vfunc_set_selection(i: number, range: Gtk.AccessibleTextRange): boolean;
+
+        /**
+         * Gets the ID of the `buildable` object.
+         * 
+         * {@link Gtk.Builder} sets the name based on the ID attribute
+         * of the `<object>` tag used to construct the `buildable`.
+         * @returns the ID of the buildable object
+         */
+        get_buildable_id(): string | null;
+
+        /**
+         * Adds a child to `buildable`. `type` is an optional string
+         * describing how the child should be added.
+         * @param builder a {@link Gtk.Builder}
+         * @param child child to add
+         * @param type kind of child or `null`
+         * @virtual
+         */
+        vfunc_add_child(builder: Gtk.Builder, child: GObject.Object, type: string | null): void;
+
+        /**
+         * Similar to `gtk_buildable_parser_finished()` but is
+         * called once for each custom tag handled by the `buildable`.
+         * @param builder a {@link Gtk.Builder}
+         * @param child child object or `null` for non-child tags
+         * @param tagname the name of the tag
+         * @param data user data created in custom_tag_start
+         * @virtual
+         */
+        vfunc_custom_finished(builder: Gtk.Builder, child: GObject.Object | null, tagname: string, data: null): void;
+
+        /**
+         * Called at the end of each custom element handled by
+         * the buildable.
+         * @param builder {@link Gtk.Builder} used to construct this object
+         * @param child child object or `null` for non-child tags
+         * @param tagname name of tag
+         * @param data user data that will be passed in to parser functions
+         * @virtual
+         */
+        vfunc_custom_tag_end(builder: Gtk.Builder, child: GObject.Object | null, tagname: string, data: null): void;
+
+        /**
+         * Called for each unknown element under `<child>`.
+         * @param builder a {@link Gtk.Builder} used to construct this object
+         * @param child child object or `null` for non-child tags
+         * @param tagname name of tag
+         * @virtual
+         */
+        vfunc_custom_tag_start(builder: Gtk.Builder, child: GObject.Object | null, tagname: string): [boolean, Gtk.BuildableParser, never];
+
+        /**
+         * The getter corresponding to `set_id`. Implement this
+         *   if you implement `set_id`.
+         * @virtual
+         */
+        vfunc_get_id(): string;
+
+        /**
+         * Retrieves the internal child called `childname` of the `buildable` object.
+         * @param builder a {@link Gtk.Builder}
+         * @param childname name of child
+         * @virtual
+         */
+        vfunc_get_internal_child<T = GObject.Object>(builder: Gtk.Builder, childname: string): T;
+
+        /**
+         * Called when a builder finishes the parsing
+         *  of a UI definition. It is normally not necessary to implement this,
+         *  unless you need to perform special cleanup actions. {@link Gtk.Window} sets
+         *  the {@link Gtk.Widget.visible} property here.
+         * @param builder 
+         * @virtual
+         */
+        vfunc_parser_finished(builder: Gtk.Builder): void;
+
+        /**
+         * Sets a property of a buildable object.
+         *  It is normally not necessary to implement this, `g_object_set_property()`
+         *  is used by default. {@link Gtk.Window} implements this to delay showing itself
+         *  (i.e. setting the {@link Gtk.Widget.visible} property) until the whole
+         *  interface is created.
+         * @param builder 
+         * @param name 
+         * @param value 
+         * @virtual
+         */
+        vfunc_set_buildable_property(builder: Gtk.Builder, name: string, value: unknown): void;
+
+        /**
+         * Stores the id attribute given in the {@link Gtk.Builder} UI definition.
+         *   {@link Gtk.Widget} stores the name as object data. Implement this method if your
+         *   object has some notion of “ID” and it makes sense to map the XML id
+         *   attribute to it.
+         * @param id 
+         * @virtual
+         */
+        vfunc_set_id(id: string): void;
+
+        /**
+         * Returns the size of a non-scrolling border around the
+         * outside of the scrollable.
+         * 
+         * An example for this would be treeview headers. GTK can use
+         * this information to display overlaid graphics, like the
+         * overshoot indication, at the right position.
+         * @returns `true` if `border` has been set
+         */
+        get_border(): [boolean, Gtk.Border];
+
+        /**
+         * Retrieves the {@link Gtk.Adjustment} used for horizontal scrolling.
+         * @returns horizontal {@link Gtk.Adjustment}.
+         */
+        get_hadjustment(): Gtk.Adjustment | null;
+
+        /**
+         * Gets the horizontal {@link Gtk.ScrollablePolicy}.
+         * @returns The horizontal {@link Gtk.ScrollablePolicy}.
+         */
+        get_hscroll_policy(): Gtk.ScrollablePolicy;
+
+        /**
+         * Retrieves the {@link Gtk.Adjustment} used for vertical scrolling.
+         * @returns vertical {@link Gtk.Adjustment}.
+         */
+        get_vadjustment(): Gtk.Adjustment | null;
+
+        /**
+         * Gets the vertical {@link Gtk.ScrollablePolicy}.
+         * @returns The vertical {@link Gtk.ScrollablePolicy}.
+         */
+        get_vscroll_policy(): Gtk.ScrollablePolicy;
+
+        /**
+         * Sets the horizontal adjustment of the {@link Gtk.Scrollable}.
+         * @param hadjustment a {@link Gtk.Adjustment}
+         */
+        set_hadjustment(hadjustment: Gtk.Adjustment | null): void;
+
+        /**
+         * Sets the {@link Gtk.ScrollablePolicy}.
+         * 
+         * The policy determines whether horizontal scrolling should start
+         * below the minimum width or below the natural width.
+         * @param policy the horizontal {@link Gtk.ScrollablePolicy}
+         */
+        set_hscroll_policy(policy: Gtk.ScrollablePolicy): void;
+
+        /**
+         * Sets the vertical adjustment of the {@link Gtk.Scrollable}.
+         * @param vadjustment a {@link Gtk.Adjustment}
+         */
+        set_vadjustment(vadjustment: Gtk.Adjustment | null): void;
+
+        /**
+         * Sets the {@link Gtk.ScrollablePolicy}.
+         * 
+         * The policy determines whether vertical scrolling should start
+         * below the minimum height or below the natural height.
+         * @param policy the vertical {@link Gtk.ScrollablePolicy}
+         */
+        set_vscroll_policy(policy: Gtk.ScrollablePolicy): void;
+
+        /**
+         * Returns the size of a non-scrolling border around the
+         * outside of the scrollable.
+         * 
+         * An example for this would be treeview headers. GTK can use
+         * this information to display overlaid graphics, like the
+         * overshoot indication, at the right position.
+         * @virtual
+         */
+        vfunc_get_border(): [boolean, Gtk.Border];
+    }
+
+
+    /**
+     * @gir-type Struct
+     * @deprecated since 0.68
+     */
+    class CharAttributes {
+        static $gtype: GObject.GType<CharAttributes>;
+    }
+
+
+    /**
+     * Provides context information for a context menu event.
+     * @gir-type Struct
+     * @since 0.76
+     */
+    abstract class EventContext {
+        static $gtype: GObject.GType<EventContext>;
+
+        // Methods
+        /**
+         * @param x location to store the X coordinate
+         * @param y location to store the Y coordinate
+         * @returns `true` if the event has coordinates attached   that are within the terminal, with `x` and `y` filled in;   `false` otherwise
+         * @since 0.76
+         */
+        get_coordinates(x: number | null, y: number | null): boolean;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type PtyClass = typeof Pty;
+
+    /**
+     * @gir-type Struct
+     */
+    class Regex {
+        static $gtype: GObject.GType<Regex>;
+
+        // Constructors
+        constructor(pattern: string, pattern_length: bigint | number, flags: number);
+
+        static new_for_match(pattern: string, pattern_length: bigint | number, flags: number): Regex;
+
+        static new_for_match_full(pattern: string, pattern_length: bigint | number, flags: number, extra_flags: number): Regex;
+
+        static new_for_search(pattern: string, pattern_length: bigint | number, flags: number): Regex;
+
+        static new_for_search_full(pattern: string, pattern_length: bigint | number, flags: number, extra_flags: number): Regex;
+
+        // Methods
+        /**
+         * If the platform supports JITing, JIT compiles `regex`.
+         * @param flags PCRE2 JIT flags, or 0
+         * @returns `true` if JITing succeeded (or PCRE2 was built without   JIT support), or `false` with `error` filled in
+         * @throws GLib.Error
+         */
+        jit(flags: number): boolean;
+
+        /**
+         * Increases the reference count of `regex` by one.
+         * @returns `regex`
+         */
+        ref(): Regex;
+
+        /**
+         * See man:pcre2api(3) and man:pcre2_substitute(3) for more information.
+         * @param subject the subject string
+         * @param replacement the replacement string
+         * @param flags PCRE2 match flags
+         * @returns the substituted string, or `null`   if an error occurred
+         * @since 0.56
+         * @throws GLib.Error
+         */
+        substitute(subject: string, replacement: string, flags: number): string;
+
+        /**
+         * Decreases the reference count of `regex` by one, and frees `regex`
+         * if the refcount reaches zero.
+         * @returns `null`
+         */
+        unref(): Regex;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type TerminalClass = typeof Terminal;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class TerminalClassPrivate {
+        static $gtype: GObject.GType<TerminalClassPrivate>;
+    }
+
+
+    /**
+     * An object representing an UUID.
+     * @gir-type Struct
+     * @since 0.78
+     */
+    class Uuid {
+        static $gtype: GObject.GType<Uuid>;
+
+        // Constructors
+        constructor(properties?: Partial<{}>);
+
+        static new_from_string(str: string, len: bigint | number, fmt: UuidFormat): Uuid;
+
+        static new_v4(): Uuid;
+
+        // Static methods
+        /**
+         * Checks whether `str` is a valid string representation of an UUID.
+         * @param str a string
+         * @param len the length of `str`, or -1 is `str` is NUL terminated
+         * @param fmt a {@link Vte.UuidFormat}
+         * @since 0.78
+         */
+        static validate_string(str: string, len: bigint | number, fmt: UuidFormat): boolean;
+
+        // Methods
+        /**
+         * Creates a copy of `uuid`.
+         * @returns a new copy of @`uuid`
+         * @since 0.78
+         */
+        dup(): Uuid;
+
+        /**
+         * Compares `uuid` and `other` for equality.
+         * @param other 
+         * @returns `true` iff `uuid` and `other` are equal
+         * @since 0.78
+         */
+        equal(other: Uuid): boolean;
+
+        /**
+         * Frees `uuid`.
+         * @since 0.78
+         */
+        free(): void;
+
+        /**
+         * Frees `uuid` and returns its string representation, see
+         * `vte_uuid_to_string()` for more information.
+         * @param fmt a {@link Vte.UuidFormat}
+         * @param len a location to store the length of the returned string, or `null`
+         * @returns a string representation of `uuid`
+         * @since 0.78
+         */
+        free_to_string(fmt: UuidFormat, len: bigint | number): string;
+
+        /**
+         * Creates a new UUID for `ns` and `str`.
+         * @param data string data
+         * @param len the length of `data`, or -1 if `str` is NUL terminated
+         * @returns a new v5 UUID
+         * @since 0.78
+         */
+        new_v5(data: string, len: bigint | number): Uuid;
+
+        /**
+         * Returns the string representation of `uuid`.
+         * @param fmt a {@link Vte.UuidFormat}
+         * @returns a string representation of `uuid`
+         * @since 0.78
+         */
+        to_string(fmt: UuidFormat): [string, number];
+    }
+
+
+    /**
+     * Name of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L188
+     */
+    const __name__: string;
+
+    /**
+     * Version of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L189
+     */
+    const __version__: string;
+}
+
+export default Vte;
+
+}
+
+declare module 'gi://Vte' {
+    import Vte391 from 'gi://Vte?version=3.91';
+    export default Vte391;
+}
+// END

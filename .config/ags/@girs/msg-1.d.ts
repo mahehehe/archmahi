@@ -1,0 +1,2053 @@
+/// <reference path="./soup-3.0.d.ts" />
+/// <reference path="./gio-2.0.d.ts" />
+/// <reference path="./gobject-2.0.d.ts" />
+/// <reference path="./glib-2.0.d.ts" />
+/// <reference path="./gmodule-2.0.d.ts" />
+/// <reference path="./json-1.0.d.ts" />
+/// <reference path="./goa-1.0.d.ts" />
+
+/**
+ * Type Definitions for Gjs (https://gjs.guide/)
+ *
+ * These type definitions are automatically generated, do not edit them by hand.
+ * If you found a bug fix it in `ts-for-gir` or create a bug report on https://github.com/gjsify/ts-for-gir
+ *
+ * The based EJS template file is used for the generated .d.ts file of each GIR module like Gtk-4.0, GObject-2.0, ...
+ */
+
+declare module 'gi://Msg?version=1' {
+
+// Module dependencies
+import type Soup from 'gi://Soup?version=3.0';
+import type Gio from 'gi://Gio?version=2.0';
+import type GObject from 'gi://GObject?version=2.0';
+import type GLib from 'gi://GLib?version=2.0';
+import type GModule from 'gi://GModule?version=2.0';
+import type Json from 'gi://Json?version=1.0';
+import type Goa from 'gi://Goa?version=1.0';
+
+export namespace Msg {
+
+    /**
+     * Msg-1
+     */
+
+
+    /**
+     * The type of Drive
+     * <ulink url="https://docs.microsoft.com/en-us/graph/api/resources/drive?view=graph-rest-1.0">
+     * objects</ulink>.
+     * @gir-type Enum
+     */
+    enum DriveType {
+        /**
+         * Personal OneDrive drive
+         */
+        PERSONAL = 0,
+        /**
+         * OneDrive for Business drive
+         */
+        BUSINESS = 1,
+        /**
+         * SharePoint document library
+         */
+        DOCUMENT_LIBRARY = 2,
+    }
+
+
+    /**
+     * This enumeration can be expanded at a later date.
+     * @gir-type Struct
+     */
+    class Error extends GLib.Error {
+        static $gtype: GObject.GType<GLib.Error>;
+
+        // Static fields
+        /**
+         * An unrecoverable error occurred.
+         */
+        static FAILED: number;
+
+        static PROTOCOL_ERROR: number;
+
+        // Constructors
+        constructor(options: { message: string; code: number });
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    class MailFolderType {
+        static $gtype: GObject.GType<MailFolderType>;
+
+        // Static fields
+        static "0": number;
+
+        static INBOX: number;
+
+        static DRAFTS: number;
+
+        static SENT_ITEMS: number;
+
+        static JUNK_EMAIL: number;
+
+        static DELETED_ITEMS: number;
+
+        static OUTBOX: number;
+
+        static ARCHIVE: number;
+
+        static OTHER: number;
+
+        static MAX: number;
+    }
+
+
+    /**
+     * @default https://graph.microsoft.com/v1.0
+     */
+    const API_ENDPOINT: string;
+
+    /**
+     * @default https://graph.microsoft.com/beta
+     */
+    const BETA_API_ENDPOINT: string;
+
+    function error_quark(): GLib.Quark;
+
+    /**
+     * @param object 
+     * @param name 
+     */
+    function json_object_get_boolean(object: Json.Object, name: string): boolean;
+
+    /**
+     * @param object 
+     * @param name 
+     */
+    function json_object_get_string(object: Json.Object, name: string): string;
+
+    namespace Drive {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * {@link Msg.DriveService} is a subclass of {@link Msg.Service} for communicating with the MS Graph API.
+     * 
+     * Details: https://learn.microsoft.com/en-us/graph/api/resources/drive?view=graph-rest-1.0
+     * @gir-type Class
+     */
+    class Drive extends GObject.Object {
+        static $gtype: GObject.GType<Drive>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Drive.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Drive.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): Drive;
+
+        static new_from_json(object: Json.Object): Drive;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Drive.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Drive.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Drive.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Drive.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Drive.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Drive.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get created time of drive.
+         * @returns created time of drive
+         */
+        get_created(): GLib.DateTime;
+
+        /**
+         * Gets the drive type of the drive.
+         * @returns the drive type of drive
+         */
+        get_drive_type(): DriveType;
+
+        /**
+         * Gets the ID of the drive.
+         * @returns the id of the drive
+         */
+        get_id(): string;
+
+        /**
+         * Gets the modified time of the drive.
+         * @returns modified time of drive
+         */
+        get_modified(): GLib.DateTime;
+
+        /**
+         * Gets tthe name of the drive.
+         * @returns name of drive
+         */
+        get_name(): string;
+
+        /**
+         * Gets the remaining size of the drive.
+         * @returns remaining size of drive
+         */
+        get_remaining(): number;
+
+        /**
+         * Gets the total size of the drive.
+         * @returns total size of drive
+         */
+        get_total(): number;
+
+        /**
+         * Gets the used size of the drive.
+         * @returns used size of drive
+         */
+        get_used(): number;
+    }
+
+
+    namespace DriveItem {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DriveItem extends GObject.Object {
+        static $gtype: GObject.GType<DriveItem>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DriveItem.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DriveItem.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static new_from_json(object: Json.Object): DriveItem;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DriveItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DriveItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DriveItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DriveItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DriveItem.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DriveItem.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get created time of drive item.
+         * @returns created date time of drive item
+         */
+        get_created(): number;
+
+        /**
+         * Gets drive id of drive item.
+         * @returns drive id of drive item
+         */
+        get_drive_id(): string;
+
+        /**
+         * Gets etag of drive item.
+         * @returns etag of drive item
+         */
+        get_etag(): string;
+
+        /**
+         * Get id of drive item.
+         * @returns id of drive item
+         */
+        get_id(): string;
+
+        /**
+         * Gets modified time of drive item.
+         * @returns modified date time of drive item
+         */
+        get_modified(): number;
+
+        /**
+         * Gets name of drive item.
+         * @returns name of drive item
+         */
+        get_name(): string;
+
+        /**
+         * Gets parent id of drive item.
+         * @returns parent id of drive item
+         */
+        get_parent_id(): string;
+
+        /**
+         * Get remote parent drive id of drive item.
+         */
+        get_remote_drive_id(): string;
+
+        /**
+         * Get remote id of drive item.
+         */
+        get_remote_id(): string;
+
+        /**
+         * Gets size of drive item.
+         * @returns size of drive item
+         */
+        get_size(): number;
+
+        /**
+         * Gets user of drive item.
+         * @returns user of drive item
+         */
+        get_user(): string;
+
+        /**
+         * Gets whether item is shared.
+         * @returns `true` if item is shared, otherwise `false`
+         */
+        is_shared(): boolean;
+
+        /**
+         * Sets id of drive item.
+         * @param id new id of drive item
+         */
+        set_id(id: string): void;
+
+        /**
+         * Sets name of drive item.
+         * @param name new name of drive item
+         */
+        set_name(name: string): void;
+
+        /**
+         * Set parent id of drive item.
+         * @param parent_id parent id
+         */
+        set_parent_id(parent_id: string): void;
+    }
+
+
+    namespace DriveItemFile {
+        // Signal signatures
+        interface SignalSignatures extends DriveItem.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends DriveItem.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DriveItemFile extends DriveItem {
+        static $gtype: GObject.GType<DriveItemFile>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DriveItemFile.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DriveItemFile.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): DriveItemFile;
+
+        static new_from_json(object: Json.Object): DriveItemFile;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DriveItemFile.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DriveItemFile.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DriveItemFile.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DriveItemFile.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DriveItemFile.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DriveItemFile.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Gets mime type of drive item file.
+         * @returns mime type of drive item file
+         */
+        get_mime_type(): string;
+
+        /**
+         * Gets thumbnail uri of drive item file.
+         * @returns thumbnail uri of drive item file
+         */
+        get_thumbnail_uri(): string;
+    }
+
+
+    namespace DriveItemFolder {
+        // Signal signatures
+        interface SignalSignatures extends DriveItem.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends DriveItem.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DriveItemFolder extends DriveItem {
+        static $gtype: GObject.GType<DriveItemFolder>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DriveItemFolder.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DriveItemFolder.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): DriveItemFolder;
+
+        static new_from_json(object: Json.Object): DriveItemFolder;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DriveItemFolder.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DriveItemFolder.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DriveItemFolder.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DriveItemFolder.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DriveItemFolder.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DriveItemFolder.SignalSignatures[K]>): void;
+    }
+
+
+    namespace DriveService {
+        // Signal signatures
+        interface SignalSignatures extends Service.SignalSignatures {
+            "notify::authorizer": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Service.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DriveService extends Service {
+        static $gtype: GObject.GType<DriveService>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DriveService.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DriveService.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](authorizer: Authorizer): DriveService;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DriveService.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DriveService.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DriveService.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DriveService.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DriveService.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DriveService.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Adds item to parent folder
+         * @param parent parent drive item
+         * @param item drive item to add
+         * @param cancellable a cancellable
+         * @returns a new drive item
+         * @throws GLib.Error
+         */
+        add_item_to_folder(parent: DriveItem, item: DriveItem, cancellable: Gio.Cancellable | null): DriveItem;
+
+        /**
+         * Copy a file async on remote server to a new directory.
+         * @param file source {@link Msg.DriveItem}
+         * @param destination destination directory {@link Msg.DriveItem}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns `true` if accepted, `false` on error
+         * @throws GLib.Error
+         */
+        copy_file(file: DriveItem, destination: DriveItem, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Creates a new folder called name under parent.
+         * @param parent parent drive item
+         * @param name name of new folder
+         * @param cancellable a cancellable
+         * @returns a newly created {@link Msg.DriveItem}
+         * @throws GLib.Error
+         */
+        create_folder(parent: DriveItem, name: string, cancellable: Gio.Cancellable | null): DriveItem;
+
+        /**
+         * Deletes item.
+         * @param item a {@link Msg.DriveItem}
+         * @param cancellable a cancellable
+         * @returns `true` when item has been deleted, otherwise `false`
+         * @throws GLib.Error
+         */
+        ["delete"](item: DriveItem, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Download item
+         * @param item a {@link Msg.DriveItem}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns input stream of drive item
+         * @throws GLib.Error
+         */
+        download_item(item: DriveItem, cancellable: Gio.Cancellable | null): Gio.InputStream;
+
+        /**
+         * Download url
+         * @param url url to download
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns a new {@link Gio.InputStream} for url
+         * @throws GLib.Error
+         */
+        download_url(url: string, cancellable: Gio.Cancellable | null): Gio.InputStream;
+
+        /**
+         * Queries the Microsoft Graph API for all the drives of the currently logged in user
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns all drives the user can access
+         * @throws GLib.Error
+         */
+        get_drives(cancellable: Gio.Cancellable | null): Drive[];
+
+        /**
+         * Get root item of selected drive
+         * @param drive a {@link Msg.Drive}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns root 'MsgDriveItem'
+         * @throws GLib.Error
+         */
+        get_root(drive: Drive, cancellable: Gio.Cancellable | null): DriveItem;
+
+        /**
+         * Requests all shared with me items
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns shared with me list
+         * @throws GLib.Error
+         */
+        get_shared_with_me(cancellable: Gio.Cancellable | null): DriveItem[];
+
+        /**
+         * Get a list of all files in folder item
+         * @param item a {@link Msg.DriveItem}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns all items in folder
+         * @throws GLib.Error
+         */
+        list_children(item: DriveItem, cancellable: Gio.Cancellable | null): DriveItem[];
+
+        /**
+         * Move a file async on remote server to a new directory.
+         * @param file source {@link Msg.DriveItem}
+         * @param destination destination directory {@link Msg.DriveItem}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns moved {@link Msg.DriveItem}
+         * @throws GLib.Error
+         */
+        move_file(file: DriveItem, destination: DriveItem, cancellable: Gio.Cancellable | null): DriveItem;
+
+        /**
+         * Sets a new drive item name
+         * @param item a {@link Msg.DriveItem}
+         * @param new_name new name of item
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns the renamed {@link Msg.DriveItem}
+         * @throws GLib.Error
+         */
+        rename(item: DriveItem, new_name: string, cancellable: Gio.Cancellable | null): DriveItem;
+
+        /**
+         * Creates an update stream for drive item in order to update it's content.
+         * @param item a drive item
+         * @param cancellable a cancellable
+         * @returns an output stream
+         * @throws GLib.Error
+         */
+        update(item: DriveItem, cancellable: Gio.Cancellable | null): Gio.OutputStream;
+
+        /**
+         * Finish a update session of given #item.
+         * @param item a {@link Msg.DriveItem}
+         * @param stream stream where data is store and needs to be transfered
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns a new {@link Msg.DriveItem} or `null` on error.
+         * @throws GLib.Error
+         */
+        update_finish(item: DriveItem, stream: Gio.OutputStream, cancellable: Gio.Cancellable | null): DriveItem;
+    }
+
+
+    namespace GoaAuthorizer {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::goa-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, Authorizer.ConstructorProps {
+            goa_object: Goa.Object;
+            goaObject: Goa.Object;
+        }
+    }
+
+    /**
+     * The {@link Msg.GoaAuthorizer} structure contains only private data and
+     * should only be accessed using the provided API.
+     * @gir-type Class
+     */
+    class GoaAuthorizer extends GObject.Object implements Authorizer {
+        static $gtype: GObject.GType<GoaAuthorizer>;
+
+        // Properties
+        /**
+         * @construct-only
+         */
+        get goa_object(): Goa.Object;
+
+        /**
+         * @construct-only
+         */
+        get goaObject(): Goa.Object;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: GoaAuthorizer.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<GoaAuthorizer.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](goa_object: Goa.Object): GoaAuthorizer;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof GoaAuthorizer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, GoaAuthorizer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof GoaAuthorizer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, GoaAuthorizer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof GoaAuthorizer.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<GoaAuthorizer.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Gets the GOA account used by `self` for authorization.
+         * @returns A {@link Goa.Object}. The returned object is owned by {@link Msg.GoaAuthorizer} and should not be modified or freed.
+         */
+        get_goa_object(): Goa.Object;
+
+        /**
+         * Adds the necessary authorization to `message`. The type of `message`
+         * can be DELETE, GET and POST.
+         * 
+         * This method modifies `message` in place and is thread safe.
+         * @param message A {@link Soup.Message}.
+         */
+        process_request(message: Soup.Message): void;
+
+        /**
+         * Synchronously forces `iface` to refresh any authorization tokens
+         * held by it. See `msg_authorizer_refresh_authorization_async()` for the
+         * asynchronous version of this call.
+         * 
+         * This method is thread safe.
+         * @param cancellable An optional {@link Gio.Cancellable} object, or   `null`.
+         * @returns `true` if the authorizer now has a valid token.
+         * @throws GLib.Error
+         */
+        refresh_authorization(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Adds the necessary authorization to `message`. The type of `message`
+         * can be DELETE, GET and POST.
+         * 
+         * This method modifies `message` in place and is thread safe.
+         * @param message A {@link Soup.Message}.
+         * @virtual
+         */
+        vfunc_process_request(message: Soup.Message): void;
+
+        /**
+         * Synchronously forces `iface` to refresh any authorization tokens
+         * held by it. See `msg_authorizer_refresh_authorization_async()` for the
+         * asynchronous version of this call.
+         * 
+         * This method is thread safe.
+         * @param cancellable An optional {@link Gio.Cancellable} object, or   `null`.
+         * @virtual
+         */
+        vfunc_refresh_authorization(cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    namespace InputStream {
+        // Signal signatures
+        interface SignalSignatures extends Gio.InputStream.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends Gio.InputStream.ConstructorProps, Gio.Seekable.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class InputStream extends Gio.InputStream implements Gio.Seekable {
+        static $gtype: GObject.GType<InputStream>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: InputStream.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<InputStream.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](service: Service, uri: string): InputStream;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof InputStream.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, InputStream.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof InputStream.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, InputStream.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof InputStream.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<InputStream.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Gets corresponding SoupMessage
+         * @param stream a {@link Gio.InputStream}
+         */
+        static get_message(stream: Gio.InputStream): Soup.Message;
+
+        /**
+         * @param stream 
+         * @param io_priority 
+         * @param cancellable 
+         * @param callback 
+         */
+        static send_async(stream: Gio.InputStream, io_priority: number, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<InputStream> | null): void;
+
+        /**
+         * @param stream 
+         * @param result 
+         */
+        static send_finish(stream: Gio.InputStream, result: Gio.AsyncResult): boolean;
+
+        /**
+         * Tests if the stream supports the {@link Gio.SeekableIface}.
+         * @returns `true` if `seekable` can be seeked. `false` otherwise.
+         */
+        can_seek(): boolean;
+
+        /**
+         * Tests if the length of the stream can be adjusted with
+         * `g_seekable_truncate()`.
+         * @returns `true` if the stream can be truncated, `false` otherwise.
+         */
+        can_truncate(): boolean;
+
+        /**
+         * Seeks in the stream by the given `offset`, modified by `type`.
+         * 
+         * Attempting to seek past the end of the stream will have different
+         * results depending on if the stream is fixed-sized or resizable.  If
+         * the stream is resizable then seeking past the end and then writing
+         * will result in zeros filling the empty space.  Seeking past the end
+         * of a resizable stream and reading will result in EOF.  Seeking past
+         * the end of a fixed-sized stream will fail.
+         * 
+         * Any operation that would result in a negative offset will fail.
+         * 
+         * If `cancellable` is not `null`, then the operation can be cancelled by
+         * triggering the cancellable object from another thread. If the operation
+         * was cancelled, the error {@link Gio.IOErrorEnum.CANCELLED} will be returned.
+         * @param offset a `goffset`.
+         * @param type a {@link GLib.SeekType}.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @returns `true` if successful. If an error     has occurred, this function will return `false` and set `error`     appropriately if present.
+         * @throws GLib.Error
+         */
+        seek(offset: bigint | number, type: GLib.SeekType, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Tells the current position within the stream.
+         * @returns the (positive or zero) offset from the beginning of the buffer, zero if the target is not seekable.
+         */
+        tell(): number;
+
+        /**
+         * Sets the length of the stream to `offset`. If the stream was previously
+         * larger than `offset`, the extra data is discarded. If the stream was
+         * previously shorter than `offset`, it is extended with NUL ('\0') bytes.
+         * 
+         * If `cancellable` is not `null`, then the operation can be cancelled by
+         * triggering the cancellable object from another thread. If the operation
+         * was cancelled, the error {@link Gio.IOErrorEnum.CANCELLED} will be returned. If an
+         * operation was partially finished when the operation was cancelled the
+         * partial result will be returned, without an error.
+         * @param offset new length for `seekable`, in bytes.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @returns `true` if successful. If an error     has occurred, this function will return `false` and set `error`     appropriately if present.
+         * @throws GLib.Error
+         */
+        truncate(offset: bigint | number, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Tests if the stream supports the {@link Gio.SeekableIface}.
+         * @virtual
+         */
+        vfunc_can_seek(): boolean;
+
+        /**
+         * Tests if the length of the stream can be adjusted with
+         * `g_seekable_truncate()`.
+         * @virtual
+         */
+        vfunc_can_truncate(): boolean;
+
+        /**
+         * Seeks in the stream by the given `offset`, modified by `type`.
+         * 
+         * Attempting to seek past the end of the stream will have different
+         * results depending on if the stream is fixed-sized or resizable.  If
+         * the stream is resizable then seeking past the end and then writing
+         * will result in zeros filling the empty space.  Seeking past the end
+         * of a resizable stream and reading will result in EOF.  Seeking past
+         * the end of a fixed-sized stream will fail.
+         * 
+         * Any operation that would result in a negative offset will fail.
+         * 
+         * If `cancellable` is not `null`, then the operation can be cancelled by
+         * triggering the cancellable object from another thread. If the operation
+         * was cancelled, the error {@link Gio.IOErrorEnum.CANCELLED} will be returned.
+         * @param offset a `goffset`.
+         * @param type a {@link GLib.SeekType}.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @virtual
+         */
+        vfunc_seek(offset: number, type: GLib.SeekType, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Tells the current position within the stream.
+         * @virtual
+         */
+        vfunc_tell(): bigint | number;
+
+        /**
+         * Sets the length of the stream to `offset`. If the stream was previously
+         * larger than `offset`, the extra data is discarded. If the stream was
+         * previously shorter than `offset`, it is extended with NUL ('\0') bytes.
+         * 
+         * If `cancellable` is not `null`, then the operation can be cancelled by
+         * triggering the cancellable object from another thread. If the operation
+         * was cancelled, the error {@link Gio.IOErrorEnum.CANCELLED} will be returned. If an
+         * operation was partially finished when the operation was cancelled the
+         * partial result will be returned, without an error.
+         * @param offset new length for `seekable`, in bytes.
+         * @param cancellable optional {@link Gio.Cancellable} object, `null` to ignore.
+         * @virtual
+         */
+        vfunc_truncate_fn(offset: number, cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    namespace MailFolder {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * Handling of mail folder specific functions.
+     * @gir-type Class
+     */
+    class MailFolder extends GObject.Object {
+        static $gtype: GObject.GType<MailFolder>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MailFolder.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MailFolder.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): MailFolder;
+
+        static new_from_json(json_object: Json.Object): MailFolder;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MailFolder.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MailFolder.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MailFolder.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MailFolder.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MailFolder.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MailFolder.SignalSignatures[K]>): void;
+
+        // Methods
+        get_child_folder_count(): number;
+
+        get_delta_link(): string;
+
+        /**
+         * @returns display name of mail folder
+         */
+        get_display_name(): string;
+
+        get_folder_type(): MailFolderType;
+
+        /**
+         * @returns id of mail folder
+         */
+        get_id(): string;
+
+        get_parent_id(): string;
+
+        /**
+         * @returns total item number of mail folder
+         */
+        get_total_item_count(): number;
+
+        /**
+         * @returns unread item number of mail folder
+         */
+        get_unread_item_count(): number;
+
+        /**
+         * @param count 
+         */
+        set_child_folder_count(count: number): void;
+
+        /**
+         * @param delta_link 
+         */
+        set_delta_link(delta_link: string): void;
+
+        /**
+         * @param display_name 
+         */
+        set_display_name(display_name: string): void;
+
+        /**
+         * @param type 
+         */
+        set_folder_type(type: MailFolderType): void;
+
+        /**
+         * @param id 
+         */
+        set_id(id: string): void;
+
+        /**
+         * @param id 
+         */
+        set_parent_id(id: string): void;
+
+        /**
+         * @param count 
+         */
+        set_total_item_count(count: number): void;
+
+        /**
+         * @param count 
+         */
+        set_unread_item_count(count: number): void;
+    }
+
+
+    namespace MailMessage {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * Handling of mail message specific functions.
+     * @gir-type Class
+     */
+    class MailMessage extends GObject.Object {
+        static $gtype: GObject.GType<MailMessage>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MailMessage.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MailMessage.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): MailMessage;
+
+        static new_from_json(json_object: Json.Object): MailMessage;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MailMessage.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MailMessage.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MailMessage.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MailMessage.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MailMessage.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MailMessage.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get mail body.
+         * @param is_html 
+         * @returns mail body
+         */
+        get_body(is_html: boolean): string;
+
+        /**
+         * Get mail body preview.
+         * @returns body preview of mail_message
+         */
+        get_body_preview(): string;
+
+        /**
+         * Get mail cc.
+         * @returns mail cc
+         */
+        get_cc(): string;
+
+        /**
+         * Get whether mail has attachments.
+         * @returns `true` if mail has attachments otherwise `false`
+         */
+        get_has_attachment(): boolean;
+
+        /**
+         * Get id.
+         * @returns unique mail id
+         */
+        get_id(): string;
+
+        /**
+         * Get mail received date.
+         * @returns received date
+         */
+        get_received_date(): GLib.DateTime;
+
+        /**
+         * Get mail receiver.
+         * @returns mail receiver
+         */
+        get_receiver(): string;
+
+        /**
+         * Get mail sender.
+         * @returns mail sender
+         */
+        get_sender(): string;
+
+        /**
+         * Get mail subject.
+         * @returns subject of mail_message
+         */
+        get_subject(): string;
+
+        /**
+         * Get mail unread.
+         * @returns unread count
+         */
+        get_unread(): number;
+
+        /**
+         * Set mail body.
+         * @param body mail body
+         */
+        set_body(body: string): void;
+
+        /**
+         * @param preview 
+         */
+        set_body_preview(preview: string): void;
+
+        /**
+         * Set mail cc.
+         * @param cc carbon copy string
+         */
+        set_cc(cc: string): void;
+
+        /**
+         * Set whether mail has attachments.
+         * @param has_attachment flag to set attachments
+         */
+        set_has_attachment(has_attachment: boolean): void;
+
+        /**
+         * Set mail id.
+         * @param id mail_message id
+         */
+        set_id(id: string): void;
+
+        /**
+         * Set mail received timestamp.
+         * @param timestamp received timestamp
+         */
+        set_received_date(timestamp: bigint | number): void;
+
+        /**
+         * Set mail receiver.
+         * @param receiver mail_message receiver
+         */
+        set_receiver(receiver: string): void;
+
+        /**
+         * Set mail sender.
+         * @param sender mail_message sender
+         */
+        set_sender(sender: string): void;
+
+        /**
+         * Set mail subject.
+         * @param subject mail subject
+         */
+        set_subject(subject: string): void;
+
+        /**
+         * Set mail unread count.
+         * @param unread unread count
+         */
+        set_unread(unread: number): void;
+    }
+
+
+    namespace MailService {
+        // Signal signatures
+        interface SignalSignatures extends Service.SignalSignatures {
+            "notify::authorizer": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Service.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class MailService extends Service {
+        static $gtype: GObject.GType<MailService>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: MailService.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<MailService.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](authorizer: Authorizer): MailService;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof MailService.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MailService.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof MailService.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, MailService.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof MailService.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<MailService.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Create new draft mail #mail and return new mail object.
+         * @param mail a `MsgMail`
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns a new `MsgMail`
+         * @throws GLib.Error
+         */
+        create_draft_message(mail: MailMessage, cancellable: Gio.Cancellable | null): MailMessage;
+
+        /**
+         * Delets #mail.
+         * @param mail a `MsgMail`
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns `true` for succes, else &FALSE
+         * @throws GLib.Error
+         */
+        delete_message(mail: MailMessage, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * @param type 
+         * @param cancellable 
+         * @throws GLib.Error
+         */
+        get_folder_id(type: MailFolderType, cancellable: Gio.Cancellable | null): string;
+
+        /**
+         * Get a specific mail folder for given service
+         * @param type a `MsgMailMailFolderType`
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns a {@link Msg.MailFolder}
+         * @throws GLib.Error
+         */
+        get_mail_folder(type: MailFolderType, cancellable: Gio.Cancellable | null): MailFolder;
+
+        /**
+         * Get all folders for given service
+         * @param delta_url 
+         * @param delta_url_out 
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns all mail folders the user can access
+         * @throws GLib.Error
+         */
+        get_mail_folders(delta_url: string, delta_url_out: string, cancellable: Gio.Cancellable | null): MailFolder[];
+
+        /**
+         * Get all mails for given service
+         * @param folder 
+         * @param next_link next link if available
+         * @param out_next_link next next link
+         * @param delta_link delta link if used
+         * @param out_delta_link new delta link
+         * @param max_page_size maximal page size
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns all mails the user can access
+         * @throws GLib.Error
+         */
+        get_messages(folder: MailFolder, next_link: string, out_next_link: string, delta_link: string, out_delta_link: string, max_page_size: number, cancellable: Gio.Cancellable | null): MailMessage[];
+
+        /**
+         * @param mail 
+         * @param cancellable 
+         * @throws GLib.Error
+         */
+        get_mime_message(mail: MailMessage, cancellable: Gio.Cancellable | null): GLib.Bytes;
+    }
+
+
+    namespace OAuth2Authorizer {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::client-id": (pspec: GObject.ParamSpec) => void;
+            "notify::redirect-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::refresh-token": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps, Authorizer.ConstructorProps {
+            client_id: string;
+            clientId: string;
+            redirect_uri: string;
+            redirectUri: string;
+            refresh_token: string;
+            refreshToken: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class OAuth2Authorizer extends GObject.Object implements Authorizer {
+        static $gtype: GObject.GType<OAuth2Authorizer>;
+
+        // Properties
+        /**
+         * @construct-only
+         * @default null
+         */
+        get client_id(): string;
+
+        /**
+         * @construct-only
+         * @default null
+         */
+        get clientId(): string;
+
+        /**
+         * @construct-only
+         * @default null
+         */
+        get redirect_uri(): string;
+
+        /**
+         * @construct-only
+         * @default null
+         */
+        get redirectUri(): string;
+
+        /**
+         * @default null
+         */
+        get refresh_token(): string;
+        set refresh_token(val: string);
+
+        /**
+         * @default null
+         */
+        get refreshToken(): string;
+        set refreshToken(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: OAuth2Authorizer.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<OAuth2Authorizer.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](client_id: string, redirect_uri: string): OAuth2Authorizer;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof OAuth2Authorizer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OAuth2Authorizer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof OAuth2Authorizer.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, OAuth2Authorizer.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof OAuth2Authorizer.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<OAuth2Authorizer.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @param self 
+         */
+        static test_load_credentials(self: Authorizer): boolean;
+
+        /**
+         * @param self 
+         */
+        static test_save_credentials(self: Authorizer): void;
+
+        // Methods
+        build_authentication_uri(): string;
+
+        /**
+         * @param authorization_code 
+         * @param cancellable 
+         * @throws GLib.Error
+         */
+        request_authorization(authorization_code: string, cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Adds the necessary authorization to `message`. The type of `message`
+         * can be DELETE, GET and POST.
+         * 
+         * This method modifies `message` in place and is thread safe.
+         * @param message A {@link Soup.Message}.
+         */
+        process_request(message: Soup.Message): void;
+
+        /**
+         * Synchronously forces `iface` to refresh any authorization tokens
+         * held by it. See `msg_authorizer_refresh_authorization_async()` for the
+         * asynchronous version of this call.
+         * 
+         * This method is thread safe.
+         * @param cancellable An optional {@link Gio.Cancellable} object, or   `null`.
+         * @returns `true` if the authorizer now has a valid token.
+         * @throws GLib.Error
+         */
+        refresh_authorization(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Adds the necessary authorization to `message`. The type of `message`
+         * can be DELETE, GET and POST.
+         * 
+         * This method modifies `message` in place and is thread safe.
+         * @param message A {@link Soup.Message}.
+         * @virtual
+         */
+        vfunc_process_request(message: Soup.Message): void;
+
+        /**
+         * Synchronously forces `iface` to refresh any authorization tokens
+         * held by it. See `msg_authorizer_refresh_authorization_async()` for the
+         * asynchronous version of this call.
+         * 
+         * This method is thread safe.
+         * @param cancellable An optional {@link Gio.Cancellable} object, or   `null`.
+         * @virtual
+         */
+        vfunc_refresh_authorization(cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    namespace Service {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::authorizer": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            authorizer: Authorizer;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class Service extends GObject.Object {
+        static $gtype: GObject.GType<Service>;
+
+        // Properties
+        /**
+         * @construct-only
+         */
+        set authorizer(val: Authorizer);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Service.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Service.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Service.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Service.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Service.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Service.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Service.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Service.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * @param msg 
+         * @param tls_cert 
+         * @param tls_errors 
+         * @param session 
+         */
+        static accept_certificate_cb(msg: Soup.Message, tls_cert: Gio.TlsCertificate, tls_errors: Gio.TlsCertificateFlags, session: null): boolean;
+
+        static get_https_port(): number;
+
+        /**
+         * Get next link
+         * @param object a {@link Json.Object}
+         */
+        static get_next_link(object: Json.Object): string;
+
+        /**
+         * @param msg 
+         */
+        static handle_rate_limiting(msg: Soup.Message): boolean;
+
+        /**
+         * Parse response data and check for errors. In case
+         * no errors are found, return json root object.
+         * @param bytes input bytes containing response buffer
+         * @param object a pointer to the returning root object
+         */
+        static parse_response(bytes: GLib.Bytes | Uint8Array, object: Json.Object): Json.Parser;
+
+        // Methods
+        /**
+         * Construct and checks a {@link Soup.Message} for transfer
+         * @param method transfer method
+         * @param uri uri to access
+         * @param etag an optional etag
+         * @param etag_if_match use etag if
+         * @returns a {@link Soup.Message} or NULL on error.
+         */
+        build_message(method: string, uri: string, etag: string, etag_if_match: boolean): Soup.Message;
+
+        /**
+         * Get related authorizer.
+         * @returns a {@link Msg.Authorizer}
+         */
+        get_authorizer(): Authorizer;
+
+        /**
+         * Get related soup session
+         * @returns a {@link Soup.Session}
+         */
+        get_session(): Soup.Session;
+
+        /**
+         * @param cancellable 
+         * @throws GLib.Error
+         */
+        refresh_authorization(cancellable: Gio.Cancellable | null): boolean;
+
+        /**
+         * Adds authorizer information to `message` and send it.
+         * @param message a {@link Soup.Message}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns a {@link Gio.InputStream}
+         * @throws GLib.Error
+         */
+        send(message: Soup.Message, cancellable: Gio.Cancellable | null): Gio.InputStream;
+
+        /**
+         * A combination of `msg_service_send_and_read` and `msg_service_parse_response`
+         * @param message a {@link Soup.Message}
+         * @param object 
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns a {@link Json.Parser} or `null` on error
+         * @throws GLib.Error
+         */
+        send_and_parse_response(message: Soup.Message, object: Json.Object, cancellable: Gio.Cancellable | null): Json.Parser;
+
+        /**
+         * Adds authorizer information to `message` and send it.
+         * @param message a {@link Soup.Message}
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns a {@link GLib.Bytes} or `null` on error.
+         * @throws GLib.Error
+         */
+        send_and_read(message: Soup.Message, cancellable: Gio.Cancellable | null): GLib.Bytes;
+    }
+
+
+    namespace User {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * Handling of user specific functions.
+     * @gir-type Class
+     */
+    class User extends GObject.Object {
+        static $gtype: GObject.GType<User>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: User.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<User.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): User;
+
+        static new_from_json(json_object: Json.Object): User;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof User.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, User.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof User.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, User.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof User.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<User.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns company name of user or `null` if not existing
+         */
+        get_company_name(): string;
+
+        /**
+         * @returns department of user or `null` if not existing
+         */
+        get_department(): string;
+
+        /**
+         * @returns display name of user or `null` if not existing
+         */
+        get_display_name(): string;
+
+        /**
+         * @returns given name of user or `null` if not existing
+         */
+        get_given_name(): string;
+
+        /**
+         * @returns mail of user or `null` if not existing
+         */
+        get_mail(): string;
+
+        get_mail_name(): string;
+
+        /**
+         * @returns mobile phone of user or `null` if not existing
+         */
+        get_mobile_phone(): string;
+
+        /**
+         * @returns office location of user or `null` if not existing
+         */
+        get_office_location(): string;
+
+        /**
+         * @returns surname of user or `null` if not existing
+         */
+        get_surname(): string;
+    }
+
+
+    namespace UserContactFolder {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * Handling of user_contact folder specific functions.
+     * @gir-type Class
+     */
+    class UserContactFolder extends GObject.Object {
+        static $gtype: GObject.GType<UserContactFolder>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: UserContactFolder.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<UserContactFolder.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): UserContactFolder;
+
+        static new_from_json(json_object: Json.Object): UserContactFolder;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof UserContactFolder.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, UserContactFolder.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof UserContactFolder.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, UserContactFolder.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof UserContactFolder.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<UserContactFolder.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns display name of user_contact folder
+         */
+        get_display_name(): string;
+
+        /**
+         * @returns id of user_contact folder
+         */
+        get_id(): string;
+    }
+
+
+    namespace UserService {
+        // Signal signatures
+        interface SignalSignatures extends Service.SignalSignatures {
+            "notify::authorizer": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Service.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class UserService extends Service {
+        static $gtype: GObject.GType<UserService>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: UserService.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<UserService.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](authorizer: Authorizer): UserService;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof UserService.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, UserService.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof UserService.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, UserService.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof UserService.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<UserService.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Find all users with the given `name`. (Business accounts only!)
+         * @param name name to search
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns a list of contacts with the given name.
+         * @throws GLib.Error
+         */
+        find_users(name: string, cancellable: Gio.Cancellable | null): User[];
+
+        /**
+         * Get all folders for given service
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns all user contact folders the user can access
+         * @throws GLib.Error
+         */
+        get_contact_folders(cancellable: Gio.Cancellable | null): UserContactFolder[];
+
+        /**
+         * Get all contats within users 'Contact' folder.
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns all contact in users contact folder
+         * @throws GLib.Error
+         */
+        get_contacts(cancellable: Gio.Cancellable | null): UserContactFolder[];
+
+        /**
+         * Try to load user photo using provided %mail address.
+         * @param mail mail address
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns user photo or `null` if not found.
+         * @throws GLib.Error
+         */
+        get_photo(mail: string, cancellable: Gio.Cancellable | null): GLib.Bytes;
+
+        /**
+         * Get user information
+         * @param name user name (`null` for me)
+         * @param cancellable a {@link Gio.Cancellable}
+         * @returns request user
+         * @throws GLib.Error
+         */
+        get_user(name: string, cancellable: Gio.Cancellable | null): User;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type AuthorizerInterface = typeof Authorizer;
+
+    /**
+     * @gir-type Alias
+     */
+    type DriveClass = typeof Drive;
+
+    /**
+     * @gir-type Alias
+     */
+    type DriveItemClass = typeof DriveItem;
+
+    /**
+     * @gir-type Alias
+     */
+    type DriveItemFileClass = typeof DriveItemFile;
+
+    /**
+     * @gir-type Alias
+     */
+    type DriveItemFolderClass = typeof DriveItemFolder;
+
+    /**
+     * @gir-type Alias
+     */
+    type DriveServiceClass = typeof DriveService;
+
+    /**
+     * @gir-type Alias
+     */
+    type GoaAuthorizerClass = typeof GoaAuthorizer;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class GoaAuthorizerPrivate {
+        static $gtype: GObject.GType<GoaAuthorizerPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type InputStreamClass = typeof InputStream;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class InputStreamPrivate {
+        static $gtype: GObject.GType<InputStreamPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type MailFolderClass = typeof MailFolder;
+
+    /**
+     * @gir-type Alias
+     */
+    type MailMessageClass = typeof MailMessage;
+
+    /**
+     * @gir-type Alias
+     */
+    type MailServiceClass = typeof MailService;
+
+    /**
+     * @gir-type Alias
+     */
+    type OAuth2AuthorizerClass = typeof OAuth2Authorizer;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class OAuth2AuthorizerPrivate {
+        static $gtype: GObject.GType<OAuth2AuthorizerPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ServiceClass = typeof Service;
+
+    /**
+     * @gir-type Alias
+     */
+    type UserClass = typeof User;
+
+    /**
+     * @gir-type Alias
+     */
+    type UserContactFolderClass = typeof UserContactFolder;
+
+    /**
+     * @gir-type Alias
+     */
+    type UserServiceClass = typeof UserService;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class _DriveItemFileClass {
+        static $gtype: GObject.GType<_DriveItemFileClass>;
+
+        // Fields
+        padding: null[];
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class _DriveItemFolderClass {
+        static $gtype: GObject.GType<_DriveItemFolderClass>;
+
+        // Fields
+        padding: null[];
+    }
+
+
+    namespace Authorizer {
+        /**
+         * Interface for implementing Authorizer.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * Adds the necessary authorization to `message`. The type of `message`
+             * can be DELETE, GET and POST.
+             * 
+             * This method modifies `message` in place and is thread safe.
+             * @param message A {@link Soup.Message}.
+             * @virtual
+             */
+            vfunc_process_request(message: Soup.Message): void;
+
+            /**
+             * Synchronously forces `iface` to refresh any authorization tokens
+             * held by it. See `msg_authorizer_refresh_authorization_async()` for the
+             * asynchronous version of this call.
+             * 
+             * This method is thread safe.
+             * @param cancellable An optional {@link Gio.Cancellable} object, or   `null`.
+             * @virtual
+             */
+            vfunc_refresh_authorization(cancellable: Gio.Cancellable | null): boolean;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    export interface AuthorizerNamespace {
+        $gtype: GObject.GType<Authorizer>;
+        prototype: Authorizer;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface Authorizer extends GObject.Object, Authorizer.Interface {
+
+        // Methods
+        /**
+         * Adds the necessary authorization to `message`. The type of `message`
+         * can be DELETE, GET and POST.
+         * 
+         * This method modifies `message` in place and is thread safe.
+         * @param message A {@link Soup.Message}.
+         */
+        process_request(message: Soup.Message): void;
+
+        /**
+         * Synchronously forces `iface` to refresh any authorization tokens
+         * held by it. See `msg_authorizer_refresh_authorization_async()` for the
+         * asynchronous version of this call.
+         * 
+         * This method is thread safe.
+         * @param cancellable An optional {@link Gio.Cancellable} object, or   `null`.
+         * @returns `true` if the authorizer now has a valid token.
+         * @throws GLib.Error
+         */
+        refresh_authorization(cancellable: Gio.Cancellable | null): boolean;
+    }
+
+
+    export const Authorizer: AuthorizerNamespace & {
+        new (): Authorizer; // This allows `obj instanceof Authorizer`
+    };
+
+    /**
+     * Name of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L188
+     */
+    const __name__: string;
+
+    /**
+     * Version of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L189
+     */
+    const __version__: string;
+}
+
+export default Msg;
+
+}
+
+declare module 'gi://Msg' {
+    import Msg1 from 'gi://Msg?version=1';
+    export default Msg1;
+}
+// END
